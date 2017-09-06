@@ -1,0 +1,9 @@
+% CW方程平面内状态转移矩阵
+function phi = cwstm4(w,t)
+wt = w*t;
+s = sin(wt);
+c = cos(wt);
+phi = [1      6*(wt-s)   4*s/w-3*wt      2/w*(1-c); ...
+       0      4-3*c      -2/w*(1-c)        s/w;...
+       0      6*w*(1-c)   4*c-3            2*s;...
+       0      3*w*s        -2*s            c];

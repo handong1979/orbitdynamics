@@ -1,0 +1,40 @@
+   File_Format_Ver = 1.0
+   Creation_Date = 2007-11-27T10:44:24.772
+   ORIGINATOR    = HanDong
+
+   Object_Name = CE-1
+   Center_Name = MOON
+   Reference_Frame = LCI
+   Time_System = BJT
+
+   Comment: State Vector.
+   Epoch = 2007-12-03T09:00:00.000
+   x  =    -162.0023715257091     [km]
+   y  =    -1933.857171167550     [km]
+   z  =     3.026611612663840     [km]
+   vx =     0.04204810096698690   [km/s]
+   vy =    -0.01232215819753885   [km/s]
+   vz =     1.588354366841588     [km/s]
+
+   Comment: Keplerian elements.
+   Semi_major_axis   =     1932.652806175639     [km]
+   Eccentricity      =    0.003606090476565559
+   Inclination       =     88.45177560605939     [deg]
+   Ra_of_asc_node    =     265.2090045338037     [deg]
+   Arg_of_pericenter =     120.0                 [deg]
+   Mean_anomaly      =     94.71685115019184     [deg]
+
+   Comment: Parameters.
+   Mass      =     1453.2340 [kg]
+   Body_area =        3.440 [m**2]
+   SA_area   =       26.784 [m**2]
+
+   Comment: Perturbation information.
+   PERT_ID   =      303
+   NSP_M     =       64
+   NSP_N     =       64
+   SRP_CR    =        1.24
+   DRG_CD    =        2.20
+   DRG_KP    =        8.00
+   DRG_F107  =      100.00
+   DRG_F107P =      100.00
