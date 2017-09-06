@@ -7,3 +7,5 @@ include orbit propagator, formation, maneuver, etc
 * MSISE-00 atmosphere model
 * virtual base class and easy to extend
 * geocentric orbit, selenocentric orbit, heliocentric orbit etc
+* use armadillo library
+* use hdf5 data file
