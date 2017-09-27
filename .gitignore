@@ -1,3 +1,18 @@
 
 *.sdf
 *.suo
+*.obj
+*.pdb
+*.db
+*.opendb
+*.ipch
+*.db-shm
+*.db-wal
+*.tlog
+*.ipdb
+*.iobj
+*.log
+*.htm
+*.pch
+*.filters
+*.idb

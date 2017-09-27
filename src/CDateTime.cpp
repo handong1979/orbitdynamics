@@ -376,16 +376,16 @@ ORBITDYN_API double MJD(int year,int month,int day,int hour,int minute,double se
 }
 
 //! 四舍五入取整
-int round(double d)
-{
-	if(d>INT_MAX || d<INT_MIN)
-		throw std::overflow_error("round(): input overflow to make a integer"); 
-	int n = (int)floor(d);
-	if( d - n >= 0.5 ) return n+1;
-	else return n;
-	// boost中的算法：(去掉了类型转换和出错处理)
-	// return d < 0 ? ceil(d - 0.5) : floor(d + 0.5);
-}
+//int round(double d)
+//{
+//	if(d>INT_MAX || d<INT_MIN)
+//		throw std::overflow_error("round(): input overflow to make a integer"); 
+//	int n = (int)floor(d);
+//	if( d - n >= 0.5 ) return n+1;
+//	else return n;
+//	// boost中的算法：(去掉了类型转换和出错处理)
+//	// return d < 0 ? ceil(d - 0.5) : floor(d + 0.5);
+//}
 
 //! MJD转化为日期时间
 ORBITDYN_API void GetCalendar(double mjd,int &Y,int &M,int &D,int &h,int &min,double &s)
@@ -433,7 +433,7 @@ UTCG StrToDateTime(const char* str)
 {
 	int y,m,d,h,min;
 	double sec;
-	char c;
+	char c='-';
 #if _MSC_VER < 1400
 	sscanf(str,"%d%c%d%c%d%c%d%c%d%c%lf",&y,&c,&m,&c,&d,&c,&h,&c,&min,&c,&sec);
 #else

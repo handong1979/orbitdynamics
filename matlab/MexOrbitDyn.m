@@ -70,12 +70,12 @@
 % Isp = 2400;
 % dm = -F/Isp/9.8;
 % Mass = 2000;
-% s1 = orbitdyn('sat','init',[epoch kp Mass]);
-% orbitdyn('sat','SetForce',[4 1+2+4+8+16+32]);
-% orbitdyn('sat','SetAD',20); % 阻力面积
-% orbitdyn('sat','SetSRP',20); % 光压面积
+% s1 = mexOrbitDyn('sat','init',[epoch,kp,Mass]);
+% mexOrbitDyn('sat','SetForce',[4,1+2+4+8+16+32]);
+% mexOrbitDyn('sat','SetAD',20); % 阻力面积
+% mexOrbitDyn('sat','SetSRP',20); % 光压面积
 % step = 60;
 % for i = 1:1000
-%     qbi = getcoi(s1(2:7)));
-%     s1 = orbitdyn('sat','step',[step, qbi', 0, 0, F, dm]);
+%     qbi = c2q(getcoi(s1(2:7)));
+%     s1 = mexOrbitDyn('sat','step',[step, qbi', 0, 0, F, dm]);
 % end

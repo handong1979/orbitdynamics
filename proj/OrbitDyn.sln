@@ -1,36 +1,50 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OrbitDynNF", "OrbitDynNF\OrbitDynNF.vcxproj", "{7CB043BC-5820-487A-A6D2-2CE2464BB7FB}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OrbitDyn", "OrbitDyn\OrbitDyn.vcxproj", "{444E1E97-49FA-43C7-B888-C3665AACF9B1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{DEED05F8-D604-48BC-AFB4-C101ECB05636}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
+		dx64|Win32 = dx64|Win32
+		dx64|x64 = dx64|x64
 		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7CB043BC-5820-487A-A6D2-2CE2464BB7FB}.Debug|Win32.ActiveCfg = Debug|Win32
-		{7CB043BC-5820-487A-A6D2-2CE2464BB7FB}.Debug|Win32.Build.0 = Debug|Win32
-		{7CB043BC-5820-487A-A6D2-2CE2464BB7FB}.Debug|x64.ActiveCfg = Debug|x64
-		{7CB043BC-5820-487A-A6D2-2CE2464BB7FB}.Debug|x64.Build.0 = Debug|x64
-		{7CB043BC-5820-487A-A6D2-2CE2464BB7FB}.Release|Win32.ActiveCfg = Release|Win32
-		{7CB043BC-5820-487A-A6D2-2CE2464BB7FB}.Release|Win32.Build.0 = Release|Win32
-		{7CB043BC-5820-487A-A6D2-2CE2464BB7FB}.Release|x64.ActiveCfg = Release|x64
 		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.Debug|Win32.ActiveCfg = Debug|Win32
 		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.Debug|Win32.Build.0 = Debug|Win32
 		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.Debug|x64.ActiveCfg = Debug|x64
 		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.Debug|x64.Build.0 = Debug|x64
+		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.dx64|Win32.ActiveCfg = Debug|Win32
+		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.dx64|x64.ActiveCfg = Debug|x64
 		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.Release|Win32.ActiveCfg = Release|Win32
 		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.Release|Win32.Build.0 = Release|Win32
 		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.Release|x64.ActiveCfg = Release|x64
 		{444E1E97-49FA-43C7-B888-C3665AACF9B1}.Release|x64.Build.0 = Release|x64
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.Debug|Win32.Build.0 = Debug|Win32
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.Debug|x64.ActiveCfg = Debug|x64
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.Debug|x64.Build.0 = Debug|x64
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.dx64|Win32.ActiveCfg = Debug|Win32
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.dx64|Win32.Build.0 = Debug|Win32
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.dx64|x64.ActiveCfg = Debug|x64
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.dx64|x64.Build.0 = Debug|x64
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.Release|Win32.ActiveCfg = Release|Win32
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.Release|Win32.Build.0 = Release|Win32
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.Release|x64.ActiveCfg = Release|x64
+		{DEED05F8-D604-48BC-AFB4-C101ECB05636}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {657E81AD-BC36-431C-AE6A-ECEA09FA386B}
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
