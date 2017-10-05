@@ -1,5 +1,5 @@
 /*
-armadillo连接blas_win32、lapack_win32
+armadillo use blas、lapack
 
 */
 
@@ -38,10 +38,14 @@ armadillo连接blas_win32、lapack_win32
 
 #pragma warning(pop)
 
-#if _MSC_VER > 1500
-#pragma comment(lib,"blas.lib")
-#pragma comment(lib,"lapack.lib")
-#pragma comment(lib,"libf2c.lib")
-#endif
+//#if _MSC_VER > 1500
+//#if _DEBUG
+
+//#else
+#pragma comment(lib,"blas_win64_MT.lib")
+#pragma comment(lib,"lapack_win64_MT.lib")
+//#pragma comment(lib,"libf2c.lib")
+//#endif
+//#endif
 
 #endif // _MSC_VER

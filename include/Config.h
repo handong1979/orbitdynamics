@@ -7,7 +7,7 @@
 	#define ORBITDYN_VAR extern
 	#define ORBITDYN_API
 #else
-	#ifdef ORBITDYN_EXPORTS
+	#ifdef OrbitDyn_EXPORTS
 		#define ORBITDYN_VAR extern __declspec(dllexport)
 		#define ORBITDYN_API __declspec(dllexport)
 	#else
