@@ -151,7 +151,7 @@ public:
 		: BaseException("CCentralBody exception:",details)
 	{
 	}
-	virtual ~CentralBodyException()
+	virtual ~CentralBodyException() _NOEXCEPT
 	{
 	}
 	CentralBodyException(const CentralBodyException& cdte)

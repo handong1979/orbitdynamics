@@ -1,5 +1,5 @@
 /*
-armadillo use blas¡¢lapack
+armadillo use blasï¿½ï¿½lapack
 
 */
 
@@ -21,16 +21,16 @@ armadillo use blas¡¢lapack
 
 #pragma warning(push)
 
-// glue_times_meat.hpp(485): warning C4100: ¡°B¡±: Î´ÒýÓÃµÄÐÎ²Î
+// glue_times_meat.hpp(485): warning C4100: ï¿½ï¿½Bï¿½ï¿½: Î´ï¿½ï¿½ï¿½Ãµï¿½ï¿½Î²ï¿½
 #pragma warning(disable:4100)
 
-// Mat_meat.hpp(999): warning C4244: ¡°=¡±: ´Ó¡°const arma::uword¡±×ª»»µ½¡°arma::uhword¡±£¬¿ÉÄÜ¶ªÊ§Êý¾Ý
+// Mat_meat.hpp(999): warning C4244: ï¿½ï¿½=ï¿½ï¿½: ï¿½Ó¡ï¿½const arma::uwordï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½arma::uhwordï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¶ï¿½Ê§ï¿½ï¿½ï¿½ï¿½
 #pragma warning(disable:4244)
 
-// mul_gemm.hpp(196): warning C4189: ¡°B_n_rows¡±: ¾Ö²¿±äÁ¿ÒÑ³õÊ¼»¯µ«²»ÒýÓÃ
+// mul_gemm.hpp(196): warning C4189: ï¿½ï¿½B_n_rowsï¿½ï¿½: ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 #pragma warning(disable:4189)
 
-// fn_norm.hpp(530): warning C4702: ÎÞ·¨·ÃÎÊµÄ´úÂë
+// fn_norm.hpp(530): warning C4702: ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ÊµÄ´ï¿½ï¿½ï¿½
 #pragma warning(disable:4702)
 
 
@@ -38,14 +38,21 @@ armadillo use blas¡¢lapack
 
 #pragma warning(pop)
 
-//#if _MSC_VER > 1500
-//#if _DEBUG
-
-//#else
 #pragma comment(lib,"blas_win64_MT.lib")
 #pragma comment(lib,"lapack_win64_MT.lib")
-//#pragma comment(lib,"libf2c.lib")
-//#endif
-//#endif
 
 #endif // _MSC_VER
+
+#if __APPLE__
+
+#ifndef ARMA_USE_BLAS
+#define ARMA_USE_BLAS
+#endif
+
+#ifndef ARMA_USE_LAPACK
+#define ARMA_USE_LAPACK
+#endif
+
+#include "armadillo.h"
+
+#endif //__APPLE__

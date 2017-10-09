@@ -1,9 +1,24 @@
+//$Header$
+//------------------------------------------------------------------------------
+//                             BaseException
+//------------------------------------------------------------------------------
+// GMAT: Goddard Mission Analysis Tool.
+//
+// **Legal**
+//
+// Developed jointly by NASA/GSFC and Thinking Systems, Inc. under contract
+// number NNG04CC06P.
+//
+// Author: Linda Jun (NASA/GSFC)
+// Created: 2007/1/18
+//
 /**
- * Exception class used as base class.
+ * Exception class used by the base class.
  */
 //------------------------------------------------------------------------------
 
 #include "BaseException.h"
+#include <stdlib.h>
 #include <stdarg.h>                // for va_start(), va_end()
 
 #if _MSC_VER < 1300

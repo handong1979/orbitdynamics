@@ -726,7 +726,7 @@ Kepler Cartesian_Kepler(const vec3 & Position,const vec3 & Velocity, double miu 
 	 double r = norm(Position,2);
 	 double v = norm(Velocity,2);
 	 if(r==0 || v==0)
-		 throw exception("Cartesian_Kepler(): position or velocity is zero.");
+		 throw KeplerException("Cartesian_Kepler(): position or velocity is zero.");
 	 double v2 = v*v;
 	 //double rrd = Dot(Position,Velocity);
 /*a*/a = 1.0/(2.0/r-v2/miu);

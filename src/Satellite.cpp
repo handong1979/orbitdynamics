@@ -96,7 +96,7 @@ void CSatelliteBase::Initialize( const char* filename )
 	{
 		rorbit.getline(buf,1024);
 		sscanf_s(buf,"%s",strbuf);
-		_strupr_s(strbuf); // 转换为大写字母
+		strdup(strbuf); // 转换为大写字母
 		std::string str(strbuf);
 		if(str == "CENTER_NAME") {
 			sscanf_s(buf,"%s %s %s",strbuf,strbuf,strbuf);

@@ -53,7 +53,7 @@
 // #define ARMA_BLAS_CAPITALS
 //// Uncomment the above line if your BLAS and LAPACK libraries have capitalised function names (eg. ACML on 64-bit Windows)
 
-#define ARMA_BLAS_UNDERSCORE
+//#define ARMA_BLAS_UNDERSCORE
 //// Uncomment the above line if your BLAS and LAPACK libraries have function names with a trailing underscore.
 //// Conversely, comment it out if the function names don't have a trailing underscore.
 

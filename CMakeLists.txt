@@ -5,10 +5,71 @@ project(OrbitDynamics)
 include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/include)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
-set(SRC ./src/BaseException.cpp ./src/CDateTime.cpp ./src/CEngine.cpp ./src/CentralBody.cpp ./src/Euler.cpp ./src/Facility.cpp
-        ./src/Kepler.cpp ./src/Msise00.cpp ./src/nrlmsise-00.c ./src/nrlmsise-00_data.c
-        ./src/PlanetEphemeris.cpp ./src/Propagator.cpp ./src/Quaternion.cpp ./src/Satellite.cpp  ./src/StopCondition.cpp
-        ./src/StringUtility.cpp  ./src/Utility.cpp)
+if(APPLE)
+
+  set(ARMA_OS macos)
+
+  set(ARMA_USE_LAPACK true)
+  set(ARMA_USE_BLAS   true)
+
+  set(ARMA_LIBS ${ARMA_LIBS} "-framework Accelerate")  # or "-framework accelerate" ?
+  message(STATUS "MacOS X detected. Added '-framework Accelerate' to compiler flags")
+endif()
+
+
+set(SRC
+ ./include/BaseException.h
+ ./include/Kepler.h
+ ./include/StopCondition.h
+ ./include/CDateTime.h
+ ./include/LibrationSat.h
+ ./include/StringUtility.h
+ ./include/CEngine.h
+ ./include/Maneuver.h
+ ./include/Utility.h
+ ./include/CentralBody.h
+ ./include/MatlabEngine.h
+ ./include/armadillo.h
+ ./include/ColorNoise.h
+ ./include/Msise00.h
+ ./include/armadillo_BLAS_LAPACK.h
+ ./include/Config.h
+ ./include/OrbitDyn.h
+ ./include/armadillo_MKL.h
+ ./include/ConsoleUtility.h
+ ./include/Constant.h
+ ./include/PlanetEphemeris.h
+ ./include/facility.h
+ ./include/Coordination.h
+ ./include/PosVel.h
+ ./include/DE405.h
+ ./include/Propagator.h
+ ./include/nrlmsise-00.h
+ ./include/Delay.h
+ ./include/Quaternion.h
+ ./include/sofa.h
+ ./include/Euler.h
+ ./include/Satellite.h
+ ./include/sofam.h
+ ./include/FileUtility.h
+ ./include/SimDataFile.h
+ ./src/BaseException.cpp
+ ./src/CDateTime.cpp
+ ./src/CEngine.cpp
+ ./src/CentralBody.cpp
+ ./src/Euler.cpp
+ ./src/Facility.cpp
+ ./src/Kepler.cpp
+ ./src/Msise00.cpp
+ ./src/nrlmsise-00.c
+ ./src/nrlmsise-00_data.c
+ ./src/PlanetEphemeris.cpp
+ ./src/Propagator.cpp
+ ./src/Quaternion.cpp
+ ./src/Satellite.cpp
+ ./src/StopCondition.cpp
+ ./src/StringUtility.cpp
+ ./src/Utility.cpp)
 
 add_library(OrbitDyn SHARED ${SRC})
 

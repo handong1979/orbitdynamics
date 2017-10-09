@@ -15,7 +15,7 @@
 #include <exception>
 #endif //USE_STD_EXCEPTION
 
-#include <Config.h>
+#include "Config.h"
 #include <string>
 
 #pragma warning(disable:4251)
@@ -39,7 +39,7 @@ public:
       {theMessage = newMessage;  return *this;};
 
 #if USE_STD_EXCEPTION
-	const char * what() const
+	const char * what() const _NOEXCEPT
 	{ return (theMessage + theDetails).c_str();   }
 #endif //USE_STD_EXCEPTION
 
@@ -55,7 +55,7 @@ protected:
       {theMessage = message; theDetails = details;};
    BaseException(const BaseException& baseException) 
       {theMessage = baseException.theMessage; theDetails = baseException.theDetails;};
-   virtual ~BaseException() 
+   virtual ~BaseException() _NOEXCEPT
       {};
    const BaseException& operator=(const BaseException& baseException) 
       {theMessage = baseException.theMessage; theDetails = baseException.theDetails;

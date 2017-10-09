@@ -470,7 +470,7 @@ public:
 		: BaseException("CSatellite exception:",details)
 	{
 	}
-	virtual ~SatelliteException()
+	virtual ~SatelliteException() _NOEXCEPT
 	{
 	}
 	SatelliteException(const SatelliteException& cdte)

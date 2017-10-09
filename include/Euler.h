@@ -17,7 +17,7 @@ public:
 		: BaseException("CEuler exception:",details)
 	{
 	}
-	virtual ~CEulerException()
+	virtual ~CEulerException() _NOEXCEPT
 	{
 	}
 	CEulerException(const CEulerException& cdte)

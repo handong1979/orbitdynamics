@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 #include "Config.h"
-
+#include "string.h"
 //------------------------------------------------------------------------------
 // std::string Replace(const std::string &str, const std::string &from,
 //                     const std::string &to)

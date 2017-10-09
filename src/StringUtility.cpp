@@ -149,7 +149,7 @@ bool GetLine(std::istream *is, std::string &line)
    std::string result;
    
    while (is->get(ch) && ch != '\r' && ch != '\n' && ch != '\0' &&
-          !is->eof()) 
+          !(is->eof()))
       result += ch;
    
    line = result;

@@ -98,7 +98,7 @@ public:
 		: BaseException("KeplerException exception:",details)
 	{
 	}
-	virtual ~KeplerException()
+	virtual ~KeplerException() _NOEXCEPT
 	{
 	}
 	KeplerException(const KeplerException& cdte)

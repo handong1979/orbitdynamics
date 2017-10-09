@@ -29,7 +29,7 @@ public:
 		: BaseException("CEuler exception:",details)
 	{
 	}
-	virtual ~CQuaternionException()
+	virtual ~CQuaternionException() _NOEXCEPT
 	{
 	}
 	CQuaternionException(const CQuaternionException& cdte)

@@ -41,7 +41,7 @@ public:
 		: BaseException("UTCG exception:",details)
 	{
 	}
-	virtual ~CDateTimeException()
+	virtual ~CDateTimeException() _NOEXCEPT
 	{
 	}
 	CDateTimeException(const CDateTimeException& cdte)
