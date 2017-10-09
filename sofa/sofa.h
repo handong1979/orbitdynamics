@@ -11,359 +11,366 @@
 **  This file is part of the International Astronomical Union's
 **  SOFA (Standards Of Fundamental Astronomy) software collection.
 **
-**  This revision:   2013 August 22
+**  This revision:   2016 March 10
 **
-**  SOFA release 2013-12-02
+**  SOFA release 2017-04-20
 **
-**  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
+**  Copyright (C) 2017 IAU SOFA Board.  See notes at end.
 */
 
 #include "sofam.h"
 #include "math.h"
-
-#ifdef SOFA_EXPORTS 
-	#define SOFA_API __declspec(dllexport)
-#else
-	#define SOFA_API __declspec(dllimport)
-#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Astronomy/Calendars */
-SOFA_API int iauCal2jd(int iy, int im, int id, double *djm0, double *djm);
-SOFA_API double iauEpb(double dj1, double dj2);
-SOFA_API void iauEpb2jd(double epb, double *djm0, double *djm);
-SOFA_API double iauEpj(double dj1, double dj2);
-SOFA_API void iauEpj2jd(double epj, double *djm0, double *djm);
-SOFA_API int iauJd2cal(double dj1, double dj2,
-                      int *iy, int *im, int *id, double *fd);
-SOFA_API int iauJdcalf(int ndp, double dj1, double dj2, int iymdf[4]);
+int iauCal2jd(int iy, int im, int id, double *djm0, double *djm);
+double iauEpb(double dj1, double dj2);
+void iauEpb2jd(double epb, double *djm0, double *djm);
+double iauEpj(double dj1, double dj2);
+void iauEpj2jd(double epj, double *djm0, double *djm);
+int iauJd2cal(double dj1, double dj2,
+                     int *iy, int *im, int *id, double *fd);
+int iauJdcalf(int ndp, double dj1, double dj2, int iymdf[4]);
 
 /* Astronomy/Astrometry */
-SOFA_API void iauAb(double pnat[3], double v[3], double s, double bm1,
+void iauAb(double pnat[3], double v[3], double s, double bm1,
            double ppr[3]);
-SOFA_API void iauApcg(double date1, double date2,
+void iauApcg(double date1, double date2,
              double ebpv[2][3], double ehp[3],
              iauASTROM *astrom);
-SOFA_API void iauApcg13(double date1, double date2, iauASTROM *astrom);
-SOFA_API void iauApci(double date1, double date2,
+void iauApcg13(double date1, double date2, iauASTROM *astrom);
+void iauApci(double date1, double date2,
              double ebpv[2][3], double ehp[3],
              double x, double y, double s,
              iauASTROM *astrom);
-SOFA_API void iauApci13(double date1, double date2,
+void iauApci13(double date1, double date2,
                iauASTROM *astrom, double *eo);
-SOFA_API void iauApco(double date1, double date2,
+void iauApco(double date1, double date2,
              double ebpv[2][3], double ehp[3],
              double x, double y, double s, double theta,
              double elong, double phi, double hm,
              double xp, double yp, double sp,
              double refa, double refb,
              iauASTROM *astrom);
-SOFA_API int iauApco13(double utc1, double utc2, double dut1,
+int iauApco13(double utc1, double utc2, double dut1,
               double elong, double phi, double hm, double xp, double yp,
-              double phpa, double tk, double rh, double wl,
+              double phpa, double tc, double rh, double wl,
               iauASTROM *astrom, double *eo);
-SOFA_API void iauApcs(double date1, double date2, double pv[2][3],
+void iauApcs(double date1, double date2, double pv[2][3],
              double ebpv[2][3], double ehp[3],
              iauASTROM *astrom);
-SOFA_API void iauApcs13(double date1, double date2, double pv[2][3],
+void iauApcs13(double date1, double date2, double pv[2][3],
                iauASTROM *astrom);
-SOFA_API void iauAper(double theta, iauASTROM *astrom);
-SOFA_API void iauAper13(double ut11, double ut12, iauASTROM *astrom);
-SOFA_API void iauApio(double sp, double theta,
+void iauAper(double theta, iauASTROM *astrom);
+void iauAper13(double ut11, double ut12, iauASTROM *astrom);
+void iauApio(double sp, double theta,
              double elong, double phi, double hm, double xp, double yp,
              double refa, double refb,
              iauASTROM *astrom);
-SOFA_API int iauApio13(double utc1, double utc2, double dut1,
+int iauApio13(double utc1, double utc2, double dut1,
               double elong, double phi, double hm, double xp, double yp,
-              double phpa, double tk, double rh, double wl,
+              double phpa, double tc, double rh, double wl,
               iauASTROM *astrom);
-SOFA_API void iauAtci13(double rc, double dc,
+void iauAtci13(double rc, double dc,
                double pr, double pd, double px, double rv,
                double date1, double date2,
                double *ri, double *di, double *eo);
-SOFA_API void iauAtciq(double rc, double dc, double pr, double pd,
+void iauAtciq(double rc, double dc, double pr, double pd,
               double px, double rv, iauASTROM *astrom,
               double *ri, double *di);
-SOFA_API void iauAtciqn(double rc, double dc, double pr, double pd,
+void iauAtciqn(double rc, double dc, double pr, double pd,
                double px, double rv, iauASTROM *astrom,
                int n, iauLDBODY b[], double *ri, double *di);
-SOFA_API void iauAtciqz(double rc, double dc, iauASTROM *astrom,
+void iauAtciqz(double rc, double dc, iauASTROM *astrom,
                double *ri, double *di);
-SOFA_API int iauAtco13(double rc, double dc,
+int iauAtco13(double rc, double dc,
               double pr, double pd, double px, double rv,
               double utc1, double utc2, double dut1,
               double elong, double phi, double hm, double xp, double yp,
-              double phpa, double tk, double rh, double wl,
+              double phpa, double tc, double rh, double wl,
               double *aob, double *zob, double *hob,
               double *dob, double *rob, double *eo);
-SOFA_API void iauAtic13(double ri, double di,
+void iauAtic13(double ri, double di,
                double date1, double date2,
                double *rc, double *dc, double *eo);
-SOFA_API void iauAticq(double ri, double di, iauASTROM *astrom,
+void iauAticq(double ri, double di, iauASTROM *astrom,
               double *rc, double *dc);
-SOFA_API void iauAticqn(double ri, double di, iauASTROM *astrom,
+void iauAticqn(double ri, double di, iauASTROM *astrom,
                int n, iauLDBODY b[], double *rc, double *dc);
-SOFA_API int iauAtio13(double ri, double di,
+int iauAtio13(double ri, double di,
               double utc1, double utc2, double dut1,
               double elong, double phi, double hm, double xp, double yp,
-              double phpa, double tk, double rh, double wl,
+              double phpa, double tc, double rh, double wl,
               double *aob, double *zob, double *hob,
               double *dob, double *rob);
-SOFA_API void iauAtioq(double ri, double di, iauASTROM *astrom,
+void iauAtioq(double ri, double di, iauASTROM *astrom,
               double *aob, double *zob,
               double *hob, double *dob, double *rob);
-SOFA_API int iauAtoc13(const char *type, double ob1, double ob2,
+int iauAtoc13(const char *type, double ob1, double ob2,
               double utc1, double utc2, double dut1,
               double elong, double phi, double hm, double xp, double yp,
-              double phpa, double tk, double rh, double wl,
+              double phpa, double tc, double rh, double wl,
               double *rc, double *dc);
-SOFA_API int iauAtoi13(const char *type, double ob1, double ob2,
+int iauAtoi13(const char *type, double ob1, double ob2,
               double utc1, double utc2, double dut1,
               double elong, double phi, double hm, double xp, double yp,
-              double phpa, double tk, double rh, double wl,
+              double phpa, double tc, double rh, double wl,
               double *ri, double *di);
-SOFA_API void iauAtoiq(const char *type,
+void iauAtoiq(const char *type,
               double ob1, double ob2, iauASTROM *astrom,
               double *ri, double *di);
-SOFA_API void iauLd(double bm, double p[3], double q[3], double e[3],
+void iauLd(double bm, double p[3], double q[3], double e[3],
            double em, double dlim, double p1[3]);
-SOFA_API void iauLdn(int n, iauLDBODY b[], double ob[3], double sc[3],
+void iauLdn(int n, iauLDBODY b[], double ob[3], double sc[3],
             double sn[3]);
-SOFA_API void iauLdsun(double p[3], double e[3], double em, double p1[3]);
-SOFA_API void iauPmpx(double rc, double dc, double pr, double pd,
-             double px, double rv, double pmt, double vob[3],
+void iauLdsun(double p[3], double e[3], double em, double p1[3]);
+void iauPmpx(double rc, double dc, double pr, double pd,
+             double px, double rv, double pmt, double pob[3],
              double pco[3]);
-SOFA_API int iauPmsafe(double ra1, double dec1, double pmr1, double pmd1,
+int iauPmsafe(double ra1, double dec1, double pmr1, double pmd1,
               double px1, double rv1,
               double ep1a, double ep1b, double ep2a, double ep2b,
               double *ra2, double *dec2, double *pmr2, double *pmd2,
               double *px2, double *rv2);
-SOFA_API void iauPvtob(double elong, double phi, double hm,
-              double xp, double yp, double sp, double theta,
-              double pv[2][3]);
-SOFA_API void iauRefco(double phpa, double tk, double rh, double wl,
+void iauPvtob(double elong, double phi, double height, double xp,
+              double yp, double sp, double theta, double pv[2][3]);
+void iauRefco(double phpa, double tc, double rh, double wl,
               double *refa, double *refb);
 
 /* Astronomy/Ephemerides */
-SOFA_API int iauEpv00(double date1, double date2,
+int iauEpv00(double date1, double date2,
              double pvh[2][3], double pvb[2][3]);
-SOFA_API int iauPlan94(double date1, double date2, int np, double pv[2][3]);
+int iauPlan94(double date1, double date2, int np, double pv[2][3]);
 
 /* Astronomy/FundamentalArgs */
-SOFA_API double iauFad03(double t);
-SOFA_API double iauFae03(double t);
-SOFA_API double iauFaf03(double t);
-SOFA_API double iauFaju03(double t);
-SOFA_API double iauFal03(double t);
-SOFA_API double iauFalp03(double t);
-SOFA_API double iauFama03(double t);
-SOFA_API double iauFame03(double t);
-SOFA_API double iauFane03(double t);
-SOFA_API double iauFaom03(double t);
-SOFA_API double iauFapa03(double t);
-SOFA_API double iauFasa03(double t);
-SOFA_API double iauFaur03(double t);
-SOFA_API double iauFave03(double t);
+double iauFad03(double t);
+double iauFae03(double t);
+double iauFaf03(double t);
+double iauFaju03(double t);
+double iauFal03(double t);
+double iauFalp03(double t);
+double iauFama03(double t);
+double iauFame03(double t);
+double iauFane03(double t);
+double iauFaom03(double t);
+double iauFapa03(double t);
+double iauFasa03(double t);
+double iauFaur03(double t);
+double iauFave03(double t);
 
 /* Astronomy/PrecNutPolar */
-SOFA_API void iauBi00(double *dpsibi, double *depsbi, double *dra);
-SOFA_API void iauBp00(double date1, double date2,
+void iauBi00(double *dpsibi, double *depsbi, double *dra);
+void iauBp00(double date1, double date2,
              double rb[3][3], double rp[3][3], double rbp[3][3]);
-SOFA_API void iauBp06(double date1, double date2,
+void iauBp06(double date1, double date2,
              double rb[3][3], double rp[3][3], double rbp[3][3]);
-SOFA_API void iauBpn2xy(double rbpn[3][3], double *x, double *y);
-SOFA_API void iauC2i00a(double date1, double date2, double rc2i[3][3]);
-SOFA_API void iauC2i00b(double date1, double date2, double rc2i[3][3]);
-SOFA_API void iauC2i06a(double date1, double date2, double rc2i[3][3]);
-SOFA_API void iauC2ibpn(double date1, double date2, double rbpn[3][3],
+void iauBpn2xy(double rbpn[3][3], double *x, double *y);
+void iauC2i00a(double date1, double date2, double rc2i[3][3]);
+void iauC2i00b(double date1, double date2, double rc2i[3][3]);
+void iauC2i06a(double date1, double date2, double rc2i[3][3]);
+void iauC2ibpn(double date1, double date2, double rbpn[3][3],
                double rc2i[3][3]);
-SOFA_API void iauC2ixy(double date1, double date2, double x, double y,
+void iauC2ixy(double date1, double date2, double x, double y,
               double rc2i[3][3]);
-SOFA_API void iauC2ixys(double x, double y, double s, double rc2i[3][3]);
-SOFA_API void iauC2t00a(double tta, double ttb, double uta, double utb,
+void iauC2ixys(double x, double y, double s, double rc2i[3][3]);
+void iauC2t00a(double tta, double ttb, double uta, double utb,
                double xp, double yp, double rc2t[3][3]);
-SOFA_API void iauC2t00b(double tta, double ttb, double uta, double utb,
+void iauC2t00b(double tta, double ttb, double uta, double utb,
                double xp, double yp, double rc2t[3][3]);
-SOFA_API void iauC2t06a(double tta, double ttb, double uta, double utb,
+void iauC2t06a(double tta, double ttb, double uta, double utb,
                double xp, double yp, double rc2t[3][3]);
-SOFA_API void iauC2tcio(double rc2i[3][3], double era, double rpom[3][3],
+void iauC2tcio(double rc2i[3][3], double era, double rpom[3][3],
                double rc2t[3][3]);
-SOFA_API void iauC2teqx(double rbpn[3][3], double gst, double rpom[3][3],
+void iauC2teqx(double rbpn[3][3], double gst, double rpom[3][3],
                double rc2t[3][3]);
-SOFA_API void iauC2tpe(double tta, double ttb, double uta, double utb,
+void iauC2tpe(double tta, double ttb, double uta, double utb,
               double dpsi, double deps, double xp, double yp,
               double rc2t[3][3]);
-SOFA_API void iauC2txy(double tta, double ttb, double uta, double utb,
+void iauC2txy(double tta, double ttb, double uta, double utb,
               double x, double y, double xp, double yp,
               double rc2t[3][3]);
-SOFA_API double iauEo06a(double date1, double date2);
-SOFA_API double iauEors(double rnpb[3][3], double s);
-SOFA_API void iauFw2m(double gamb, double phib, double psi, double eps,
+double iauEo06a(double date1, double date2);
+double iauEors(double rnpb[3][3], double s);
+void iauFw2m(double gamb, double phib, double psi, double eps,
              double r[3][3]);
-SOFA_API void iauFw2xy(double gamb, double phib, double psi, double eps,
+void iauFw2xy(double gamb, double phib, double psi, double eps,
               double *x, double *y);
-SOFA_API void iauNum00a(double date1, double date2, double rmatn[3][3]);
-SOFA_API void iauNum00b(double date1, double date2, double rmatn[3][3]);
-SOFA_API void iauNum06a(double date1, double date2, double rmatn[3][3]);
-SOFA_API void iauNumat(double epsa, double dpsi, double deps, double rmatn[3][3]);
-SOFA_API void iauNut00a(double date1, double date2, double *dpsi, double *deps);
-SOFA_API void iauNut00b(double date1, double date2, double *dpsi, double *deps);
-SOFA_API void iauNut06a(double date1, double date2, double *dpsi, double *deps);
-SOFA_API void iauNut80(double date1, double date2, double *dpsi, double *deps);
-SOFA_API void iauNutm80(double date1, double date2, double rmatn[3][3]);
-SOFA_API double iauObl06(double date1, double date2);
-SOFA_API double iauObl80(double date1, double date2);
-SOFA_API void iauP06e(double date1, double date2,
+void iauLtp(double epj, double rp[3][3]);
+void iauLtpb(double epj, double rpb[3][3]);
+void iauLtpecl(double epj, double vec[3]);
+void iauLtpequ(double epj, double veq[3]);
+void iauNum00a(double date1, double date2, double rmatn[3][3]);
+void iauNum00b(double date1, double date2, double rmatn[3][3]);
+void iauNum06a(double date1, double date2, double rmatn[3][3]);
+void iauNumat(double epsa, double dpsi, double deps, double rmatn[3][3]);
+void iauNut00a(double date1, double date2, double *dpsi, double *deps);
+void iauNut00b(double date1, double date2, double *dpsi, double *deps);
+void iauNut06a(double date1, double date2, double *dpsi, double *deps);
+void iauNut80(double date1, double date2, double *dpsi, double *deps);
+void iauNutm80(double date1, double date2, double rmatn[3][3]);
+double iauObl06(double date1, double date2);
+double iauObl80(double date1, double date2);
+void iauP06e(double date1, double date2,
              double *eps0, double *psia, double *oma, double *bpa,
              double *bqa, double *pia, double *bpia,
              double *epsa, double *chia, double *za, double *zetaa,
              double *thetaa, double *pa,
              double *gam, double *phi, double *psi);
-SOFA_API void iauPb06(double date1, double date2,
+void iauPb06(double date1, double date2,
              double *bzeta, double *bz, double *btheta);
-SOFA_API void iauPfw06(double date1, double date2,
+void iauPfw06(double date1, double date2,
               double *gamb, double *phib, double *psib, double *epsa);
-SOFA_API void iauPmat00(double date1, double date2, double rbp[3][3]);
-SOFA_API void iauPmat06(double date1, double date2, double rbp[3][3]);
-SOFA_API void iauPmat76(double date1, double date2, double rmatp[3][3]);
-SOFA_API void iauPn00(double date1, double date2, double dpsi, double deps,
+void iauPmat00(double date1, double date2, double rbp[3][3]);
+void iauPmat06(double date1, double date2, double rbp[3][3]);
+void iauPmat76(double date1, double date2, double rmatp[3][3]);
+void iauPn00(double date1, double date2, double dpsi, double deps,
              double *epsa,
              double rb[3][3], double rp[3][3], double rbp[3][3],
              double rn[3][3], double rbpn[3][3]);
-SOFA_API void iauPn00a(double date1, double date2,
+void iauPn00a(double date1, double date2,
               double *dpsi, double *deps, double *epsa,
               double rb[3][3], double rp[3][3], double rbp[3][3],
               double rn[3][3], double rbpn[3][3]);
-SOFA_API void iauPn00b(double date1, double date2,
+void iauPn00b(double date1, double date2,
               double *dpsi, double *deps, double *epsa,
               double rb[3][3], double rp[3][3], double rbp[3][3],
               double rn[3][3], double rbpn[3][3]);
-SOFA_API void iauPn06(double date1, double date2, double dpsi, double deps,
+void iauPn06(double date1, double date2, double dpsi, double deps,
              double *epsa,
              double rb[3][3], double rp[3][3], double rbp[3][3],
              double rn[3][3], double rbpn[3][3]);
-SOFA_API void iauPn06a(double date1, double date2,
+void iauPn06a(double date1, double date2,
               double *dpsi, double *deps, double *epsa,
               double rb[3][3], double rp[3][3], double rbp[3][3],
               double rn[3][3], double rbpn[3][3]);
-SOFA_API void iauPnm00a(double date1, double date2, double rbpn[3][3]);
-SOFA_API void iauPnm00b(double date1, double date2, double rbpn[3][3]);
-SOFA_API void iauPnm06a(double date1, double date2, double rnpb[3][3]);
-SOFA_API void iauPnm80(double date1, double date2, double rmatpn[3][3]);
-SOFA_API void iauPom00(double xp, double yp, double sp, double rpom[3][3]);
-SOFA_API void iauPr00(double date1, double date2, double *dpsipr, double *depspr);
-SOFA_API void iauPrec76(double ep01, double ep02, double ep11, double ep12,
-                double *zeta, double *z, double *theta);
-SOFA_API double iauS00(double date1, double date2, double x, double y);
-SOFA_API double iauS00a(double date1, double date2);
-SOFA_API double iauS00b(double date1, double date2);
-SOFA_API double iauS06(double date1, double date2, double x, double y);
-SOFA_API double iauS06a(double date1, double date2);
-SOFA_API double iauSp00(double date1, double date2);
-SOFA_API void iauXy06(double date1, double date2, double *x, double *y);
-SOFA_API void iauXys00a(double date1, double date2,
-                double *x, double *y, double *s);
-SOFA_API void iauXys00b(double date1, double date2,
-                double *x, double *y, double *s);
-SOFA_API void iauXys06a(double date1, double date2,
+void iauPnm00a(double date1, double date2, double rbpn[3][3]);
+void iauPnm00b(double date1, double date2, double rbpn[3][3]);
+void iauPnm06a(double date1, double date2, double rnpb[3][3]);
+void iauPnm80(double date1, double date2, double rmatpn[3][3]);
+void iauPom00(double xp, double yp, double sp, double rpom[3][3]);
+void iauPr00(double date1, double date2,
+             double *dpsipr, double *depspr);
+void iauPrec76(double date01, double date02,
+               double date11, double date12,
+               double *zeta, double *z, double *theta);
+double iauS00(double date1, double date2, double x, double y);
+double iauS00a(double date1, double date2);
+double iauS00b(double date1, double date2);
+double iauS06(double date1, double date2, double x, double y);
+double iauS06a(double date1, double date2);
+double iauSp00(double date1, double date2);
+void iauXy06(double date1, double date2, double *x, double *y);
+void iauXys00a(double date1, double date2,
+               double *x, double *y, double *s);
+void iauXys00b(double date1, double date2,
+               double *x, double *y, double *s);
+void iauXys06a(double date1, double date2,
                double *x, double *y, double *s);
 
 /* Astronomy/RotationAndTime */
-SOFA_API double iauEe00(double date1, double date2, double epsa, double dpsi);
-SOFA_API double iauEe00a(double date1, double date2);
-SOFA_API double iauEe00b(double date1, double date2);
-SOFA_API double iauEe06a(double date1, double date2);
-SOFA_API double iauEect00(double date1, double date2);
-SOFA_API double iauEqeq94(double date1, double date2);
-SOFA_API double iauEra00(double dj1, double dj2);
-SOFA_API double iauGmst00(double uta, double utb, double tta, double ttb);
-SOFA_API double iauGmst06(double uta, double utb, double tta, double ttb);
-SOFA_API double iauGmst82(double dj1, double dj2);
-SOFA_API double iauGst00a(double uta, double utb, double tta, double ttb);
-SOFA_API double iauGst00b(double uta, double utb);
-SOFA_API double iauGst06(double uta, double utb, double tta, double ttb,
-                 double rnpb[3][3]);
-SOFA_API double iauGst06a(double uta, double utb, double tta, double ttb);
-SOFA_API double iauGst94(double uta, double utb);
+double iauEe00(double date1, double date2, double epsa, double dpsi);
+double iauEe00a(double date1, double date2);
+double iauEe00b(double date1, double date2);
+double iauEe06a(double date1, double date2);
+double iauEect00(double date1, double date2);
+double iauEqeq94(double date1, double date2);
+double iauEra00(double dj1, double dj2);
+double iauGmst00(double uta, double utb, double tta, double ttb);
+double iauGmst06(double uta, double utb, double tta, double ttb);
+double iauGmst82(double dj1, double dj2);
+double iauGst00a(double uta, double utb, double tta, double ttb);
+double iauGst00b(double uta, double utb);
+double iauGst06(double uta, double utb, double tta, double ttb,
+                double rnpb[3][3]);
+double iauGst06a(double uta, double utb, double tta, double ttb);
+double iauGst94(double uta, double utb);
 
 /* Astronomy/SpaceMotion */
-SOFA_API int iauPmsafe(double ra1, double dec1, double pmr1, double pmd1,
-              double px1, double rv1, double ep1a, double ep1b,
-              double ep2a, double ep2b, double *ra2, double *dec2,
-              double *pmr2, double *pmd2, double *px2, double *rv2);
-SOFA_API int iauPvstar(double pv[2][3], double *ra, double *dec,
+int iauPvstar(double pv[2][3], double *ra, double *dec,
               double *pmr, double *pmd, double *px, double *rv);
-SOFA_API int iauStarpv(double ra, double dec,
+int iauStarpv(double ra, double dec,
               double pmr, double pmd, double px, double rv,
               double pv[2][3]);
 
 /* Astronomy/StarCatalogs */
-SOFA_API void iauFk52h(double r5, double d5,
+void iauFk52h(double r5, double d5,
               double dr5, double dd5, double px5, double rv5,
               double *rh, double *dh,
               double *drh, double *ddh, double *pxh, double *rvh);
-SOFA_API void iauFk5hip(double r5h[3][3], double s5h[3]);
-SOFA_API void iauFk5hz(double r5, double d5, double date1, double date2,
+void iauFk5hip(double r5h[3][3], double s5h[3]);
+void iauFk5hz(double r5, double d5, double date1, double date2,
               double *rh, double *dh);
-SOFA_API void iauH2fk5(double rh, double dh,
+void iauH2fk5(double rh, double dh,
               double drh, double ddh, double pxh, double rvh,
               double *r5, double *d5,
               double *dr5, double *dd5, double *px5, double *rv5);
-SOFA_API void iauHfk5z(double rh, double dh, double date1, double date2,
+void iauHfk5z(double rh, double dh, double date1, double date2,
               double *r5, double *d5, double *dr5, double *dd5);
-SOFA_API int iauStarpm(double ra1, double dec1,
+int iauStarpm(double ra1, double dec1,
               double pmr1, double pmd1, double px1, double rv1,
               double ep1a, double ep1b, double ep2a, double ep2b,
               double *ra2, double *dec2,
               double *pmr2, double *pmd2, double *px2, double *rv2);
 
+/* Astronomy/EclipticCoordinates */
+void iauEceq06(double date1, double date2, double dl, double db,
+               double *dr, double *dd);
+void iauEcm06(double date1, double date2, double rm[3][3]);
+void iauEqec06(double date1, double date2, double dr, double dd,
+               double *dl, double *db);
+void iauLteceq(double epj, double dl, double db, double *dr, double *dd);
+void iauLtecm(double epj, double rm[3][3]);
+void iauLteqec(double epj, double dr, double dd, double *dl, double *db);
+
+/* Astronomy/GalacticCoordinates */
+void iauG2icrs(double dl, double db, double *dr, double *dd);
+void iauIcrs2g(double dr, double dd, double *dl, double *db);
+
 /* Astronomy/GeodeticGeocentric */
-SOFA_API int iauEform(int n, double *a, double *f);
-SOFA_API int iauGc2gd(int n, double xyz[3],
+int iauEform(int n, double *a, double *f);
+int iauGc2gd(int n, double xyz[3],
              double *elong, double *phi, double *height);
-SOFA_API int iauGc2gde(double a, double f, double xyz[3],
+int iauGc2gde(double a, double f, double xyz[3],
               double *elong, double *phi, double *height);
-SOFA_API int iauGd2gc(int n, double elong, double phi, double height,
+int iauGd2gc(int n, double elong, double phi, double height,
              double xyz[3]);
-SOFA_API int iauGd2gce(double a, double f,
+int iauGd2gce(double a, double f,
               double elong, double phi, double height, double xyz[3]);
-SOFA_API void iauPvtob(double elong, double phi, double height, double xp,
-              double yp, double sp, double theta, double pv[2][3]);
 
 /* Astronomy/Timescales */
-SOFA_API int iauD2dtf(const char *scale, int ndp, double d1, double d2,
-              int *iy, int *im, int *id, int ihmsf[4]);
-SOFA_API int iauDat(int iy, int im, int id, double fd, double *deltat);
-SOFA_API double iauDtdb(double date1, double date2,
-                double ut, double elong, double u, double v);
-SOFA_API int iauDtf2d(const char *scale, int iy, int im, int id,
-              int ihr, int imn, double sec, double *d1, double *d2);
-SOFA_API int iauTaitt(double tai1, double tai2, double *tt1, double *tt2);
-SOFA_API int iauTaiut1(double tai1, double tai2, double dta,
-               double *ut11, double *ut12);
-SOFA_API int iauTaiutc(double tai1, double tai2, double *utc1, double *utc2);
-SOFA_API int iauTcbtdb(double tcb1, double tcb2, double *tdb1, double *tdb2);
-SOFA_API int iauTcgtt(double tcg1, double tcg2, double *tt1, double *tt2);
-SOFA_API int iauTdbtcb(double tdb1, double tdb2, double *tcb1, double *tcb2);
-SOFA_API int iauTdbtt(double tdb1, double tdb2, double dtr,
-              double *tt1, double *tt2);
-SOFA_API int iauTttai(double tt1, double tt2, double *tai1, double *tai2);
-SOFA_API int iauTttcg(double tt1, double tt2, double *tcg1, double *tcg2);
-SOFA_API int iauTttdb(double tt1, double tt2, double dtr,
-              double *tdb1, double *tdb2);
-SOFA_API int iauTtut1(double tt1, double tt2, double dt,
+int iauD2dtf(const char *scale, int ndp, double d1, double d2,
+             int *iy, int *im, int *id, int ihmsf[4]);
+int iauDat(int iy, int im, int id, double fd, double *deltat);
+double iauDtdb(double date1, double date2,
+               double ut, double elong, double u, double v);
+int iauDtf2d(const char *scale, int iy, int im, int id,
+             int ihr, int imn, double sec, double *d1, double *d2);
+int iauTaitt(double tai1, double tai2, double *tt1, double *tt2);
+int iauTaiut1(double tai1, double tai2, double dta,
               double *ut11, double *ut12);
-SOFA_API int iauUt1tai(double ut11, double ut12, double dta,
-               double *tai1, double *tai2);
-SOFA_API int iauUt1tt(double ut11, double ut12, double dt,
-              double *tt1, double *tt2);
-SOFA_API int iauUt1utc(double ut11, double ut12, double dut1,
-               double *utc1, double *utc2);
-SOFA_API int iauUtctai(double utc1, double utc2, double *tai1, double *tai2);
-SOFA_API int iauUtcut1(double utc1, double utc2, double dut1,
+int iauTaiutc(double tai1, double tai2, double *utc1, double *utc2);
+int iauTcbtdb(double tcb1, double tcb2, double *tdb1, double *tdb2);
+int iauTcgtt(double tcg1, double tcg2, double *tt1, double *tt2);
+int iauTdbtcb(double tdb1, double tdb2, double *tcb1, double *tcb2);
+int iauTdbtt(double tdb1, double tdb2, double dtr,
+             double *tt1, double *tt2);
+int iauTttai(double tt1, double tt2, double *tai1, double *tai2);
+int iauTttcg(double tt1, double tt2, double *tcg1, double *tcg2);
+int iauTttdb(double tt1, double tt2, double dtr,
+             double *tdb1, double *tdb2);
+int iauTtut1(double tt1, double tt2, double dt,
+             double *ut11, double *ut12);
+int iauUt1tai(double ut11, double ut12, double dta,
+              double *tai1, double *tai2);
+int iauUt1tt(double ut11, double ut12, double dt,
+             double *tt1, double *tt2);
+int iauUt1utc(double ut11, double ut12, double dut1,
+              double *utc1, double *utc2);
+int iauUtctai(double utc1, double utc2, double *tai1, double *tai2);
+int iauUtcut1(double utc1, double utc2, double dut1,
               double *ut11, double *ut12);
 
 /* VectorMatrix/AngleOps */
@@ -453,7 +460,7 @@ void iauSxpv(double s, double pv[2][3], double spv[2][3]);
 
 /*----------------------------------------------------------------------
 **
-**  Copyright (C) 2013
+**  Copyright (C) 2017
 **  Standards Of Fundamental Astronomy Board
 **  of the International Astronomical Union.
 **

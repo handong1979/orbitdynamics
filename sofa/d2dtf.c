@@ -76,11 +76,11 @@ int iauD2dtf(const char *scale, int ndp, double d1, double d2,
 **     iauD2tf      decompose days to hms
 **     iauDat       delta(AT) = TAI-UTC
 **
-**  This revision:  2013 July 26
+**  This revision:  2014 February 15
 **
-**  SOFA release 2013-12-02
+**  SOFA release 2017-04-20
 **
-**  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
+**  Copyright (C) 2017 IAU SOFA Board.  See notes at end.
 */
 {
    int leap;
@@ -121,39 +121,59 @@ int iauD2dtf(const char *scale, int ndp, double d1, double d2,
    /* If leap second day, scale the fraction of a day into SI. */
       leap = (dleap != 0.0);
       if (leap) fd += fd * dleap/DAYSEC;
-
-   /* End of UTC-specific actions. */
    }
 
 /* Provisional time of day. */
    iauD2tf ( ndp, fd, &s, ihmsf1 );
 
-/* Is this a leap second day? */
-   if ( ! leap ) {
+/* Has the (rounded) time gone past 24h? */
+   if ( ihmsf1[0] > 23 ) {
 
-   /* No.  Has the time rounded up to 24h? */
-      if ( ihmsf1[0] > 23 ) {
+   /* Yes.  We probably need tomorrow's calendar date. */
+      js = iauJd2cal(a1+1.5, b1-fd, &iy2, &im2, &id2, &w);
+      if ( js ) return -1;
 
-      /* Yes.  We will need tomorrow's calendar date. */
-         js = iauJd2cal(a1+1.5, b1-fd, &iy2, &im2, &id2, &w);
+   /* Is today a leap second day? */
+      if ( ! leap ) {
 
-      /* Use 0h tomorrow. */
+      /* No.  Use 0h tomorrow. */
          iy1 = iy2;
          im1 = im2;
          id1 = id2;
-         for ( i = 0; i < 4; i++ ) {
-            ihmsf1[i] = 0;
+         ihmsf1[0] = 0;
+         ihmsf1[1] = 0;
+         ihmsf1[2] = 0;
+
+      } else {
+
+      /* Yes.  Are we past the leap second itself? */
+         if ( ihmsf1[2] > 0 ) {
+
+         /* Yes.  Use tomorrow but allow for the leap second. */
+            iy1 = iy2;
+            im1 = im2;
+            id1 = id2;
+            ihmsf1[0] = 0;
+            ihmsf1[1] = 0;
+            ihmsf1[2] = 0;
+
+         } else {
+
+         /* No.  Use 23 59 60... today. */
+            ihmsf1[0] = 23;
+            ihmsf1[1] = 59;
+            ihmsf1[2] = 60;
          }
-      }
-   } else {
 
-   /* This is a leap second day.  Has the time reached or passed 24h? */
-      if ( ihmsf1[0] > 23 ) {
-
-      /* Yes.  Use 23 59 60... */
-         ihmsf1[0] = 23;
-         ihmsf1[1] = 59;
-         ihmsf1[2] = 60;
+      /* If rounding to 10s or coarser always go up to new day. */
+         if ( ndp < 0 && ihmsf1[2] == 60 ) {
+            iy1 = iy2;
+            im1 = im2;
+            id1 = id2;
+            ihmsf1[0] = 0;
+            ihmsf1[1] = 0;
+            ihmsf1[2] = 0;
+         }
       }
    }
 
@@ -166,11 +186,11 @@ int iauD2dtf(const char *scale, int ndp, double d1, double d2,
    }
 
 /* Status. */
-   return js < 0 ? -1 : js;
+   return js;
 
 /*----------------------------------------------------------------------
 **
-**  Copyright (C) 2013
+**  Copyright (C) 2017
 **  Standards Of Fundamental Astronomy Board
 **  of the International Astronomical Union.
 **

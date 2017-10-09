@@ -52,11 +52,11 @@ void iauC2ixys(double x, double y, double s, double rc2i[3][3])
 **     McCarthy, D. D., Petit, G. (eds.), IERS Conventions (2003),
 **     IERS Technical Note No. 32, BKG (2004)
 **
-**  This revision:  2008 June 18
+**  This revision:  2014 November 7
 **
-**  SOFA release 2013-12-02
+**  SOFA release 2017-04-20
 **
-**  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
+**  Copyright (C) 2017 IAU SOFA Board.  See notes at end.
 */
 {
    double r2, e, d;
@@ -64,7 +64,7 @@ void iauC2ixys(double x, double y, double s, double rc2i[3][3])
 
 /* Obtain the spherical angles E and d. */
    r2 = x*x + y*y;
-   e = (r2 != 0.0) ? atan2(y, x) : 0.0;
+   e = (r2 > 0.0) ? atan2(y, x) : 0.0;
    d = atan(sqrt(r2 / (1.0 - r2)));
 
 /* Form the matrix. */
@@ -77,7 +77,7 @@ void iauC2ixys(double x, double y, double s, double rc2i[3][3])
 
 /*----------------------------------------------------------------------
 **
-**  Copyright (C) 2013
+**  Copyright (C) 2017
 **  Standards Of Fundamental Astronomy Board
 **  of the International Astronomical Union.
 **

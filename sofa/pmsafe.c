@@ -110,11 +110,11 @@ int iauPmsafe(double ra1, double dec1, double pmr1, double pmd1,
 **     iauSeps      angle between two points
 **     iauStarpm    update star catalog data for space motion
 **
-**  This revision:   2013 October 9
+**  This revision:   2014 July 1
 **
-**  SOFA release 2013-12-02
+**  SOFA release 2017-04-20
 **
-**  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
+**  Copyright (C) 2017 IAU SOFA Board.  See notes at end.
 */
 {
 
@@ -144,14 +144,14 @@ int iauPmsafe(double ra1, double dec1, double pmr1, double pmd1,
                  ra2, dec2, pmr2, pmd2, px2, rv2);
 
 /* Revise and return the status. */
-   if (! j%2) j += jpx;
+   if ( !(j%2) ) j += jpx;
    return j;
 
 /* Finished. */
 
 /*----------------------------------------------------------------------
 **
-**  Copyright (C) 2013
+**  Copyright (C) 2017
 **  Standards Of Fundamental Astronomy Board
 **  of the International Astronomical Union.
 **

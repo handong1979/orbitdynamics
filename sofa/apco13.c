@@ -28,7 +28,6 @@ int iauApco13(double utc1, double utc2, double dut1,
 **     utc1   double     UTC as a 2-part...
 **     utc2   double     ...quasi Julian Date (Notes 1,2)
 **     dut1   double     UT1-UTC (seconds, Note 3)
-**     theta  double     Earth rotation angle (radians)
 **     elong  double     longitude (radians, east +ve, Note 4)
 **     phi    double     latitude (geodetic, radians, Note 4)
 **     hm     double     height above ellipsoid (m, geodetic, Notes 4,6)
@@ -179,11 +178,11 @@ int iauApco13(double utc1, double utc2, double dut1,
 **     iauApco      astrometry parameters, ICRS-observed
 **     iauEors      equation of the origins, given NPB matrix and s
 **
-**  This revision:   2013 October 9
+**  This revision:   2013 December 5
 **
-**  SOFA release 2013-12-02
+**  SOFA release 2017-04-20
 **
-**  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
+**  Copyright (C) 2017 IAU SOFA Board.  See notes at end.
 */
 {
    int j;
@@ -233,7 +232,7 @@ int iauApco13(double utc1, double utc2, double dut1,
 
 /*----------------------------------------------------------------------
 **
-**  Copyright (C) 2013
+**  Copyright (C) 2017
 **  Standards Of Fundamental Astronomy Board
 **  of the International Astronomical Union.
 **

@@ -154,13 +154,13 @@ int iauAtco13(double rc, double dc,
 **  Called:
 **     iauApco13    astrometry parameters, ICRS-observed, 2013
 **     iauAtciq     quick ICRS to CIRS
-**     iauAtioq     quick ICRS to observed
+**     iauAtioq     quick CIRS to observed
 **
-**  This revision:   2013 October 9
+**  This revision:   2016 February 2
 **
-**  SOFA release 2013-12-02
+**  SOFA release 2017-04-20
 **
-**  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
+**  Copyright (C) 2017 IAU SOFA Board.  See notes at end.
 */
 {
    int j;
@@ -188,7 +188,7 @@ int iauAtco13(double rc, double dc,
 
 /*----------------------------------------------------------------------
 **
-**  Copyright (C) 2013
+**  Copyright (C) 2017
 **  Standards Of Fundamental Astronomy Board
 **  of the International Astronomical Union.
 **

@@ -17,16 +17,16 @@ void iauCr(double r[3][3], double c[3][3])
 **     r        double[3][3]    r-matrix to be copied
 **
 **  Returned:
-**   char[]     double[3][3]    copy
+**     c        double[3][3]    copy
 **
 **  Called:
 **     iauCp        copy p-vector
 **
-**  This revision:  2013 June 18
+**  This revision:  2016 May 19
 **
-**  SOFA release 2013-12-02
+**  SOFA release 2017-04-20
 **
-**  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
+**  Copyright (C) 2017 IAU SOFA Board.  See notes at end.
 */
 {
    iauCp(r[0], c[0]);
@@ -37,7 +37,7 @@ void iauCr(double r[3][3], double c[3][3])
 
 /*----------------------------------------------------------------------
 **
-**  Copyright (C) 2013
+**  Copyright (C) 2017
 **  Standards Of Fundamental Astronomy Board
 **  of the International Astronomical Union.
 **

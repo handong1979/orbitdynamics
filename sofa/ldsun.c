@@ -6,7 +6,7 @@ void iauLdsun(double p[3], double e[3], double em, double p1[3])
 **   i a u L d s u n
 **  - - - - - - - - -
 **
-**  Light deflection by the Sun.
+**  Deflection of starlight by the Sun.
 **
 **  This function is part of the International Astronomical Union's
 **  SOFA (Standards of Fundamental Astronomy) software collection.
@@ -14,12 +14,12 @@ void iauLdsun(double p[3], double e[3], double em, double p1[3])
 **  Status:  support function.
 **
 **  Given:
-**     p      double[3]  direction from observer to source (unit vector)
+**     p      double[3]  direction from observer to star (unit vector)
 **     e      double[3]  direction from Sun to observer (unit vector)
 **     em     double     distance from Sun to observer (au)
 **
 **  Returned:
-**     p1     double[3]  observer to deflected source (unit vector)
+**     p1     double[3]  observer to deflected star (unit vector)
 **
 **  Notes:
 **
@@ -28,29 +28,39 @@ void iauLdsun(double p[3], double e[3], double em, double p1[3])
 **     the same.
 **
 **  2) The deflection is restrained when the angle between the star and
-**     the center of the Sun is less than about 9 arcsec, falling to
-**     zero for zero separation. (The chosen threshold is within the
-**     solar limb for all solar-system applications.)
+**     the center of the Sun is less than a threshold value, falling to
+**     zero deflection for zero separation.  The chosen threshold value
+**     is within the solar limb for all solar-system applications, and
+**     is about 5 arcminutes for the case of a terrestrial observer.
 **
 **  3) The arguments p and p1 can be the same array.
 **
 **  Called:
 **     iauLd        light deflection by a solar-system body
 **
-**  This revision:   2013 August 30
+**  This revision:   2016 June 16
 **
-**  SOFA release 2013-12-02
+**  SOFA release 2017-04-20
 **
-**  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
+**  Copyright (C) 2017 IAU SOFA Board.  See notes at end.
 */
 {
-   iauLd(1.0, p, p, e, em, 1e-9, p1);
+   double em2, dlim;
+
+
+/* Deflection limiter (smaller for distant observers). */
+   em2 = em*em;
+   if ( em2 < 1.0 ) em2 = 1.0;
+   dlim = 1e-6 / (em2 > 1.0 ? em2 : 1.0);
+
+/* Apply the deflection. */
+   iauLd(1.0, p, p, e, em, dlim, p1);
 
 /* Finished. */
 
 /*----------------------------------------------------------------------
 **
-**  Copyright (C) 2013
+**  Copyright (C) 2017
 **  Standards Of Fundamental Astronomy Board
 **  of the International Astronomical Union.
 **

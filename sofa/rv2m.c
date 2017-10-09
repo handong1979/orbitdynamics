@@ -31,11 +31,11 @@ void iauRv2m(double w[3], double r[3][3])
 **  3) The reference frame rotates clockwise as seen looking along the
 **     rotation vector from the origin.
 **
-**  This revision:  2013 June 18
+**  This revision:  2015 January 30
 **
-**  SOFA release 2013-12-02
+**  SOFA release 2017-04-20
 **
-**  Copyright (C) 2013 IAU SOFA Board.  See notes at end.
+**  Copyright (C) 2017 IAU SOFA Board.  See notes at end.
 */
 {
    double x, y, z, phi, s, c, f;
@@ -51,7 +51,7 @@ void iauRv2m(double w[3], double r[3][3])
    f = 1.0 - c;
 
 /* Euler axis (direction of rotation vector), perhaps null. */
-   if (phi != 0.0) {
+   if (phi > 0.0) {
        x /= phi;
        y /= phi;
        z /= phi;
@@ -72,7 +72,7 @@ void iauRv2m(double w[3], double r[3][3])
 
 /*----------------------------------------------------------------------
 **
-**  Copyright (C) 2013
+**  Copyright (C) 2017
 **  Standards Of Fundamental Astronomy Board
 **  of the International Astronomical Union.
 **
