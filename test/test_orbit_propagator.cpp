@@ -12,7 +12,7 @@ using namespace Constant;
 void test_orbit_propagator()
 {
 	enum SATELLITE{ZY,SZ,DFH,BD};
-	SATELLITE satclass = BD;
+	SATELLITE satclass = DFH;
 
 	CSatellite sat;
 	
@@ -34,23 +34,23 @@ void test_orbit_propagator()
 	{
 	case ZY:
 		sat.Initialize(epoch,ZY_Orbit,'i');
-		sat.Name = "ZY";
+		//sat.Name = "ZY";
 		sat.SetForce(21,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL|ODP_AIR_DRAG|ODP_SOLAR_CENT|ODP_SOLAR_PRESSURE|ODP_LUNAR_CENT|ODP_POSTNEWTON);
 		break;
 	case SZ:
 		sat.Initialize(epoch,SZ_Orbit,'i');
 		sat.SetForce(21,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL|ODP_AIR_DRAG|ODP_SOLAR_CENT|ODP_SOLAR_PRESSURE|ODP_LUNAR_CENT|ODP_POSTNEWTON);
-		sat.Name = "SZ";
+		//sat.Name = "SZ";
 		break;
 	case DFH:
 		sat.Initialize(epoch,DFH_Orbit,'i');
 		sat.SetForce(21,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL|ODP_AIR_DRAG|ODP_SOLAR_CENT|ODP_SOLAR_PRESSURE|ODP_LUNAR_CENT|ODP_POSTNEWTON);
-		sat.Name = "DFH";
+		//sat.Name = "DFH";
 		break;
 	case BD:
 		sat.Initialize(epoch,BD_Orbit,'i');
 		sat.SetForce(21,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL|ODP_AIR_DRAG|ODP_SOLAR_CENT|ODP_SOLAR_PRESSURE|ODP_LUNAR_CENT|ODP_POSTNEWTON);
-		sat.Name = "BD";
+		//sat.Name = "BD";
 		//sat.SetSRPCODE(codep);
 		break;
 	default:

@@ -21,7 +21,6 @@
 #endif
 
 #include "constant.h"
-using namespace Constant;
 #include "config.h"
 #include "CEngine.h"
 #include "CentralBody.h"

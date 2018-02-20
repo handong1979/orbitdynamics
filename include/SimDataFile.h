@@ -59,6 +59,39 @@ public:
 		vname.push_back(varname);
 	}
 
+	void AddVarFloat(std::string varname, int row, int col, void * pdata) {
+		hsize_t dims[2] = { row,col };
+		hid_t  datatype = H5Tarray_create(H5T_NATIVE_FLOAT, 2, dims);
+		char tmpchar[128];
+		strcpy(tmpchar, varname.c_str());
+		FL_PacketTable *pt = new FL_PacketTable(hf->getId(), tmpchar, datatype, 1, -1);
+		vpt.push_back(pt);
+		vdata.push_back(pdata);
+		vname.push_back(varname);
+	}
+
+	void AddVarInt(std::string varname, int row, int col, void * pdata) {
+		hsize_t dims[2] = { row,col };
+		hid_t  datatype = H5Tarray_create(H5T_NATIVE_INT, 2, dims);
+		char tmpchar[128];
+		strcpy(tmpchar, varname.c_str());
+		FL_PacketTable *pt = new FL_PacketTable(hf->getId(), tmpchar, datatype, 1, -1);
+		vpt.push_back(pt);
+		vdata.push_back(pdata);
+		vname.push_back(varname);
+	}
+
+	void AddVarByte(std::string varname, int row, int col, void * pdata) {
+		hsize_t dims[2] = { row,col };
+		hid_t  datatype = H5Tarray_create(H5T_NATIVE_UCHAR, 2, dims);
+		char tmpchar[128];
+		strcpy(tmpchar, varname.c_str());
+		FL_PacketTable *pt = new FL_PacketTable(hf->getId(), tmpchar, datatype, 1, -1);
+		vpt.push_back(pt);
+		vdata.push_back(pdata);
+		vname.push_back(varname);
+	}
+
 	void Addarmamat(std::string varname,mat& m){
 		hsize_t dims[2] = {m.n_rows,m.n_cols};
 		hid_t  datatype = H5Tarray_create(H5T_NATIVE_DOUBLE, 2, dims);

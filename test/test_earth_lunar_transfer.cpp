@@ -22,7 +22,7 @@ void test_earth_lunar_transfer()
 	//Kepler Ep3(212860,   0.96720074, 30.983*RAD, 180.483*RAD, 179.984*RAD,  0);
 
 	CSatellite CE1;
-	CE1.Name = "CE1";
+	//CE1.Name = "CE1";
 	CE1.SetAutoSave();
 	CE1.Initialize(CDateTime(2007,4,23,22,41,32),Ep3, 'i');
 	CE1.SetForce(8,ODP_EARTH_TESSERAL|ODP_LUNAR_CENT|ODP_SOLAR_CENT);

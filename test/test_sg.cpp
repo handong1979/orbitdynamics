@@ -19,8 +19,8 @@ void test_sg()
 	precession_angle(t,zeta,theta,Z);
 
 	double dt = t.GetUT1CentNum()*36525.0; // + Earth.GetdUT1(t)/86400.0; // 在 t.GetUT1CentNum()中考虑dUT1
-	double sgm = fmod((280.4606184 + 360.985647365*dt + 0.2908e-12*dt*dt)*RAD,PI2);
-	double sgs =  fmod(dpsi*cos(eps) + sgm, PI2);
+	double sgm = GetSGM(t);
+	double sgs =  GetSG(t);
 	double sgj2000 = sgm - zeta - Z;
 
 	cout << "格林威治平恒星时：" << sgm << "rad    " << sgm*DEG << "deg" << endl;

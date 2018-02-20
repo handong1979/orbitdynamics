@@ -132,6 +132,15 @@ ORBITDYN_API bool ReadLine(std::istream* file,std::string& name,std::string& val
 #define READVAR(var,format)		if(name == #var){                      \
 									sscanf(value.c_str(),format,&var); \
 								}else
+#define READPARAM3(var,P0,P1,P2) if(name == #var){                      \
+									sscanf(value.c_str(),"%lf%lf%lf",&P0,&P1,&P2); \
+								}else
+#define READPARAM4(var,P0,P1,P2,P3) if(name == #var){                      \
+									sscanf(value.c_str(),"%lf%lf%lf%lf",&P0,&P1,&P2,&P3); \
+								}else
+#define READPARAM5(var,P0,P1,P2,P3,P4) if(name == #var){                      \
+									sscanf(value.c_str(),"%lf%lf%lf%lf%lf",&P0,&P1,&P2,&P3,&P4); \
+								}else
 #define READSTR(str)			if(name == #str){                       \
 									str=value;                          \
 									}else
