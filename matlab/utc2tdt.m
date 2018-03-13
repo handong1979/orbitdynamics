@@ -8,7 +8,11 @@
 
 %   Copyright 2002-2009 RDC BICE. 
 function tdt = utc2tdt(utc)
-if utc>= 56109
+if utc>= 57754
+    dTai = 37; % 2017 JAN  1
+elseif utc>= 57204
+    dTai = 36; % 2015 JUL  1
+elseif utc>= 56109
     dTai = 35; % 2012 JUL  1
 elseif utc>=54832
     dTai = 34; % 2009 JAN  1

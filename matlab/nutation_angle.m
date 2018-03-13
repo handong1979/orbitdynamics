@@ -10,11 +10,11 @@
 % JPL DE405比较，章动角的差别小于0.3"
 %
 % Example:
-%    [dksi deps] = nutation_angle(2006,1,1,0,0,0)
-%    [dksi deps] = nutation_angle(53736)
+%    [dksi,deps] = nutation_angle(2006,1,1,0,0,0)
+%    [dksi,deps] = nutation_angle(53736)
 %
 % See also precession, nutation, precession_angle.
-function [dksi deps] = nutation_angle(Y,M,D,h,m,s)
+function [dksi,deps] = nutation_angle(Y,M,D,h,m,s)
 if nargin == 6
     TDT = utc2tdt(date2mjd(Y,M,D,h,m,s));
 elseif nargin == 1

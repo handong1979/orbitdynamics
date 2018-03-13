@@ -1,6 +1,6 @@
 % remove an entire row of data containing the outlier
 % 第一列为时间，不进行超差判断，删除时对应的删除
-function [t X] = removebias(t,X,y)
+function [t,X] = removebias(t,X,y)
 error(nargchk(1, 3, nargin))
 if nargin == 1
     X = t;
@@ -24,7 +24,7 @@ elseif nargout == 2
     mt = mean(dt);
     st = std(dt);
     tout = abs(dt-mt) > y*st;
-    outliers = [tout outliers];
+    outliers = [tout,outliers];
     t(any(outliers,2),:) = [];
     X(any(outliers,2),:) = [];
 end

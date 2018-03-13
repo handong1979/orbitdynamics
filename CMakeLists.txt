@@ -8,17 +8,6 @@ link_directories(${PROJECT_SOURCE_DIR}/lib)
 set(BUILD_SOFA "build sofa library" TRUE)
 set(BUILD_TEST "build test" TRUE)
 
-if(APPLE)
-
-  set(ARMA_OS macos)
-
-  set(ARMA_USE_LAPACK true)
-  set(ARMA_USE_BLAS   true)
-
-  set(ARMA_LIBS ${ARMA_LIBS} "-framework Accelerate")  # or "-framework accelerate" ?
-  message(STATUS "MacOS X detected. Added '-framework Accelerate' to compiler flags")
-endif(APPLE)
-
 add_subdirectory(src)
 
 if(BUILD_SOFA)

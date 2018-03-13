@@ -8,7 +8,9 @@
 
 %   Copyright 2002-2009 RDC BICE. 
 function utc = tdt2utc(tdt)
-if tdt>= 56109.0007775926
+if tdt>= 57204
+    dTai = 36; % 2015 JUL  1
+elseif tdt>= 56109.0007775926
     dTai = 35; % 2012 JUL  1
 elseif tdt>=54832   %%# TODO :同上，使用TDT时间作为判断边界，而不是用UTC
     dTai = 34; % 2009 JAN  1

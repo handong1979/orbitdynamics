@@ -12,7 +12,7 @@ if nargin == 0 %self test
        2659.3       2705.9       5970.5      -2.9926      -5.6122       3.9568];
 %    cart = cart';
 end
-[m n] = size(cart);
+[m,n] = size(cart);
 if m == 6
     tr = 0;
     len = n;
@@ -54,38 +54,38 @@ end
 
 % i
 cosi = dot(h,Uz)./sqrt(h2);
+kepler(3,:) = acos(cosi);
 kepler(3,cosi >= 1.0) = 0.0;
 kepler(3,cosi <= -1.0) = pi;
-kepler(3,abs(cosi)<1.0) = acos(cosi);
 
 % Omega
 Nx = N(1,:)./Nn;
-kepler(4,Nx > 1.0) = 0.0;
-kepler(4,Nx < -1.0) = pi;
 id = find(N(2,:)>=0);
 kepler(4,id) = acos(Nx(id));
 id = find(N(2,:)<0);
 kepler(4,id) = pi*2 - acos(Nx(id));
+kepler(4,Nx > 1.0) = 0.0;
+kepler(4,Nx < -1.0) = pi;
 
 % w
 E = cross(V,h)/miu - P./(ones(3,1)*r);
 cosw = dot(N,E)./Nn./sqrt(sum(E.^2,1));
-kepler(5,cosw > 1.0) = 0.0;
-kepler(5,cosw < -1.0) = pi;
 id = find(E(3,:)>0);
 kepler(5,id) = acos(cosw(id));
 id = find(E(3,:)<=0);
 kepler(5,id) = pi*2 - acos(cosw(id));
+kepler(5,cosw > 1.0) = 0.0;
+kepler(5,cosw < -1.0) = pi;
 
 % M
 cosu = dot(P,N)./r./Nn;
 u = nan(1,len);
-u(cosu >= 1.0) = 0.0;
-u(cosu <= -1.0) = pi;
 id = find(P(3,:)>0);
 u(id) = acos(cosu(id));
 id = find(P(3,:)<=0);
 u(id) = pi*2 - acos(cosu(id));
+u(cosu >= 1.0) = 0.0;
+u(cosu <= -1.0) = pi;
 
 id = find(kepler(2,:)>1);
 if ~isempty(id)

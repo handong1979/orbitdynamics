@@ -6,28 +6,28 @@
 #ifndef __TANK_H
 #define __TANK_H
 
-#include "config.h"
+#include "Config.h"
 #include "armadillo_BLAS_LAPACK.h"
 using namespace arma;
 
 class ORBITDYN_API CEngine
 {
 public:
-	//!·¢¶¯»ú±È³å
+	//!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È³ï¿½
 	double Isp;
-	//!ÍÆÁ¦
+	//!ï¿½ï¿½ï¿½ï¿½
 	double F;
 
 	CEngine(){}
 	~CEngine(){};
 
-	// ÖÊÁ¿Á÷ËÙ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	double dm();
 
 	void UpdateStatus();
 };
 
-//! ³£±È³å¡¢³£ÍÆÁ¦µÄ·¢¶¯»ú
+//! ï¿½ï¿½ï¿½È³å¡¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½
 class ORBITDYN_API CEngine_const:public CEngine
 {
 public:
@@ -47,29 +47,29 @@ public:
 	void UpdateStatus(){}
 };
 
-//!ÐÇÉÏµÄ´¢Ïä
+//!ï¿½ï¿½ï¿½ÏµÄ´ï¿½ï¿½ï¿½
 class ORBITDYN_API CEngine_Poly:public CEngine
 {
 public:
-	//!È¼ÁÏ³äÂúÊ±ÖÊÁ¿
+	//!È¼ï¿½Ï³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	double FullFuelMass;
-	//!¼Ó×¢µÄÍÆ½ø¼Á×ÜÖÊÁ¿
+	//!ï¿½ï¿½×¢ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	double FuelMass0;
-	//!ÍÆ½ø¼ÁÖÊÁ¿
+	//!ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	double M;
-	//!³õÊ¼ÎÂ¶È
+	//!ï¿½ï¿½Ê¼ï¿½Â¶ï¿½
 	double Temperature0;
-	//!µ±Ç°ÎÂ¶È
+	//!ï¿½ï¿½Ç°ï¿½Â¶ï¿½
 	double Temperature;
-	//!³õÊ¼Ñ¹Á¦
+	//!ï¿½ï¿½Ê¼Ñ¹ï¿½ï¿½
 	double Press0;
-	//!µ±Ç°Ñ¹Á¦
+	//!ï¿½ï¿½Ç°Ñ¹ï¿½ï¿½
 	double Press;
-	//!È¼ÁÏÃÜ¶È
+	//!È¼ï¿½ï¿½ï¿½Ü¶ï¿½
 	double FuelDensity;
-	//!ÖüÏäÄâºÍ²ÎÊý
+	//!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½
 	double D0,D1,D2,D3,D4,G0,G1,G2,G3;
-	//!·¢¶¯»ú×î´óÁ¬Ðø¹¤×÷Ê±¼ä
+	//!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 	double MaxManeuverTime;
 	CEngine_Poly();
 	~CEngine_Poly(){}
@@ -80,14 +80,14 @@ public:
 	void UpdateStatus(double dt);
 };
 
-//! ÍÆÁ¦Æ÷×é
+//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class ORBITDYN_API CThrusterSet
 {
-	//! Åç¹ÜÊý
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½
 	int Num;
-	//! ÍÆÁ¦°²×°Õó
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
 	mat33 CF;
-	//! Á¦¾Ø°²×°Õó
+	//! ï¿½ï¿½ï¿½Ø°ï¿½×°ï¿½ï¿½
 	mat33 CT;
 public:
 	CThrusterSet();

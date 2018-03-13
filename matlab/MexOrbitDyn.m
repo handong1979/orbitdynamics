@@ -6,6 +6,12 @@
 %     'step':外推一步(支持向前推)
 %     'Propagate':外推一段时间
 %     'PropagateBackward':向前外推一段时间
+%     'Propagate2Perigee':外推到近地点
+%     'Propagate2Apogee':外推到远地点
+%     'Propagate2AscendingNode':外推到升交点
+%     'Propagate2DescendingNode':外推到降交点
+%     'Propagate2Equator':外推到地球赤道升交点
+%     'Impulse': 轨道系脉冲轨道机动
 %     'remove':删除一颗卫星
 %     'SetForce':设置摄动项
 %     'GetMean':返回轨道平根数
@@ -31,6 +37,12 @@
 %            多台发动机同时开机时，推力Fbx  Fby  Fbz为卫星本体系的合成推力，质量变化率为各发动机的和
 %     'Propagate':外推一段时间,参数parameter为时长(时长为正)
 %     'PropagateBackward':向前外推一段时间,参数parameter为时长(时长为负)
+%     'Propagate2Perigee':无参数
+%     'Propagate2Apogee':无参数
+%     'Propagate2AscendingNode':无参数
+%     'Propagate2DescendingNode':无参数
+%     'Propagate2Equator':无参数
+%     'Impulse': 轨道系脉冲轨道机动，参数为三轴速度增量，单位km/s
 %     'remove':无参数
 %     'SetForce':设置摄动项，参数同C++程序中的SetForce()函数，为[p1,p2],p1为引力场阶数，
 %                     p2为各种摄动项，摄动项同C++中的宏定义，对应的整数见下表：
@@ -41,6 +53,8 @@
 %                                 8:月球引力
 %                                 16:太阳引力
 %                                 32:太阳光压
+%                    摄动设置的默认值为6,ODP_EARTH_ALL
+%     'SetSRPCODE':设置CODE光压模型参数，参数为一个3*3的光压系数矩阵
 %     'GetMean':无参数，返回轨道平根数
 % 
 % 一旦初始化一颗卫星,则它一直被保留在内存中,直到执行了remove操作或者执行了命令clear all或命令clear orbitdyn
@@ -49,29 +63,24 @@
 %
 % Example:
 %   初始化一颗名为sat的卫星:
-%   initparam = [2010,1,1,0,0,0,7000,0.001,98.5,270,90,30];
+%   initparam = [2010,1,1,0,0,0,7044,0.001,98.5,270,90,30];
 %   out = orbitdyn('sat','init',initparam);
 %   设置轨道摄动模型为仅考虑J2项
 %   orbitdyn('sat','SetForce',[2 1]);
 %   将'sat'卫星的轨道外推60秒:
 %   out = orbitdyn('sat','step',60);
+%   执行脉冲轨道机动，沿X方向1m/s
+%   out = orbitdyn('sat','impulse',[1,0,0]/1000)
 
 % 示例：
-% hp = 200;
-% ha = 35786;
-% i = 28.5;
-% a = (hp+ha)/2+Re;
-% e = (ha-hp)/2/a;
-% w = 180;
-% Omega = 90;
-% kp = [a e i Omega w 0];
 % epoch = [2015,1,1,4,0,0];
+% kp = [24371.137,0.73,28,0,0,0];
 % F = 0.2;
 % Isp = 2400;
 % dm = -F/Isp/9.8;
 % Mass = 2000;
 % s1 = mexOrbitDyn('sat','init',[epoch,kp,Mass]);
-% mexOrbitDyn('sat','SetForce',[4,1+2+4+8+16+32]);
+% mexOrbitDyn('sat','SetForce',[8,1+2+4+8+16+32]);
 % mexOrbitDyn('sat','SetAD',20); % 阻力面积
 % mexOrbitDyn('sat','SetSRP',20); % 光压面积
 % step = 60;

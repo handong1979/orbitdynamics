@@ -21,10 +21,14 @@
 #include "sofam.h"
 #include "math.h"
 
+#if MSVC
 #ifdef sofa_EXPORTS
 #define SOFA_API __declspec(dllexport)
 #else
 #define SOFA_API __declspec(dllimport)
+#endif
+#else
+#define SOFA_API
 #endif
 
 #ifdef __cplusplus

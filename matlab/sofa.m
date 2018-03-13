@@ -28,6 +28,10 @@
 % (gmst06 - gst06)*deg*3600
 % (gst06a - gst06)*deg*3600
 
+%if ~libisloaded('sofa')
+%  loadlibrary('sofa');
+%end
+
 % utc = 1:0.7:365*20;
 % dlg = zeros(size(utc));
 % for k = 1:length(utc)

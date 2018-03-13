@@ -9,8 +9,12 @@ DE405* DE405::theInstance = NULL;
 DE405::DE405(void)
 	:T_beg(0),T_end(0),T_span(0)
 {
-	std::string DirName = GetOrbitDynDir(); // ¶ÁÈ¡»·¾³±äÁ¿OrbitDyn£¬¼´dataÄ¿Â¼ËùÔÚÎ»ÖÃ
-	DirName += "\\data\\planetEph.405";
+	std::string DirName = GetOrbitDynDir(); // è¯»å–ç¯å¢ƒå˜é‡OrbitDynï¼Œå³dataç›®å½•æ‰€åœ¨ä½ç½®
+#if __APPLE__
+    DirName += "/data/planetEph.405";
+#else
+    DirName += "\\data\\planetEph.405";
+#endif
 	const char *Name = DirName.c_str();
 	Initialize_Ephemeris(Name);
 }
@@ -27,9 +31,9 @@ DE405* DE405::Instance()
 	return theInstance;
 }
 
-/*!½«Ã¶¾ÙĞÍ±äÁ¿PLANET×ª»¯ÎªDE405ÖĞ¶ÔÓ¦µÄÕûÊıĞòºÅ
-¸ÃÕûÊıĞòºÅµÄÇ°12¸ö(0-11)¶ÔÓ¦recOneType::coeffPtrÊı×éµÄĞĞ
-ÕûÊıĞòºÅÖĞµÄ12¶ÔÓ¦recOneType::libratPtr
+/*!å°†æšä¸¾å‹å˜é‡PLANETè½¬åŒ–ä¸ºDE405ä¸­å¯¹åº”çš„æ•´æ•°åºå·
+è¯¥æ•´æ•°åºå·çš„å‰12ä¸ª(0-11)å¯¹åº”recOneType::coeffPtræ•°ç»„çš„è¡Œ
+æ•´æ•°åºå·ä¸­çš„12å¯¹åº”recOneType::libratPtr
 /**         	 0---Mercury                                                 **/
 /**         	 1---Venus                                                   **/
 /**         	 2---E-M Bary                                                **/
@@ -167,7 +171,7 @@ int DE405::Initialize_Ephemeris(const char *fileName )
 	if ( Ephemeris_File == NULL ) /*........................No need to continue */
 	{
 		DE405Exception expt;
-		expt.SetDetails("Initialize_Ephemeris: Unable to open ephemeris file: %s.",fileName);
+		expt.SetDetails("Initialize_Ephemeris: Unable to open ephemeris file: %s",fileName);
 		throw expt;
 	}
 	else 
@@ -837,7 +841,7 @@ void DE405::PlanetEphemeris(const CDateTime& t,PLANET cent,PLANET target,double 
 		return;
 	}
 	
-	// ÖĞĞÄÌìÌåÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄ×´Ì¬
+	// ä¸­å¿ƒå¤©ä½“åœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„çŠ¶æ€
 	if(cent==EARTH)
 		Earth_SSBARY(TDT,&centStatus);
 	else if(cent==MOON)
@@ -853,7 +857,7 @@ void DE405::PlanetEphemeris(const CDateTime& t,PLANET cent,PLANET target,double 
 		}
 	}
 
-	// Ä¿±êÌìÌåÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄ×´Ì¬
+	// ç›®æ ‡å¤©ä½“åœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„çŠ¶æ€
 	if(target==EARTH)
 		Earth_SSBARY(TDT,&targetStatus);
 	else if(target==MOON)
@@ -888,7 +892,7 @@ void DE405::PlanetEphemeris(const CDateTime& t,PLANET cent,PLANET target,vec3& r
 	v(2) = rrd[5];
 }
 
-// µØÇòÔÚµØÔÂÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+// åœ°çƒåœ¨åœ°æœˆè´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 void DE405::Earth_ESBARY(double JD,stateType* earth)
 {
 	stateType em;
@@ -901,7 +905,7 @@ void DE405::Earth_ESBARY(double JD,stateType* earth)
 	}
 }
 
-// ÔÂÇòÔÚµØÔÂÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+// æœˆçƒåœ¨åœ°æœˆè´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 void DE405::Moon_ESBARY(double JD,stateType* moon)
 {
 	stateType em;
@@ -914,13 +918,13 @@ void DE405::Moon_ESBARY(double JD,stateType* moon)
 	}
 }
 
-// µØÇòÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+// åœ°çƒåœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 void DE405::Earth_SSBARY(double JD,stateType* earth)
 {
 	stateType emb,e;
-	// µØĞÄÔÚµØÔÂÖÊĞÄÏµÖĞµÄ×´Ì¬
+	// åœ°å¿ƒåœ¨åœ°æœˆè´¨å¿ƒç³»ä¸­çš„çŠ¶æ€
 	Earth_ESBARY(JD,&e); 
-	// µØÔÂÖÊĞÄÔÚÌ«ÑôÖÊĞÄÏµÖĞµÄ×´Ì¬
+	// åœ°æœˆè´¨å¿ƒåœ¨å¤ªé˜³è´¨å¿ƒç³»ä¸­çš„çŠ¶æ€
 	Interpolate_State(JD,PLANET2int(EARTH_MOON_BARYCENTER),&emb); 
 	for (int i=0;i<3;i++)
 	{
@@ -929,7 +933,7 @@ void DE405::Earth_SSBARY(double JD,stateType* earth)
 	}
 }
 
-// ÔÂÇòÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+// æœˆçƒåœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 void DE405::Moon_SSBARY(double JD,stateType* moon)
 {
 	stateType m,emb;
@@ -942,7 +946,7 @@ void DE405::Moon_SSBARY(double JD,stateType* moon)
 	}
 }
 
-// µØĞÄÔÂÇòÊ¸Á¿
+// åœ°å¿ƒæœˆçƒçŸ¢é‡
 vec3 DE405::Moon(const CDateTime& t)
 {
 	double r[3];
@@ -961,7 +965,7 @@ vec3 DE405::Moon(const CDateTime& t)
 	return v;
 }
 
-// µØĞÄÌ«ÑôÊ¸Á¿
+// åœ°å¿ƒå¤ªé˜³çŸ¢é‡
 vec3 DE405::Sun(const CDateTime& t)
 {
 	double r[6];
@@ -973,10 +977,10 @@ vec3 DE405::Sun(const CDateTime& t)
 	return v;
 }
 
-/*!ÕÂ¶¯ÏµÊı
-\param t CDatetimeÊ±¼ä
-\param dksi »Æ¾­ÕÂ¶¯ ( unit: radian )
-\param deps ½»½ÇÕÂ¶¯ ( unit: radian )
+/*!ç« åŠ¨ç³»æ•°
+\param t CDatetimeæ—¶é—´
+\param dksi é»„ç»ç« åŠ¨ ( unit: radian )
+\param deps äº¤è§’ç« åŠ¨ ( unit: radian )
 */
 void DE405::Nutations(const CDateTime& t,double& dksi,double& deps)
 {
@@ -987,8 +991,8 @@ void DE405::Nutations(const CDateTime& t,double& dksi,double& deps)
 	deps = pv[1];
 }
 
-/*!ÔÂ¹ÌÏµÏà¶ÔÔÂĞÄ¹ßĞÔÏµ(µØĞÄ¹ßĞÔÏµ)µÄÈı¸öÅ·À­×ª½Ç
-\param t CDatetimeÊ±¼ä
+/*!æœˆå›ºç³»ç›¸å¯¹æœˆå¿ƒæƒ¯æ€§ç³»(åœ°å¿ƒæƒ¯æ€§ç³»)çš„ä¸‰ä¸ªæ¬§æ‹‰è½¬è§’
+\param t CDatetimeæ—¶é—´
 \param Omega Omega(unit: radian)
 \param i i(unit: radian)
 \param u u(unit: radian)
@@ -1011,8 +1015,12 @@ DE421* DE421::theInstance = NULL;
 DE421::DE421(void)
 	:T_beg(0),T_end(0),T_span(0)
 {
-	std::string DirName = GetOrbitDynDir(); // ¶ÁÈ¡»·¾³±äÁ¿OrbitDyn£¬¼´dataÄ¿Â¼ËùÔÚÎ»ÖÃ
-	DirName += "\\data\\planetEph.421";
+	std::string DirName = GetOrbitDynDir(); // è¯»å–ç¯å¢ƒå˜é‡OrbitDynï¼Œå³dataç›®å½•æ‰€åœ¨ä½ç½®
+#if __APPLE__
+    DirName += "/data/planetEph.421";
+#else
+    DirName += "\\data\\planetEph.421";
+#endif
 	const char *Name = DirName.c_str();
 	Initialize_Ephemeris(Name);
 }
@@ -1029,9 +1037,9 @@ DE421* DE421::Instance()
 	return theInstance;
 }
 
-/*!½«Ã¶¾ÙĞÍ±äÁ¿PLANET×ª»¯ÎªDE421ÖĞ¶ÔÓ¦µÄÕûÊıĞòºÅ
-¸ÃÕûÊıĞòºÅµÄÇ°12¸ö(0-11)¶ÔÓ¦recOneType::coeffPtrÊı×éµÄĞĞ
-ÕûÊıĞòºÅÖĞµÄ12¶ÔÓ¦recOneType::libratPtr
+/*!å°†æšä¸¾å‹å˜é‡PLANETè½¬åŒ–ä¸ºDE421ä¸­å¯¹åº”çš„æ•´æ•°åºå·
+è¯¥æ•´æ•°åºå·çš„å‰12ä¸ª(0-11)å¯¹åº”recOneType::coeffPtræ•°ç»„çš„è¡Œ
+æ•´æ•°åºå·ä¸­çš„12å¯¹åº”recOneType::libratPtr
 /**         	 0---Mercury                                                 **/
 /**         	 1---Venus                                                   **/
 /**         	 2---E-M Bary                                                **/
@@ -1169,7 +1177,7 @@ int DE421::Initialize_Ephemeris(const char *fileName )
 	if ( Ephemeris_File == NULL ) /*........................No need to continue */
 	{
 		DE421Exception expt;
-		expt.SetDetails("Initialize_Ephemeris: Unable to open ephemeris file: %s.",fileName);
+		expt.SetDetails("Initialize_Ephemeris: Unable to open ephemeris file: %s",fileName);
 		throw expt;
 	}
 	else 
@@ -1210,7 +1218,7 @@ int DE421::Initialize_Ephemeris(const char *fileName )
 		else 
 		{
 			DE421Exception expt;
-			expt.SetDetails("Initialize_Ephemeris: Opened wrong file: %s  for ephemeris: %d.",fileName,405);
+			expt.SetDetails("Initialize_Ephemeris: Opened wrong file: %s  for ephemeris: %d",fileName,421);
 			throw expt;
 		}
 	}
@@ -1839,7 +1847,7 @@ void DE421::PlanetEphemeris(const CDateTime& t,PLANET cent,PLANET target,double 
 		return;
 	}
 
-	// ÖĞĞÄÌìÌåÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄ×´Ì¬
+	// ä¸­å¿ƒå¤©ä½“åœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„çŠ¶æ€
 	if(cent==EARTH)
 		Earth_SSBARY(TDT,&centStatus);
 	else if(cent==MOON)
@@ -1855,7 +1863,7 @@ void DE421::PlanetEphemeris(const CDateTime& t,PLANET cent,PLANET target,double 
 		}
 	}
 
-	// Ä¿±êÌìÌåÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄ×´Ì¬
+	// ç›®æ ‡å¤©ä½“åœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„çŠ¶æ€
 	if(target==EARTH)
 		Earth_SSBARY(TDT,&targetStatus);
 	else if(target==MOON)
@@ -1890,7 +1898,7 @@ void DE421::PlanetEphemeris(const CDateTime& t,PLANET cent,PLANET target,vec3& r
 	v(2) = rrd[5];
 }
 
-// µØÇòÔÚµØÔÂÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+// åœ°çƒåœ¨åœ°æœˆè´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 void DE421::Earth_ESBARY(double JD,stateType* earth)
 {
 	stateType em;
@@ -1903,7 +1911,7 @@ void DE421::Earth_ESBARY(double JD,stateType* earth)
 	}
 }
 
-// ÔÂÇòÔÚµØÔÂÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+// æœˆçƒåœ¨åœ°æœˆè´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 void DE421::Moon_ESBARY(double JD,stateType* moon)
 {
 	stateType em;
@@ -1916,13 +1924,13 @@ void DE421::Moon_ESBARY(double JD,stateType* moon)
 	}
 }
 
-// µØÇòÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+// åœ°çƒåœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 void DE421::Earth_SSBARY(double JD,stateType* earth)
 {
 	stateType emb,e;
-	// µØĞÄÔÚµØÔÂÖÊĞÄÏµÖĞµÄ×´Ì¬
+	// åœ°å¿ƒåœ¨åœ°æœˆè´¨å¿ƒç³»ä¸­çš„çŠ¶æ€
 	Earth_ESBARY(JD,&e); 
-	// µØÔÂÖÊĞÄÔÚÌ«ÑôÖÊĞÄÏµÖĞµÄ×´Ì¬
+	// åœ°æœˆè´¨å¿ƒåœ¨å¤ªé˜³è´¨å¿ƒç³»ä¸­çš„çŠ¶æ€
 	Interpolate_State(JD,PLANET2int(EARTH_MOON_BARYCENTER),&emb); 
 	for (int i=0;i<3;i++)
 	{
@@ -1931,7 +1939,7 @@ void DE421::Earth_SSBARY(double JD,stateType* earth)
 	}
 }
 
-// ÔÂÇòÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+// æœˆçƒåœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 void DE421::Moon_SSBARY(double JD,stateType* moon)
 {
 	stateType m,emb;
@@ -1944,7 +1952,7 @@ void DE421::Moon_SSBARY(double JD,stateType* moon)
 	}
 }
 
-// µØĞÄÔÂÇòÊ¸Á¿
+// åœ°å¿ƒæœˆçƒçŸ¢é‡
 vec3 DE421::Moon(const CDateTime& t)
 {
 	double r[3];
@@ -1963,7 +1971,7 @@ vec3 DE421::Moon(const CDateTime& t)
 	return v;
 }
 
-// µØĞÄÌ«ÑôÊ¸Á¿
+// åœ°å¿ƒå¤ªé˜³çŸ¢é‡
 vec3 DE421::Sun(const CDateTime& t)
 {
 	double r[6];
@@ -1975,10 +1983,10 @@ vec3 DE421::Sun(const CDateTime& t)
 	return v;
 }
 
-/*!ÕÂ¶¯ÏµÊı
-\param t CDatetimeÊ±¼ä
-\param dksi »Æ¾­ÕÂ¶¯ ( unit: radian )
-\param deps ½»½ÇÕÂ¶¯ ( unit: radian )
+/*!ç« åŠ¨ç³»æ•°
+\param t CDatetimeæ—¶é—´
+\param dksi é»„ç»ç« åŠ¨ ( unit: radian )
+\param deps äº¤è§’ç« åŠ¨ ( unit: radian )
 */
 void DE421::Nutations(const CDateTime& t,double& dksi,double& deps)
 {
@@ -1989,8 +1997,8 @@ void DE421::Nutations(const CDateTime& t,double& dksi,double& deps)
 	deps = pv[1];
 }
 
-/*!ÔÂ¹ÌÏµÏà¶ÔÔÂĞÄ¹ßĞÔÏµ(µØĞÄ¹ßĞÔÏµ)µÄÈı¸öÅ·À­×ª½Ç
-\param t CDatetimeÊ±¼ä
+/*!æœˆå›ºç³»ç›¸å¯¹æœˆå¿ƒæƒ¯æ€§ç³»(åœ°å¿ƒæƒ¯æ€§ç³»)çš„ä¸‰ä¸ªæ¬§æ‹‰è½¬è§’
+\param t CDatetimeæ—¶é—´
 \param Omega Omega(unit: radian)
 \param i i(unit: radian)
 \param u u(unit: radian)

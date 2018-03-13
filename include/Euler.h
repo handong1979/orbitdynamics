@@ -5,7 +5,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "config.h"
+#include "Config.h"
 #include "BaseException.h"
 #include "armadillo_BLAS_LAPACK.h"
 using namespace arma;
@@ -26,14 +26,14 @@ public:
 	}
 };
 
-/*!Å·À­½Ç
+/*!Å·ï¿½ï¿½ï¿½ï¿½
 */
 class ORBITDYN_API CEuler
 {
 public:
-	//! Å·À­½Ç×ªÐò
+	//! Å·ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
 	unsigned int seq;
-	//! Å·À­½Ç
+	//! Å·ï¿½ï¿½ï¿½ï¿½
 	double phi,theta,psi;
 
 	CEuler();
@@ -44,7 +44,7 @@ public:
 
 	vec3 ToVec();
 	
-	// ÓÉ×ËÌ¬¾ØÕó¼ÆËã×ËÌ¬½Ç
+	// ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½ï¿½
 	void SetValueFromMatrix312(const mat& m);
 	void SetValueFromMatrix123(const mat& m);
 	void SetValueFromMatrix231(const mat& m);
@@ -53,10 +53,10 @@ public:
 	void SetValueFromMatrix321(const mat& m);
 	void SetValue(double a,double b,double c);
 
-	//! °´ÕÕ×ªÐòµÄ¶¨ÒåÉú³ÉÓàÏÒÕó
+	//! ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	mat33 ToMatrix();
 	
-	//! Éú³ÉÐ¡½Ç¶ÈÏÂµÄ×ËÌ¬¾ØÕó
+	//! ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Ç¶ï¿½ï¿½Âµï¿½ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½
 	mat33 SmallAngleMatrix();
 
 	double operator[](const int i) const{

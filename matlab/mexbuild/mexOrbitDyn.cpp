@@ -1,10 +1,17 @@
-#include "orbitdyn.h"
+#include "OrbitDyn.h"
 
 #include <mex.h>
 #pragma comment(lib,"libmx.lib")
 #pragma comment(lib,"libmex.lib")
 
 static std::vector<CSatellite*> vsat;
+
+char* stoupper( char* s )
+  {
+  char* p = s;
+  while (*p = toupper( *p )) p++;
+  return s;
+  }
 
 void Warning(std::string msg)
 {
@@ -39,7 +46,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
 	char *char_oper;
 	char_oper = mxArrayToString(prhs[1]);
-	char* char_upper_oper = strupr(char_oper);
+	char* char_upper_oper = stoupper(char_oper);
 	if(char_oper==NULL)
 		mexErrMsgTxt("Could not convert second input to string.");
 	std::string operat = char_oper;
@@ -104,7 +111,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 					F[1] = *(tmp+6);
 					F[2] = *(tmp+7);
 					dm = *(tmp+8);					
-					double fm = norm(F,2);
+					double fm = norm(F,2);//sqrt(F(0)*F(0)+F(1)*F(1)+F(2)*F(2));
 					double Isp;
 					if(fm>0.0)
 					{

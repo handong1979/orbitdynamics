@@ -4,7 +4,7 @@
 ≤‚ ‘≥Ã–Ú
 */
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
+//#include <PerfTimer.h>
 
 using namespace Constant;
 
@@ -78,8 +78,8 @@ void test_orbit_propagator()
 
 int main(int argc, char* argv[])
 {
-	CPerfTimer timer;
-	timer.Start();
+	//CPerfTimer timer;
+	//timer.Start();
 
 	try
 	{
@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
  		cerr << ((BaseException*)e)->what() << endl;
  	}
 
-	timer.Stop();
-	cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
+	//timer.Stop();
+	//cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
 	return 0;
 }

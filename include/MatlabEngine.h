@@ -13,7 +13,7 @@ public:
 	}
 
 	~MatlabEngine(){
-		//engClose(ep); // 不关闭，下次启动更快
+		//engClose(ep); // 涓嶅叧闂紝涓嬫鍚姩鏇村揩
 	}
 	void GotoCurrentDir(){
 		char cwd[128];

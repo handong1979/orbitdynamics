@@ -17,7 +17,7 @@
 	using namespace std;
 #endif // _MSC_VER
 
-#include "config.h"
+#include "Config.h"
 #include "BaseException.h"
 #include "armadillo_BLAS_LAPACK.h"
 using namespace arma;
@@ -38,53 +38,53 @@ public:
 	}
 };
 
-/*!四元数
+/*!锟斤拷元锟斤拷
 */
 class ORBITDYN_API CQuaternion
 {
 public:
 	double qx,qy,qz,qs;
 
-	/*!默认构造函数*/
+	/*!默锟较癸拷锟届函锟斤拷*/
 	CQuaternion();
 
-	/*!构造函数*/
+	/*!锟斤拷锟届函锟斤拷*/
 	CQuaternion(double x,double y,double z,double s);
 	
-	/*!用转轴、转角构造*/
+	/*!锟斤拷转锟结、转锟角癸拷锟斤拷*/
 	CQuaternion(const vec3& e,double phi);
 
-	/*!用数组构造*/
+	/*!锟斤拷锟斤拷锟介构锟斤拷*/
 	CQuaternion(double *);
 
-	/*!用方向余弦阵构造*/
+	/*!锟矫凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷*/
 	CQuaternion(const mat& c);
 
-	/*!析构函数*/
+	/*!锟斤拷锟斤拷锟斤拷锟斤拷*/
 	~CQuaternion(){}
 
-	/*!四元数的范数*/
+	/*!锟斤拷元锟斤拷锟侥凤拷锟斤拷*/
 	double Norm()const;
 
-	/*! 操作符[]取值 */
+	/*! 锟斤拷锟斤拷锟斤拷[]取值 */
 	double & operator[](int i);
 
-	/*! 操作符[]赋值 */
+	/*! 锟斤拷锟斤拷锟斤拷[]锟斤拷值 */
 	double operator[](int i) const;
 
-	/*!四元数规范化*/
+	/*!锟斤拷元锟斤拷锟芥范锟斤拷*/
 	void Normalize();
 	
-	/*!求一定转序下的欧拉角*/
+	/*!锟斤拷一锟斤拷转锟斤拷锟铰碉拷欧锟斤拷锟斤拷*/
 	void EulerAngles(char* seq,double& phi,double& theta,double& ksi) const;
 	
-	/*!四元数对应的方向余弦阵*/
+	/*!锟斤拷元锟斤拷锟斤拷应锟侥凤拷锟斤拷锟斤拷锟斤拷锟斤拷*/
 	mat33 C() const;
 
-	/*!矢量部分*/
+	/*!矢锟斤拷锟斤拷锟斤拷*/
 	vec3 v() const;
 	
-	/*!Omega矩阵*/
+	/*!Omega锟斤拷锟斤拷*/
 	mat Eq() const;
 	
 	void QInt(const vec3& wbi,double dt);

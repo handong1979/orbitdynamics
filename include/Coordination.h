@@ -1,12 +1,12 @@
 #ifndef __COORDINATION_H
 #define __COORDINATION_H
 
-#include "config.h"
+#include "Config.h"
 #include "armadillo_BLAS_LAPACK.h"
 using namespace arma;
 #include <cstdio>
 
-//! µÑ¿¨¶ûÖ±½Ç×ø±ê
+//! ï¿½Ñ¿ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class ORBITDYN_API CCartesian
 {
 public:
@@ -25,7 +25,7 @@ public:
 		~CCartesian(void){ }
 };
 
-//! Çò×ø±ê
+//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class ORBITDYN_API CSpherical
 {
 public:

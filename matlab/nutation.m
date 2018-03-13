@@ -21,5 +21,5 @@ else
     error('输入参数数目错误');
 end
 eps = ecliptic_equator_angle(TDT);
-[dksi deps] = nutation_angle(TDT);
+[dksi,deps] = nutation_angle(TDT);
 nu = rotx(-eps-deps)*rotz(-dksi)*rotx(eps);

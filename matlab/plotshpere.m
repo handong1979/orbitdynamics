@@ -1,3 +1,4 @@
+% »­¸öÔ²Çò
 function ax = plotshpere(rou)
 if nargin == 0
     rou = 1;

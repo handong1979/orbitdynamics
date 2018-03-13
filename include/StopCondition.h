@@ -1,31 +1,31 @@
 #ifndef __STOPCONDITION_H
 #define __STOPCONDITION_H
 
-#include "config.h"
+#include "Config.h"
 
 class CSatelliteBase;
 
-/*! ¹ìµÀÍâÍÆµÄÍ£Ö¹Ìõ¼þ
+/*! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½
 
 */
 class ORBITDYN_API CStopCondition
 {
 protected:
-	//! ¶ÔÓ¦Ò»¿ÅÎÀÐÇ
+	//! ï¿½ï¿½Ó¦Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CSatelliteBase* Sat;
-	//! ÉÏÒ»²½µÄÖµ
+	//! ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Öµ
 	double PreValue;
-	//! Ä¿±êÖµ
+	//! Ä¿ï¿½ï¿½Öµ
 	double Trip;
-	//! Ä¿±êÖµÎó²î
+	//! Ä¿ï¿½ï¿½Öµï¿½ï¿½ï¿½
 	double Tolerance;
 public:
 	CStopCondition();
 	virtual ~CStopCondition();
 
-	//! ÊÇ·ñÍ£Ö¹£¿
+	//! ï¿½Ç·ï¿½Í£Ö¹ï¿½ï¿½
 	virtual bool Stop() = 0;
-	//! ÊÇ·ñ³¬¹ý(ÐèÒª»ØÍË),·µ»Ø²½³¤Ëõ·ÅÒò×Ó
+	//! ï¿½Ç·ñ³¬¹ï¿½(ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½),ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	virtual double Over() = 0;
 };
 

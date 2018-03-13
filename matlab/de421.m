@@ -29,6 +29,19 @@
 %     nt = de421(mjd,'Nutations')
 %  计算月球天平动角
 %     lb = de421(mjd,'Librations')
+
+%% example code
+% 月球天平动角的变化
+% mjd = date2mjd(2009,1,19,12,0,0);
+% for t=1:1440*28
+%    lb(t,:) = de421(mjd+t/1440,'Librations');
+% end
+% figure,plot(1:1440*28,lb(:,1)*deg)
+% figure,plot(1:1440*28,lb(:,2)*deg)
+% figure,plot(1:1440*28,lb(:,3)*deg)
+% figure,plot(1:1440*28-1,diff(lb(:,3))*deg)
+
+%%
 function out = de421(mjd,cent,target)
 icent = name2int(cent);
 if (icent == 13) || (icent == 14)

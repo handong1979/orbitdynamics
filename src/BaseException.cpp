@@ -13,12 +13,12 @@
 // Created: 2007/1/18
 //
 /**
- * Exception class used by the base class.
+ * Exception class used by the GmatBase base class.
  */
 //------------------------------------------------------------------------------
 
 #include "BaseException.h"
-#include <stdlib.h>
+#include "stdlib.h"
 #include <stdarg.h>                // for va_start(), va_end()
 
 #if _MSC_VER < 1300

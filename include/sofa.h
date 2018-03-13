@@ -20,13 +20,15 @@
 
 #include "sofam.h"
 #include "math.h"
-
+#if __APPLE__
+#define SOFA_API
+#else
 #ifdef SOFA_EXPORTS 
 	#define SOFA_API __declspec(dllexport)
 #else
 	#define SOFA_API __declspec(dllimport)
 #endif
-
+#endif
 #ifdef __cplusplus
 extern "C" {
 #endif

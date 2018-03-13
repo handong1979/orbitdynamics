@@ -4,7 +4,7 @@ if ~isvector(u)
     error('input must be a vector');
 end
 % 跳变点的位置
-jumppoint = find(abs(diff(u))>1)+1;
+jumppoint = find(abs(diff(u))>0.1)+1;
 % 跳变点的个数
 njpoint = length(jumppoint);
 % 从后到前，依次加上2pi

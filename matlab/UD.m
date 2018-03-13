@@ -1,6 +1,6 @@
 % 正定矩阵的UD分解
 % [U, D] = UDUT(P)
-% satifized: P = U*D*D'
+% satifized: P = U*D*U'
 function [UU, DD] = UD(P)
 if nargin == 0 % self test
     n = 6;

@@ -4,8 +4,6 @@
 测试程序
 */
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
-
 using namespace Constant;
 
 //! 测试平根数和瞬根数的计算
@@ -42,9 +40,6 @@ void test_mean_inst()
 
 int main(int argc, char* argv[])
 {
-	CPerfTimer timer;
-	timer.Start();
-
 	try
 	{
 		cout.precision(12);
@@ -60,7 +55,5 @@ int main(int argc, char* argv[])
  		cerr << ((BaseException*)e)->what() << endl;
  	}
 
-	timer.Stop();
-	cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
 	return 0;
 }

@@ -4,7 +4,7 @@
 ≤‚ ‘≥Ã–Ú
 */
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
+//#include <PerfTimer.h>
 
 using namespace Constant;
 
@@ -17,20 +17,20 @@ void testBackward()
 	sat1.SetAutoSave(true);
 	sat1.Initialize(t0,elem0,'i');
 
-	CPerfTimer timer1;
-	timer1.Start();
+	//CPerfTimer timer1;
+	//timer1.Start();
 	sat1.PropagateBackward(-10,-5000);
-	timer1.Stop();
-	double t1 = timer1.Elapsed()/500*1000;
-	cout<<"Timer Backward:"<<t1<<"ms"<<endl;
+	//timer1.Stop();
+	//double t1 = timer1.Elapsed()/500*1000;
+	//cout<<"Timer Backward:"<<t1<<"ms"<<endl;
 
 	sat1.Propagate(10,5000);
 }
 
 int main(int argc, char* argv[])
 {
-	CPerfTimer timer;
-	timer.Start();
+	//CPerfTimer timer;
+	//timer.Start();
 
 	try
 	{
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
  		cerr << ((BaseException*)e)->what() << endl;
  	}
 
-	timer.Stop();
-	cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
+	//timer.Stop();
+	//cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
 	return 0;
 }

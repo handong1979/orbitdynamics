@@ -9,7 +9,7 @@
 #ifndef BaseException_hpp
 #define BaseException_hpp
 
-#define USE_STD_EXCEPTION 1
+#define USE_STD_EXCEPTION 0
 
 #if USE_STD_EXCEPTION
 #include <exception>
@@ -38,10 +38,10 @@ public:
    const BaseException& operator=(const std::string &newMessage) 
       {theMessage = newMessage;  return *this;};
 
-#if USE_STD_EXCEPTION
+//#if USE_STD_EXCEPTION
 	const char * what() const _NOEXCEPT
 	{ return (theMessage + theDetails).c_str();   }
-#endif //USE_STD_EXCEPTION
+//#endif //USE_STD_EXCEPTION
 
    virtual void SetDetails(const char *details, ...);
 #if _MSC_VER > 1300   
@@ -55,7 +55,7 @@ protected:
       {theMessage = message; theDetails = details;};
    BaseException(const BaseException& baseException) 
       {theMessage = baseException.theMessage; theDetails = baseException.theDetails;};
-   virtual ~BaseException() _NOEXCEPT
+   virtual ~BaseException() 
       {};
    const BaseException& operator=(const BaseException& baseException) 
       {theMessage = baseException.theMessage; theDetails = baseException.theDetails;

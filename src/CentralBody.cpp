@@ -37,7 +37,7 @@ CentralBody::~CentralBody()
 void CentralBody::ReadGrvFile(const char* file)
 {
 	FILE* grv;
-	fopen_s(&grv,file,"r");
+	grv = fopen(file,"r");
 	if(grv==NULL)
 	{
 		CentralBodyException ept;
@@ -62,10 +62,18 @@ Earth::Earth()
 	AtmosModel = MSISE2000;
 
 #ifndef NONE_DATA_FILE_MODE
-	std::string Name = DataDir + "\\data\\WGS84_EGM96.grv"; // 默认引力场文件为WGS84_EGM96.grv
+#if __APPLE__
+    std::string Name = DataDir + "/data/WGS84_EGM96.grv";
+#else
+    std::string Name = DataDir + "\\data\\WGS84_EGM96.grv"; // 默认引力场文件为WGS84_EGM96.grv
+#endif
 	ReadGrvFile(Name.c_str());
 
+#if __APPLE__
+    Name = DataDir + "/data/EOP.dat";
+#else
 	Name = DataDir + "\\data\\EOP.dat";
+#endif
 	FILE* fp;
 	fopen_s(&fp,Name.c_str(),"r");
 	if(fp==NULL)
@@ -377,6 +385,23 @@ void Earth::SetGravityField(GRAVITY grv)
 	std::string Name;
 	switch(grv)
 	{
+#if __APPLE__
+    case WGS84:
+        Name = DataDir + "/data/WGS84.grv";
+        break;
+    case WGS84_EGM96:
+        Name = DataDir + "/data/WGS84_EGM96.grv";
+        break;
+    case EGM96:
+        Name = DataDir + "/data/EGM96.grv";
+        break;
+    case JGM2:
+        Name = DataDir + "/data/JGM2.grv";
+        break;
+    case JGM3:
+        Name = DataDir + "/data/JGM3.grv";
+        break;
+#else
 	case WGS84:
 		Name = DataDir + "\\data\\WGS84.grv";
 		break;
@@ -392,6 +417,7 @@ void Earth::SetGravityField(GRAVITY grv)
 	case JGM3:
 		Name = DataDir + "\\data\\JGM3.grv";
 		break;
+#endif
 	default:
 		throw CentralBodyException("CEarth::SetEarthGravityField(): Can't find that Gravity model!");
 	}
@@ -414,7 +440,11 @@ void Earth::SetAtmosphereModel( ATMOS a)
 	AtmosModel = a;
 	if(AtmosModel == MANUAL)
 	{
+#if __APPLE__
+        std::string Name = DataDir + "/data/atmos.den";
+#else
 		std::string Name = DataDir + "\\data\\atmos.den";
+#endif
 		FILE* fp;
 		fopen_s(&fp,Name.c_str(),"r");
 		if(fp==NULL)
@@ -564,7 +594,11 @@ Moon* Moon::Instance()
 
 Moon::Moon()
 {
+#if __APPLE__
+    std::string name = DataDir + "/data/LP165P.grv";
+#else
 	std::string name = DataDir + "\\data\\LP165P.grv";   // 默认引力场文件为GLGM2.grv
+#endif
 	GrvModel = LP165P;
 #ifndef NONE_DATA_FILE_MODE
 	ReadGrvFile(name.c_str());
@@ -831,12 +865,21 @@ void Moon::SetGravityField(GRAVITY grv)
 	std::string Name;
 	switch(grv)
 	{
+#if __APPLE__
+    case GLGM2:
+        Name = DataDir + "/data/GLGM2.grv";
+        break;
+    case LP165P:
+        Name = DataDir + "/data/LP165P.grv";
+        break;
+#else
 	case GLGM2:
         Name = DataDir + "\\data\\GLGM2.grv";
 		break;
 	case LP165P:
 		Name = DataDir + "\\data\\LP165P.grv";
 		break;
+#endif
 	default:
 		throw CentralBodyException("CMoon::SetEarthGravityField(): Can't find that Gravity model!");
 	}

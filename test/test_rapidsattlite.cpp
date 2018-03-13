@@ -4,8 +4,6 @@
 ≤‚ ‘≥Ã–Ú
 */
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
-
 using namespace Constant;
 
 void test_rapidsattlite()
@@ -18,21 +16,15 @@ void test_rapidsattlite()
 	sat1.SetAutoSave(writefile);
 	sat1.Initialize(t0,elem0,'i');
 
- 	CPerfTimer timer1;
- 	timer1.Start();
 	//sat1.Propagate2Equator();
  	sat1.Propagate(10,5000);
- 	timer1.Stop();
-	double t1 = timer1.Elapsedms()/500;
- 	cout<<"Timer1:"<<t1<<"ms"<<endl;
+    cout << "Sat1 propagate end\n";
 
 	CRapidSatellite sat2;
 	sat2.SetForce(6,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL);
 	sat2.SetAutoSave(writefile);
 	sat2.Initialize(t0,elem0,'i');
 
-	CPerfTimer timer2;
-	timer2.Start();
 	fstream fraps("rapidsat.dat",ios::out);
 	for(int i=0;i<100000;i++)
 	{
@@ -41,18 +33,11 @@ void test_rapidsattlite()
 			fraps << i/4.0 << TAB << sat2.GetOrbitElements() 
 			        << TAB << Mean(sat2.GetOrbitElements()) << endl;
 	}
-	timer2.Stop();
-	double t2 = timer2.Elapsedms()/100000;
-	cout<<"Timer2:"<<t2<<"ms"<<endl;
-
-	cout << "Speed up " << t1/t2 << " times\n";
+    cout << "RapidSat propagate end";
 }
 
 int main(int argc, char* argv[])
 {
-	CPerfTimer timer;
-	timer.Start();
-
 	try
 	{
 		cout.precision(12);
@@ -68,7 +53,5 @@ int main(int argc, char* argv[])
  		cerr << ((BaseException*)e)->what() << endl;
  	}
 
-	timer.Stop();
-	cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
 	return 0;
 }

@@ -12,7 +12,7 @@
 	using namespace std;
 #endif	// _MSC_VER
 
-#include "config.h"
+#include "Config.h"
 #include "Constant.h"
 #include "BaseException.h"
 using namespace Constant;
@@ -28,7 +28,7 @@ inline double raeE(double a,double e,double E){
 	return a*(1-e*cos(E));
 }
 
-//! ¿ªÆÕÀÕ¹ìµÀ¸ùÊý
+//! ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class ORBITDYN_API Kepler
 {
 public:
@@ -45,10 +45,10 @@ public:
 	//! Mean Anomaly(rad)
 	double M;
 
-	//! Ä¬ÈÏ¹¹Ôì
+	//! Ä¬ï¿½Ï¹ï¿½ï¿½ï¿½
 	Kepler();
 
-	//! ÀàÐÍ×ª»»
+	//! ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
 	Kepler(const double oe[6]); 
 	
 	Kepler(double SemimajorAxis,double Eccentricity,double Inclination,
@@ -86,9 +86,9 @@ public:
 	void SetElements(const double elem[6]);
 };
 
-//! ±ê×¼Êä³öÁ÷,½Ç¶Èµ¥Î»Îª¶È
+//! ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Ç¶Èµï¿½Î»Îªï¿½ï¿½
 ORBITDYN_API std::ostream & operator << (std::ostream & out,const Kepler & kp);
-//! ±ê×¼ÊäÈëÁ÷,½Ç¶Èµ¥Î»Îª»¡¶È
+//! ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Ç¶Èµï¿½Î»Îªï¿½ï¿½ï¿½ï¿½
 ORBITDYN_API std::istream & operator >> (std::istream & in,Kepler & kp);
 
 class ORBITDYN_API KeplerException : public BaseException

@@ -1,3 +1,4 @@
+% ¼ò»¯µØ´Å³¡
 function [Bo,B] = magnetfield(lon,lat,a,u,i)
 persistent g0 g1 h1 R0
 if isempty(g0)

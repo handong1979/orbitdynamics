@@ -4,8 +4,6 @@
 ≤‚ ‘≥Ã–Ú
 */
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
-
 using namespace Constant;
 
 void test_sg()
@@ -30,10 +28,7 @@ void test_sg()
 
 int main(int argc, char* argv[])
 {
-	CPerfTimer timer;
-	timer.Start();
-
-	try
+    try
 	{
 		cout.precision(12);
 
@@ -48,7 +43,5 @@ int main(int argc, char* argv[])
  		cerr << ((BaseException*)e)->what() << endl;
  	}
 
-	timer.Stop();
-	cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
 	return 0;
 }

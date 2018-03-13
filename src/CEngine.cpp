@@ -5,7 +5,7 @@
 
 #include <cmath>
 #include "CEngine.h"
-#include "constant.h"
+#include "Constant.h"
 
 double CEngine::dm()
 {

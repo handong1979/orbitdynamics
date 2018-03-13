@@ -7,7 +7,7 @@
 %
 % See Also mjd2date,datenum,datevec
 function MJD = date2mjd( varargin )
-[year month day hour min sec] = datevec(datenum(varargin{:}));
+[year,month,day,hour,min,sec] = datevec(datenum(varargin{:}));
 tmp = fix((month-14)/12);
 J = day - 32075 +  fix( 1461.*(year+4800+tmp)./4 )  ...
     +  fix( 367.*(month - 2- tmp*12)./12 )  ...

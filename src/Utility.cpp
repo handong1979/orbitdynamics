@@ -6,13 +6,44 @@
 
 #include "Utility.h"
 #include "Satellite.h"
+#include "stdio.h"
 
 /*!
 读取环境变量，以便找到data目录所在的位置
 */
 std::string GetOrbitDynDir()
 {
-#ifndef NONE_DATA_FILE_MODE
+    FILE* configfile;
+
+#if __APPLE__
+    fopen_s(&configfile,"~/.orbitdynamics","r");
+    if(configfile!=NULL)
+    {  // 检查配置文件内容
+        //configfile >> Name;
+        char Name[100];
+
+        fscanf_s(configfile,"%s",Name);
+        std::string DataDir(Name);
+        std::string fileName = DataDir + "/data/planetEph.405";
+        const char *fName = fileName.c_str();
+        FILE *fp;
+        fopen_s(&fp,fName,"r"); // 测试文件是否存在
+        if(DataDir.empty() || fp == NULL)
+        {
+            if(configfile!=NULL) fclose(configfile);
+            if(fp!=NULL) fclose(fp);
+            return std::string("."); // 配置文件所指目录不存在，返回当前目录
+        }
+        else
+        {
+            if(configfile!=NULL) fclose(configfile);
+            if(fp!=NULL) fclose(fp);
+            return DataDir; // 配置文件中的目录
+        }
+    }
+    
+    return std::string("/Users/handong");
+#else
 	int env;
 	// 读取环境变量OrbitDyn，即data目录所在位置
 #if _MSC_VER < 1400
@@ -42,14 +73,13 @@ std::string GetOrbitDynDir()
 	}
 	if(env) // 环境变量不存在，或环境变量错误
 	{
-		FILE* configfile;
 		fopen_s(&configfile,"C:\\OrbitDyn.config","r");
 		if(false/*configfile!=NULL*/)
 		{  // 检查配置文件内容
 			//configfile >> Name;
 			fscanf_s(configfile,"%s",Name);
 			std::string DataDir(Name);
-			std::string fileName = DataDir + "\\data\\planetEph.405";
+            std::string fileName = DataDir + "\\data\\planetEph.405";
 			const char *fName = fileName.c_str();
 			FILE *fp;
 			fopen_s(&fp,fName,"rb"); // 测试文件是否存在
@@ -67,12 +97,10 @@ std::string GetOrbitDynDir()
 			}
 		}
 		else
-			return std::string("."); // 配置文件不存在，返回当前目录
+			return std::string("~/Program/GitHub/orbitdynamics"); // 配置文件不存在，返回当前目录
 	}
-	return std::string("."); // 返回当前目录
-#else
-	return std::string(".");
-#endif //NONE_DATA_FILE_MODE
+	return std::string("~/Program/GitHub/orbitdynamics"); // 返回当前目录
+#endif //__APPLE__
 }
 
 /*!产生白噪声
