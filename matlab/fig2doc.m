@@ -1,6 +1,6 @@
-% ×Ô¶¯½ØËùÓĞµÄÍ¼µ½wordÎÄ¼şÖĞ
-% ×÷Õß£ºÁÖ²¨
-% ĞŞ¸Ä£ºº«¶¬
+% è‡ªåŠ¨æˆªæ‰€æœ‰çš„å›¾åˆ°wordæ–‡ä»¶ä¸­
+% ä½œè€…ï¼šæ—æ³¢
+% ä¿®æ”¹ï¼šéŸ©å†¬
 function fig2doc()
 bDoc=1;
 if(bDoc)
@@ -27,18 +27,18 @@ if(bDoc)
     paragraphformat=selection.ParagraphFormat;
     
     CaptionLabels=Word.CaptionLabels;
-    CaptionLabel=CaptionLabels.Add('±í'); %¼ÓÈëÒ»¸öÍ¼±ê
-    CaptionLabel=CaptionLabels.Add('Í¼'); %¼ÓÈëÒ»¸öÍ¼±ê
+    CaptionLabel=CaptionLabels.Add('è¡¨'); %åŠ å…¥ä¸€ä¸ªå›¾æ ‡
+    CaptionLabel=CaptionLabels.Add('å›¾'); %åŠ å…¥ä¸€ä¸ªå›¾æ ‡
     
     end_of_doc=get(content,'end');
-    selection.Start=content.end;   %ÉèÖÃ¹â±êµ½ÎÄµµ×îºó
-    % selection.TypeParagraph;      %ÁíÈ¡Ò»¶Î
+    selection.Start=content.end;   %è®¾ç½®å…‰æ ‡åˆ°æ–‡æ¡£æœ€å
+    % selection.TypeParagraph;      %å¦å–ä¸€æ®µ
 end
 % FigureTable = plotdata();
 % nNumFig=length(FigureTable);
-FigureTable = get(0,'Children'); % ËùÓĞfigureµÄ¾ä±ú
+FigureTable = get(0,'Children'); % æ‰€æœ‰figureçš„å¥æŸ„
 nNumFig = length(FigureTable);
-disp(sprintf('ĞèÒª¸´ÖÆµ½WordµÄÍ¼ĞÎ¸öÊı%d\n',nNumFig));
+disp(sprintf('éœ€è¦å¤åˆ¶åˆ°Wordçš„å›¾å½¢ä¸ªæ•°%d\n',nNumFig));
 if(bDoc)
     for idfig=1:nNumFig
         zft=FigureTable(idfig);
@@ -49,10 +49,10 @@ if(bDoc)
         
         disp(sprintf('Copy figure %d in Word\n',idfig));
         %        worstINDEX=WORST_PLAN(idfig);
-        %        figureFootString=sprintf('Í¼%d: %s,%s(¹¤¿ö%d),Bp=%2.0f,%sÇúÏß',figureIdBase+idfig,axsString,conString,flgWorkingCondiction,Bp,comboString);
+        %        figureFootString=sprintf('å›¾%d: %s,%s(å·¥å†µ%d),Bp=%2.0f,%sæ›²çº¿',figureIdBase+idfig,axsString,conString,flgWorkingCondiction,Bp,comboString);
         
 %         if(zft.Userid)
-%             tmp=sprintf('Í¼ %s-%d.%d %s',zft.strFooterDate,zft.idFooter,idfig,zft.footer);
+%             tmp=sprintf('å›¾ %s-%d.%d %s',zft.strFooterDate,zft.idFooter,idfig,zft.footer);
 %             set(content,'Start',selection.Start);
 %             set(content,'Text',tmp);
 %             set(paragraphformat,'Alignment','wdAlignParagraphCenter');
@@ -60,7 +60,7 @@ if(bDoc)
 %             rr.Font.Size=10;
 %             selection.Start=content.end;
 %         else
-%             selection.InsertCaption('Í¼',zft.footer);  %²åÈë±êÌâ
+%             selection.InsertCaption('å›¾',zft.footer);  %æ’å…¥æ ‡é¢˜
 %             set(content,'Start',selection.Start);
 %         end
         selection.TypeParagraph;
@@ -78,9 +78,9 @@ strpath=pwd;
 filespec_user=sprintf('%s\\a0simcfg.txt',strpath);
 fcfg=fopen(filespec_user,'r');
 if fcfg<0
-    disp(sprintf('¶ÁÈ¡ÎÄ¼ş%sÊ§°Ü\n',filespec_user));
+    disp(sprintf('è¯»å–æ–‡ä»¶%så¤±è´¥\n',filespec_user));
 else
-    disp(sprintf('¶ÁÈ¡ÎÄ¼ş%s³É¹¦\n',filespec_user));
+    disp(sprintf('è¯»å–æ–‡ä»¶%sæˆåŠŸ\n',filespec_user));
 end
 %strTmpMemTitle=fgets(fcfg);
 tmp=fscanf(fcfg,'%s',1);
@@ -98,9 +98,9 @@ filespec_user=sprintf('%s\\%s',strpath,strplotcfg);
 fcfg=fopen(filespec_user,'r');
 
 if fcfg<0
-    disp(sprintf('¶ÁÈ¡ÎÄ¼ş%sÊ§°Ü\n',filespec_user));
+    disp(sprintf('è¯»å–æ–‡ä»¶%så¤±è´¥\n',filespec_user));
 else
-    disp(sprintf('¶ÁÈ¡ÎÄ¼ş%s³É¹¦\n',filespec_user));
+    disp(sprintf('è¯»å–æ–‡ä»¶%sæˆåŠŸ\n',filespec_user));
 end
 idx=1;
 
@@ -150,7 +150,7 @@ MarkerSize=MarkInfo(1);
 MarkGap=MarkInfo(2);
 
 while(~feof(fcfg))
-    strDivLine=fgets(fcfg);  %¸÷·ÖÏß
+    strDivLine=fgets(fcfg);  %å„åˆ†çº¿
     strLine=fgets(fcfg);
     tmp=sscanf(strLine,'%s',1);
     strLine=strLine(length(tmp)+1:length(strLine));
@@ -198,7 +198,7 @@ end
 fclose(fcfg);
 
 NumTask=length(task);
-disp(sprintf('»­Í¼¸öÊı%d\n',NumTask))
+disp(sprintf('ç”»å›¾ä¸ªæ•°%d\n',NumTask))
 
 filename='nofile';
 idxFig=1;
@@ -209,9 +209,9 @@ for i=1:NumTask
         fid=fopen(filename,'r');
         
         if fid<0
-            disp(sprintf('¶ÁÈ¡ÎÄ¼şÊ§°Ü%s\n',filename));
+            disp(sprintf('è¯»å–æ–‡ä»¶å¤±è´¥%s\n',filename));
         else
-            disp(sprintf('¶ÁÈ¡ÎÄ¼ş³É¹¦%s\n',filename));
+            disp(sprintf('è¯»å–æ–‡ä»¶æˆåŠŸ%s\n',filename));
         end
         sHeader=fgets(fid);
         sHeader=sscanf(sHeader,'%s');
@@ -234,11 +234,11 @@ for i=1:NumTask
     indexY=[];
     X=task(i).X;
     
-    %ÕÒXÖáÊı¾İ
+    %æ‰¾Xè½´æ•°æ®
     c=findstr(sHeader,',');
     c2=findstr(sHeader,X);
     if isempty(c2)
-        strtmp=sprintf('Êı¾İ%s²»´æÔÚ',X);
+        strtmp=sprintf('æ•°æ®%sä¸å­˜åœ¨',X);
         disp(strtmp);
     else
         nc=length(c)+1;
@@ -263,7 +263,7 @@ for i=1:NumTask
         end
     end
     
-    %ÕÒYÖáÊı¾İ
+    %æ‰¾Yè½´æ•°æ®
     Ytmp=task(i).Y;
     Ycomma=findstr(Ytmp,',');
     for j=1:length(Ycomma)+1
@@ -288,7 +288,7 @@ for i=1:NumTask
         c=findstr(sHeader,',');
         c2=findstr(sHeader,Y);
         if isempty(c2)
-            strtmp=sprintf('Êı¾İ%s²»´æÔÚ',Y);
+            strtmp=sprintf('æ•°æ®%sä¸å­˜åœ¨',Y);
             disp(strtmp);
         else
             nc=length(c)+1;
@@ -336,12 +336,12 @@ for i=1:NumTask
                 nMarker=length(value(:,indexX));
                 if task(i).bmarkeron
                     incgap=ceil(nMarker/MarkGap);
-                    [vss idmax]=max(value(:,indexY(n)));  %ÔÚ×î´óÖµÉÏ»­·ûºÅ
+                    [vss idmax]=max(value(:,indexY(n)));  %åœ¨æœ€å¤§å€¼ä¸Šç”»ç¬¦å·
                     hh=plot(value(idmax,indexX),value(idmax,indexY(n)),LineType(n).color,'MarkerFaceColor',LineType(n).color,'Marker',LineType(n).marker,'MarkerSize',MarkerSize);
                     set(hh,'Parent',hSGroup);
                     hold on;
                     
-                    [vss idmin]=min(value(:,indexY(n))); %ÔÚ×îĞ¡ÖµÉÏ»­·ûºÅ
+                    [vss idmin]=min(value(:,indexY(n))); %åœ¨æœ€å°å€¼ä¸Šç”»ç¬¦å·
                     hh=plot(value(idmin,indexX),value(idmin,indexY(n)),LineType(n).color,'MarkerFaceColor',LineType(n).color,'Marker',LineType(n).marker,'MarkerSize',MarkerSize);
                     set(hh,'Parent',hSGroup);
                     hold on;

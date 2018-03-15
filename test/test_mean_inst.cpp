@@ -1,12 +1,12 @@
 /*!
 \file test.cpp
 \author HanDle
-测试程序
+娴嬭瘯绋嬪簭
 */
 #include <OrbitDyn.h>
 using namespace Constant;
 
-//! 测试平根数和瞬根数的计算
+//! 娴嬭瘯骞虫牴鏁板拰鐬牴鏁扮殑璁＄畻
 void test_mean_inst()
 {
 	FILE * cla = fopen("Mean\\cla.txt","r");

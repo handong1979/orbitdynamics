@@ -1,4 +1,4 @@
-% Ğ¡½Ç¶È×ËÌ¬¾ØÕó--·ûºÅÔËËã
+% å°è§’åº¦å§¿æ€çŸ©é˜µ--ç¬¦å·è¿ç®—
 function c = littleatt()
 phi = sym('phi');
 theta = sym('theta');

@@ -1,4 +1,4 @@
-%ÒÑÖªÄ¿±ê¸ùÊı¼°Ïà¶ÔÎ»ÖÃËÙ¶È£¬Çó×·×ÙĞÇ¸ùÊı trc(targetelem,rel)
+%å·²çŸ¥ç›®æ ‡æ ¹æ•°åŠç›¸å¯¹ä½ç½®é€Ÿåº¦ï¼Œæ±‚è¿½è¸ªæ˜Ÿæ ¹æ•° trc(targetelem,rel)
 % targetelem=6*1  rel=6*1
 
 function chaseelem = trc(telem,rel)

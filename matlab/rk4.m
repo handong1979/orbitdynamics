@@ -1,4 +1,4 @@
-% Áú¸ñ¿âËþ4½×»ý·Ö
+% é¾™æ ¼åº“å¡”4é˜¶ç§¯åˆ†
 function xk = rk4(dynfunc,step,x0)
 if nargin == 0
     warning('self test');

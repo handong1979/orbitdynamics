@@ -1,12 +1,12 @@
 /*!
 \file test.cpp
 \author HanDle
-测试程序
+娴嬭瘯绋嬪簭
 */
 #include <OrbitDyn.h>
 using namespace Constant;
 
-//! 测试地月转移轨道
+//! 娴嬭瘯鍦版湀杞Щ杞ㄩ亾
 void test_earth_lunar_transfer()
 {
 	fstream sat("satECI.dat",ios::out);
@@ -26,7 +26,7 @@ void test_earth_lunar_transfer()
 	CE1.SetForce(8,ODP_EARTH_TESSERAL|ODP_LUNAR_CENT|ODP_SOLAR_CENT);
 
 	double Step = 360;
-	vec3 Pos,Vel; // 月心惯性系位置速度
+	vec3 Pos,Vel; // 鏈堝績鎯�х郴浣嶇疆閫熷害
 	CDateTime time = CE1.CurrentEpoch();
 
 	Kepler elem;

@@ -1,7 +1,7 @@
 /*!
-Éã¶¯¼ÓËÙ¶È¡¢ÊıÑ§º¯Êı
-×ø±ê×ª»»º¯Êı(°üÀ¨¹ßĞÔÏµ¡¢µØ¹ÌÏµ¡¢¹ìµÀÏµ)
-\author  º«¶¬
+æ‘„åŠ¨åŠ é€Ÿåº¦ã€æ•°å­¦å‡½æ•°
+åæ ‡è½¬æ¢å‡½æ•°(åŒ…æ‹¬æƒ¯æ€§ç³»ã€åœ°å›ºç³»ã€è½¨é“ç³»)
+\author  éŸ©å†¬
 *********************************************************************/
 
 #include "Utility.h"
@@ -9,7 +9,7 @@
 #include "stdio.h"
 
 /*!
-¶ÁÈ¡»·¾³±äÁ¿£¬ÒÔ±ãÕÒµ½dataÄ¿Â¼ËùÔÚµÄÎ»ÖÃ
+è¯»å–ç¯å¢ƒå˜é‡ï¼Œä»¥ä¾¿æ‰¾åˆ°dataç›®å½•æ‰€åœ¨çš„ä½ç½®
 */
 std::string GetOrbitDynDir()
 {
@@ -18,7 +18,7 @@ std::string GetOrbitDynDir()
 #if __APPLE__
     fopen_s(&configfile,"~/.orbitdynamics","r");
     if(configfile!=NULL)
-    {  // ¼ì²éÅäÖÃÎÄ¼şÄÚÈİ
+    {  // æ£€æŸ¥é…ç½®æ–‡ä»¶å†…å®¹
         //configfile >> Name;
         char Name[100];
 
@@ -27,25 +27,25 @@ std::string GetOrbitDynDir()
         std::string fileName = DataDir + "/data/planetEph.405";
         const char *fName = fileName.c_str();
         FILE *fp;
-        fopen_s(&fp,fName,"r"); // ²âÊÔÎÄ¼şÊÇ·ñ´æÔÚ
+        fopen_s(&fp,fName,"r"); // æµ‹è¯•æ–‡ä»¶æ˜¯å¦å­˜åœ¨
         if(DataDir.empty() || fp == NULL)
         {
             if(configfile!=NULL) fclose(configfile);
             if(fp!=NULL) fclose(fp);
-            return std::string("."); // ÅäÖÃÎÄ¼şËùÖ¸Ä¿Â¼²»´æÔÚ£¬·µ»Øµ±Ç°Ä¿Â¼
+            return std::string("."); // é…ç½®æ–‡ä»¶æ‰€æŒ‡ç›®å½•ä¸å­˜åœ¨ï¼Œè¿”å›å½“å‰ç›®å½•
         }
         else
         {
             if(configfile!=NULL) fclose(configfile);
             if(fp!=NULL) fclose(fp);
-            return DataDir; // ÅäÖÃÎÄ¼şÖĞµÄÄ¿Â¼
+            return DataDir; // é…ç½®æ–‡ä»¶ä¸­çš„ç›®å½•
         }
     }
     
     return std::string("/Users/handong");
 #else
 	int env;
-	// ¶ÁÈ¡»·¾³±äÁ¿OrbitDyn£¬¼´dataÄ¿Â¼ËùÔÚÎ»ÖÃ
+	// è¯»å–ç¯å¢ƒå˜é‡OrbitDynï¼Œå³dataç›®å½•æ‰€åœ¨ä½ç½®
 #if _MSC_VER < 1400
 	char* Name = getenv("OrbitDyn");
 	if(Name==NULL)
@@ -57,58 +57,58 @@ std::string GetOrbitDynDir()
 	size_t len;
 	env = getenv_s(&len,Name,100,"OrbitDyn");
 #endif // _MSC_VER < 1400
-	if(!env) // »·¾³±äÁ¿´æÔÚ
+	if(!env) // ç¯å¢ƒå˜é‡å­˜åœ¨
 	{
 		std::string DataDir(Name);
 		std::string fileName = DataDir + "\\data\\planetEph.405";
 		const char *fName = fileName.c_str();
 		FILE *fp;
-		fopen_s(&fp,fName,"rb"); // µ±ÓĞ»·¾³±äÁ¿Ê±²âÊÔÎÄ¼şÊÇ·ñ´æÔÚ
+		fopen_s(&fp,fName,"rb"); // å½“æœ‰ç¯å¢ƒå˜é‡æ—¶æµ‹è¯•æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 		if(DataDir.empty() || fp == NULL)
-			env = 1; // »·¾³±äÁ¿ÓĞ´íÎó£¬»ò405ÎÄ¼ş²»´æÔÚ
+			env = 1; // ç¯å¢ƒå˜é‡æœ‰é”™è¯¯ï¼Œæˆ–405æ–‡ä»¶ä¸å­˜åœ¨
 		else
 		{
-			return DataDir; // »·¾³±äÁ¿ÖĞµÄÄ¿Â¼
+			return DataDir; // ç¯å¢ƒå˜é‡ä¸­çš„ç›®å½•
 		}
 	}
-	if(env) // »·¾³±äÁ¿²»´æÔÚ£¬»ò»·¾³±äÁ¿´íÎó
+	if(env) // ç¯å¢ƒå˜é‡ä¸å­˜åœ¨ï¼Œæˆ–ç¯å¢ƒå˜é‡é”™è¯¯
 	{
 		fopen_s(&configfile,"C:\\OrbitDyn.config","r");
 		if(false/*configfile!=NULL*/)
-		{  // ¼ì²éÅäÖÃÎÄ¼şÄÚÈİ
+		{  // æ£€æŸ¥é…ç½®æ–‡ä»¶å†…å®¹
 			//configfile >> Name;
 			fscanf_s(configfile,"%s",Name);
 			std::string DataDir(Name);
             std::string fileName = DataDir + "\\data\\planetEph.405";
 			const char *fName = fileName.c_str();
 			FILE *fp;
-			fopen_s(&fp,fName,"rb"); // ²âÊÔÎÄ¼şÊÇ·ñ´æÔÚ
+			fopen_s(&fp,fName,"rb"); // æµ‹è¯•æ–‡ä»¶æ˜¯å¦å­˜åœ¨
 			if(DataDir.empty() || fp == NULL)
 			{
 				if(configfile!=NULL) fclose(configfile);
 				if(fp!=NULL) fclose(fp);
-				return std::string("."); // ÅäÖÃÎÄ¼şËùÖ¸Ä¿Â¼²»´æÔÚ£¬·µ»Øµ±Ç°Ä¿Â¼
+				return std::string("."); // é…ç½®æ–‡ä»¶æ‰€æŒ‡ç›®å½•ä¸å­˜åœ¨ï¼Œè¿”å›å½“å‰ç›®å½•
 			}
 			else
 			{
 				if(configfile!=NULL) fclose(configfile);
 				if(fp!=NULL) fclose(fp);
-				return DataDir; // ÅäÖÃÎÄ¼şÖĞµÄÄ¿Â¼
+				return DataDir; // é…ç½®æ–‡ä»¶ä¸­çš„ç›®å½•
 			}
 		}
 		else
-			return std::string("~/Program/GitHub/orbitdynamics"); // ÅäÖÃÎÄ¼ş²»´æÔÚ£¬·µ»Øµ±Ç°Ä¿Â¼
+			return std::string("~/Program/GitHub/orbitdynamics"); // é…ç½®æ–‡ä»¶ä¸å­˜åœ¨ï¼Œè¿”å›å½“å‰ç›®å½•
 	}
-	return std::string("~/Program/GitHub/orbitdynamics"); // ·µ»Øµ±Ç°Ä¿Â¼
+	return std::string("~/Program/GitHub/orbitdynamics"); // è¿”å›å½“å‰ç›®å½•
 #endif //__APPLE__
 }
 
-/*!²úÉú°×ÔëÉù
-\param sigma3 ÔëÉùµÄ3¦Ò
-\param mean ÔëÉù¾ùÖµ
-Ëã·¨£º\n
-   mean + sigma3 / 3.0 * ( ¦²r - 6.0 )  \n
-ÆäÖĞrÎ±0-1Ö®¼äµÄÎ±Ëæ»úÊı£¬¦²r±íÊ¾12¸öÎ±Ëæ»úÊıµÄºÍ
+/*!äº§ç”Ÿç™½å™ªå£°
+\param sigma3 å™ªå£°çš„3Ïƒ
+\param mean å™ªå£°å‡å€¼
+ç®—æ³•ï¼š\n
+   mean + sigma3 / 3.0 * ( Î£r - 6.0 )  \n
+å…¶ä¸­rä¼ª0-1ä¹‹é—´çš„ä¼ªéšæœºæ•°ï¼ŒÎ£rè¡¨ç¤º12ä¸ªä¼ªéšæœºæ•°çš„å’Œ
 */
 double WhiteNoise(double sigma3,double mean)
 {
@@ -120,38 +120,38 @@ double WhiteNoise(double sigma3,double mean)
 	return var;
 }
 
-/*! ¾ùÔÈ·Ö²¼µÄÎ±Ëæ»úÊı
-\param min ÏÂÏŞ
-\param max ÉÏÏŞ
-ÔÚmin~maxÖ®¼ä¾ùÔÈ·Ö²¼µÄÎ±Ëæ»úÊı£¬ÀûÓÃrand()²úÉúµÄËæ»úÊı£¬»¯µ½min~maxÖ®¼ä¡£
+/*! å‡åŒ€åˆ†å¸ƒçš„ä¼ªéšæœºæ•°
+\param min ä¸‹é™
+\param max ä¸Šé™
+åœ¨min~maxä¹‹é—´å‡åŒ€åˆ†å¸ƒçš„ä¼ªéšæœºæ•°ï¼Œåˆ©ç”¨rand()äº§ç”Ÿçš„éšæœºæ•°ï¼ŒåŒ–åˆ°min~maxä¹‹é—´ã€‚
 */
 double EvenNoise(double min, double max)
 {
 	double val;
-	val=2.0*rand()/32767.0-1.0;		// -1 µ½ 1 Ö®¼ä¾ùÔÈ·Ö²¼
+	val=2.0*rand()/32767.0-1.0;		// -1 åˆ° 1 ä¹‹é—´å‡åŒ€åˆ†å¸ƒ
 	val=val/2.0*(max-min);
-	val=val+(min+max)/2.0;				// min µ½ max Ö®¼ä¾ùÔÈ·Ö²¼
+	val=val+(min+max)/2.0;				// min åˆ° max ä¹‹é—´å‡åŒ€åˆ†å¸ƒ
 	return(val);
 }
 
-/*! ¸ñÁÖÄáÖÎÕæºãĞÇÊ±
-´ÓË²Ê±Õæ´º·Öµãµ½¸ñÁÖÄáÖÎ¾­ÏßµÄ½Ç¶È
-\param t  CDatetimeÊ±¼ä
-\return  ¸ñÁÖÄáÖÎÕæºãĞÇÊ±(0¡«2¦Ğ)
+/*! æ ¼æ—å°¼æ²»çœŸæ’æ˜Ÿæ—¶
+ä»ç¬æ—¶çœŸæ˜¥åˆ†ç‚¹åˆ°æ ¼æ—å°¼æ²»ç»çº¿çš„è§’åº¦
+\param t  CDatetimeæ—¶é—´
+\return  æ ¼æ—å°¼æ²»çœŸæ’æ˜Ÿæ—¶(0ï½2Ï€)
 */
 double GetSG(const CDateTime& t)
 {
 	double dpsi,deps;
-	nutation_angle(t,dpsi,deps); // dpsi:»Æ¾­ÕÂ¶¯
+	nutation_angle(t,dpsi,deps); // dpsi:é»„ç»ç« åŠ¨
 	double eps = Ecliptic_Equator_Angle(t);
 	double Omega = Moon_RAAN(t);
     return fmod(GetSGM(t) + dpsi*cos(eps) + (0.00264*sin(Omega) + 0.000063*sin(2*Omega))/3600*RAD, PI2);
 }
 
-/*! ¸ñÁÖÄáÖÎÆ½ºãĞÇÊ±
-´ÓË²Ê±Æ½´º·Öµãµ½¸ñÁÖÄáÖÎ¾­ÏßµÄ½Ç¶È
-\param t  CDatetimeÊ±¼ä
-\return  ¸ñÁÖÄáÖÎÆ½ºãĞÇÊ±(0¡«2¦Ğ)
+/*! æ ¼æ—å°¼æ²»å¹³æ’æ˜Ÿæ—¶
+ä»ç¬æ—¶å¹³æ˜¥åˆ†ç‚¹åˆ°æ ¼æ—å°¼æ²»ç»çº¿çš„è§’åº¦
+\param t  CDatetimeæ—¶é—´
+\return  æ ¼æ—å°¼æ²»å¹³æ’æ˜Ÿæ—¶(0ï½2Ï€)
 */
 double GetSGM(const CDateTime& t)
 {
@@ -167,18 +167,18 @@ double GetSGM(const CDateTime& t)
 	GMST = fmod(GMST/3600.0*15.0,360);
 	return GMST*RAD;
 
-	// ÏÂÃæÊÇÖ®Ç°µÄ°æ±¾,ÓëÉÏÃæµÄ¼ÆËã²î±ğÎª4e-6¶È(2010-1-1)£¬¶ÔÓ¦GEO¹ìµÀÎ»ÖÃ¡«3.4m£¬LEO¹ìµÀ¡«0.57m
+	// ä¸‹é¢æ˜¯ä¹‹å‰çš„ç‰ˆæœ¬,ä¸ä¸Šé¢çš„è®¡ç®—å·®åˆ«ä¸º4e-6åº¦(2010-1-1)ï¼Œå¯¹åº”GEOè½¨é“ä½ç½®ï½3.4mï¼ŒLEOè½¨é“ï½0.57m
 
-	//double dt = t.GetUT1CentNum()*36525.0; // + Earth.GetdUT1(t)/86400.0; // ÔÚ t.GetUT1CentNum()ÖĞ¿¼ÂÇdUT1
-	// ÎªÁËÏÂÃæ¼ÆËã¹«Ê½ÖĞ¼õÉÙÊıÖµ½Ø¶ÏÎó²î£¬ÕâÀïÏÈ°Ñ½Ï´óµÄ×ª½Ç¹éËãµ½360¶ÈÒÔÄÚ£¬ÔÙÓë³£ÊıÏîºÍ¶ş´Î·½ÏîÏà¼Ó
+	//double dt = t.GetUT1CentNum()*36525.0; // + Earth.GetdUT1(t)/86400.0; // åœ¨ t.GetUT1CentNum()ä¸­è€ƒè™‘dUT1
+	// ä¸ºäº†ä¸‹é¢è®¡ç®—å…¬å¼ä¸­å‡å°‘æ•°å€¼æˆªæ–­è¯¯å·®ï¼Œè¿™é‡Œå…ˆæŠŠè¾ƒå¤§çš„è½¬è§’å½’ç®—åˆ°360åº¦ä»¥å†…ï¼Œå†ä¸å¸¸æ•°é¡¹å’ŒäºŒæ¬¡æ–¹é¡¹ç›¸åŠ 
 	//double rota = fmod(360.985647365*dt,360);
 	//return fmod((280.4606184 + rota + 0.2908e-12*dt*dt)*RAD,PI2);
 }
 
-/*! J2000.0¸ñÁÖÄáÖÎºãĞÇÊ±
-´ÓJ2000.0Æ½´º·Öµãµ½¸ñÁÖÄáÖÎ¾­ÏßµÄ½Ç¶È
-\param t  CDatetimeÊ±¼ä
-\return  J2000.0¸ñÁÖÄáÖÎºãĞÇÊ±(0¡«2¦Ğ)
+/*! J2000.0æ ¼æ—å°¼æ²»æ’æ˜Ÿæ—¶
+ä»J2000.0å¹³æ˜¥åˆ†ç‚¹åˆ°æ ¼æ—å°¼æ²»ç»çº¿çš„è§’åº¦
+\param t  CDatetimeæ—¶é—´
+\return  J2000.0æ ¼æ—å°¼æ²»æ’æ˜Ÿæ—¶(0ï½2Ï€)
 */
 double GetSGJ2000(const CDateTime& t)
 {
@@ -187,9 +187,9 @@ double GetSGJ2000(const CDateTime& t)
     return fmod(GetSGM(t) - zeta - Z,PI2);
 }
 
-/*! Ì«ÑôÆ½¹ìµÀÆ«ĞÄÂÊ
-\param t CDatetimeÊ±¼ä
-\return Ì«ÑôÆ½¹ìµÀÆ«ĞÄÂÊ
+/*! å¤ªé˜³å¹³è½¨é“åå¿ƒç‡
+\param t CDatetimeæ—¶é—´
+\return å¤ªé˜³å¹³è½¨é“åå¿ƒç‡
 */
 double Sun_Eccentricity(const CDateTime& t)
 {
@@ -197,9 +197,9 @@ double Sun_Eccentricity(const CDateTime& t)
 	return 0.01670862 - 4.204e-5*T - 1.24e-6*T*T;
 }
 
-/*! »ÆµÀÓëJ2000.0Æ½³àµÀµÄ»Æ³à½»½Ç¦Å
-\param t CDatetimeÊ±¼ä
-\return »Æ³à½»½Ç(»¡¶È)
+/*! é»„é“ä¸J2000.0å¹³èµ¤é“çš„é»„èµ¤äº¤è§’Îµ
+\param t CDatetimeæ—¶é—´
+\return é»„èµ¤äº¤è§’(å¼§åº¦)
 */
 double Ecliptic_Equator_Angle(const CDateTime& t)
 {
@@ -207,21 +207,21 @@ double Ecliptic_Equator_Angle(const CDateTime& t)
 	return (23.4392911 - 0.013004167*T - 1.64e-7*T*T ) * RAD;	
 }
 
-/*! J2000.0Ì«ÑôÆ½½üµØµã·ù½Ç
-\param t CDatetimeÊ±¼ä
-\return Ì«Ñô½üµØµãÆ½»Æ¾­(»¡¶È)
+/*! J2000.0å¤ªé˜³å¹³è¿‘åœ°ç‚¹å¹…è§’
+\param t CDatetimeæ—¶é—´
+\return å¤ªé˜³è¿‘åœ°ç‚¹å¹³é»„ç»(å¼§åº¦)
 */
 double Sun_Argument_Perigee(const CDateTime& t)
 {
 	double T = t.GetTDTCentNum();
 	return fmod((282.9373472 + 0.32256206*T + 1.51e-4*T*T )*RAD,PI2);
-	//(282.9373472 + 6190.32/3600.0*T + 1.655/3600.0*T*T)ÎªÏà¶Ôµ±ÌìÆ½´º·Öµã
-	// µÄ½á¹û£¬¼õÈ¥»Æ¾­×ÜËê²îºóµÃµ½ÉÏÃæÊ¹ÓÃµÄÊ½×Ó
+	//(282.9373472 + 6190.32/3600.0*T + 1.655/3600.0*T*T)ä¸ºç›¸å¯¹å½“å¤©å¹³æ˜¥åˆ†ç‚¹
+	// çš„ç»“æœï¼Œå‡å»é»„ç»æ€»å²å·®åå¾—åˆ°ä¸Šé¢ä½¿ç”¨çš„å¼å­
 }
 
-/*! J2000.0Ì«ÑôÆ½½üµã½ÇM
-\param t CDatetimeÊ±¼ä
-\return Ì«ÑôÆ½½üµã½Ç(»¡¶È)
+/*! J2000.0å¤ªé˜³å¹³è¿‘ç‚¹è§’M
+\param t CDatetimeæ—¶é—´
+\return å¤ªé˜³å¹³è¿‘ç‚¹è§’(å¼§åº¦)
 */
 double Sun_Mean_Anomaly(const CDateTime& t)
 {
@@ -230,9 +230,9 @@ double Sun_Mean_Anomaly(const CDateTime& t)
 	return fmod((357.5291 + 129596581.04/3600.0*T - 0.562/3600.0*T*T)*RAD,PI2);
 }
 
-/*! ¶ÔÓÚµ±ÌìÆ½´º·ÖµãµÄÌ«ÑôÆ½»Æ¾­L
-\param t CDatetimeÊ±¼ä
-\return Ì«ÑôÆ½»Æ¾­(»¡¶È)
+/*! å¯¹äºå½“å¤©å¹³æ˜¥åˆ†ç‚¹çš„å¤ªé˜³å¹³é»„ç»L
+\param t CDatetimeæ—¶é—´
+\return å¤ªé˜³å¹³é»„ç»(å¼§åº¦)
 */
 double Sun_Ecliptic_Longitude(const CDateTime& t)
 {
@@ -240,9 +240,9 @@ double Sun_Ecliptic_Longitude(const CDateTime& t)
 	return ( 280.46644722 + 36000.7698222222*T + 1.093/3600.0*T*T ) * RAD;
 }
 
-/*! ¶ÔÓÚµ±ÌìÆ½´º·ÖµãµÄ°×µÀ½üµØµãÆ½»Æ¾­¦£
-\param t CDatetimeÊ±¼ä
-\return °×µÀ½üµØµãÆ½»Æ¾­(»¡¶È)
+/*! å¯¹äºå½“å¤©å¹³æ˜¥åˆ†ç‚¹çš„ç™½é“è¿‘åœ°ç‚¹å¹³é»„ç»Î“
+\param t CDatetimeæ—¶é—´
+\return ç™½é“è¿‘åœ°ç‚¹å¹³é»„ç»(å¼§åº¦)
 */
 double Moon_Argument_Perigee(const CDateTime& t)
 {
@@ -250,9 +250,9 @@ double Moon_Argument_Perigee(const CDateTime& t)
 	return fmod(( 83.3532417 + 4069.013711*T - 37.165/3600.0*T*T ) * RAD,PI2);
 }
 
-/*! ¶ÔÓÚµ±ÌìÆ½´º·ÖµãµÄ°×µÀÉı½»µãÆ½»Æ¾­¦¸
-\param t CDatetimeÊ±¼ä
-\return °×µÀÉı½»µãÆ½»Æ¾­(»¡¶È)
+/*! å¯¹äºå½“å¤©å¹³æ˜¥åˆ†ç‚¹çš„ç™½é“å‡äº¤ç‚¹å¹³é»„ç»Î©
+\param t CDatetimeæ—¶é—´
+\return ç™½é“å‡äº¤ç‚¹å¹³é»„ç»(å¼§åº¦)
 */
 double Moon_RAAN(const CDateTime& t)
 {
@@ -260,9 +260,9 @@ double Moon_RAAN(const CDateTime& t)
 	return ( 125.0445555 - 1934.136185*T + 7.476/3600.0*T*T ) * RAD;
 }
 
-/*! ¶ÔÓÚµ±ÌìÆ½´º·ÖµãµÄÔÂÇòÆ½»Æ¾­L
-\param t CDatetimeÊ±¼ä
-\return ÔÂÇòÆ½»Æ¾­(»¡¶È)
+/*! å¯¹äºå½“å¤©å¹³æ˜¥åˆ†ç‚¹çš„æœˆçƒå¹³é»„ç»L
+\param t CDatetimeæ—¶é—´
+\return æœˆçƒå¹³é»„ç»(å¼§åº¦)
 */
 double Moon_Ecliptic_Longitude(const CDateTime& t)
 {
@@ -270,28 +270,28 @@ double Moon_Ecliptic_Longitude(const CDateTime& t)
 	return ( 218.31665555 + 481267.8813425*T - 4.787/3600.0*T*T ) * RAD;
 }
 
-/*! ¶ÔÓÚµ±ÌìÆ½´º·ÖµãµÄÔÂÇòÆ½½üµã½ÇM
-\param t CDatetimeÊ±¼ä
-\return ÔÂÇòÆ½½üµã½Ç(»¡¶È)
+/*! å¯¹äºå½“å¤©å¹³æ˜¥åˆ†ç‚¹çš„æœˆçƒå¹³è¿‘ç‚¹è§’M
+\param t CDatetimeæ—¶é—´
+\return æœˆçƒå¹³è¿‘ç‚¹è§’(å¼§åº¦)
 */
 double Moon_Mean_Anomaly(const CDateTime& t)
 {
 	return fmod(Moon_Ecliptic_Longitude(t) - Moon_Argument_Perigee(t),PI2);
 }
 
-/*! ¶ÔÓÚµ±ÌìÆ½´º·ÖµãµÄÔÂÇòÓëÌ«ÑôµÄÆ½¾à½ÇD
-\param t CDatetimeÊ±¼ä
-\return ÔÂÇòÓëÌ«ÑôµÄÆ½¾à½Ç(»¡¶È)
+/*! å¯¹äºå½“å¤©å¹³æ˜¥åˆ†ç‚¹çš„æœˆçƒä¸å¤ªé˜³çš„å¹³è·è§’D
+\param t CDatetimeæ—¶é—´
+\return æœˆçƒä¸å¤ªé˜³çš„å¹³è·è§’(å¼§åº¦)
 */
 double Moon_Sun_Ecliptic_Angle(const CDateTime& t)
 {
 	return Moon_Mean_Anomaly(t) - Sun_Mean_Anomaly(t);
 }
 
-/*!RKF78»ı·ÖÆ÷
-\param s ÎÀĞÇ
-\param h ²½³¤
-\return ½Ø¶ÏÎó²î
+/*!RKF78ç§¯åˆ†å™¨
+\param s å«æ˜Ÿ
+\param h æ­¥é•¿
+\return æˆªæ–­è¯¯å·®
 */
 double RKF78(CSatelliteBase& s,double h,vec& x,vec& xh)
 {
@@ -377,10 +377,10 @@ double RKF78(CSatelliteBase& s,double h,vec& x,vec& xh)
 	return EE;
 }
 
-/*!Gill4»ı·ÖÆ÷
-\param s ÎÀĞÇ
-\param h ²½³¤
-\return ½Ø¶ÏÎó²î
+/*!Gill4ç§¯åˆ†å™¨
+\param s å«æ˜Ÿ
+\param h æ­¥é•¿
+\return æˆªæ–­è¯¯å·®
 */
 double Gill4(CSatelliteBase& s,double h,vec& x,vec& xh)
 {
@@ -389,7 +389,7 @@ double Gill4(CSatelliteBase& s,double h,vec& x,vec& xh)
 	static vec y[4];
 	for(int ii=0;ii<4;ii++) y[ii].copy_size(x);
 	
-	double t = s.t(); // ¶ÔÓÚCRapidSatllite,¶¯Á¦Ñ§·½³ÌÖĞ²»º¬t
+	double t = s.t(); // å¯¹äºCRapidSatllite,åŠ¨åŠ›å­¦æ–¹ç¨‹ä¸­ä¸å«t
 	x1 = x;
 	s.DynFunction(t,x1,y[0]);
 
@@ -407,20 +407,20 @@ double Gill4(CSatelliteBase& s,double h,vec& x,vec& xh)
 	return 0;
 }
 
-/*!´øĞ³ÏîÉã¶¯Zonal Harmonic Terms
-\param LL ´øĞ³Ïî½×Êı
-\param SatPos ÎÀĞÇÔÚµØ¹ÌÏµÖĞµÄ×ø±ê
-\param cb ÖĞĞÄÌìÌå£¬Ä¬ÈÏEarth£¬¼´µØÇò´øĞ³ÏîÉã¶¯£¬ÉèÎªMoonÊ±¼´ÔÂÇò´øĞ³ÏîÉã¶¯
-\return ´øĞ³ÏîÉã¶¯¼ÓËÙ¶È(ECF)(km/s^2)
-´øĞ³ÏîÊÆº¯ÊıÎª£º
+/*!å¸¦è°é¡¹æ‘„åŠ¨Zonal Harmonic Terms
+\param LL å¸¦è°é¡¹é˜¶æ•°
+\param SatPos å«æ˜Ÿåœ¨åœ°å›ºç³»ä¸­çš„åæ ‡
+\param cb ä¸­å¿ƒå¤©ä½“ï¼Œé»˜è®¤Earthï¼Œå³åœ°çƒå¸¦è°é¡¹æ‘„åŠ¨ï¼Œè®¾ä¸ºMoonæ—¶å³æœˆçƒå¸¦è°é¡¹æ‘„åŠ¨
+\return å¸¦è°é¡¹æ‘„åŠ¨åŠ é€Ÿåº¦(ECF)(km/s^2)
+å¸¦è°é¡¹åŠ¿å‡½æ•°ä¸ºï¼š
 \[
 V_l  = \frac{\mu }{r}\sum\limits_{l = 2}^\infty  {\overline C _l } \left( {\frac{{{\mathop{\rm Re}\nolimits} }}{r}} \right)^l \overline P _l \left( {\sin \phi } \right)
 \]
-´øĞ³ÏîÉã¶¯¼ÓËÙ¶ÈÎª£º
+å¸¦è°é¡¹æ‘„åŠ¨åŠ é€Ÿåº¦ä¸ºï¼š
 \[
 \frac{{\partial V_l }}{{\partial {\bf{r}}}} = \frac{{\partial V_l }}{{\partial r}} \cdot \frac{{\partial r}}{{\partial {\bf{r}}}} + \frac{{\partial V_l }}{{\partial \sin \phi }} \cdot \frac{{\partial \sin \phi }}{{\partial {\bf{r}}}} + \frac{{\partial V_l }}{{\partial \lambda }} \cdot \frac{{\partial \lambda }}{{\partial {\bf{r}}}}
 \]
-ÆäÖĞ£º
+å…¶ä¸­ï¼š
 \[
 \frac{{\partial V_l }}{{\partial \lambda }} =  - \frac{\mu }{{r^2 }}\sum\limits_{l = 2}^\infty  {\overline C _l \left( {l + 1} \right)} \left( {\frac{{{\mathop{\rm Re}\nolimits} }}{r}} \right)^l \overline P _l \left( {\sin \phi } \right)
 \]
@@ -468,7 +468,7 @@ const vec3 PZonalHarmonic(const int LL,const vec3& SatPos,const CentralBody* cb 
 		cb = Earth::Instance();
 	double r = norm(SatPos,2);
 	double zr = SatPos(2)/r;
-	if(LL<2) return vec3("0 0 0");//¼´²»¿¼ÂÇµØÇò·ÇÇòĞÎÒıÁ¦Éã¶¯
+	if(LL<2) return vec3("0 0 0");//å³ä¸è€ƒè™‘åœ°çƒéçƒå½¢å¼•åŠ›æ‘„åŠ¨
 	Legendre_sphPl(LL,zr,PL);
 	vec3 prpr = SatPos/r;
 	vec3 psfpr = -zr/r/r*SatPos + 1.0/r*k;
@@ -491,9 +491,9 @@ const vec3 PZonalHarmonic(const int LL,const vec3& SatPos,const CentralBody* cb 
 }
 
 /*! Tesseral Harmonic Terms
-\param LL ½×Êı
-\param SatPos µØ¹ÌÏµÖĞµÄ×ø±ê
-\param cb ÖĞĞÄÌìÌå£¬Ä¬ÈÏEarth£¬¼´µØÇòÌïĞ³ÏîÉã¶¯,ÉèÎªMoonÊ±¼´ÔÂÇòÌïĞ³ÏîÉã¶¯
+\param LL é˜¶æ•°
+\param SatPos åœ°å›ºç³»ä¸­çš„åæ ‡
+\param cb ä¸­å¿ƒå¤©ä½“ï¼Œé»˜è®¤Earthï¼Œå³åœ°çƒç”°è°é¡¹æ‘„åŠ¨,è®¾ä¸ºMoonæ—¶å³æœˆçƒç”°è°é¡¹æ‘„åŠ¨
 \return Tesseral Harmonic Acceleration(ECF)(km/s^2)
 */
 const vec3 PTesseralHarmonic(const int LL,const vec3& SatPos,const CentralBody* cb )/* cb = Earth */
@@ -547,9 +547,9 @@ const vec3 PTesseralHarmonic(const int LL,const vec3& SatPos,const CentralBody* 
 }
 
 /*! Pl(x):Normalized legendre Polynomial
-\param LL ½×Êı
-\param x ×Ô±äÁ¿
-\param PL ¹éÒ»»¯ÀÕÈÃµÂ¶àÏîÊ½µÄÖµ
+\param LL é˜¶æ•°
+\param x è‡ªå˜é‡
+\param PL å½’ä¸€åŒ–å‹’è®©å¾·å¤šé¡¹å¼çš„å€¼
 */
 void Legendre_sphPl(const int LL,const double x,double PL[])
 {
@@ -568,9 +568,9 @@ void Legendre_sphPl(const int LL,const double x,double PL[])
 	}
 }
 /*! Plm(x):Normalized legendre Polynomial
-\param LL ½×Êı
-\param x ×Ô±äÁ¿
-\param PLM ¹éÒ»»¯ÀÕÈÃµÂ¶àÏîÊ½µÄÖµ
+\param LL é˜¶æ•°
+\param x è‡ªå˜é‡
+\param PLM å½’ä¸€åŒ–å‹’è®©å¾·å¤šé¡¹å¼çš„å€¼
 */
 void Legendre_sphPlm(const int LL,const double x,double PLM[][71])
 {
@@ -600,12 +600,12 @@ void Legendre_sphPlm(const int LL,const double x,double PLM[][71])
 		}
 	}
 }
-/*! ÓÃµİÍÆ·½·¨¼ÆËãsin(m*x)ºÍcos(m*x)
-\param LL ½×Êı
+/*! ç”¨é€’æ¨æ–¹æ³•è®¡ç®—sin(m*x)å’Œcos(m*x)
+\param LL é˜¶æ•°
 \param S1X  sin(x)
 \param C1X  cos(x)
-\param SX  ·µ»Øsin(m*x)Êı×é
-\param CX  ·µ»Øcos(m*x)Êı×é
+\param SX  è¿”å›sin(m*x)æ•°ç»„
+\param CX  è¿”å›cos(m*x)æ•°ç»„
 */
 void SmxCmx(const int LL,const double S1X,const double C1X,double* SX,double* CX)
 {
@@ -624,7 +624,7 @@ void SmxCmx(const int LL,const double S1X,const double C1X,double* SX,double* CX
 	}
 }
 /*! third body gravitation
-\note r,r3b,GµÄµ¥Î»ÒªÍ³Ò»£¬×ø±êÏµÒªÍ³Ò»
+\note r,r3b,Gçš„å•ä½è¦ç»Ÿä¸€ï¼Œåæ ‡ç³»è¦ç»Ÿä¸€
 \param r satellite vector
 \param r3b third body vector
 \return third body Gravity Acceleration(ECI)(km/s^2)
@@ -636,51 +636,51 @@ const vec3 PThirdBodyGrv(const vec3& r, const vec3& r3b,double G)
 	double dr3 = pow(norm(dr,2),3);
 	return - G * (dr/dr3 + r3b/r3b3);
 }
-/*!ÒõÓ°¼ÆËã--Ë«Ô²×¶µØÓ°Ä£ĞÍdual cone
-¼ÆËãÎÀĞÇÊÇ·ñÔÚ°ëÓ°Çø(penumbra)»ò±¾Ó°Çø(umbra)
-º¯Êı·µ»Ø¿ÉÊÓÒò×Ó(visible fraction),ÕâÀï¿ÉÊÓÒò×Ó¶¨ÒåÎª£º±¾Ó°ÇøÎª0,°ëÓ°ÇøÔÚ0~1Ö®¼ä,ÑôÕÕÇøÎª1
-µ÷ÓÃº¯ÊıÊ±×¢ÒârºÍrsÎªÖĞĞÄÌåµ½ÎÀĞÇ¡¢Ì«ÑôµÄÊ¸Á¿
-\param r ÎÀĞÇÎ»ÖÃÊ¸Á¿
-\param rs Ì«ÑôÎ»ÖÃÊ¸Á¿
-\param Rcb ÖĞĞÄÌìÌå°ë¾¶(Ä¬ÈÏÎªµØÇò°ë¾¶)
-\return ¿ÉÊÓÒò×Ó(visible fraction)
+/*!é˜´å½±è®¡ç®—--åŒåœ†é”¥åœ°å½±æ¨¡å‹dual cone
+è®¡ç®—å«æ˜Ÿæ˜¯å¦åœ¨åŠå½±åŒº(penumbra)æˆ–æœ¬å½±åŒº(umbra)
+å‡½æ•°è¿”å›å¯è§†å› å­(visible fraction),è¿™é‡Œå¯è§†å› å­å®šä¹‰ä¸ºï¼šæœ¬å½±åŒºä¸º0,åŠå½±åŒºåœ¨0~1ä¹‹é—´,é˜³ç…§åŒºä¸º1
+è°ƒç”¨å‡½æ•°æ—¶æ³¨æ„rå’Œrsä¸ºä¸­å¿ƒä½“åˆ°å«æ˜Ÿã€å¤ªé˜³çš„çŸ¢é‡
+\param r å«æ˜Ÿä½ç½®çŸ¢é‡
+\param rs å¤ªé˜³ä½ç½®çŸ¢é‡
+\param Rcb ä¸­å¿ƒå¤©ä½“åŠå¾„(é»˜è®¤ä¸ºåœ°çƒåŠå¾„)
+\return å¯è§†å› å­(visible fraction)
 */
 double Shadow(const vec3& r,const vec3& rs,const double& Rcb )/* Rcb = Re */
 {
 	vec3 dr = r - rs;
 	double rm = norm(r,2), drm = norm(dr,2);
-	double thetaES = acos( dot(r,dr)/rm/drm );  // ÌìÌå-ÎÀĞÇ-Ì«Ñô¼Ğ½Ç
-	double as = asin(Rs/drm);  // ÎÀĞÇÉÏ¿´Ì«ÑôµÄÊÓ°ë¾¶
-	double ae = asin(Rcb/rm);  // ÎÀĞÇÉÏ¿´ÌìÌåµÄÊÓ°ë¾¶
+	double thetaES = acos( dot(r,dr)/rm/drm );  // å¤©ä½“-å«æ˜Ÿ-å¤ªé˜³å¤¹è§’
+	double as = asin(Rs/drm);  // å«æ˜Ÿä¸Šçœ‹å¤ªé˜³çš„è§†åŠå¾„
+	double ae = asin(Rcb/rm);  // å«æ˜Ÿä¸Šçœ‹å¤©ä½“çš„è§†åŠå¾„
 	if( thetaES <= ae-as)
 	{
-		return 0.0; // ±¾Ó°Çø£¬ÈÕÈ«Ê³
+		return 0.0; // æœ¬å½±åŒºï¼Œæ—¥å…¨é£Ÿ
 	}
 	else if( thetaES < ae+as )
 	{
 		if(as-thetaES>=ae)
-			return 1.0-ae*ae/as/as;  // ÌìÌå±ÈÌ«ÑôÊÓ°ë¾¶Ğ¡£¬ÈÕ»·Ê³
+			return 1.0-ae*ae/as/as;  // å¤©ä½“æ¯”å¤ªé˜³è§†åŠå¾„å°ï¼Œæ—¥ç¯é£Ÿ
 		else
 		{
 			double a = acos( (ae*ae+thetaES*thetaES-as*as)/(2.0*ae*thetaES) );
 			double b = acos( (as*as+thetaES*thetaES-ae*ae)/(2.0*as*thetaES) );
-			return 1.0 - ( as*as*(b-sin(b)*cos(b)) + ae*ae*(a-sin(a)*cos(a)) )/as/as/PI;  // Ì«Ñô¿ÉÊÓÃæ»ıÓëÌ«ÑôÔ²Ãæ»ıµÄ±ÈÖµ£¬ÈÕÆ«Ê³
+			return 1.0 - ( as*as*(b-sin(b)*cos(b)) + ae*ae*(a-sin(a)*cos(a)) )/as/as/PI;  // å¤ªé˜³å¯è§†é¢ç§¯ä¸å¤ªé˜³åœ†é¢ç§¯çš„æ¯”å€¼ï¼Œæ—¥åé£Ÿ
 		}			
 	}
 	else
 	{
-		return 1.0; // ÑôÕÕÇø
+		return 1.0; // é˜³ç…§åŒº
 	}
 }
 
-/*!ÒõÓ°¼ÆËã--Ô²ÖùµØÓ°Ä£ĞÍ
-¼ÆËãÎÀĞÇÊÇ·ñÔÚ°ëÓ°Çø(penumbra)»ò±¾Ó°Çø(umbra)
-º¯Êı·µ»Ø¿ÉÊÓÒò×Ó(visible fraction),ÕâÀï¿ÉÊÓÒò×Ó¶¨ÒåÎª£º±¾Ó°ÇøÎª0,°ëÓ°ÇøÔÚ0~1Ö®¼ä,ÑôÕÕÇøÎª1
-µ÷ÓÃº¯ÊıÊ±×¢ÒârºÍrsÎªÖĞĞÄÌåµ½ÎÀĞÇ¡¢Ì«ÑôµÄÊ¸Á¿
-\param r ÎÀĞÇÎ»ÖÃÊ¸Á¿
-\param rs Ì«ÑôÎ»ÖÃÊ¸Á¿
-\param Radius ÖĞĞÄÌìÌå°ë¾¶(Ä¬ÈÏÎªµØÇò°ë¾¶)
-\return ¿ÉÊÓÒò×Ó(visible fraction)
+/*!é˜´å½±è®¡ç®—--åœ†æŸ±åœ°å½±æ¨¡å‹
+è®¡ç®—å«æ˜Ÿæ˜¯å¦åœ¨åŠå½±åŒº(penumbra)æˆ–æœ¬å½±åŒº(umbra)
+å‡½æ•°è¿”å›å¯è§†å› å­(visible fraction),è¿™é‡Œå¯è§†å› å­å®šä¹‰ä¸ºï¼šæœ¬å½±åŒºä¸º0,åŠå½±åŒºåœ¨0~1ä¹‹é—´,é˜³ç…§åŒºä¸º1
+è°ƒç”¨å‡½æ•°æ—¶æ³¨æ„rå’Œrsä¸ºä¸­å¿ƒä½“åˆ°å«æ˜Ÿã€å¤ªé˜³çš„çŸ¢é‡
+\param r å«æ˜Ÿä½ç½®çŸ¢é‡
+\param rs å¤ªé˜³ä½ç½®çŸ¢é‡
+\param Radius ä¸­å¿ƒå¤©ä½“åŠå¾„(é»˜è®¤ä¸ºåœ°çƒåŠå¾„)
+\return å¯è§†å› å­(visible fraction)
 */
 double Shadow_Cylindrical(const vec3& r,const vec3& rs,double Radius)
 {
@@ -688,47 +688,47 @@ double Shadow_Cylindrical(const vec3& r,const vec3& rs,double Radius)
 	double rs1 = norm(rs,2);
  	double CPS = dot(r,rs)/(r1*rs1);
 	double SPS = sqrt(1-CPS*CPS);
-	if(CPS<0 && SPS<Radius/r1) return 0.0;  //ÅĞ¶ÏµØÓ°
+	if(CPS<0 && SPS<Radius/r1) return 0.0;  //åˆ¤æ–­åœ°å½±
 	return 1.0;
 }
-/*! ¹âÑ¹Éã¶¯ Light Pressure
-\param CrSM  Cr*Area/Mass  Cr:·´ÉäÏµÊı  Area:¹âÑ¹Ãæ»ı    Mass:ÎÀĞÇÖÊÁ¿
-\param r ÎÀĞÇÎ»ÖÃÊ¸Á¿
-\param rs Ì«ÑôÎ»ÖÃÊ¸Á¿
-\return ¹âÑ¹Éã¶¯¼ÓËÙ¶È(km/s^2)
+/*! å…‰å‹æ‘„åŠ¨ Light Pressure
+\param CrSM  Cr*Area/Mass  Cr:åå°„ç³»æ•°  Area:å…‰å‹é¢ç§¯    Mass:å«æ˜Ÿè´¨é‡
+\param r å«æ˜Ÿä½ç½®çŸ¢é‡
+\param rs å¤ªé˜³ä½ç½®çŸ¢é‡
+\return å…‰å‹æ‘„åŠ¨åŠ é€Ÿåº¦(km/s^2)
 */
 const vec3 PLightPressure(const double CrSM,const vec3& r,const vec3& rs,double Radius )/* Radius = Re */
 {
 	vec3 dr = r - rs;
 	double dr1 = norm(dr,2);
-	vec3 acc = (Shadow(r,rs,Radius) * 4.5604e-6 * CrSM * pow(AU/dr1,2)/dr1) * dr;  // 4.5604e-6ÊÇÒ»¸öAU´¦µÄÌ«Ñô¹âÑ¹³£Êı(N/m^2)
+	vec3 acc = (Shadow(r,rs,Radius) * 4.5604e-6 * CrSM * pow(AU/dr1,2)/dr1) * dr;  // 4.5604e-6æ˜¯ä¸€ä¸ªAUå¤„çš„å¤ªé˜³å…‰å‹å¸¸æ•°(N/m^2)
 
-	// STK HPOPÊ¹ÓÃµÄ¹«Ê½£¬ÓëÉÏÃæµÄ¹«Ê½µÈĞ§£¬3.823e26ÎªÌ«Ñô·øÉä¹¦ÂÊ[W]£¬4.5604e-6 = 3.823e26/(4*PI*c*AU^2)
+	// STK HPOPä½¿ç”¨çš„å…¬å¼ï¼Œä¸ä¸Šé¢çš„å…¬å¼ç­‰æ•ˆï¼Œ3.823e26ä¸ºå¤ªé˜³è¾å°„åŠŸç‡[W]ï¼Œ4.5604e-6 = 3.823e26/(4*PI*c*AU^2)
 	//vec3 acc = CrSM * 3.823e26 / (4*PI*LightVel*pow(dr,3)); 
 
-	return acc/1000.0; // ·µ»ØµÄ¹âÑ¹Éã¶¯¼ÓËÙ¶ÈÎªkm/s^2
+	return acc/1000.0; // è¿”å›çš„å…‰å‹æ‘„åŠ¨åŠ é€Ÿåº¦ä¸ºkm/s^2
 }
-/*! ´óÆø×èÁ¦Éã¶¯ Atmosphere Drag
-\param CdSM Cd*Area/Mass×èÁ¦ÏµÊı³ËÃæÖÊ±È(m^2/kg)
-\param ruo ´óÆøÃÜ¶È(kg/m^3)
-\param r ÎÀĞÇÎ»ÖÃÊ¸Á¿
-\param rd ÎÀĞÇËÙ¶ÈÊ¸Á¿
-\return ´óÆø×èÁ¦¼ÓËÙ¶È(ECI)(km/s^2)
+/*! å¤§æ°”é˜»åŠ›æ‘„åŠ¨ Atmosphere Drag
+\param CdSM Cd*Area/Massé˜»åŠ›ç³»æ•°ä¹˜é¢è´¨æ¯”(m^2/kg)
+\param ruo å¤§æ°”å¯†åº¦(kg/m^3)
+\param r å«æ˜Ÿä½ç½®çŸ¢é‡
+\param rd å«æ˜Ÿé€Ÿåº¦çŸ¢é‡
+\return å¤§æ°”é˜»åŠ›åŠ é€Ÿåº¦(ECI)(km/s^2)
 */
 const vec3 PAirDrag(const CDateTime& t,const double CdSM,const vec3& ECFr,const vec3& r,const vec3& rd)
 {
 	vec3 air;
 	air(0) = -We*r(1);
 	air(1) =  We*r(0);
-	air(2) =  0; // µØÇò×Ô×ªÇ£Á¬ËÙ¶È = (0,0,We)²æ³Ër
+	air(2) =  0; // åœ°çƒè‡ªè½¬ç‰µè¿é€Ÿåº¦ = (0,0,We)å‰ä¹˜r
 	vec3 RelVel = rd - air;
 	double ruo = Earth::Instance()->AtmosRuoH(t,ECFr);
 	return ( -0.5* CdSM*1.0e-6 * ruo*1.0e9 * norm(RelVel,2) )*RelVel;
 }
-/*! ºóÅ£Ğ§Ó¦Éã¶¯ Post-Newtonian Effect
-\param r ÎÀĞÇÎ»ÖÃÊ¸Á¿
-\param rd ÎÀĞÇËÙ¶ÈÊ¸Á¿
-\return ºóÅ£¶ÙĞ§Ó¦Éã¶¯¼ÓËÙ¶È(ECI)(km/s^2)
+/*! åç‰›æ•ˆåº”æ‘„åŠ¨ Post-Newtonian Effect
+\param r å«æ˜Ÿä½ç½®çŸ¢é‡
+\param rd å«æ˜Ÿé€Ÿåº¦çŸ¢é‡
+\return åç‰›é¡¿æ•ˆåº”æ‘„åŠ¨åŠ é€Ÿåº¦(ECI)(km/s^2)
 */
 const vec3 PPostNewton(const vec3& r,const vec3& rd)
 {
@@ -742,11 +742,11 @@ const vec3 PPostNewton(const vec3& r,const vec3& rd)
 	return (r*r4v2 + rd*rv4) * GE / c2r3;
 }
 
-/*! ÓÉÎ»ÖÃËÙ¶È¼ÆËã¹ìµÀ¸ùÊı
-\param miu ÖĞĞÄÌìÌåÒıÁ¦³£Êı
-\param Position Î»ÖÃ
-\param Velocity ËÙ¶È
-\return ¹ìµÀ¸ùÊı(km, ,rad,rad,rad,rad)
+/*! ç”±ä½ç½®é€Ÿåº¦è®¡ç®—è½¨é“æ ¹æ•°
+\param miu ä¸­å¿ƒå¤©ä½“å¼•åŠ›å¸¸æ•°
+\param Position ä½ç½®
+\param Velocity é€Ÿåº¦
+\return è½¨é“æ ¹æ•°(km, ,rad,rad,rad,rad)
 */
 Kepler Cartesian_Kepler(const vec3 & Position,const vec3 & Velocity, double miu )/* miu = GE */
 {
@@ -758,15 +758,15 @@ Kepler Cartesian_Kepler(const vec3 & Position,const vec3 & Velocity, double miu 
 	 double v2 = v*v;
 	 //double rrd = Dot(Position,Velocity);
 /*a*/a = 1.0/(2.0/r-v2/miu);
-	 vec3 Uz("0.0 0.0 1.0"); // ECI-ZÖá
-	 vec3 h = cross(Position,Velocity);//½Ç¶¯Á¿·½Ïò
-	 vec3 N = cross(Uz,h);//½ÚÏß·½Ïò
+	 vec3 Uz("0.0 0.0 1.0"); // ECI-Zè½´
+	 vec3 h = cross(Position,Velocity);//è§’åŠ¨é‡æ–¹å‘
+	 vec3 N = cross(Uz,h);//èŠ‚çº¿æ–¹å‘
 	 double p = dot(h,h)/miu;
 /*e*/if( p/a >= 1.0 ) e = 0;
 	 else e = sqrt(1.0-p/a);
 
 	 vec3 E = cross(Velocity,h)/miu - Position/r; //((v2-1.0/r)*Position-rrd*Velocity);
-	// vec3 Eh = (v2/miu-1/r)*Position - rrd/miu*Velocity; ÓëÉÏÃæ±í´ïÊ½ÏàÍ¬
+	// vec3 Eh = (v2/miu-1/r)*Position - rrd/miu*Velocity; ä¸ä¸Šé¢è¡¨è¾¾å¼ç›¸åŒ
 	 double Nnorm = norm(N,2);
 /*w*/if(norm(E,2)==0 || Nnorm==0)
 	 {
@@ -786,7 +786,7 @@ Kepler Cartesian_Kepler(const vec3 & Position,const vec3 & Velocity, double miu 
 	 else i = acos(cosi);
 
 	 if(Nnorm==0){
-		o = 0.0;  // 0Çã½ÇÎÀĞÇÃ»ÓĞ¹ìµÀ½ÚÏß
+		o = 0.0;  // 0å€¾è§’å«æ˜Ÿæ²¡æœ‰è½¨é“èŠ‚çº¿
 		u = atan2(Position(1),Position(0));
 	 }
 	 else{
@@ -813,11 +813,11 @@ Kepler Cartesian_Kepler(const vec3 & Position,const vec3 & Velocity, double miu 
 	}
 	return Kepler(a,e,i,o,w,M);
 }
-/*! ÓÉ¹ìµÀ¸ùÊı¼ÆËãÎ»ÖÃËÙ¶È
-\param obl ¹ìµÀ¸ùÊı
-\param Pos Î»ÖÃ
-\param Vel ËÙ¶È
-\param miu ÖĞĞÄÌìÌåÒıÁ¦³£Êı
+/*! ç”±è½¨é“æ ¹æ•°è®¡ç®—ä½ç½®é€Ÿåº¦
+\param obl è½¨é“æ ¹æ•°
+\param Pos ä½ç½®
+\param Vel é€Ÿåº¦
+\param miu ä¸­å¿ƒå¤©ä½“å¼•åŠ›å¸¸æ•°
 */
 void Kepler_Cartesian(const Kepler& obl,vec3& Pos,vec3& Vel, double miu )/* miu = GE */
 {
@@ -840,13 +840,13 @@ void Kepler_Cartesian(const Kepler& obl,vec3& Pos,vec3& Vel, double miu )/* miu 
 	Pos = r*cos(f)*P + r*sin(f)*Q;
 	Vel = -sqrt(miu/obl.p())*( sin(f)*P - (cos(f)+obl.e)*Q );
 }
-/*! ¼ÆËãË²Ê±¸ùÊı
-\param MeanElem Æ½¾ù¸ùÊı{a e i O w M}
-\return Ë²Ê±¸ùÊı
+/*! è®¡ç®—ç¬æ—¶æ ¹æ•°
+\param MeanElem å¹³å‡æ ¹æ•°{a e i O w M}
+\return ç¬æ—¶æ ¹æ•°
 */
 Kepler Instant(const Kepler & MeanElem)
 {
-	double ShortTerm[6],as2;//ShortTerm[6]:¶ÌÖÜÆÚÏî,as2:°ë³¤ÖáµÄ¶ş½×¶ÌÖÜÆÚÏî
+	double ShortTerm[6],as2;//ShortTerm[6]:çŸ­å‘¨æœŸé¡¹,as2:åŠé•¿è½´çš„äºŒé˜¶çŸ­å‘¨æœŸé¡¹
 	Short2(MeanElem,ShortTerm,as2);
 	Kepler InstElem;
 	InstElem.a = MeanElem.a + ShortTerm[0] + as2;
@@ -860,14 +860,14 @@ Kepler Instant(const Kepler & MeanElem)
 	InstElem.M = fmod(lamda - InstElem.w + 2*PI2,PI2);
 	return InstElem;
 }
-/*! ¼ÆËã¶ÌÖÜÆÚÏî
-\param MElem Æ½¾ù¸ùÊı
-\param ZS ¶ÌÖÜÆÚÏî(a_s,i_s,Omega_s,ksi_s,eta_s,lamda_s)
-\param AS2 aµÄ¶ş½×³¤ÆÚÏî
+/*! è®¡ç®—çŸ­å‘¨æœŸé¡¹
+\param MElem å¹³å‡æ ¹æ•°
+\param ZS çŸ­å‘¨æœŸé¡¹(a_s,i_s,Omega_s,ksi_s,eta_s,lamda_s)
+\param AS2 açš„äºŒé˜¶é•¿æœŸé¡¹
 */
 void Short2(const Kepler & MElem,double ZS[6],double & AS2)
 {
-	double A2 = Earth::Instance()->A2; // ÓëÒıÁ¦³¡¼ÆËãÏà·û£¬·ñÔòÊ¹ÓÃConstant::A2
+	double A2 = Earth::Instance()->A2; // ä¸å¼•åŠ›åœºè®¡ç®—ç›¸ç¬¦ï¼Œå¦åˆ™ä½¿ç”¨Constant::A2
 	double M_a = MElem.a / Re;
 	double M_i = MElem.i;
 	//double M_omiga = MElem.o;
@@ -879,16 +879,16 @@ void Short2(const Kepler & MElem,double ZS[6],double & AS2)
 	double WE2 = 1.0 - E2;                  // 1 - e^2
 	double GE2 = sqrt(WE2);                 // sqrt(1-e^2)
 	double F1e = 1.0 / (1.0 + GE2);         // F1e = 1/( 1+sqrt(1-e^2) )
-// Õâ²¿·Ö¼ÆËãu£¬¼û¡¶º½ÌìÆ÷¹ìµÀÀíÂÛ¡·P174ÏÂ°ëÒ³
-// ÕâÀï¶¨Òå ksi = e*cos(w) , eta = e*sin(w) ÓëÁõÁÖÊéÉÏ²î¸ö¸ººÅ£¬ÏàÓ¦µÄ¹«Ê½¾ù¼Ó¸ö¸ººÅ
+// è¿™éƒ¨åˆ†è®¡ç®—uï¼Œè§ã€Šèˆªå¤©å™¨è½¨é“ç†è®ºã€‹P174ä¸‹åŠé¡µ
+// è¿™é‡Œå®šä¹‰ ksi = e*cos(w) , eta = e*sin(w) ä¸åˆ˜æ—ä¹¦ä¸Šå·®ä¸ªè´Ÿå·ï¼Œç›¸åº”çš„å…¬å¼å‡åŠ ä¸ªè´Ÿå·
 	double UE = KeplerFunc2(M_ksi,M_eta,M_lamda); // E + w
 	double SU = sin(UE);                         // sin(E+w)
 	double CU = cos(UE);                         // cos(E+w)
 	double Ef = M_ksi*SU - M_eta*CU;             // UE-lamda = E - M
 	double RA = 1.0/(1.0 - M_ksi*CU - M_eta*SU); // a/r
 	double RA3 = RA * RA * RA;                   // (a/r)^3
-	// ÏÂÃæUµÄ¼ÆËãÓĞÁ½ÖÖ£¬Á½ÖÖ½á¹û¶¼ÕıÈ·,µ«¶şÖÖ·½·¨ÔÚf=90ºÍ270Ê±¼ÆËã´æÔÚ½Ø¶ÏÎó²î
-	// 1.ÁõÁÖ¡¶º½ÌìÆ÷¹ìµÀÀíÂÛ¡·ÊéÉÏµÄ¹«Ê½£º
+	// ä¸‹é¢Uçš„è®¡ç®—æœ‰ä¸¤ç§ï¼Œä¸¤ç§ç»“æœéƒ½æ­£ç¡®,ä½†äºŒç§æ–¹æ³•åœ¨f=90å’Œ270æ—¶è®¡ç®—å­˜åœ¨æˆªæ–­è¯¯å·®
+	// 1.åˆ˜æ—ã€Šèˆªå¤©å™¨è½¨é“ç†è®ºã€‹ä¹¦ä¸Šçš„å…¬å¼ï¼š
 	double SfE = RA*Ef*( 1.0 + F1e*(-M_eta*SU - M_ksi*CU) );  // sin(u-UE)
 	double W = SfE / sqrt( 1.0 - SfE*SfE );      // tan(u-UE)
 	double fE = atan(W);                         // u-UE
@@ -896,7 +896,7 @@ void Short2(const Kepler & MElem,double ZS[6],double & AS2)
 	double U = M_lamda + UJMw;                   // u
 	double S1u = sin(U);           // sin(u)
 	double C1u = cos(U);           // cos(u)
-	// 2.¡¶º½ÌìÆ÷¹ìµÀÈ·¶¨¡·ÊéÉÏµÄ¹«Ê½£º
+	// 2.ã€Šèˆªå¤©å™¨è½¨é“ç¡®å®šã€‹ä¹¦ä¸Šçš„å…¬å¼ï¼š
 	//double S1u = RA*(M_ksi*(M_lamda-UE)*F1e + SU - M_eta);
 	//double C1u = RA*(-M_eta*(M_lamda-UE)*F1e + CU - M_ksi);
 	//double U = atan2(S1u,C1u);
@@ -906,7 +906,7 @@ void Short2(const Kepler & MElem,double ZS[6],double & AS2)
 	double C2u = 2.0*C1u*C1u-1.0;  // cos(2u)
 	double SI = sin(M_i);          // sin(i)
 	double S2 = SI * SI;           // sin(i)^2
-	ZS[0] = A2/M_a * ( (2.0/3.0-S2) * (RA3-pow(WE2,-1.5)) + S2*RA3*C2u );   // aµÄ¶ÌÖÜÆÚÏîas
+	ZS[0] = A2/M_a * ( (2.0/3.0-S2) * (RA3-pow(WE2,-1.5)) + S2*RA3*C2u );   // açš„çŸ­å‘¨æœŸé¡¹as
 //--ZS[0] END----------------------------------------------------
 	double P = M_a * WE2;   // p = a(1-e^2)
 	double P2 = P * P;      // p^2
@@ -982,9 +982,9 @@ void Short2(const Kepler & MElem,double ZS[6],double & AS2)
 	AS2 *= Re;
 }
 
-/*! ÇóÆ½¾ù¸ùÊı
-\param inst Ë²Ê±¸ùÊı
-\return Æ½¾ù¸ùÊı
+/*! æ±‚å¹³å‡æ ¹æ•°
+\param inst ç¬æ—¶æ ¹æ•°
+\return å¹³å‡æ ¹æ•°
 */
 Kepler Mean(const Kepler & inst)
 {
@@ -1033,12 +1033,12 @@ Kepler Mean(const Kepler & inst)
 	}
 	return ME;
 }
-/*! ³õÊ¼»¯Æ½Ãæ¿ØÖÆÅçÆø
-\param init ³õÊ¼¹ìµÀ¸ùÊı
-\param destin Ä¿±ê¹ìµÀ¸ùÊı
-\param m1 µÚÒ»´ÎÀíÏëË²Ê±Âö³åÊ±¼äºÍ·½Ïò
-\param m2 µÚ¶ş´ÎÀíÏëË²Ê±Âö³åÊ±¼äºÍ·½Ïò
-\param distri ·Ö²¼ÏµÊı£¬ÀıÈçÎª0.8ÔòÕâ´ÎË«Âö³å±ä¹ì¸Ä±äµÄ¹ìµÀ°ë³¤ÖáÎª×Ü°ë³¤Öá²îµÄ80%
+/*! åˆå§‹åŒ–å¹³é¢æ§åˆ¶å–·æ°”
+\param init åˆå§‹è½¨é“æ ¹æ•°
+\param destin ç›®æ ‡è½¨é“æ ¹æ•°
+\param m1 ç¬¬ä¸€æ¬¡ç†æƒ³ç¬æ—¶è„‰å†²æ—¶é—´å’Œæ–¹å‘
+\param m2 ç¬¬äºŒæ¬¡ç†æƒ³ç¬æ—¶è„‰å†²æ—¶é—´å’Œæ–¹å‘
+\param distri åˆ†å¸ƒç³»æ•°ï¼Œä¾‹å¦‚ä¸º0.8åˆ™è¿™æ¬¡åŒè„‰å†²å˜è½¨æ”¹å˜çš„è½¨é“åŠé•¿è½´ä¸ºæ€»åŠé•¿è½´å·®çš„80%
 */
 void InitPlaneJet(const Kepler & init,const Kepler & destin,Maneuver& m1,Maneuver& m2,double distri)
 {
@@ -1128,12 +1128,12 @@ void InitPlaneJet(const Kepler & init,const Kepler & destin,Maneuver& m1,Maneuve
 	}
 }  //end of function InitPlaneJet()
 
-/*! ¹ìµÀÆ½Ãæ¿ØÖÆ
-\param init ³õÊ¼¹ìµÀ¸ùÊı
-\param destin Ä¿±ê¹ìµÀ¸ùÊı
-\param m1 µÚÒ»´Î¹ìµÀÇã½Ç»ú¶¯Ë²Ê±Âö³åÊ±¼äºÍ·½Ïò
-\param m2 µÚ¶ş´Î¹ìµÀRAAN»ú¶¯Ë²Ê±Âö³åÊ±¼äºÍ·½Ïò
-\param distri ·Ö²¼ÏµÊı£¬ÀıÈçÎª0.8ÔòËùÓĞ¼ÆËãµÄ¦¤V¶¼³ËÉÏ80%
+/*! è½¨é“å¹³é¢æ§åˆ¶
+\param init åˆå§‹è½¨é“æ ¹æ•°
+\param destin ç›®æ ‡è½¨é“æ ¹æ•°
+\param m1 ç¬¬ä¸€æ¬¡è½¨é“å€¾è§’æœºåŠ¨ç¬æ—¶è„‰å†²æ—¶é—´å’Œæ–¹å‘
+\param m2 ç¬¬äºŒæ¬¡è½¨é“RAANæœºåŠ¨ç¬æ—¶è„‰å†²æ—¶é—´å’Œæ–¹å‘
+\param distri åˆ†å¸ƒç³»æ•°ï¼Œä¾‹å¦‚ä¸º0.8åˆ™æ‰€æœ‰è®¡ç®—çš„Î”Véƒ½ä¹˜ä¸Š80%
 */
 void InitNormalJet(const Kepler & init,const Kepler & destin,Maneuver& m1,Maneuver& m2,double distri)
 {
@@ -1154,8 +1154,8 @@ void InitNormalJet(const Kepler & init,const Kepler & destin,Maneuver& m1,Maneuv
 }
 
 /*! relative position and velocity in satellite RefSat orbit coordinate
-\param RefSat Ä¿±ê¹ìµÀ¸ùÊı
-\param chaser ×·×Ù¹ìµÀ¸ùÊı
+\param RefSat ç›®æ ‡è½¨é“æ ¹æ•°
+\param chaser è¿½è¸ªè½¨é“æ ¹æ•°
 \param RelPos chaser's relative position in RefSat's orbit coordination
 \param RelVel chaser's relative velocity to satellite in RefSat's orbit coordination
 */
@@ -1167,8 +1167,8 @@ void RIC(const Kepler& chaser,const Kepler& RefSat,vec3& RelPos,vec3& RelVel)
 	mat33 Coti = GetCoi(RefSat);
 	RelPos = Coti*(rc - rt);
 	//vec3 w(0,-RefSat.n(),0);
-	// ÕâÀïµÄ¹ìµÀ½ÇËÙ¶ÈÓ¦¸ÃÓÃÎ»ÖÃËÙ¶ÈÀ´¼ÆËã£¬ÓëÊ¹ÓÃÆ½¾ù¹ìµÀ
-	// Ïà±È£¬Ïà¶ÔËÙ¶ÈÓĞ²î±ğ£¬²î±ğ´óĞ¡ÓëÄ¿±ê¹ìµÀÆ«ĞÄÂÊÓĞ¹Ø
+	// è¿™é‡Œçš„è½¨é“è§’é€Ÿåº¦åº”è¯¥ç”¨ä½ç½®é€Ÿåº¦æ¥è®¡ç®—ï¼Œä¸ä½¿ç”¨å¹³å‡è½¨é“
+	// ç›¸æ¯”ï¼Œç›¸å¯¹é€Ÿåº¦æœ‰å·®åˆ«ï¼Œå·®åˆ«å¤§å°ä¸ç›®æ ‡è½¨é“åå¿ƒç‡æœ‰å…³
 	vec3 w = cross(rt,vt)/norm(rt,2)/norm(rt,2);
 	w = Coti*w;
 	RelVel = Coti*(vc - vt) - cross(w,RelPos);
@@ -1186,22 +1186,22 @@ Kepler RIC(const Kepler & RefSat,const vec3 & relpos,const vec3 & relvel)
 	vec3 rt,vt;
 	Kepler_Cartesian(RefSat,rt,vt);
 	//vec3 w(0,-RefSat.n(),0);
-	// ÕâÀïµÄ¹ìµÀ½ÇËÙ¶ÈÓ¦¸ÃÓÃÎ»ÖÃËÙ¶ÈÀ´¼ÆËã£¬ÓëÊ¹ÓÃÆ½¾ù¹ìµÀ
-	// Ïà±È£¬Ïà¶ÔËÙ¶ÈÓĞ²î±ğ£¬²î±ğ´óĞ¡ÓëÄ¿±ê¹ìµÀÆ«ĞÄÂÊÓĞ¹Ø
+	// è¿™é‡Œçš„è½¨é“è§’é€Ÿåº¦åº”è¯¥ç”¨ä½ç½®é€Ÿåº¦æ¥è®¡ç®—ï¼Œä¸ä½¿ç”¨å¹³å‡è½¨é“
+	// ç›¸æ¯”ï¼Œç›¸å¯¹é€Ÿåº¦æœ‰å·®åˆ«ï¼Œå·®åˆ«å¤§å°ä¸ç›®æ ‡è½¨é“åå¿ƒç‡æœ‰å…³
 	vec3 w = cross(rt,vt)/norm(rt,2)/norm(rt,2);
 	w = Coti*w;
-	vec3 cPos = rt + trans(Coti)*relpos; //Ä¿±êÔÚ¹ßĞÔ×ø±êÏµÏÂµÄÎ»ÖÃÊ¸Á¿
-	vec3 cVel = vt + trans(Coti)*(relvel + cross(w,relpos)); //Ä¿±êÔÚ¹ßĞÔ×ø±êÏµÏÂµÄËÙ¶ÈÊ¸Á¿
-	return Cartesian_Kepler(cPos,cVel); //ÓÉÄ¿±ê¹ßĞÔÏµÎ»ÖÃËÙ¶È¼ÆËãÆä¹ìµÀ¸ùÊı
+	vec3 cPos = rt + trans(Coti)*relpos; //ç›®æ ‡åœ¨æƒ¯æ€§åæ ‡ç³»ä¸‹çš„ä½ç½®çŸ¢é‡
+	vec3 cVel = vt + trans(Coti)*(relvel + cross(w,relpos)); //ç›®æ ‡åœ¨æƒ¯æ€§åæ ‡ç³»ä¸‹çš„é€Ÿåº¦çŸ¢é‡
+	return Cartesian_Kepler(cPos,cVel); //ç”±ç›®æ ‡æƒ¯æ€§ç³»ä½ç½®é€Ÿåº¦è®¡ç®—å…¶è½¨é“æ ¹æ•°
 }
 
-/*! ÓÉµØ¹Ì×ø±êÏµÎ»ÖÃ¼ÆËãµØÀí¾­Î³¶ÈºÍ¸ß¶È
-\param ECF µØ¹Ì×ø±êÏµÎ»ÖÃ,µ¥Î»km
-\return µØÀí¾­Î³¶ÈºÍ¸ß¶È(deg,km)
+/*! ç”±åœ°å›ºåæ ‡ç³»ä½ç½®è®¡ç®—åœ°ç†ç»çº¬åº¦å’Œé«˜åº¦
+\param ECF åœ°å›ºåæ ‡ç³»ä½ç½®,å•ä½km
+\return åœ°ç†ç»çº¬åº¦å’Œé«˜åº¦(deg,km)
 */
 CSpherical ECF_LLA(const vec3 & ECF)
 {
-	CSpherical lla; // ¾­Î³¶È
+	CSpherical lla; // ç»çº¬åº¦
 	lla.Longitude = fmod(atan2(ECF(1),ECF(0)) + 4*PI, PI2) * DEG;
 	//if( lla.Longitude > 180 ) lla.Longitude -= 360.0;
 
@@ -1210,7 +1210,7 @@ CSpherical ECF_LLA(const vec3 & ECF)
 	double b = Re*sqrt(1.0 - ee);
 	double x2y2 = sqrt(ECF(0)*ECF(0) + ECF(1)*ECF(1));
 
-	// Ê¹ÓÃµü´ú·¨¼ÆËãµØÀíÎ³¶ÈºÍ¸ß¶È
+	// ä½¿ç”¨è¿­ä»£æ³•è®¡ç®—åœ°ç†çº¬åº¦å’Œé«˜åº¦
 	double N = Re;
 	double h = r - sqrt(Re*b);
 	double B = atan( ECF(2) / x2y2 / (1.0 - ee*N/(N+h) ) );
@@ -1228,7 +1228,7 @@ CSpherical ECF_LLA(const vec3 & ECF)
 	lla.Latitude = B1 * DEG;
 	lla.Altitude = h1;
 
-	// Ê¹ÓÃOzoneËã·¨¼ÆËãµØÀíÎ³¶ÈºÍ¸ß¶È(½á¹û²»¶Ô)
+	// ä½¿ç”¨Ozoneç®—æ³•è®¡ç®—åœ°ç†çº¬åº¦å’Œé«˜åº¦(ç»“æœä¸å¯¹)
 	//double c = Re * sqrt(ee);
 	//double n = (Re*x2y2 - c*c) / (2.0*b*ECF.z);
 	//double s = (Re*x2y2 + c*c) / (2.0*b*ECF.z);
@@ -1249,13 +1249,13 @@ CSpherical ECF_LLA(const vec3 & ECF)
 	return lla;
 }
 
-/*! Ì«ÑôµÄ¹ßĞÔÏµ¹ìµÀÆ½¸ùÊı
-\param t CDateTimeÊ±¼ä
-\return Ì«ÑôÔÚ³àµÀ¹ßĞÔÏµµÄ¹ìµÀÆ½¸ùÊı(km,RAD)
+/*! å¤ªé˜³çš„æƒ¯æ€§ç³»è½¨é“å¹³æ ¹æ•°
+\param t CDateTimeæ—¶é—´
+\return å¤ªé˜³åœ¨èµ¤é“æƒ¯æ€§ç³»çš„è½¨é“å¹³æ ¹æ•°(km,RAD)
 */
 const Kepler SunOrbit(const CDateTime& t)
 {
-	double T = t.GetTDTCentNum();     //tµ½J2000.0µÄÈåÂÔÊÀ¼ÍÊı
+	double T = t.GetTDTCentNum();     //tåˆ°J2000.0çš„å„’ç•¥ä¸–çºªæ•°
 	double T2 = T * T;
 	return Kepler(
 		1.00000102*AU,								             		// a
@@ -1266,12 +1266,12 @@ const Kepler SunOrbit(const CDateTime& t)
 		Sun_Mean_Anomaly(t));
 }
 
-/*! Ì«ÑôµÄ³àµÀ¹ßĞÔÏµÎ»ÖÃÊ¸Á¿
-Ê¹ÓÃ½âÎöĞÇÀú
-\param t CDateimeÊ±¼ä
-\return Ì«ÑôÔÚµÀ¹ßĞÔÏµµÄÎ»ÖÃÊ¸Á¿(km)
+/*! å¤ªé˜³çš„èµ¤é“æƒ¯æ€§ç³»ä½ç½®çŸ¢é‡
+ä½¿ç”¨è§£ææ˜Ÿå†
+\param t CDateimeæ—¶é—´
+\return å¤ªé˜³åœ¨é“æƒ¯æ€§ç³»çš„ä½ç½®çŸ¢é‡(km)
 */
-const vec3 SunAnalytic(const CDateTime& t)//Ì«Ñô½âÎöĞÇÀú
+const vec3 SunAnalytic(const CDateTime& t)//å¤ªé˜³è§£ææ˜Ÿå†
 {
 	Kepler k = SunOrbit(t);
 	vec3 r,v;
@@ -1279,10 +1279,10 @@ const vec3 SunAnalytic(const CDateTime& t)//Ì«Ñô½âÎöĞÇÀú
 	return r;
 }
 
-/*! ÔÂÇòµÄµØĞÄ¹ßĞÔÏµÎ»ÖÃÊ¸Á¿
-Ê¹ÓÃ½âÎöĞÇÀú
-\param t  CDatetimeÊ±¼ä
-\return ÔÂÇòÔÚµÀ¹ßĞÔÏµµÄÎ»ÖÃÊ¸Á¿
+/*! æœˆçƒçš„åœ°å¿ƒæƒ¯æ€§ç³»ä½ç½®çŸ¢é‡
+ä½¿ç”¨è§£ææ˜Ÿå†
+\param t  CDatetimeæ—¶é—´
+\return æœˆçƒåœ¨é“æƒ¯æ€§ç³»çš„ä½ç½®çŸ¢é‡
 */
 const vec3 MoonAnalytic(const CDateTime& t)
 {
@@ -1347,40 +1347,40 @@ const vec3 MoonAnalytic(const CDateTime& t)
 	return r*RotationX(-epson)*RotationZ(-Omega)*RotationX(-im)*p;
 }
 
-/*! µØĞÄ¹ßĞÔÏµ(J2000.0¹ßĞÔÏµ)µ½ÔÂĞÄ¹ßĞÔÏµµÄ×ª»»
-\param r µØĞÄ¹ßĞÔÏµÊ¸Á¿
-\param TDT ¼òÔ¼ÈåÂÔÈÕ±íÊ¾µÄµØÇò¶¯Á¦Ñ§Ê±(Unit:day)
-\return ÔÂĞÄ¹ßĞÔÏµÊ¸Á¿
+/*! åœ°å¿ƒæƒ¯æ€§ç³»(J2000.0æƒ¯æ€§ç³»)åˆ°æœˆå¿ƒæƒ¯æ€§ç³»çš„è½¬æ¢
+\param r åœ°å¿ƒæƒ¯æ€§ç³»çŸ¢é‡
+\param TDT ç®€çº¦å„’ç•¥æ—¥è¡¨ç¤ºçš„åœ°çƒåŠ¨åŠ›å­¦æ—¶(Unit:day)
+\return æœˆå¿ƒæƒ¯æ€§ç³»çŸ¢é‡
 */
 const vec3 ECI_MCI(const CDateTime& t,vec3 & r)
 {
 	return r - DE405::Instance()->Moon(t);
 }
 
-/*! ÓÉÔÂĞÄ¹ßĞÔÏµÎ»ÖÃËÙ¶È¼ÆËãÔÂĞÄ¹ßĞÔÏµ2ÖĞµÄ¹ìµÀ¸ùÊı\n
-ÔÂĞÄ¹ßĞÔÏµÖ¸µØĞÄ¹ßĞÔÏµ(J2000.0)Æ½ÒÆµ½ÔÂĞÄµÄ×ø±êÏµ\n
-ÔÂĞÄ¹ßĞÔÏµ2Ö¸ÒÔÔÂÇò³àµÀÃæÎªXYÆ½Ãæ£¬XÖáÖ¸ÏòJ2000.0´º·ÖµãÔÚÔÂÇò³àµÀÉÏµÄÍ¶Ó°
-\param TDT ¼òÔ¼ÈåÂÔÈÕ±íÊ¾µÄµØÇò¶¯Á¦Ñ§Ê±(Unit:day)
+/*! ç”±æœˆå¿ƒæƒ¯æ€§ç³»ä½ç½®é€Ÿåº¦è®¡ç®—æœˆå¿ƒæƒ¯æ€§ç³»2ä¸­çš„è½¨é“æ ¹æ•°\n
+æœˆå¿ƒæƒ¯æ€§ç³»æŒ‡åœ°å¿ƒæƒ¯æ€§ç³»(J2000.0)å¹³ç§»åˆ°æœˆå¿ƒçš„åæ ‡ç³»\n
+æœˆå¿ƒæƒ¯æ€§ç³»2æŒ‡ä»¥æœˆçƒèµ¤é“é¢ä¸ºXYå¹³é¢ï¼ŒXè½´æŒ‡å‘J2000.0æ˜¥åˆ†ç‚¹åœ¨æœˆçƒèµ¤é“ä¸Šçš„æŠ•å½±
+\param TDT ç®€çº¦å„’ç•¥æ—¥è¡¨ç¤ºçš„åœ°çƒåŠ¨åŠ›å­¦æ—¶(Unit:day)
 */
 Kepler MCI_MCI2Kepler(const CDateTime& t,vec3& r,vec3& v)
 {
-	double T = t.GetTDTCentNum(); //TDTµ½J2000.0µÄÈåÂÔÊÀ¼ÍÊı
+	double T = t.GetTDTCentNum(); //TDTåˆ°J2000.0çš„å„’ç•¥ä¸–çºªæ•°
 	double T2 = T*T;
-	double epson = (23.439291 -    46.8150/3600.0*T - 0.00059/3600.0*T2 ) * RAD;  // »Æ³à½»½Ç
-	double OMEGA = ( 125.0445555 - 1934.136185*T +  7.476/3600.0*T2 ) * RAD;  // °×µÀÉı½»µãÆ½»Æ¾­(¶ÔÓ¦µ±ÌìÆ½´º·Öµã)
-	double I = 0.0267617152;  // ÔÂÇò³àµÀÓë»ÆµÀµÄ¼Ğ½Ç
+	double epson = (23.439291 -    46.8150/3600.0*T - 0.00059/3600.0*T2 ) * RAD;  // é»„èµ¤äº¤è§’
+	double OMEGA = ( 125.0445555 - 1934.136185*T +  7.476/3600.0*T2 ) * RAD;  // ç™½é“å‡äº¤ç‚¹å¹³é»„ç»(å¯¹åº”å½“å¤©å¹³æ˜¥åˆ†ç‚¹)
+	double I = 0.0267617152;  // æœˆçƒèµ¤é“ä¸é»„é“çš„å¤¹è§’
 	double Op = atan2(sin(OMEGA)*cos(I),cos(OMEGA));
 	mat33 c = RotationZ(-Op)*RotationX(-I)*RotationZ(OMEGA)*RotationX(epson);
 	vec3 Pos = c*r;
 	vec3 Vel = c*v;
 	return Cartesian_Kepler(Pos,Vel,GM);
 }
-/*! µØĞÄ¹ßĞÔÏµ(J2000.0¹ßĞÔÏµ)µ½ÔÂĞÄ¹ßĞÔÏµµÄ×ª»»
-\param r µØĞÄ¹ßĞÔÏµÎ»ÖÃ
-\param v µØĞÄ¹ßĞÔÏµËÙ¶È
-\param t CDateTimeÈÕÆÚÊ±¼ä
-\param rm ÔÂĞÄ¹ßĞÔÏµÎ»ÖÃ
-\param vm ÔÂĞÄ¹ßĞÔÏµËÙ¶È
+/*! åœ°å¿ƒæƒ¯æ€§ç³»(J2000.0æƒ¯æ€§ç³»)åˆ°æœˆå¿ƒæƒ¯æ€§ç³»çš„è½¬æ¢
+\param r åœ°å¿ƒæƒ¯æ€§ç³»ä½ç½®
+\param v åœ°å¿ƒæƒ¯æ€§ç³»é€Ÿåº¦
+\param t CDateTimeæ—¥æœŸæ—¶é—´
+\param rm æœˆå¿ƒæƒ¯æ€§ç³»ä½ç½®
+\param vm æœˆå¿ƒæƒ¯æ€§ç³»é€Ÿåº¦
 */
 void ECI_MCI(const CDateTime& t,vec3 & r,vec3& v,vec3 & rm,vec3& vm)
 {
@@ -1389,13 +1389,13 @@ void ECI_MCI(const CDateTime& t,vec3 & r,vec3& v,vec3 & rm,vec3& vm)
     rm = r - MPos;
 	vm = v - MVel;
 }
-/*! MCIµ½MCFµÄ×ª»»¾ØÕó
+/*! MCIåˆ°MCFçš„è½¬æ¢çŸ©é˜µ
 is the matrix of coordinate transformation
 for moon-fixed coordinate system
 to moon-inteial coordinate system   \n
 
 MCFr = MCI_MCF*MCIr;   MCIr = ~MCI_MCF*MCFr;
-\param t CDateTimeÊ±¼ä
+\param t CDateTimeæ—¶é—´
 */
 mat33 MCI_MCF(const CDateTime& t)
 {
@@ -1403,7 +1403,7 @@ mat33 MCI_MCF(const CDateTime& t)
 	DE405::Instance()->Librations(t,Omega,i,u);
 	return RotationZ(u)*RotationX(i)*RotationZ(Omega);
 }
-/*! ECIµ½ECFµÄ×ª»»¾ØÕó
+/*! ECIåˆ°ECFçš„è½¬æ¢çŸ©é˜µ
 	(HG) = (EP)(ER)(NR)(PR)   \n
 		is the matrix of coordinate transformation
 		for earth-fixed coordinate system
@@ -1411,21 +1411,21 @@ mat33 MCI_MCF(const CDateTime& t)
 	(-HG) is transpose of matrix (HG)
 
 	ECFr = ECI_ECF*ECIr;   ECIr = ~ECI_ECF*ECFr;
-\param t CDateTimeÊ±¼ä
-\param PolarDriftX ¼«ÒÆÁ¿
-\param PolarDriftY ¼«ÒÆÁ¿
+\param t CDateTimeæ—¶é—´
+\param PolarDriftX æç§»é‡
+\param PolarDriftY æç§»é‡
 */
 mat33 ECI_ECF(const CDateTime& t)
 {
 	return PolarMotion(t) * EarthRotation(t) * Nutation(t) * Precession(t);
 }
 
-/*!Ëê²î¾ØÕó precession matrix
-  ÉèÓĞÒ»¸öÊ¸Á¿ÔÚJ2000.0¹ßĞÔ×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚË²Ê±Æ½³àµÀ×ø±êÏµÖĞµÄ×ø±êÎª Precession*r
-  ·´Ö®£¬Ò»¸öÊ¸Á¿ÔÚË²Ê±Æ½³àµÀ×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚJ2000.0¹ßĞÔ×ø±êÏµÖĞµÄ×ø±êÎª ~Precession*r
-  Èı¸öËê²î½Çu1,u2,u3µÄ×ªĞòÎªPrecession = Rz(-Z)*Ry(theta)*Rz(-zeta)
-\param t CDateTimeÊ±¼ä
-\return Ëê²î×ª»»¾ØÕóPR
+/*!å²å·®çŸ©é˜µ precession matrix
+  è®¾æœ‰ä¸€ä¸ªçŸ¢é‡åœ¨J2000.0æƒ¯æ€§åæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨ç¬æ—¶å¹³èµ¤é“åæ ‡ç³»ä¸­çš„åæ ‡ä¸º Precession*r
+  åä¹‹ï¼Œä¸€ä¸ªçŸ¢é‡åœ¨ç¬æ—¶å¹³èµ¤é“åæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨J2000.0æƒ¯æ€§åæ ‡ç³»ä¸­çš„åæ ‡ä¸º ~Precession*r
+  ä¸‰ä¸ªå²å·®è§’u1,u2,u3çš„è½¬åºä¸ºPrecession = Rz(-Z)*Ry(theta)*Rz(-zeta)
+\param t CDateTimeæ—¶é—´
+\return å²å·®è½¬æ¢çŸ©é˜µPR
 \[
 \left( {PR} \right) = R_z \left( { - z_A } \right)R_y \left( {\theta _A } \right)R_z \left( { - \zeta _A } \right)
 \]
@@ -1436,10 +1436,10 @@ mat33 Precession(const CDateTime& t)
 	precession_angle(t,zeta,theta,Z);
 	return RotationZ(-Z)*RotationY(theta)*RotationZ(-zeta);
 }
-/*! Ëê²îÏµÊı
-- (zeta+Z): ³à¾­Ëê²î
-- theta: ³àÎ³Ëê²î
-\param  t  Ê±¼ä
+/*! å²å·®ç³»æ•°
+- (zeta+Z): èµ¤ç»å²å·®
+- theta: èµ¤çº¬å²å·®
+\param  t  æ—¶é—´
 \param  zeta precession angle ( unit: radian )
 \param  theta precession angle ( unit: radian )
 \param  Z precession angle ( unit: radian )
@@ -1460,12 +1460,12 @@ void precession_angle(const CDateTime& t,double& zeta,double& theta,double& Z)
 	theta = dt*(2004.3109 - dt*(0.42665 - 0.041833*dt) )/206264.806247096;
 	Z     = dt*(2306.2181 + dt*(1.09468 + 0.018203*dt) )/206264.806247096;
 }
-/*! ÕÂ¶¯¾ØÕó nutation matrix
-  ÉèÓĞÒ»¸öÊ¸Á¿ÔÚË²Ê±Æ½³àµÀ×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚË²Ê±Õæ³àµÀ×ø±êÏµÖĞµÄ×ø±êÎª Nutation*r
-  ·´Ö®£¬Ò»¸öÊ¸Á¿ÔÚË²Ê±Õæ³àµÀ×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚË²Ê±Æ½³àµÀ×ø±êÏµÖĞµÄ×ø±êÎª ~Nutation*r
-  Èı¸öÕÂ¶¯½Çu1,u2,u3µÄ×ªĞòÎªNutation = Rz(-(eps+deps))*Ry(-dksi)*Rx(eps)
-\param t CDatetimeÊ±¼ä
-\return ÕÂ¶¯¾ØÕóNU
+/*! ç« åŠ¨çŸ©é˜µ nutation matrix
+  è®¾æœ‰ä¸€ä¸ªçŸ¢é‡åœ¨ç¬æ—¶å¹³èµ¤é“åæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨ç¬æ—¶çœŸèµ¤é“åæ ‡ç³»ä¸­çš„åæ ‡ä¸º Nutation*r
+  åä¹‹ï¼Œä¸€ä¸ªçŸ¢é‡åœ¨ç¬æ—¶çœŸèµ¤é“åæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨ç¬æ—¶å¹³èµ¤é“åæ ‡ç³»ä¸­çš„åæ ‡ä¸º ~Nutation*r
+  ä¸‰ä¸ªç« åŠ¨è§’u1,u2,u3çš„è½¬åºä¸ºNutation = Rz(-(eps+deps))*Ry(-dksi)*Rx(eps)
+\param t CDatetimeæ—¶é—´
+\return ç« åŠ¨çŸ©é˜µNU
 */
 mat33 Nutation(const CDateTime& t)
 {
@@ -1474,23 +1474,23 @@ mat33 Nutation(const CDateTime& t)
 	nutation_angle(t,dksi,deps);
 	return RotationX(-eps-deps)*RotationZ(-dksi)*RotationX(eps);
 }
-/*!ÕÂ¶¯ÏµÊı
-- dksi: »Æ¾­ÕÂ¶¯
-- deps: ½»½ÇÕÂ¶¯
-\param t CDatetimeÊ±¼ä
-\param dksi »Æ¾­ÕÂ¶¯ ( unit: radian )
-\param deps ½»½ÇÕÂ¶¯ ( unit: radian )
+/*!ç« åŠ¨ç³»æ•°
+- dksi: é»„ç»ç« åŠ¨
+- deps: äº¤è§’ç« åŠ¨
+\param t CDatetimeæ—¶é—´
+\param dksi é»„ç»ç« åŠ¨ ( unit: radian )
+\param deps äº¤è§’ç« åŠ¨ ( unit: radian )
 */
 void nutation_angle(const CDateTime& t,double& dksi,double& deps)
 {
 	/*
-	//ÕâÀï²ÉÓÃÁõÁÖ¡¶º½ÌìÆ÷¹ìµÀÀíÂÛ¡·ÖĞµÄ·½·¨¼ÆËãÕÂ¶¯½Ç£¬¾­¹ıÓë
-	//JPL DE405±È½Ï£¬ÕÂ¶¯½ÇµÄ²î±ğĞ¡ÓÚ0.3"
+	//è¿™é‡Œé‡‡ç”¨åˆ˜æ—ã€Šèˆªå¤©å™¨è½¨é“ç†è®ºã€‹ä¸­çš„æ–¹æ³•è®¡ç®—ç« åŠ¨è§’ï¼Œç»è¿‡ä¸
+	//JPL DE405æ¯”è¾ƒï¼Œç« åŠ¨è§’çš„å·®åˆ«å°äº0.3"
 	//static const double A0[5] = {-17.1996,-1.3187, -0.2274, 0.2026,  0.1426  };
 	//static const double A1[5] = {-0.01742,-0.00016,-0.00002,0.00002,-0.00034 };
 	//static const double B0[5] = {   9.2025,   0.5736,   0.0977, -0.0859,   0.0054 };
 	//static const double B1[5] = {  0.00089, -0.00031, -0.00005, 0.00005, -0.00001 };
-	// ½«ÉÏÃæ³£ÊıµÄµ¥Î»ÓÉ½ÇÃë×ªÎª»¡¶È:
+	// å°†ä¸Šé¢å¸¸æ•°çš„å•ä½ç”±è§’ç§’è½¬ä¸ºå¼§åº¦:
 	static const double A0[5] = {-8.33860138961158e-005, -6.39323801279145e-006, -1.10246631084308e-006, 9.8223251792792e-007, 6.91344309262198e-007 };
 	static const double A1[5] = {-8.44545432492812e-008, -7.75701889775258e-010, -9.69627362219072e-011, 9.69627362219072e-011, -1.64836651577242e-009 };
 	static const double B0[5] = {4.4614979004105e-005,  2.7808912748443e-006,  4.73662966444017e-007,  -4.16454952073091e-007,  2.61799387799149e-008 };
@@ -1655,7 +1655,7 @@ void nutation_angle(const CDateTime& t,double& dksi,double& deps)
 	F  = fmod( 93.27209062*3600 + 1739527262.8478*T  - 12.7512*T2 - 0.001037*T3, rev );
 	D  = fmod( 297.85019547*3600 + 1602961601.2090*T  -  6.3706*T2 + 0.006593*T3, rev );
     Om = fmod( 450160.398036 - 6962890.2665*T + 7.4722*T2 + 0.007702*T3 - 0.00005939*T3*T, rev );
-// JAT,¾­¹ıÓëÉÏÃæIERS¶Ô±È£¬¶ÔÕÂ¶¯½Ç¼ÆËãµÄ²î±ğÔÚ2*10^-5Á¿¼¶
+// JAT,ç»è¿‡ä¸ä¸Šé¢IERSå¯¹æ¯”ï¼Œå¯¹ç« åŠ¨è§’è®¡ç®—çš„å·®åˆ«åœ¨2*10^-5é‡çº§
 //    l  = fmod(  485866.733 + (1325.0*rev +  715922.633)*T + 31.310*T2 + 0.064*T3, rev );
 //    lp = fmod( 1287099.804 + (  99.0*rev + 1292581.224)*T -  0.577*T2 - 0.012*T3, rev );
 //    F  = fmod(  335778.877 + (1342.0*rev +  295263.137)*T - 13.257*T2 + 0.011*T3, rev );
@@ -1682,23 +1682,23 @@ void nutation_angle(const CDateTime& t,double& dksi,double& deps)
 	dksi = 1.0E-5 * dksi*Arcs;
 	deps = 1.0E-5 * deps*Arcs;
 }
-/*! µØÇò×Ô×ª¾ØÕóearth rotatioin matrix
-  ÉèÓĞÒ»¸öÊ¸Á¿ÔÚË²Ê±Õæ³àµÀ×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚ×¼µØ¹Ì×ø±êÏµÖĞµÄ×ø±êÎª EarthRotation*r
-  ·´Ö®£¬Ò»¸öÊ¸Á¿ÔÚ×¼µØ¹Ì×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚË²Ê±Õæ³àµÀ×ø±êÏµÖĞµÄ×ø±êÎª ~EarthRotation*r
-  ¸ñÁÖÍşÖÎºãĞÇÊ±SG     ×ªĞòÎªEarthRotation = Rz(SG)
-\param t CDatetimeÊ±¼ä
-\return µØÇò×Ô×ª¾ØÕó
+/*! åœ°çƒè‡ªè½¬çŸ©é˜µearth rotatioin matrix
+  è®¾æœ‰ä¸€ä¸ªçŸ¢é‡åœ¨ç¬æ—¶çœŸèµ¤é“åæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨å‡†åœ°å›ºåæ ‡ç³»ä¸­çš„åæ ‡ä¸º EarthRotation*r
+  åä¹‹ï¼Œä¸€ä¸ªçŸ¢é‡åœ¨å‡†åœ°å›ºåæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨ç¬æ—¶çœŸèµ¤é“åæ ‡ç³»ä¸­çš„åæ ‡ä¸º ~EarthRotation*r
+  æ ¼æ—å¨æ²»æ’æ˜Ÿæ—¶SG     è½¬åºä¸ºEarthRotation = Rz(SG)
+\param t CDatetimeæ—¶é—´
+\return åœ°çƒè‡ªè½¬çŸ©é˜µ
 */
 mat33 EarthRotation(const CDateTime& t)
 {
 	return RotationZ( GetSG(t) );
 }
-/*!  µØÇò¼«ÒÆ¾ØÕó
+/*!  åœ°çƒæç§»çŸ©é˜µ
 [1,   0,   Xp]
 [0,   1,  -Yp]
 [Xp,  Yp,   1]
-ÉèÓĞÒ»¸öÊ¸Á¿ÔÚ×¼µØ¹Ì×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚµØ¹Ì×ø±êÏµÖĞµÄ×ø±êÎª PolarMotion*r
-·´Ö®£¬Ò»¸öÊ¸Á¿ÔÚµØ¹Ì×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚ×¼µØ¹Ì×ø±êÏµÖĞµÄ×ø±êÎª ~PolarMotion*r
+è®¾æœ‰ä¸€ä¸ªçŸ¢é‡åœ¨å‡†åœ°å›ºåæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨åœ°å›ºåæ ‡ç³»ä¸­çš„åæ ‡ä¸º PolarMotion*r
+åä¹‹ï¼Œä¸€ä¸ªçŸ¢é‡åœ¨åœ°å›ºåæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨å‡†åœ°å›ºåæ ‡ç³»ä¸­çš„åæ ‡ä¸º ~PolarMotion*r
 */
 mat33 PolarMotion(const CDateTime& t)
 {
@@ -1712,12 +1712,12 @@ mat33 PolarMotion(const CDateTime& t)
 	m(2,1) = Yp;
 	return m;
 }
-/*!ÎÀĞÇ¹ìµÀ×ø±êÏµÏà¶Ô¹ßĞÔÏµµÄ·½ÏòÓàÏÒÕó
+/*!å«æ˜Ÿè½¨é“åæ ‡ç³»ç›¸å¯¹æƒ¯æ€§ç³»çš„æ–¹å‘ä½™å¼¦é˜µ
       [ 0  1   0]
 Coi = [ 0  0  -1]*RotationZ(u)*RotationX(i)*RotationZ(Omega)
       [-1  0   0]
-\param sat ÎÀĞÇ
-\return ÎÀĞÇ¹ìµÀ×ø±êÏµÏà¶Ô¹ßĞÔÏµµÄ·½ÏòÓàÏÒÕó
+\param sat å«æ˜Ÿ
+\return å«æ˜Ÿè½¨é“åæ ‡ç³»ç›¸å¯¹æƒ¯æ€§ç³»çš„æ–¹å‘ä½™å¼¦é˜µ
 */
 mat33 GetCoi(const Kepler& k)
 {
@@ -1728,12 +1728,12 @@ mat33 GetCoi(const Kepler& k)
 	return T*C;
 }
 
-/*!ÈÆXÖá×ª½ÇangleµÄĞı×ª¾ØÕó
+/*!ç»•Xè½´è½¬è§’angleçš„æ—‹è½¬çŸ©é˜µ
 [ 1          0         0     ]
 [ 0    cos(angle)  sin(angle)]
 [ 0   -sin(angle)  cos(angle)]
-\param angle ×ª¹ıµÄ½Ç(»¡¶È)
-\return XĞı×ª¾ØÕó
+\param angle è½¬è¿‡çš„è§’(å¼§åº¦)
+\return Xæ—‹è½¬çŸ©é˜µ
 */
 mat RotationX(double angle)
 {
@@ -1745,12 +1745,12 @@ mat RotationX(double angle)
 	m(2,1) = -m(1,2);
 	return m;
 }
-/*!ÈÆYÖá×ª½ÇangleµÄĞı×ª¾ØÕó
+/*!ç»•Yè½´è½¬è§’angleçš„æ—‹è½¬çŸ©é˜µ
 [cos(angle)  0    -sin(angle)]
 [     0      1         0     ]
 [sin(angle)  0     cos(angle)]
-\param angle ×ª¹ıµÄ½Ç(»¡¶È)
-\return YĞı×ª¾ØÕó
+\param angle è½¬è¿‡çš„è§’(å¼§åº¦)
+\return Yæ—‹è½¬çŸ©é˜µ
 */
 mat RotationY(double angle)
 {
@@ -1762,12 +1762,12 @@ mat RotationY(double angle)
 	m(2,0) = -m(0,2);
 	return m;
 }
-/*!ÈÆZÖá×ª½ÇangleµÄĞı×ª¾ØÕó
+/*!ç»•Zè½´è½¬è§’angleçš„æ—‹è½¬çŸ©é˜µ
 [ cos(angle)  sin(angle)  0]
 [-sin(angle)  cos(angle)  0]
 [     0            0      1]
-\param angle ×ª¹ıµÄ½Ç(»¡¶È)
-\return ZĞı×ª¾ØÕó
+\param angle è½¬è¿‡çš„è§’(å¼§åº¦)
+\return Zæ—‹è½¬çŸ©é˜µ
 */
 mat RotationZ(double angle)
 {
@@ -1780,14 +1780,14 @@ mat RotationZ(double angle)
 	return m;
 }
 
-/*!ÓÉÈı¸öĞĞÊ¸Á¿x,y,z×é³ÉÒ»¸ö¾ØÕó
+/*!ç”±ä¸‰ä¸ªè¡ŒçŸ¢é‡x,y,zç»„æˆä¸€ä¸ªçŸ©é˜µ
     [x.x  x.y  x.z]
 M = [y.x  y.y  y.z]
     [z.x  z.y  z.z]
-\param x XÊ¸Á¿
-\param y YÊ¸Á¿
-\param z ZÊ¸Á¿
-\return ×é³ÉµÄ¾ØÕó
+\param x XçŸ¢é‡
+\param y YçŸ¢é‡
+\param z ZçŸ¢é‡
+\return ç»„æˆçš„çŸ©é˜µ
 */
 mat33 Vector2Matrix(const vec3& x,const vec3& y,const vec3& z)
 {
@@ -1798,14 +1798,14 @@ mat33 Vector2Matrix(const vec3& x,const vec3& y,const vec3& z)
 	return m;
 }
 
-/*!Èı¸öÊıÈ¡×î´óÖµ*/
+/*!ä¸‰ä¸ªæ•°å–æœ€å¤§å€¼*/
 double max3( double a, double b, double c ) 
 {
 	double m = a>b?a:b;
 	return m>c?m:c;
 }
 
-/*!Èı¸öÊıÈ¡¾ø¶ÔÖµ×î´óÖµ*/
+/*!ä¸‰ä¸ªæ•°å–ç»å¯¹å€¼æœ€å¤§å€¼*/
 double maxabs3( double a, double b, double c ) 
 {
 	a = fabs(a);
@@ -1815,13 +1815,13 @@ double maxabs3( double a, double b, double c )
 	return m>c?m:c;
 }
 
-/*!Ê¸Á¿Íâ»ı*/
+/*!çŸ¢é‡å¤–ç§¯*/
 mat33 out_product(const vec3 &v1,const vec3& v2)
 {
 	return v1*v2.t();
 }
 
-/*!Ë«Ê¸Á¿¶¨×Ë*/
+/*!åŒçŸ¢é‡å®šå§¿*/
 mat33 Avv( vec3 X1I, vec3 X2I, vec3 X1B, vec3 X2B ) 
 {
 	vec3 V2I = cross(X1I,X2I);

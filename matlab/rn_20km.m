@@ -1,14 +1,14 @@
-% ¾àÀë£«½Ç¶È²âÁ¿£¬Ê¹ÓÃÖ±½Ó²âÁ¿Á¿½øĞĞÏà¶Ôµ¼º½
+% è·ç¦»ï¼‹è§’åº¦æµ‹é‡ï¼Œä½¿ç”¨ç›´æ¥æµ‹é‡é‡è¿›è¡Œç›¸å¯¹å¯¼èˆª
 disp(strcat('Simulation Start:',datestr(clock)));
 clear
 close all
 load leo20
 %% filter
-rou_error = 10/1000/3; % ¾àÀë²âÁ¿Îó²î
-angle_error = 0.05*rad/3; %½Ç¶È²âÁ¿Îó²î 
+rou_error = 10/1000/3; % è·ç¦»æµ‹é‡è¯¯å·®
+angle_error = 0.05*rad/3; %è§’åº¦æµ‹é‡è¯¯å·® 
 
-atti_error = 0.05*rad/3;  % ×ËÌ¬¿ØÖÆÎó²î
-atti_measure_error = 0.05*rad/3; % ×ËÌ¬²âÁ¿Îó²î
+atti_error = 0.05*rad/3;  % å§¿æ€æ§åˆ¶è¯¯å·®
+atti_measure_error = 0.05*rad/3; % å§¿æ€æµ‹é‡è¯¯å·®
 
 realtime = 0;
 
@@ -24,7 +24,7 @@ Q = diag([1e-6*ones(1,3) 1e-6*ones(1,3)]);
 % R = diag([rou_error^2,angle_error^2,angle_error^2]);
 R = diag([10 0.1*ones(1,2)]);
 
-x = zeros(6,length(t)); %×´Ì¬±äÁ¿
+x = zeros(6,length(t)); %çŠ¶æ€å˜é‡
 x(:,1) = [rou(1)*cos(beta(1))*cos(alpha(1));rou(1)*sin(beta(1));-rou(1)*cos(beta(1))*sin(alpha(1));0;0;0];
 % x(:,1) = [rc(:,1);vc(:,1)];
 P = 10^8*eye(6,6);
@@ -34,7 +34,7 @@ err(1,:) = (x(:,1)-[rc(:,1);vc(:,1)])'*1000;
 
 if realtime == 1
     ax = zeros(6,1);
-    fnaverr = figure('Name','µ¼º½Îó²î','Position',[300 400 760 480]);
+    fnaverr = figure('Name','å¯¼èˆªè¯¯å·®','Position',[300 400 760 480]);
     ax(1) = subplot(3,2,1); xline =  line('parent',ax(1),'linestyle','-','erase','none','xdata',[],'ydata',[]); grid on;
     ax(3) = subplot(3,2,3); yline =  line('parent',ax(3),'linestyle','-','erase','none','xdata',[],'ydata',[]); grid on;
     ax(5) = subplot(3,2,5); zline =  line('parent',ax(5),'linestyle','-','erase','none','xdata',[],'ydata',[]); grid on;
@@ -45,30 +45,30 @@ if realtime == 1
 end 
     
 for i=2:length(t)
-% ÎÀĞÇ×ËÌ¬
+% å«æ˜Ÿå§¿æ€
     phi = atti_error * sin(t(i)/17/2/pi+1);
     theta = atti_error * sin(t(i)/13/2/pi+2);
     psi = atti_error * sin(t(i)/11/2/pi+3);
-    Cbo = roty( theta ) * rotx( phi ) * rotz( psi ); % ×ËÌ¬¾ØÕó
+    Cbo = roty( theta ) * rotx( phi ) * rotz( psi ); % å§¿æ€çŸ©é˜µ
   
-% Ïà¶Ô²âÁ¿Á¿
+% ç›¸å¯¹æµ‹é‡é‡
     rt_b = Cbo*rt(:,i); % target in chaser's body coordination
     rou(i) = norm(rt_b) + rou_error*randn;
     alpha(i) = atan2(-rt_b(3), rt_b(1)) + angle_error*randn;
     beta(i) = asin(rt_b(2)/norm(rt_b)) + angle_error*randn;
 
-% ¹ìµÀ¼ÆËãºÍ×ËÌ¬²âÁ¿
-  % ĞÇÉÏ×ÔÖ÷¾ø¶Ôµ¼º½
+% è½¨é“è®¡ç®—å’Œå§¿æ€æµ‹é‡
+  % æ˜Ÿä¸Šè‡ªä¸»ç»å¯¹å¯¼èˆª
     kcm = kc(i,:);
-    kcm(1) = kcm(1) + 0.02/3*randn; %Ïàµ±ÓÚ°ë³¤ÖáËæ»úÎó²î20m
-    kcm(3) = kcm(3) + 0.1/3/kcm(1)*randn; % Ïàµ±ÓÚ¹ìµÀ·¨Ïò100mËæ»úÎó²î
-    kcm(6) = kcm(6) + 0.1/3/kcm(1)*randn; % Ïàµ±ÓÚ¹ìµÀ¼£Ïò387mËæ»úÎó²î
- % ĞÇÉÏÄ¿±ê¹ìµÀ¼ÆËã
+    kcm(1) = kcm(1) + 0.02/3*randn; %ç›¸å½“äºåŠé•¿è½´éšæœºè¯¯å·®20m
+    kcm(3) = kcm(3) + 0.1/3/kcm(1)*randn; % ç›¸å½“äºè½¨é“æ³•å‘100méšæœºè¯¯å·®
+    kcm(6) = kcm(6) + 0.1/3/kcm(1)*randn; % ç›¸å½“äºè½¨é“è¿¹å‘387méšæœºè¯¯å·®
+ % æ˜Ÿä¸Šç›®æ ‡è½¨é“è®¡ç®—
     ktm = kt(i,:);
-    ktm(1) = ktm(1) + 0.05 + 20/86400*t(i); %Ïàµ±ÓÚ°ë³¤ÖáÎó²î = 50m + 20m/Ìì
-    ktm(3) = ktm(3) + (0.1+0.1/86400*t(i))/ktm(1); % Ïàµ±ÓÚ¹ìµÀ·¨ÏòÎó²î = 100m + 100m/Ìì
-    ktm(6) = ktm(6) + (0.2+1/86400*t(i))/ktm(1); % Ïàµ±ÓÚ¹ìµÀ¼£ÏòÎó²î = 200m + 1000m/Ìì
-    wt = sqrt(GEarth/ktm(1)^3);  %Ä¿±ê¹ìµÀ½ÇËÙ¶È
+    ktm(1) = ktm(1) + 0.05 + 20/86400*t(i); %ç›¸å½“äºåŠé•¿è½´è¯¯å·® = 50m + 20m/å¤©
+    ktm(3) = ktm(3) + (0.1+0.1/86400*t(i))/ktm(1); % ç›¸å½“äºè½¨é“æ³•å‘è¯¯å·® = 100m + 100m/å¤©
+    ktm(6) = ktm(6) + (0.2+1/86400*t(i))/ktm(1); % ç›¸å½“äºè½¨é“è¿¹å‘è¯¯å·® = 200m + 1000m/å¤©
+    wt = sqrt(GEarth/ktm(1)^3);  %ç›®æ ‡è½¨é“è§’é€Ÿåº¦
     rtarget = kt(i,1)*(1-ktm(2)^2)/(1-ktm(2)*cos(kepleru(ktm)-ktm(5)));
     
     Coci = getcoi(kcm);
@@ -76,11 +76,11 @@ for i=2:length(t)
     
     Cbo_m = roty( theta+atti_measure_error*randn ) * ...
             rotx( phi+atti_measure_error*randn ) * ...
-            rotz( psi+atti_measure_error*randn ); % ×ËÌ¬²âÁ¿
+            rotz( psi+atti_measure_error*randn ); % å§¿æ€æµ‹é‡
 
     Cbcot = Cbo_m*Coci*Coti'; 
     
-%Ò»²½Ô¤²â
+%ä¸€æ­¥é¢„æµ‹
     [F A] = Approximate2Order(x(:,i-1),wt,rtarget);
 %     [F A] = CWFunction(x(:,i-1),wt);
     xk = x(:,i-1) + F*h + h^2/2*A*F;
@@ -88,7 +88,7 @@ for i=2:length(t)
     
     P = PHI*P*PHI' + Q;
 
-% ¹Û²â¾ØÕó
+% è§‚æµ‹çŸ©é˜µ
     rtk = -Cbcot*xk(1:3);
     rk = norm(rtk);
     xtzt = sqrt(rtk(1)^2 + rtk(3)^2);
@@ -97,19 +97,19 @@ for i=2:length(t)
         -rtk(1)*rtk(2)/rk^2/xtzt,  xtzt/rk^2,   -rtk(2)*rtk(3)/rk^2/xtzt];
     H = [-Hp*Cbcot, zeros(3,3)];
 
-% ÔöÒæ¾ØÕó
+% å¢ç›ŠçŸ©é˜µ
     K = P*H'*inv(H*P*H'+R);
-% Ò»²½Ô¤²â¹Û²âÁ¿
+% ä¸€æ­¥é¢„æµ‹è§‚æµ‹é‡
     zk = [norm(rtk);
         atan2(-rtk(3), rtk(1));
         asin(rtk(2)/norm(rtk))];
-% ×îÓÅ¹À¼Æ
+% æœ€ä¼˜ä¼°è®¡
     x(:,i) = xk + K*([rou(i);alpha(i);beta(i)] - zk);
-% ¸üĞÂ
+% æ›´æ–°
     P = (eye(6,6) - K*H)*P;
-% µ¼º½Îó²î
+% å¯¼èˆªè¯¯å·®
     err(i,:) = [x(:,i)-[rc(:,i);vc(:,i)]]'*1000;
-% ÊµÊ±»æÍ¼¸üĞÂ    
+% å®æ—¶ç»˜å›¾æ›´æ–°    
     if realtime == 1
         for j = 1:6
             if err(i,j) < mm(1,j) || err(i,j) > mm(2,j)
@@ -133,22 +133,22 @@ for i=2:length(t)
         end
     end
 end
-%% Ïà¶Ô¹ì¼£
+%% ç›¸å¯¹è½¨è¿¹
 start = 2500;
-% figure('Name','Ïà¶Ô¹ì¼£','Position',[120 120 560 700]);
+% figure('Name','ç›¸å¯¹è½¨è¿¹','Position',[120 120 560 700]);
 % subplot 411,plot(rc(1,:),rc(3,:)),grid on,ylabel('z(km)'),hold on,plot(x(1,start:end),x(3,start:end),'r');
 % subplot 412,plot(rc(1,:),rc(2,:)),grid on,ylabel('y(km)'),xlabel('x(km)'),hold on,plot(x(1,start:end),x(2,start:end),'r');
 % subplot 413,plot(vc(1,:),vc(3,:)),grid on,ylabel('vz'),hold on,plot(x(4,start:end),x(6,start:end),'r');
 % subplot 414,plot(vc(1,:),vc(2,:)),grid on,ylabel('vy'),xlabel('vx'),hold on,plot(x(4,start:end),x(5,start:end),'r');
 % 
-% figure('Name','²âÁ¿Êä³ö');
+% figure('Name','æµ‹é‡è¾“å‡º');
 % subplot 211,plot(t,rou),grid on,ylabel('\rho');
 % subplot 212,plot(t,alpha,t,beta),grid on,ylabel('\alpha \beta');
-% µ¼º½Îó²î
+% å¯¼èˆªè¯¯å·®
 if realtime == 1
     figure(fnaverr);
 else
-    figure('Name','µ¼º½Îó²î','Position',[300 400 760 480]);
+    figure('Name','å¯¼èˆªè¯¯å·®','Position',[300 400 760 480]);
     plot6(t(start:end),err(start:end,:),'label','x(m)','y(m)','z(m)','vx(m/s)','vy(m/s)','vz(m/s)');
 end
 relnav_error = [mean(err(start:end,1)), mean(err(start:end,2)), mean(err(start:end,3)),...
@@ -156,5 +156,5 @@ relnav_error = [mean(err(start:end,1)), mean(err(start:end,2)), mean(err(start:e
                 std(err(start:end,1))*3, std(err(start:end,2))*3, std(err(start:end,3))*3, ...
                 std(err(start:end,4))*3, std(err(start:end,5))*3, std(err(start:end,6))*3];
 disp(relnav_error);
-disp('²âÁ¿Îó²î£º');disp([rou_error*3*1000,angle_error*3*deg]);
-disp('µ¼º½Îó²î£º');disp([norm(relnav_error(2,1:3)/3)*3 , norm(relnav_error(2,4:6)/3)*3 ]);
+disp('æµ‹é‡è¯¯å·®ï¼š');disp([rou_error*3*1000,angle_error*3*deg]);
+disp('å¯¼èˆªè¯¯å·®ï¼š');disp([norm(relnav_error(2,1:3)/3)*3 , norm(relnav_error(2,4:6)/3)*3 ]);

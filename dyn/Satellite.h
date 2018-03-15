@@ -304,7 +304,7 @@ public:
 	~CSatellite(){}
 
 	//! ��ʼ�������ú���
-	void Initialize(const CDateTime& t,const Kepler elem,const char flag = 'i');
+	void Initialize(const CDateTime& t,const Kepler elem);
 	
 	//! ������ǵĳ�ʼֵ���ļ���
 	void ReportInitial();
@@ -352,7 +352,7 @@ public:
 	~CRapidSatellite(){}
 
 	//! ��ʼ�������ú���
-	void Initialize(const CDateTime& t,const Kepler elem,const char flag);
+	void Initialize(const CDateTime& t,const Kepler elem);
 
 	// h��λΪms
 	void Propagate(int h);

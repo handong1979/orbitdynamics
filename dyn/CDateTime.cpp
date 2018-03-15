@@ -159,14 +159,14 @@ void UTCG::SetTime(int year,int month,int day,int hour,int minute,double second)
 		}
 	}	
 
-	nday = day - 32075 + 1461*( year + 4800 + (month-14)/12 )/4  //×¢ÒâÕâÀïµÄ³ý·¨ÎªÕû³ý
+	nday = day - 32075 + 1461*( year + 4800 + (month-14)/12 )/4  //æ³¨æ„è¿™é‡Œçš„é™¤æ³•ä¸ºæ•´é™¤
 		+367 * (month - 2 - (month-14)/12*12 ) /12
 		-3*( ( year + 4900 + (month-14)/12 )/100 )/4
 		-2400001;
-	sec = double(hour)*3600.0 + double(minute)*60.0 + double(second);  //ÈåÀÕÈÕÊý
+	sec = double(hour)*3600.0 + double(minute)*60.0 + double(second);  //å„’å‹’æ—¥æ•°
 }
 
-/*! ²é±í¼ÆËãdTAI=TAI-UTC
+/*! æŸ¥è¡¨è®¡ç®—dTAI=TAI-UTC
 Dates (UTCG)                  TAI minus UTC (sec)
 -----------------------      -------------------
 1 Jan 1972 00:00:00.000                 10
@@ -226,7 +226,7 @@ int UTCG::GetdTAI() const
 	else return 10; // 1972-1-1
 }
 
-/*! ²é±íµÃµ½dUT1=UT1-UTC
+/*! æŸ¥è¡¨å¾—åˆ°dUT1=UT1-UTC
 \return UT1-UTC
 */
 double UTCG::GetdUT1() const
@@ -234,7 +234,7 @@ double UTCG::GetdUT1() const
 	return Earth::Instance()->GetdUT1(*this);
 }
 
-//! ¹éÒ»»¯ÎªÕûÌì£«µ±ÌìÃëÊý
+//! å½’ä¸€åŒ–ä¸ºæ•´å¤©ï¼‹å½“å¤©ç§’æ•°
 void UTCG::Normalize()
 {
 	while(sec>=86400.0)
@@ -250,16 +250,16 @@ void UTCG::Normalize()
 }
 
 ///////////////////////
-//³ÉÔ±ÔËËã·ûÖØÔØ
+//æˆå‘˜è¿ç®—ç¬¦é‡è½½
 ///////////////////////
-UTCG& UTCG::operator+=(double dt)//Ôö¼ÓdtµÄÊ±¼ä(ÃëÊý)
+UTCG& UTCG::operator+=(double dt)//å¢žåŠ dtçš„æ—¶é—´(ç§’æ•°)
 {
 	sec += dt;
 	Normalize();
 	return *this;
 }
 
-UTCG& UTCG::operator-=(double dt)//¼õÉÙdtµÄÊ±¼ä(ÃëÊý)
+UTCG& UTCG::operator-=(double dt)//å‡å°‘dtçš„æ—¶é—´(ç§’æ•°)
 {
 	sec -= dt;
 	Normalize();
@@ -322,60 +322,60 @@ std::istream& operator>>(std::istream& istrm,UTCG& t)
 }
 
 ///////////////////////
-//·Ç³ÉÔ±ÔËËã·ûÖØÔØ
+//éžæˆå‘˜è¿ç®—ç¬¦é‡è½½
 ///////////////////////
-ORBITDYN_API UTCG operator+(const UTCG & t,double sec)//Ôö¼ÓdtµÄÊ±¼ä(ÃëÊý)
+ORBITDYN_API UTCG operator+(const UTCG & t,double sec)//å¢žåŠ dtçš„æ—¶é—´(ç§’æ•°)
 {
 	UTCG t2 = t;
 	t2 += sec;
 	return t2;
 }
 
-ORBITDYN_API UTCG operator-(const UTCG& t,double sec)//¼õÉÙdtµÄÊ±¼ä(ÃëÊý)
+ORBITDYN_API UTCG operator-(const UTCG& t,double sec)//å‡å°‘dtçš„æ—¶é—´(ç§’æ•°)
 {
 	UTCG t2 = t;
 	t2 -= sec;
 	return t2;
 }
 
-//! ·µ»ØÁ½¸öÊ±¼äµÄ²îµÄÃëÊý
+//! è¿”å›žä¸¤ä¸ªæ—¶é—´çš„å·®çš„ç§’æ•°
 ORBITDYN_API double operator-(const UTCG& t1,const UTCG& t0)
 {
 	return (t1.GetUTC()-t0.GetUTC())*SolarDay;
 }
-// ¹ØÏµÔËËã
-//! ±È½ÏÁ½¸öÊ±¼äµÄ´óÐ¡
+// å…³ç³»è¿ç®—
+//! æ¯”è¾ƒä¸¤ä¸ªæ—¶é—´çš„å¤§å°
 ORBITDYN_API bool operator>(const UTCG& t1,const UTCG& t0)
 {
 	return t1.GetUTC() > t0.GetUTC();
 }
-//! ±È½ÏÁ½¸öÊ±¼äµÄ´óÐ¡
+//! æ¯”è¾ƒä¸¤ä¸ªæ—¶é—´çš„å¤§å°
 ORBITDYN_API bool operator<(const UTCG& t1,const UTCG& t0)
 {
 	return t1.GetUTC() < t0.GetUTC();
 }
-//! ±È½ÏÁ½¸öÊ±¼äµÄ´óÐ¡
+//! æ¯”è¾ƒä¸¤ä¸ªæ—¶é—´çš„å¤§å°
 ORBITDYN_API bool operator>=(const UTCG& t1,const UTCG& t0)
 {
 	return t1.GetUTC() >= t0.GetUTC();
 }
-//! ±È½ÏÁ½¸öÊ±¼äµÄ´óÐ¡
+//! æ¯”è¾ƒä¸¤ä¸ªæ—¶é—´çš„å¤§å°
 ORBITDYN_API bool operator<=(const UTCG& t1,const UTCG& t0)
 {
 	return t1.GetUTC() <= t0.GetUTC();
 }
 
-//! ÈÕÆÚÊ±¼ä×ª»¯ÎªMJD
+//! æ—¥æœŸæ—¶é—´è½¬åŒ–ä¸ºMJD
 ORBITDYN_API double MJD(int year,int month,int day,int hour,int minute,double second)
 {
-	return day - 32075 + 1461*( year + 4800 + (month-14)/12 )/4  //×¢ÒâÕâÀïµÄ³ý·¨ÎªÕû³ý
+	return day - 32075 + 1461*( year + 4800 + (month-14)/12 )/4  //æ³¨æ„è¿™é‡Œçš„é™¤æ³•ä¸ºæ•´é™¤
 		+367 * (month - 2 - (month-14)/12*12 ) /12
 		-3*( ( year + 4900 + (month-14)/12 )/100 )/4
 		-0.5-2400000.5+double(hour)/24.0
-		+double(minute)/1440.0+double(second)/86400.0;  //ÈåÀÕÈÕÊý
+		+double(minute)/1440.0+double(second)/86400.0;  //å„’å‹’æ—¥æ•°
 }
 
-//! ËÄÉáÎåÈëÈ¡Õû
+//! å››èˆäº”å…¥å–æ•´
 //int round(double d)
 //{
 //	if(d>INT_MAX || d<INT_MIN)
@@ -383,19 +383,19 @@ ORBITDYN_API double MJD(int year,int month,int day,int hour,int minute,double se
 //	int n = (int)floor(d);
 //	if( d - n >= 0.5 ) return n+1;
 //	else return n;
-//	// boostÖÐµÄËã·¨£º(È¥µôÁËÀàÐÍ×ª»»ºÍ³ö´í´¦Àí)
+//	// boostä¸­çš„ç®—æ³•ï¼š(åŽ»æŽ‰äº†ç±»åž‹è½¬æ¢å’Œå‡ºé”™å¤„ç†)
 //	// return d < 0 ? ceil(d - 0.5) : floor(d + 0.5);
 //}
 
-//! MJD×ª»¯ÎªÈÕÆÚÊ±¼ä
+//! MJDè½¬åŒ–ä¸ºæ—¥æœŸæ—¶é—´
 ORBITDYN_API void GetCalendar(double mjd,int &Y,int &M,int &D,int &h,int &min,double &s)
 {
-	// Ôö¼Ó¸¡µãÊýµÄ´¦Àí
-	// µ±ÊäÈëÎª55197.999999999985(Ó¦¸ÃÊÇ2010-1-1,23:59:59.999...»ò2010-1-2,0:0:0)Ê±£¬
-	// ·¢Éú¼ÆËã´íÎó£¬¼ÆËãJÊ±Êý×Ö×Ô¶¯½øÎ»£¬µ¼ÖÂ¼ÆËãµÄÈÕÆÚÕýÈ·(2010-1-2),µ«ÊÇÔÚ¼ÆËãsÊ±Ê¹ÓÃµÄ·½·¨Îª
+	// å¢žåŠ æµ®ç‚¹æ•°çš„å¤„ç†
+	// å½“è¾“å…¥ä¸º55197.999999999985(åº”è¯¥æ˜¯2010-1-1,23:59:59.999...æˆ–2010-1-2,0:0:0)æ—¶ï¼Œ
+	// å‘ç”Ÿè®¡ç®—é”™è¯¯ï¼Œè®¡ç®—Jæ—¶æ•°å­—è‡ªåŠ¨è¿›ä½ï¼Œå¯¼è‡´è®¡ç®—çš„æ—¥æœŸæ­£ç¡®(2010-1-2),ä½†æ˜¯åœ¨è®¡ç®—sæ—¶ä½¿ç”¨çš„æ–¹æ³•ä¸º
 	// s = (mjd-floor(mjd))*86400
-	// ÕâÀï¶ÔmjdÈ¡ÕûÊ±£¬²¢Ã»ÓÐ½øÎ»£¬¼ÆËã³öÀ´µÄÊ±¼äÊÇ23:59:59.999...£¬ÓëÈÕÆÚÆ´ÔÚÒ»ÆðÖ®ºóµ¼ÖÂ¶àËãÁËÒ»Ìì
-	// bug reporter£º ÕÅÖ¾·½   bug fixed£ºº«¶¬
+	// è¿™é‡Œå¯¹mjdå–æ•´æ—¶ï¼Œå¹¶æ²¡æœ‰è¿›ä½ï¼Œè®¡ç®—å‡ºæ¥çš„æ—¶é—´æ˜¯23:59:59.999...ï¼Œä¸Žæ—¥æœŸæ‹¼åœ¨ä¸€èµ·ä¹‹åŽå¯¼è‡´å¤šç®—äº†ä¸€å¤©
+	// bug reporterï¼š å¼ å¿—æ–¹   bug fixedï¼šéŸ©å†¬
 	int mjdI = (int)floor(mjd);
 	s = (mjd-mjdI)*86400;
 	h = (int)floor(s/3600);
@@ -418,7 +418,7 @@ ORBITDYN_API void GetCalendar(double mjd,int &Y,int &M,int &D,int &h,int &min,do
 		}
 	}
 	int J = (int)floor( mjdI+2400000.5+0.5 );
-	int N = 4*(J+68569)/146097; //×¢ÒâÕâÀïµÄ³ý·¨ÎªÕû³ý
+	int N = 4*(J+68569)/146097; //æ³¨æ„è¿™é‡Œçš„é™¤æ³•ä¸ºæ•´é™¤
 	int L1 = J + 68569 - (N*146097+3)/4;
 	int Y1 = 4000*(L1+1)/1461001;
 	int L2 = L1 + 31- 1461*Y1/4;

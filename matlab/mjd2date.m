@@ -1,7 +1,7 @@
-% ÓÉ¼òÔ¼ÈåÂÔÈÕ¼ÆËãÈÕÆÚ
-% mjd2date(mjd)¼òÔ¼ÈåÂÔÈÕmjd¶ÔÓ¦µÄÈÕÆÚÊ±¼ä[year,month,day,hour,minute,second]
+% ç”±ç®€çº¦å„’ç•¥æ—¥è®¡ç®—æ—¥æœŸ
+% mjd2date(mjd)ç®€çº¦å„’ç•¥æ—¥mjdå¯¹åº”çš„æ—¥æœŸæ—¶é—´[year,month,day,hour,minute,second]
 %
-% Example£º
+% Exampleï¼š
 %      mjd2date(54212.5212962963)
 %
 % See also date2mjd

@@ -1,39 +1,39 @@
-% ×ËÌ¬¶¯Á¦Ñ§³ÌÐò,ÓÃ×÷ÎÀÐÇµÄ×ËÌ¬¶¯Á¦Ñ§ÍâÍÆ,²¢¿ÉÒÔÍ¬Ê±ÍâÍÆ¶à¿ÅÎÀÐÇµÄ¹ìµÀ
+% å§¿æ€åŠ¨åŠ›å­¦ç¨‹åº,ç”¨ä½œå«æ˜Ÿçš„å§¿æ€åŠ¨åŠ›å­¦å¤–æŽ¨,å¹¶å¯ä»¥åŒæ—¶å¤–æŽ¨å¤šé¢—å«æ˜Ÿçš„è½¨é“
 % out = mexAttitudedyn(satllite_name,operator,parameter,...)
-% satllite_name: ÎÀÐÇÃû³Æ
-% operator: ²Ù×÷,¾ßÌåÎª(²»Çø·Ö´óÐ¡Ð¡):
-%     'init':³õÊ¼»¯Ò»¿ÅÎÀÐÇ
-%     'step':ÍâÍÆÒ»²½(Ö§³ÖÏòÇ°ÍÆ)
-%     'Propagate':ÍâÍÆÒ»¶ÎÊ±¼ä
-% parameter: ¶ÔÓ¦operatorµÄ²ÎÊý
-% Êä³ö:outÎªÒ»¸öÊý×é,°üÀ¨J2000ÏÂµÄ¹ìµÀ¸ùÊýºÍÎ»ÖÃËÙ¶È,Êý×éÖÐµÄÊý¾ÝÒÀ´ÎÎª:
-%      ¹ßÐÔËÄÔªÊýqbi,¹ßÐÔ½ÇËÙ¶Èwbi
+% satllite_name: å«æ˜Ÿåç§°
+% operator: æ“ä½œ,å…·ä½“ä¸º(ä¸åŒºåˆ†å¤§å°å°):
+%     'init':åˆå§‹åŒ–ä¸€é¢—å«æ˜Ÿ
+%     'step':å¤–æŽ¨ä¸€æ­¥(æ”¯æŒå‘å‰æŽ¨)
+%     'Propagate':å¤–æŽ¨ä¸€æ®µæ—¶é—´
+% parameter: å¯¹åº”operatorçš„å‚æ•°
+% è¾“å‡º:outä¸ºä¸€ä¸ªæ•°ç»„,åŒ…æ‹¬J2000ä¸‹çš„è½¨é“æ ¹æ•°å’Œä½ç½®é€Ÿåº¦,æ•°ç»„ä¸­çš„æ•°æ®ä¾æ¬¡ä¸º:
+%      æƒ¯æ€§å››å…ƒæ•°qbi,æƒ¯æ€§è§’é€Ÿåº¦wbi
 %
-% ¸÷ÖÖ²Ù×÷¶ÔÓ¦µÄ²ÎÊýÎª:
-%     'init':²ÎÊýparameterÎªÒ»¸öÊý×é,ÒÀ´ÎÎª:[¹ßÐÔËÄÔªÊýqbi,¹ßÐÔ½ÇËÙ¶Èwbi]
-%     'step':»ý·ÖÒ»²½
-%            [²½³¤  Hwb  Tw  Tex]
-%            HwbÎªÎÀÐÇÂÖÏµµÄºÏ³É½Ç¶¯Á¿
-%            TwÎªÂÖÏµµÄºÏ³ÉÁ¦¾Ø
-%            TexÎªÍÆÁ¦Æ÷ºÏ³ÉÈýÖáÁ¦¾Ø
-%     'remove':ÎÞ²ÎÊý
-%     'SetIs':ÉèÖÃ¹ßÁ¿,²ÎÊýÎª3*3¹ßÁ¿¾ØÕó
+% å„ç§æ“ä½œå¯¹åº”çš„å‚æ•°ä¸º:
+%     'init':å‚æ•°parameterä¸ºä¸€ä¸ªæ•°ç»„,ä¾æ¬¡ä¸º:[æƒ¯æ€§å››å…ƒæ•°qbi,æƒ¯æ€§è§’é€Ÿåº¦wbi]
+%     'step':ç§¯åˆ†ä¸€æ­¥
+%            [æ­¥é•¿  Hwb  Tw  Tex]
+%            Hwbä¸ºå«æ˜Ÿè½®ç³»çš„åˆæˆè§’åŠ¨é‡
+%            Twä¸ºè½®ç³»çš„åˆæˆåŠ›çŸ©
+%            Texä¸ºæŽ¨åŠ›å™¨åˆæˆä¸‰è½´åŠ›çŸ©
+%     'remove':æ— å‚æ•°
+%     'SetIs':è®¾ç½®æƒ¯é‡,å‚æ•°ä¸º3*3æƒ¯é‡çŸ©é˜µ
 % 
-% Ò»µ©³õÊ¼»¯Ò»¿ÅÎÀÐÇ,ÔòËüÒ»Ö±±»±£ÁôÔÚÄÚ´æÖÐ,Ö±µ½Ö´ÐÐÁËremove²Ù×÷»òÕßÖ´ÐÐÁËÃüÁîclear all»òÃüÁîclear orbitdyn
+% ä¸€æ—¦åˆå§‹åŒ–ä¸€é¢—å«æ˜Ÿ,åˆ™å®ƒä¸€ç›´è¢«ä¿ç•™åœ¨å†…å­˜ä¸­,ç›´åˆ°æ‰§è¡Œäº†removeæ“ä½œæˆ–è€…æ‰§è¡Œäº†å‘½ä»¤clear allæˆ–å‘½ä»¤clear orbitdyn
 %
-% ÔÊÐí³õÊ¼»¯Ò»¿ÅÒÑ¾­´æÔÚµÄÎÀÐÇ,±ãÓÚÖØ¸´Ê¹ÓÃ,³ÌÐò»á¸ø³ö¾¯¸æÌáÊ¾
+% å…è®¸åˆå§‹åŒ–ä¸€é¢—å·²ç»å­˜åœ¨çš„å«æ˜Ÿ,ä¾¿äºŽé‡å¤ä½¿ç”¨,ç¨‹åºä¼šç»™å‡ºè­¦å‘Šæç¤º
 %
 % Example:
-%   ³õÊ¼»¯Ò»¿ÅÃûÎªsatµÄÎÀÐÇ:
+%   åˆå§‹åŒ–ä¸€é¢—åä¸ºsatçš„å«æ˜Ÿ:
 %   att = [0 0 0 1 0.0 0.0 0.0];
 %   mexAttitudedyn('a','init',att)
-%   ½«'sat'ÎÀÐÇµÄ¹ìµÀÍâÍÆ1Ãë:
+%   å°†'sat'å«æ˜Ÿçš„è½¨é“å¤–æŽ¨1ç§’:
 %   Hwb = [0 10 0];
 %   Tw = [0 0.1 0];
 %   Tew = [2 0.0 2];
 %   mexAttitudedyn('a','step',[1,Hwb,Tw,Tew])
 
-% Ê¾Àý£º
+% ç¤ºä¾‹ï¼š
 % att = [0 0 0 1 0.0 0.0 0.0];
 % mexAttitudedyn('a','init',att);
 % clear all

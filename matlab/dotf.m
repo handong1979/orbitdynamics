@@ -1,4 +1,4 @@
-% 由输入的开普勒根数(a,e,i,Omega,w,M)计算真近点角f的变化率和角加速度
+% 鐢辫緭鍏ョ殑寮�鏅嫆鏍规暟(a,e,i,Omega,w,M)璁＄畻鐪熻繎鐐硅f鐨勫彉鍖栫巼鍜岃鍔犻�熷害
 function [df,ddf] = dotf(k)
 e = k(2);
 a = k(1);

@@ -1,3 +1,3 @@
-% -1~+1之间均匀分布的随机数
+% -1~+1涔嬮棿鍧囧寑鍒嗗竷鐨勯殢鏈烘暟
 function n = rand1(varargin)
 n = rand(varargin{:})*2-1;

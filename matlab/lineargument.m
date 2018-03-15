@@ -1,13 +1,13 @@
-% ½«ÏŞ·ùµ½0¡«2piµÄ·ù½Ç£¨´æÔÚ´Ó2piÌø±äµ½0µÄµã£©µ÷Õû³ÉÒ»ÌõÁ¬Ğø±ä»¯µÄ·ù½Ç
+% å°†é™å¹…åˆ°0ï½2piçš„å¹…è§’ï¼ˆå­˜åœ¨ä»2piè·³å˜åˆ°0çš„ç‚¹ï¼‰è°ƒæ•´æˆä¸€æ¡è¿ç»­å˜åŒ–çš„å¹…è§’
 function u = lineargument(u)
 if ~isvector(u)
     error('input must be a vector');
 end
-% Ìø±äµãµÄÎ»ÖÃ
+% è·³å˜ç‚¹çš„ä½ç½®
 jumppoint = find(abs(diff(u))>0.1)+1;
-% Ìø±äµãµÄ¸öÊı
+% è·³å˜ç‚¹çš„ä¸ªæ•°
 njpoint = length(jumppoint);
-% ´Óºóµ½Ç°£¬ÒÀ´Î¼ÓÉÏ2pi
+% ä»ååˆ°å‰ï¼Œä¾æ¬¡åŠ ä¸Š2pi
 for i=njpoint:-1:1
     u(jumppoint(i):end) = u(jumppoint(i):end) + 2*pi;
 end

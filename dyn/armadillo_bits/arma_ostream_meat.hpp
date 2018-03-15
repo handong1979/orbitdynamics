@@ -426,7 +426,7 @@ arma_ostream::print(std::ostream& o, const Mat<eT>& m, const bool modify)
             arma_ostream::print_elem(o, m.at(row,col), modify);
             }
         
-          o << '\n';
+          //o << '\n';
           }
         }
       else
@@ -440,7 +440,7 @@ arma_ostream::print(std::ostream& o, const Mat<eT>& m, const bool modify)
             }
         
           arma_ostream::print_elem(o, m.at(row, m_n_cols-1), modify);
-          o << '\n';
+          //o << '\n';
           }
         }
       }

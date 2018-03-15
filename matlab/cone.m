@@ -1,4 +1,4 @@
-% Բ׶
+% 圆锥
 function mdl = cone(radius,height,c,R)
 if nargin == 0
     radius = 350;

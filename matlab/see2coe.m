@@ -1,4 +1,4 @@
-% 小偏心率根数==>经典轨道根数
+% 灏忓亸蹇冪巼鏍规暟==>缁忓吀杞ㄩ亾鏍规暟
 %  a ksi eta i O lambda ==> a e i O w M
 function ke = see2coe(k)
 ke(:,1) = k(:,1);

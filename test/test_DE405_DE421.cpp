@@ -1,13 +1,13 @@
 /*!
 \file test.cpp
 \author HanDle
-²âÊÔ³ÌĞò
+æµ‹è¯•ç¨‹åº
 */
 #include <OrbitDyn.h>
 
 using namespace Constant;
 
-//! ²âÊÔÌ«Ñô¡¢ÔÂÇòĞÇÀú
+//! æµ‹è¯•å¤ªé˜³ã€æœˆçƒæ˜Ÿå†
 void test_DE405_DE421()
 {
 	CDateTime t0(2000,1,1,0,0,0);

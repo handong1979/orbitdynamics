@@ -1,4 +1,4 @@
-% ���ָ��嶯��ѧ
+% 有轮刚体动力学
 function [q,w,hw] = rigidwheel(t,q,w,hw,Tw,Tj,Is,iIs,Cbwh,dt)
 %% self test
 if nargin == 0 
@@ -32,11 +32,11 @@ q = Y(1:4);
 w = Y(5:7);
 hw = Y(8:11);
 
-%% ���ָ��嶯��ѧ����
-% y������Ԫ�������ٶȡ��������ֽǶ���
-% ʹ��MATLAB ODE����ʱ�����ø�ʽΪ��
+%% 有轮刚体动力学方程
+% y包括四元数、角速度、各动量轮角动量
+% 使用MATLAB ODE函数时，调用格式为：
 % [T, Y] = ode45(@(t,y)RigidWheel(t,y,Tw,Tj,Is,iIs,Cbwh),Tspan,y,odeopt);
-% ʹ��rk4����ʱ��û��ʱ�������룬���ø�ʽΪ��
+% 使用rk4函数时，没有时间量输入，调用格式为：
 % rk4(@(y)RigidWheel(t,y,Tw,Tj,Is,iIs,Cbwh),dt,y); % Solve ODE
     function dy = odeRigidWheel(t,y)      
         Omega = Ew(y(5:7));
@@ -47,7 +47,7 @@ hw = Y(8:11);
         
         dy = [dq;dw;Tw];
     end
-%% �������4�׻���
+%% 龙格库塔4阶积分
     function xk = rk4(dynfunc,step,x0)
         k1 = step*dynfunc(x0);
         k2 = step*dynfunc(x0+0.5*k1);

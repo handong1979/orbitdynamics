@@ -1,4 +1,4 @@
-% ÈÆZÖáĞı×ª¾ØÕó
+% ç»•Zè½´æ—‹è½¬çŸ©é˜µ
 function R = rotz(angle)
 if isscalar(angle)
     R = [ cos(angle)  sin(angle)  0;
@@ -11,5 +11,5 @@ elseif isvector(angle)
          -sin(angle)    cos(angle)     zeros(1,1,n);
           zeros(1,1,n)  zeros(1,1,n)   ones(1,1,n)];
 else
-    error('ÊäÈë±ØĞëÎª±êÁ¿»òÊ¸Á¿');
+    error('è¾“å…¥å¿…é¡»ä¸ºæ ‡é‡æˆ–çŸ¢é‡');
 end

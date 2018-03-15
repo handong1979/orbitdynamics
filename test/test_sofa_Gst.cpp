@@ -1,7 +1,7 @@
 /*!
 \file test.cpp
 \author HanDle
-²âÊÔ³ÌĞò
+æµ‹è¯•ç¨‹åº
 */
 #include <OrbitDyn.h>
 #include <sofa.h>

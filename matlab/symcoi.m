@@ -1,4 +1,4 @@
-% ¹ìµÀ×ø±êÏµÏà¶ÔµØÐÄ¹ßÐÔ×ø±êÏµµÄÐý×ª¾ØÕó
+% è½¨é“åæ ‡ç³»ç›¸å¯¹åœ°å¿ƒæƒ¯æ€§åæ ‡ç³»çš„æ—‹è½¬çŸ©é˜µ
 function inertia = symcoi()
 syms u I RAAN
 sinu = sin(u);

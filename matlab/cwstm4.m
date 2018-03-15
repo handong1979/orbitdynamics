@@ -1,4 +1,4 @@
-% CW����ƽ����״̬ת�ƾ���
+% CW方程平面内状态转移矩阵
 function phi = cwstm4(w,t)
 wt = w*t;
 s = sin(wt);

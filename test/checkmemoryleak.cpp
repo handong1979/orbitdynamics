@@ -1,7 +1,6 @@
 /*!
 \file test.cpp
 \author HanDle
-≤‚ ‘≥Ã–Ú
 */
 #include <OrbitDyn.h>
 using namespace Constant;

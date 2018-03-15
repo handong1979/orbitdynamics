@@ -1,14 +1,14 @@
 /*!
 \file test.cpp
 \author HanDle
-≤‚ ‘≥Ã–Ú
+ÊµãËØïÁ®ãÂ∫è
 */
 #include <OrbitDyn.h>
 //#include <PerfTimer.h>
 
 using namespace Constant;
 
-//! ≤‚ ‘πÏµ¿Õ‚Õ∆
+//! ÊµãËØïËΩ®ÈÅìÂ§ñÊé®
 void test_orbit_propagator()
 {
 	enum SATELLITE{ZY,SZ,DFH,BD};
@@ -33,32 +33,32 @@ void test_orbit_propagator()
 	switch(satclass)
 	{
 	case ZY:
-		sat.Initialize(epoch,ZY_Orbit,'i');
-		//sat.Name = "ZY";
+		sat.Initialize(epoch,ZY_Orbit);
+		sat.Name = "ZY";
 		sat.SetForce(21,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL|ODP_AIR_DRAG|ODP_SOLAR_CENT|ODP_SOLAR_PRESSURE|ODP_LUNAR_CENT|ODP_POSTNEWTON);
 		break;
 	case SZ:
-		sat.Initialize(epoch,SZ_Orbit,'i');
+		sat.Initialize(epoch,SZ_Orbit);
 		sat.SetForce(21,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL|ODP_AIR_DRAG|ODP_SOLAR_CENT|ODP_SOLAR_PRESSURE|ODP_LUNAR_CENT|ODP_POSTNEWTON);
-		//sat.Name = "SZ";
+		sat.Name = "SZ";
 		break;
 	case DFH:
-		sat.Initialize(epoch,DFH_Orbit,'i');
+		sat.Initialize(epoch,DFH_Orbit);
 		sat.SetForce(21,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL|ODP_AIR_DRAG|ODP_SOLAR_CENT|ODP_SOLAR_PRESSURE|ODP_LUNAR_CENT|ODP_POSTNEWTON);
-		//sat.Name = "DFH";
+		sat.Name = "DFH";
 		break;
 	case BD:
-		sat.Initialize(epoch,BD_Orbit,'i');
+		sat.Initialize(epoch,BD_Orbit);
 		sat.SetForce(21,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL|ODP_AIR_DRAG|ODP_SOLAR_CENT|ODP_SOLAR_PRESSURE|ODP_LUNAR_CENT|ODP_POSTNEWTON);
-		//sat.Name = "BD";
+		sat.Name = "BD";
 		//sat.SetSRPCODE(codep);
 		break;
 	default:
 		break;
 	}
 
-	fstream ff("LLA.dat",ios::out);
-	fstream xyz("posvel.dat",ios::out);
+	fstream ff("LLA.txt",ios::out);
+	fstream xyz("posvel.txt",ios::out);
 	ff.precision(12);
 	xyz.precision(12);
 	CSpherical LLA = sat.GetLLA();

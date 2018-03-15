@@ -1,6 +1,6 @@
-% 读取hdf5文件,将文件中的Dataset按照其名称命名，读取到‘caller'的空间内
+% 璇诲彇hdf5鏂囦欢,灏嗘枃浠朵腑鐨凞ataset鎸夌収鍏跺悕绉板懡鍚嶏紝璇诲彇鍒扳�榗aller'鐨勭┖闂村唴
 % readhdf5(file)
-% TODO:  做一个viewhdf5工具
+% TODO:  鍋氫竴涓獀iewhdf5宸ュ叿
 
 function [DatasetNames,var] = readhdf5(file)
 if nargin == 0 %self test

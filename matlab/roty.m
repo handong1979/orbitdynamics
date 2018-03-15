@@ -1,4 +1,4 @@
-% ÈÆYÖáĞı×ª¾ØÕó
+% ç»•Yè½´æ—‹è½¬çŸ©é˜µ
 function R = roty(angle)
 if isscalar(angle)
     R = [cos(angle)  0    -sin(angle);
@@ -11,5 +11,5 @@ elseif isvector(angle)
          zeros(1,1,n)  ones(1,1,n)      zeros(1,1,n);
          sin(angle)    zeros(1,1,n)     cos(angle)];
 else
-    error('ÊäÈë±ØĞëÎª±êÁ¿»òÊ¸Á¿');
+    error('è¾“å…¥å¿…é¡»ä¸ºæ ‡é‡æˆ–çŸ¢é‡');
 end

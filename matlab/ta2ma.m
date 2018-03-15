@@ -1,4 +1,4 @@
-%  真近点角f转换为平近点角M
+%  鐪熻繎鐐硅f杞崲涓哄钩杩戠偣瑙扢
 function M = ta2ma(e,f)
 cosE = (cos(f)+e)./(1+e*cos(f));
 sinE = sqrt(1-e^2)*sin(f)./(1+e*cos(f));

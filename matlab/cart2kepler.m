@@ -1,11 +1,11 @@
-%¹ßĞÔ×ø±ê×ª»¯Îª¹ìµÀ¸ùÊı cart2kepler(cart,miu)
+%æƒ¯æ€§åæ ‡è½¬åŒ–ä¸ºè½¨é“æ ¹æ•° cart2kepler(cart,miu)
 % use:
-%    cart2kepler(cart); %Ä¬ÈÏÎªµØĞÄ
-%    cart2kepler(cart,miu);  %ÆäËûÖĞĞÄÌìÌå
-%    ²ÎÊıcart±ØĞëÎª1*6(µ¥Î»km,km/s)
-%    µØĞÄÊ±miuÎª398600.5km^3/s^2£¬ÔÂĞÄÊ±miuÎª4902.8km^3/s^2
+%    cart2kepler(cart); %é»˜è®¤ä¸ºåœ°å¿ƒ
+%    cart2kepler(cart,miu);  %å…¶ä»–ä¸­å¿ƒå¤©ä½“
+%    å‚æ•°cartå¿…é¡»ä¸º1*6(å•ä½km,km/s)
+%    åœ°å¿ƒæ—¶miuä¸º398600.5km^3/s^2ï¼Œæœˆå¿ƒæ—¶miuä¸º4902.8km^3/s^2
 % result:
-%    kepler = [a  e  i Omega  w  M](µ¥Î»:km  rad)
+%    kepler = [a  e  i Omega  w  M](å•ä½:km  rad)
 function kepler = cart2kepler(cart,miu)
 if nargin == 0 %self test
     cart =   [   6637.6      -851.42         4317     -0.76017        6.622       2.4748;...
@@ -17,9 +17,9 @@ if m == 6
     tr = 0;
     len = n;
 elseif n == 6;
-    cart = cart'; % Í³Ò»×÷ÎªÁĞÊ¸Á¿´¦Àí
+    cart = cart'; % ç»Ÿä¸€ä½œä¸ºåˆ—çŸ¢é‡å¤„ç†
     len = m;
-    tr = 1; % ¼ÆËã½á¹ûĞèÒª×ªÖÃ³ÉÓëÊäÈëÒ»ÖÂ
+    tr = 1; % è®¡ç®—ç»“æœéœ€è¦è½¬ç½®æˆä¸è¾“å…¥ä¸€è‡´
 else
     error('input dimension error');
 end

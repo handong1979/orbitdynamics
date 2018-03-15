@@ -1,12 +1,12 @@
 /*!
 \file test.cpp
 \author HanDle
-测试程序
+娴嬭瘯绋嬪簭
 */
 #include <OrbitDyn.h>
 using namespace Constant;
 
-//! 测试环月轨道外推
+//! 娴嬭瘯鐜湀杞ㄩ亾澶栨帹
 void test_circle_moon()
 {
 	CMoonSat CE;

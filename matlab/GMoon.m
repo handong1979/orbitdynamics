@@ -1,4 +1,4 @@
-% 月球引力常数
+% 鏈堢悆寮曞姏甯告暟
 %  See also Re,GEarth,Rm,GSun.
 function y = GMoon()
 y = 4902.800269;

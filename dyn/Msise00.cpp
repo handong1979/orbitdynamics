@@ -199,23 +199,23 @@ CMsise00::CMsise00(void)
 	input.f107A = 150;
 	input.f107 = 150;
 	input.ap = 14.4;   // ~= kp=3
-	//  �����Ap��STK�����õ�Kp����ͬһ����������Kp��0��9�仯��ӦAp��0��400
-	// �����Ӧ��ϵ��:������,�����˷ɴ����ȷ���ͷ��ؿ��ơ�
+	//  这里的Ap与STK中设置的Kp不是同一个参数，当Kp从0～9变化对应Ap从0～400
+	// 具体对应关系见:汤锡生,《载人飞船轨道确定和返回控制》
 }
 
 CMsise00::~CMsise00(void)
 {
 }
 
-/*! ��������ܶ�
-����ĳһʱ�䡢�ع�ϵĳһ��Ĵ����ܶ�
-\param t ʱ��
-\param ECFr �ع�����ϵλ��
-\return �����ܶȣ���λkg/m^3
+/*! 计算大气密度
+计算某一时间、地固系某一点的大气密度
+\param t 时间
+\param ECFr 地固坐标系位置
+\return 大气密度，单位kg/m^3
 */
 double CMsise00::Density(const CDateTime& t,const vec3& ECFr)
 {
-	// ʹ�ô�ص�������ϵ�ľ�γ�Ⱥ͸߶�--�����
+	// 使用大地地理坐标系的经纬度和高度--李克行
 	CSpherical lla = ECF_LLA(ECFr);  
 	input.alt = lla.Altitude;
 	input.g_lat = lla.Latitude;

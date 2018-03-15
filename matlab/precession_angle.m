@@ -1,9 +1,9 @@
-% Ëê²î½Ç¼ÆËã
+% å²å·®è§’è®¡ç®—
 % [zeta theta Z] = precession_angle(year,month,day,hour,minute,second)
-%         ¼ÆËãUTCÊÀ½çÊ±Ê±¿ÌµÄËê²î½Çzeta,theta,Z
+%         è®¡ç®—UTCä¸–ç•Œæ—¶æ—¶åˆ»çš„å²å·®è§’zeta,theta,Z
 % [zeta theta Z] = precession_angle(mjd)
-%         ¼ÆËã¼òÔ¼ÈåÂÔÈÕmjdÊ±¿ÌµÄËê²î½Çzeta,theta,Z
-% zeta+Z Îª³à¾­Ëê²î theta  Îª³àÎ³Ëê²î
+%         è®¡ç®—ç®€çº¦å„’ç•¥æ—¥mjdæ—¶åˆ»çš„å²å·®è§’zeta,theta,Z
+% zeta+Z ä¸ºèµ¤ç»å²å·® theta  ä¸ºèµ¤çº¬å²å·®
 %
 % Example:
 %    [zeta theta Z] = precession_angle(2006,1,1,0,0,0)
@@ -16,7 +16,7 @@ if nargin == 6
 elseif nargin == 1
     TDT = utc2tdt(Y);
 else
-    error('ÊäÈë²ÎÊıÊıÄ¿´íÎó');
+    error('è¾“å…¥å‚æ•°æ•°ç›®é”™è¯¯');
 end
 dt = (TDT-mjd2000)/36525.0;
 % 206264.806247096 = 3600*DEG

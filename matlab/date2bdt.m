@@ -1,4 +1,4 @@
-% ±±¾©Ê±×ª»¯Îª±±¶·Ê±ÃëÊı
+% åŒ—äº¬æ—¶è½¬åŒ–ä¸ºåŒ—æ–—æ—¶ç§’æ•°
 function bdt = date2bdt(t)
 t0tdt = utc2tdt(date2mjd(2006,1,1,0,0,0));
 ttt = utc2tdt(date2mjd(t));

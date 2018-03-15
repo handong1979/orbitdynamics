@@ -1,4 +1,4 @@
-%由两颗星的轨道根数计算相对位置和相对速度   tcr(telem,celem)
+%鐢变袱棰楁槦鐨勮建閬撴牴鏁拌绠楃浉瀵逛綅缃拰鐩稿閫熷害   tcr(telem,celem)
 %output: rel[x;y;z;vx;vy;vz]
 
 function rel = tcr(telem,celem)

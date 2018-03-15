@@ -1,5 +1,5 @@
 % remove an entire row of data containing the outlier
-% µÚÒ»ÁĞÎªÊ±¼ä£¬²»½øĞĞ³¬²îÅĞ¶Ï£¬É¾³ıÊ±¶ÔÓ¦µÄÉ¾³ı
+% ç¬¬ä¸€åˆ—ä¸ºæ—¶é—´ï¼Œä¸è¿›è¡Œè¶…å·®åˆ¤æ–­ï¼Œåˆ é™¤æ—¶å¯¹åº”çš„åˆ é™¤
 function [t,X] = removebias(t,X,y)
 error(nargchk(1, 3, nargin))
 if nargin == 1
