@@ -509,7 +509,12 @@ void CSatellite::Initialize(const CDateTime& t,const Kepler elem)
 {
 	Epoch = t;
     Status0 = elem;
-	
+    
+    FILE * fp = fopen("test init.txt","w");
+    fprintf(fp,"elem:%f %f %f %f %f %f\n",elem.a,elem.e,elem.i,elem.o,elem.w,elem.M);
+    fprintf(fp,"Status0:%f %f %f %f %f %f",Status0.a,Status0.e,Status0.i,Status0.o,Status0.w,Status0.M);
+    fclose(fp);
+    
 	a = Status0.a;
 	e = Status0.e;
 	i = Status0.i;

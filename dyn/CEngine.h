@@ -13,21 +13,21 @@ using namespace arma;
 class ORBITDYN_API CEngine
 {
 public:
-	//!�������ȳ�
+	//!发动机比冲
 	double Isp;
-	//!����
+	//!推力
 	double F;
 
 	CEngine(){}
 	~CEngine(){};
 
-	// ��������
+	// 质量流速
 	double dm();
 
 	void UpdateStatus();
 };
 
-//! ���ȳ塢�������ķ�����
+//! 常比冲、常推力的发动机
 class ORBITDYN_API CEngine_const:public CEngine
 {
 public:
@@ -47,29 +47,29 @@ public:
 	void UpdateStatus(){}
 };
 
-//!���ϵĴ���
+//!星上的储箱
 class ORBITDYN_API CEngine_Poly:public CEngine
 {
 public:
-	//!ȼ�ϳ���ʱ����
+	//!燃料充满时质量
 	double FullFuelMass;
-	//!��ע���ƽ���������
+	//!加注的推进剂总质量
 	double FuelMass0;
-	//!�ƽ�������
+	//!推进剂质量
 	double M;
-	//!��ʼ�¶�
+	//!初始温度
 	double Temperature0;
-	//!��ǰ�¶�
+	//!当前温度
 	double Temperature;
-	//!��ʼѹ��
+	//!初始压力
 	double Press0;
-	//!��ǰѹ��
+	//!当前压力
 	double Press;
-	//!ȼ���ܶ�
+	//!燃料密度
 	double FuelDensity;
-	//!������Ͳ���
+	//!贮箱拟和参数
 	double D0,D1,D2,D3,D4,G0,G1,G2,G3;
-	//!�����������������ʱ��
+	//!发动机最大连续工作时间
 	double MaxManeuverTime;
 	CEngine_Poly();
 	~CEngine_Poly(){}
@@ -80,14 +80,14 @@ public:
 	void UpdateStatus(double dt);
 };
 
-//! ��������
+//! 推力器组
 class ORBITDYN_API CThrusterSet
 {
-	//! �����
+	//! 喷管数
 	int Num;
-	//! ������װ��
+	//! 推力安装阵
 	mat33 CF;
-	//! ���ذ�װ��
+	//! 力矩安装阵
 	mat33 CT;
 public:
 	CThrusterSet();

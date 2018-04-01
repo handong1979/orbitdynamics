@@ -28,7 +28,7 @@ inline double raeE(double a,double e,double E){
 	return a*(1-e*cos(E));
 }
 
-//! �����չ������
+//! 开普勒轨道根数
 class ORBITDYN_API Kepler
 {
 public:
@@ -45,10 +45,10 @@ public:
 	//! Mean Anomaly(rad)
 	double M;
 
-	//! Ĭ�Ϲ���
+	//! 默认构造
 	Kepler();
 
-	//! ����ת��
+	//! 类型转换
 	Kepler(const double oe[6]); 
 	
 	Kepler(double SemimajorAxis,double Eccentricity,double Inclination,
@@ -86,9 +86,9 @@ public:
 	void SetElements(const double elem[6]);
 };
 
-//! ��׼�����,�Ƕȵ�λΪ��
+//! 标准输出流,角度单位为度
 ORBITDYN_API std::ostream & operator << (std::ostream & out,const Kepler & kp);
-//! ��׼������,�Ƕȵ�λΪ����
+//! 标准输入流,角度单位为弧度
 ORBITDYN_API std::istream & operator >> (std::istream & in,Kepler & kp);
 
 class ORBITDYN_API KeplerException : public BaseException
@@ -98,7 +98,7 @@ public:
 		: BaseException("KeplerException exception:",details)
 	{
 	}
-	virtual ~KeplerException() _NOEXCEPT
+	virtual ~KeplerException()
 	{
 	}
 	KeplerException(const KeplerException& cdte)

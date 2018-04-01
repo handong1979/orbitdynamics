@@ -17,7 +17,7 @@
 	using namespace std;
 #endif // _MSC_VER
 
-#include "Config.h"
+#include "config.h"
 #include "BaseException.h"
 #include "armadillo_BLAS_LAPACK.h"
 using namespace arma;
@@ -29,7 +29,7 @@ public:
 		: BaseException("CEuler exception:",details)
 	{
 	}
-	virtual ~CQuaternionException() _NOEXCEPT
+	virtual ~CQuaternionException()
 	{
 	}
 	CQuaternionException(const CQuaternionException& cdte)
@@ -38,53 +38,53 @@ public:
 	}
 };
 
-/*!��Ԫ��
+/*!四元数
 */
 class ORBITDYN_API CQuaternion
 {
 public:
 	double qx,qy,qz,qs;
 
-	/*!Ĭ�Ϲ��캯��*/
+	/*!默认构造函数*/
 	CQuaternion();
 
-	/*!���캯��*/
+	/*!构造函数*/
 	CQuaternion(double x,double y,double z,double s);
 	
-	/*!��ת�ᡢת�ǹ���*/
+	/*!用转轴、转角构造*/
 	CQuaternion(const vec3& e,double phi);
 
-	/*!�����鹹��*/
+	/*!用数组构造*/
 	CQuaternion(double *);
 
-	/*!�÷�����������*/
+	/*!用方向余弦阵构造*/
 	CQuaternion(const mat& c);
 
-	/*!��������*/
+	/*!析构函数*/
 	~CQuaternion(){}
 
-	/*!��Ԫ���ķ���*/
+	/*!四元数的范数*/
 	double Norm()const;
 
-	/*! ������[]ȡֵ */
+	/*! 操作符[]取值 */
 	double & operator[](int i);
 
-	/*! ������[]��ֵ */
+	/*! 操作符[]赋值 */
 	double operator[](int i) const;
 
-	/*!��Ԫ���淶��*/
+	/*!四元数规范化*/
 	void Normalize();
 	
-	/*!��һ��ת���µ�ŷ����*/
+	/*!求一定转序下的欧拉角*/
 	void EulerAngles(char* seq,double& phi,double& theta,double& ksi) const;
 	
-	/*!��Ԫ����Ӧ�ķ���������*/
+	/*!四元数对应的方向余弦阵*/
 	mat33 C() const;
 
-	/*!ʸ������*/
+	/*!矢量部分*/
 	vec3 v() const;
 	
-	/*!Omega����*/
+	/*!Omega矩阵*/
 	mat Eq() const;
 	
 	void QInt(const vec3& wbi,double dt);

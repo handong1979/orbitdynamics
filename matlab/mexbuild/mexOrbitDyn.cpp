@@ -54,6 +54,12 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	std::string operat = char_upper_oper;
     
 	try{
+    CDateTime dd(2010,1,1,0,0,0);
+    Kepler kp(27906,0.001,55*RAD,180*RAD,90*RAD,-90*RAD);
+    CSatellite ss;
+    ss.Initialize(dd,kp);
+    mexPrintf("a=%f,e=%f\n",ss.a,ss.e);
+        
 	size_t nsat = vsat.size();
 	size_t i;
 	std::vector<CSatellite*>::iterator itvsat;
@@ -92,10 +98,11 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			vsat[i]->SetForce(6,ODP_EARTH_ALL);
 			vsat[i]->Name = name;
             if(N==13) vsat[i]->Mass0 = tmp[12];
-            
+            vsat[i]->SetAutoSave();
             if(debug)
             {
                 mexPrintf("Name = %s\n",vsat[i]->Name.c_str());
+                mexPrintf("Status a=%f\n",vsat[i]->Status0.a);
                 mexPrintf("Output Elements: %f %f %f %f %f %f\n",vsat[i]->a,vsat[i]->e,vsat[i]->i,vsat[i]->Omega,vsat[i]->w,vsat[i]->M);
             }
 		}

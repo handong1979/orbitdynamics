@@ -6,7 +6,7 @@
 using namespace arma;
 #include <cstdio>
 
-//! �ѿ���ֱ������
+//! 笛卡尔直角坐标
 class ORBITDYN_API CCartesian
 {
 public:
@@ -25,7 +25,7 @@ public:
 		~CCartesian(void){ }
 };
 
-//! ������
+//! 球坐标
 class ORBITDYN_API CSpherical
 {
 public:

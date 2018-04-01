@@ -21,6 +21,7 @@
 #endif
 
 #include "Constant.h"
+using namespace Constant;
 #include "Config.h"
 #include "CEngine.h"
 #include "CentralBody.h"
@@ -31,171 +32,172 @@
 #include "Quaternion.h"
 #include "Kepler.h"
 
-// �㶯�����ö���
+// 摄动项设置定义
 
-// ��������
-#define ODP_EARTH_ZONAL             0x01  // �����г��
-#define ODP_EARTH_TESSERAL          0x02  // ������г��
-#define ODP_AIR_DRAG                0x04  // ��������
-#define ODP_LUNAR_CENT              0x08  // ������������(�Է�������������)
-#define ODP_SOLAR_CENT              0x10  // ̫����������(�Է����Ĺ��)
-#define ODP_SOLAR_PRESSURE          0x20  // ̫���ѹ
-#define ODP_EARTH_ALBEDO            0x40  // �����չ�ѹ
-#define ODP_SOLID_TIDES             0x80  // ������峱
-#define ODP_OCEAN_TIDES             0x0100 // ���򺣳�
-#define ODP_POSTNEWTON              0x0200  // ��ţ��ЧӦ
-#define ODP_ADDITIONAL              0x0400  // ����ϵ�����㶯
-#define ODP_THERMAL_RADIATION_PRESSURE 0x0800 // �ȷ���ѹ
-// ��������
-#define ODP_LUNAR_ZONAL        0x1000 // �����г��
-#define ODP_LUNAR_TESSERAL     0x2000 // ������г��
-#define ODP_LUNAR_NON_SPHERE   0x3000 // �������������(��г��+��г��)
-#define ODP_EARTH_CENT         0x4000 // ������������(�Էǵ�����������)
-#define ODP_LUNAR_TIDES        0x8000 // ������峱
-#define ODP_LUNAR_LIBRATION    0x010000 // ����������ƽ��
-// ���̽����
-#define ODP_VENUS_CENT         0x100000 // ������������
-#define ODP_MARS_CENT          0x200000 // ������������
-#define ODP_JUPITER_CENT       0x400000 // ľ����������
-#define ODP_SATURN_CENT        0x800000 // ������������
-// ���ü���
-#define ODP_EARTH_ALL  0x0FFF // ���������������֮��������㶯��
-#define ODP_GEO        0x0FFB // ͬ���������ͨ�����ǵ��㶯��
-#define ODP_LEO        0x0007 // �͹������ͨ�����ǵ��㶯��
-#define ODP_LUNAR_SAT  0x1F030 // ��������
+// 地球卫星
+#define ODP_EARTH_ZONAL             0x01  // 地球带谐项
+#define ODP_EARTH_TESSERAL          0x02  // 地球田谐项
+#define ODP_AIR_DRAG                0x04  // 大气阻力
+#define ODP_LUNAR_CENT              0x08  // 月球中心引力(对非月球卫星适用)
+#define ODP_SOLAR_CENT              0x10  // 太阳中心引力(对非日心轨道)
+#define ODP_SOLAR_PRESSURE          0x20  // 太阳光压
+#define ODP_EARTH_ALBEDO            0x40  // 地球反照光压
+#define ODP_SOLID_TIDES             0x80  // 地球固体潮
+#define ODP_OCEAN_TIDES             0x0100 // 地球海潮
+#define ODP_POSTNEWTON              0x0200  // 后牛顿效应
+#define ODP_ADDITIONAL              0x0400  // 坐标系附加摄动
+#define ODP_THERMAL_RADIATION_PRESSURE 0x0800 // 热辐射压
+// 月球卫星
+#define ODP_LUNAR_ZONAL        0x1000 // 月球带谐项
+#define ODP_LUNAR_TESSERAL     0x2000 // 月球田谐项
+#define ODP_LUNAR_NON_SPHERE   0x3000 // 月球非球形引力(带谐项+田谐项)
+#define ODP_EARTH_CENT         0x4000 // 地球中心引力(对非地球卫星适用)
+#define ODP_LUNAR_TIDES        0x8000 // 月球固体潮
+#define ODP_LUNAR_LIBRATION    0x010000 // 月球物理天平动
+// 深空探测器
+#define ODP_VENUS_CENT         0x100000 // 金星中心引力
+#define ODP_MARS_CENT          0x200000 // 火星中心引力
+#define ODP_JUPITER_CENT       0x400000 // 木星中心引力
+#define ODP_SATURN_CENT        0x800000 // 土星中心引力
+// 常用集合
+#define ODP_EARTH_ALL  0x0FFF // 除月球非球形引力之外的所有摄动力
+#define ODP_GEO        0x0FFB // 同步轨道卫星通常考虑的摄动力
+#define ODP_LEO        0x0007 // 低轨道卫星通常考虑的摄动力
+#define ODP_LUNAR_SAT  0x1F030 // 环月卫星
 
-/*!��̬ģʽ
+/*!姿态模式
 \enum AttitudeMode
-EarthPoint: �����Եض�����̬\n
-SunPoint: ���ն�����̬\n
-InertiallyFixed: ���Զ�����̬\n
-Custom: �Լ�����
+EarthPoint: 正常对地定向姿态\n
+SunPoint: 对日定向姿态\n
+InertiallyFixed: 惯性定向姿态\n
+Custom: 自己设置
 */
 enum AttitudeMode{ EarthPoint = 0, SunPoint , InertiallyFixed , Custom };
 
-/*! ���ǵ��������
-\author ����
-CSatelliteBase�����������ǵ��������
+/*! 卫星的虚拟基类
+\author 韩冬
+CSatelliteBase用作所有卫星的虚拟基类
 
-�������ǵĻ���������
-- ʱ��(��Է����ʼ��ԪStartEpoch)��ʱ��(����)
-- ������������ϵ��λ���ٶ�,���Ĺ���ϵ����ΪJ2000.0,���Ĺ���ϵ����Ϊ����ƽ��Ϊ��������,xΪJ2000.0���������ϵ�ͶӰ
-- �������ƣ������������Ǻʹ洢�����������ļ���
-- ���ǵĹ�������������������
-- ���Ƕ���ѧ���ԣ����ʱȡ����������䡢��������
+包含卫星的基本特征：
+- 时间(相对仿真初始历元StartEpoch)的时间(秒数)
+- 相对中心体惯性系的位置速度,地心惯性系定义为J2000.0,月心惯性系定义为基本平面为月球赤道面,x为J2000.0在月球赤道上的投影
+- 卫星名称，用作描述卫星和存储卫星星历的文件名
+- 卫星的轨道根数，相对中心天体
+- 卫星动力学特性：面质比、质量、储箱、发动机等
 
-������ʵ�ֵĺ�����ҪΪȡֵ���������RKF78�����㷨�����⺯��Ϊ���Ƕ���ѧ���̺͹�������ļ���
+类中已实现的函数主要为取值输出函数和RKF78积分算法，虚拟函数为卫星动力学方程和轨道根数的计算
 
-�㶯Դ��ѡ��ʹ��SetForce(int l,unsigned char PTB)����ʵ�֣�����lΪ������������PTBΪ�㶯Դѡ��������������º궨�壺
+摄动源的选择使用SetForce(int l,unsigned char PTB)函数实现，其中l为引力场阶数，PTB为摄动源选择变量，采用如下宏定义：
 \code
-#define ODP_ZONAL      0x80   // ��г��
-#define ODP_TESSERAL   0xC0   // ��г��+��г��
-#define ODP_LUNAR      0x20   // ��������
-#define ODP_SOLAR      0x10   // ̫������
-#define ODP_LIGHT      0x08   // ̫���ѹ
-#define ODP_AIR        0x04   // ��������
-#define ODP_POSTNEWTON 0x02   // ��ţ��ЧӦ
-#define ODP_LUNAR_NON_SPHERE  0x01  // �������������
+#define ODP_ZONAL      0x80   // 带谐项
+#define ODP_TESSERAL   0xC0   // 带谐项+田谐项
+#define ODP_LUNAR      0x20   // 月球引力
+#define ODP_SOLAR      0x10   // 太阳引力
+#define ODP_LIGHT      0x08   // 太阳光压
+#define ODP_AIR        0x04   // 大气阻力
+#define ODP_POSTNEWTON 0x02   // 后牛顿效应
+#define ODP_LUNAR_NON_SPHERE  0x01  // 月球非球形引力
 
-#define ODP_ALL        0xFE   // ���������������֮��������㶯��
-#define ODP_GEO        0xF4   // ͬ���������ͨ�����ǵ��㶯������г�������������ѹ����ţ��ЧӦ
-#define ODP_LEO        0x08   // �͹������ͨ�����ǵ��㶯������������
+#define ODP_ALL        0xFE   // 除月球非球形引力之外的所有摄动力
+#define ODP_GEO        0xF4   // 同步轨道卫星通常考虑的摄动力：田谐项、日月引力、光压、后牛顿效应
+#define ODP_LEO        0x08   // 低轨道卫星通常考虑的摄动力：大气阻力
 \endcode
-PTBΪһ��8bit��־�֣���8λ�ֱ��ʾ��\n
+PTB为一个8bit标志字，其8位分别表示：\n
 ||1||2||3||4||5||6||7||8
-|Zonal��г��|Zonal+Tesseral��г���г��|Lunar��������|Solar̫������|Light̫���ѹ|Air��������|PostN��ţ��ЧӦ|Lunar_nonsphere�������������
+|Zonal带谐项|Zonal+Tesseral带谐项＋田谐项|Lunar月球引力|Solar太阳引力|Light太阳光压|Air大气阻力|PostN后牛顿效应|Lunar_nonsphere月球非球形引力
 */
 class ORBITDYN_API CSatelliteBase
 {
 protected:
-	//! ��ʼ��Ԫ
-	CDateTime Epoch; //TODO: ����Ӧ����TDTʱ�䣬��Ҫ��UTC!!
-	//! �����ʼ��Ԫ��ʱ��
+	//! 起始历元
+	CDateTime Epoch; //TODO: 这里应该用TDT时间，不要用UTC!!
+	//! 相对起始历元的时间
 	double ElapsedTime;
-	//!���������ϵλ��
+	//!中心体惯性系位置
 	vec3 Position;
-	//!���������ϵ�ٶ�
+	//!中心体惯性系速度
 	vec3 Velocity;
-	//!������
+	//!中心体
 	PLANET center;
 public:
-	//!�������ƣ������������ݣ�Ĭ��Ϊa��b��c......
-	std::string Name;
-	//!��ʼ�������
+	//!初始轨道根数
 	Kepler Status0;
-	//!������ʼ����(��λ:kg)(Ĭ��1000kg)
+	//!卫星起始重量(单位:kg)(默认1000kg)
 	double Mass0;
-	//! ����ȼ������(��λ:kg)(��ֵ0kg)
+	//! 消耗燃料质量(单位:kg)(初值0kg)
 	double BurnedFuel;
-	//!��������ϵ��
+	//!大气阻力系数
 	double Cd;
-	//!ӭ�����
+	//!迎风面积
 	double AirDragArea;
-	//!̫���ѹ������
+	//!太阳光压反射率
 	double Cr;
-	//!��ѹ��Ч���
+	//!光压等效面积
 	double LightPressArea;
 
-	//!������״̬��־(true:����,false:�ػ�)
+	//!发动机状态标志(true:开机,false:关机)
 	bool ThrustIsOn;
-	//! �����ڱ���ϵ�ķ���(һ��Ϊ��λʸ��)
+	//! 推力在本体系的方向(一定为单位矢量)
 	vec3 ThrustDirection;
-	//! ������̬��Ԫ��
+	//! 惯性姿态四元数
 	CQuaternion qbi;
-	//! ������̬���ٶ�
+	//! 惯性姿态角速度
 	vec3 wbi;
 
-	// ״̬:
-	//!˲ʱ�����İ볤��(unit��km)
+	// 状态:
+	//!瞬时根数的半长轴(unit：km)
 	double a;
-	//!˲ʱ������ƫ����
+	//!瞬时根数的偏心率
 	double e;
-	//!˲ʱ�����Ĺ�����(unit:rad)
+	//!瞬时根数的轨道倾角(unit:rad)
 	double i;
-	//!˲ʱ����������ྭ(unit:rad)
+	//!瞬时根数升交点赤经(unit:rad)
 	double Omega;
-	//!˲ʱ�������ص����(unit:rad)
+	//!瞬时根数近地点幅角(unit:rad)
 	double w;
-	//!˲ʱ����ƽ�����(unit:rad)
+	//!瞬时根数平近点角(unit:rad)
 	double M;
 
-	//!˲ʱ������ƽ����������(unit:rad)
+	//!瞬时根数、平根数真近点角(unit:rad)
 	double f;
-	//!˲ʱ������ƽ����ƫ�����(unit:rad)
+	//!瞬时根数、平根数偏近点角(unit:rad)
 	double E;
-	//!˲ʱ������Ƿ���u=f+w     (unit:rad)
+	//!瞬时轨道卫星幅角u=f+w     (unit:rad)
 	double u;
-	//!ƽ�����ٶ�n=sqrt(GE/a/a/a)   (unit:rad/s)
+	//!平均角速度n=sqrt(GE/a/a/a)   (unit:rad/s)
 	double n;
-	//! ʸ��
+	//! 矢径
 	double r;
-	//! �ٶ�
+	//! 速度
 	double v;
-	//! ������ٶ�
+	//! 轨道角速度
 	double w0;
-	//! ����ϵ�����ϵת������
+	//! 惯性系到轨道系转换矩阵
 	mat33 Coi;
-	//! ���ٶ�
+	//! 加速度
 	vec3 acc;
+    
+    //!卫星名称，用作储存数据，默认为a、b、c......
+    std::string Name;
 
-/////// ����������� //////////////////////////
+/////// 数据输出函数 //////////////////////////
 
-	//! ���ǳ�ʼ��Ԫ
+	//! 卫星初始历元
 	inline CDateTime StartEpoch() const { return Epoch; }
 	
-	//! ���ǵ�ǰ��Ԫ
+	//! 卫星当前历元
 	inline CDateTime CurrentEpoch() const { return Epoch+ElapsedTime; }
 
-	//! ���ǵ����ʱ�䣬����Epoch��ʼ���������
+	//! 卫星的相对时间，即从Epoch开始算起的秒数
 	inline double t() const { return ElapsedTime; }
 
-	//! ���ǵ�λ��(��λ:km)
+	//! 卫星的位置(单位:km)
 	inline vec3 Pos() const { return Position; }
 
-	//! ���ǵ��ٶ�(��λ:km/s)
+	//! 卫星的速度(单位:km/s)
 	inline vec3 Vel() const { return Velocity; }
 	
-	//! ��������λ��(��λ:km)���ٶ�(��λ:km/s)
+	//! 设置卫星位置(单位:km)、速度(单位:km/s)
 	inline void SetPosVel(double t,const vec3& p,const vec3& v) 
 	{
 		ElapsedTime = t;
@@ -204,16 +206,16 @@ public:
 		RefreshStatus();
 	}	
 
-	//! ���ǵĹ������������һ��Kepler
+	//! 卫星的轨道根数，返回一个Kepler
 	inline Kepler GetOrbitElements()const {	return Kepler(a,e,i,Omega,w,M);	}
 	
-	//! ���ǵĹ������������һ��Kepler
+	//! 卫星的轨道根数，返回一个Kepler
 	inline void GetOrbitElements(double oe[6])const { memcpy(&oe,&a,sizeof(double)*6); }
 	
-	//! ��������
+	//! 卫星质量
 	inline double Mass(){ return Mass0 - BurnedFuel; }
 	
-	//! ���Ƿ���������
+	//! 卫星发动机推力
 	inline double Force(){ return Engine->F; }
 
 	CSatelliteBase();
@@ -226,56 +228,58 @@ public:
 	void SetForce(int l,unsigned int PTB);
 	void SetEngine(double I,double f);
 
-// ���ƺ���
+// 外推函数
 	void Propagate(double Step,const double Duration);
 	void Propagate2Perigee();
 	void Propagate2Apogee();
 	void Propagate2AscendingNode();
 	void Propagate2DescendingNode();
 	void Propagate2Epoch(const CDateTime epoch);
-	// �������
+	// 向后外推
 	void PropagateBackward(double h,const double dt);
 
-	//! ˲ʱ�������
+	//! 瞬时脉冲机动
 	void ImpluseManeuver(vec3 Dv,Coordination d = VVLH );
 
-	//! �ر��Զ������ļ�
+	//! 关闭自动保存文件
 	void CloseFile(){FileInstElem.close();FirstTimeOutput = true;}
 private:
-	//! CSatelliteBase�����ļ������������Զ������ļ�������
+	//! CSatelliteBase类对象的计数器，用作自动保存文件的命名
 	static unsigned int Counter;
 
 protected:
-	//! ������
+	//! 岁差矩阵
 	mat33 PR;
-	//! �¶�����
+	//! 章动矩阵
 	mat33 NU;
-	//! ���ƾ���
+	//! 章动角
+	double dksi,deps;
+	//! 极移矩阵
 	mat33 PW;
-	//! ����¶����ƾ����Ӧ��ʱ��
+	//! 岁差章动极移矩阵对应的时间
 	double PNTime;
-	//! ˢ������¶��Ⱦ���
+	//! 刷新岁差章动等矩阵
 	void RefreshMatrix(const CDateTime t); 
 	
 	
-	//! ��������г�����г��Ľ���
+	//! 引力场带谐项和田谐项的阶数
 	int LL;
 	
-	//! �㶯Դѡ���־
+	//! 摄动源选择标志
 	unsigned int Perturbation;
 	
-	//! ������
+	//! 发动机
 	CEngine* Engine;
 
-/////// �ļ�����  ///////////////
+/////// 文件操作  ///////////////
 
-	//! ����ļ�
+	//! 输出文件
 	fstream FileInstElem;
 	
-	//! �Ƿ��һ��д�ļ���־
+	//! 是否第一次写文件标志
 	bool FirstTimeOutput;
 	
-	//! �Ƿ��Զ������־
+	//! 是否自动保存标志
 	bool Save;
 	
 	virtual void SaveElem() = 0;
@@ -292,39 +296,42 @@ ORBITDYN_API ostream & operator<<(ostream & os, const CSatelliteBase& sat);
 
 /*!
 \class CSatellite
-����CSatelliteBase�Ļ���ʵ��
-һ�������������ǵĹ�����㣬Ҳ���Լ������ת�ƹ���ͳӶ�����
+卫星CSatelliteBase的基本实现
+一般用作地球卫星的轨道计算，也可以计算地月转移轨道和秤动点轨道
 \example examples/basic.cpp
 */
 class ORBITDYN_API CSatellite:public CSatelliteBase
 {
 public:
-	//! ���켰��������
+	//! 构造及析构函数
 	CSatellite(){}
 	~CSatellite(){}
 
-	//! ��ʼ�������ú���
+	//! 初始化及设置函数
 	void Initialize(const CDateTime& t,const Kepler elem);
 	
-	//! ������ǵĳ�ʼֵ���ļ���
+	//! 输出卫星的初始值到文件中
 	void ReportInitial();
 
-	//! ����ع�ϵECFλ��
+	//! 计算地固系ECF位置
 	const vec3 ECFPos();
 
-	//! �����ڵع̵�λ���ٶ�
+	//! 卫星在地固的位置速度
 	void GetECF(vec3& ECFr,vec3& ECFv);
 	
-	//! �������ǵĵ���γ�Ⱥ����µ�ĵ���γ��
+	//! 计算卫星的地理经纬度和星下点的地理经纬度
 	CSpherical SubSatPoint(CSpherical & Geodetic,CSpherical & SSP);
 	
-	//! ����ƽ���������
+	//! 计算平均轨道根数
 	Kepler MedianElement() const;
 	
-	//! ��������
+	//! 地理坐标
 	CSpherical GetLLA();
 	
 	//double FiniteManeuver(Direction , StopCondition);
+
+	//! 外推到地球赤道升交点
+	void Propagate2Equator();
 
 private:
 	void DynFunction(const double t,const vec& x,vec& y);
@@ -335,80 +342,80 @@ protected:
 };
 
 /*!
-�ӿ�����ٶȵĹ������
-ʹ��Gill4�����㷨�����ֹ��̵Ķ���ѧ�����в���������¶�������λ�á��㶯���Ȳ�����
-����ÿ��һ��ʱ�����
+加快计算速度的轨道外推
+使用Gill4积分算法，积分过程的动力学方程中不更新岁差章动、日月位置、摄动力等参数，
+而是每隔一段时间更新
 
-Ϊ�˱�֤��ʱ�������ʱ���ۼƵľ��ȣ�ʹ�������ĺ�����ElapsedTimems��Ϊ��ʱ������ԭ�е�ElapsedTime��Ϊ��������
+为了保证长时间仿真中时间累计的精度，使用整数的毫秒数ElapsedTimems作为计时变量，原有的ElapsedTime作为辅助变量
 */
 class ORBITDYN_API CRapidSatellite : public CSatellite
 {
 public:
 	CRapidSatellite():ElapsedTimems(0)
-		,m_lastpert(0)
 		,PeriodCoord(1800000)
 		,PeriodPert(50)
-	{}
+        ,m_lastpert(0)
+    {}
 	~CRapidSatellite(){}
 
-	//! ��ʼ�������ú���
+	//! 初始化及设置函数
 	void Initialize(const CDateTime& t,const Kepler elem);
 
-	// h��λΪms
+	// h单位为ms
 	void Propagate(int h);
 
 private:
-	// StepSize��λΪms
+	// StepSize单位为ms
 	int OneStep(int StepSize,double MaxCutError = 1,CStopCondition* StopCon = NULL );
 	void DynFunction(const double t,const vec& x,vec& y);
 	void RefreshStatus();
-	void RefreshPert(const CDateTime t);// ˢ���㶯��
+	void RefreshPert(const CDateTime t);// 刷新摄动力
 #if _MSC_VER < 1300
 	unsigned long ElapsedTimems;
 #else
-	//! ��Գ�ʼ��Ԫ��ʱ�������
+	//! 相对初始历元的时间毫秒数
 	unsigned long long ElapsedTimems;
 #endif
 
 public:
 
-	// Ϊ�˼ӿ�����ٶȣ��������±���������RKF���ö���ѧ����ʱ�����±����ɲ����ظ�����
-	// ���������������
-	long PeriodCoord;   // �㶯���ĸ������ڣ�Ĭ��ֵ1,800,000ms
+	// 为了加快计算速度，增加以下变量，用作RKF调用动力学方程时，以下变量可不用重复计算
+	// 坐标参数更新周期
+	long PeriodCoord;   // 摄动力的更新周期，默认值1,800,000ms
 
 private:
-	//! J2000-->ECIת������
+	//! J2000-->ECI转换矩阵
 	mat33 HG;
-	//! ����λ��
+	//! 月球位置
 	vec3 rm;
-	//! ̫��λ��
+	//! 太阳位置
 	vec3 rs;
 
 public:
-	// ��¼��ǰ���㶯���ٶȣ���RKFÿ�ε��ö���ѧ����ʱ��������Ϊ�Ҷ��㶯���ٶȲ�
-	long PeriodPert;   // �㶯���ĸ������ڣ�Ĭ��ֵ50ms
+	// 记录当前的摄动加速度，在RKF每次调用动力学方程时，可以认为右端摄动加速度不
+	long PeriodPert;   // 摄动力的更新周期，默认值50ms
 
 private:
 #if _MSC_VER < 1300
 	unsigned long m_lastpert;
 #else
-	unsigned long long  m_lastpert; // �ϴμ����㶯��ʱ�䣬�㶯ÿPeriodPert(ms)����һ��
+	unsigned long long  m_lastpert; // 上次计算摄动的时间，摄动每PeriodPert(ms)更新一次
 #endif
-	vec3 F_zonal;     // ��г��
-	vec3 F_tesseral;  // ��г��
-	vec3 F_moon;      // ��������
-	vec3 F_sun;       // ̫������
-	vec3 F_air;       // ��������
-	vec3 F_light;     // ��ѹ
-	vec3 F_ppn;       // ��ţ��
-	vec3 F_Thrust;    // ����
+	vec3 F_zonal;     // 带谐项
+	vec3 F_tesseral;  // 田谐项
+	vec3 F_moon;      // 月球引力
+	vec3 F_sun;       // 太阳引力
+	vec3 F_air;       // 大气阻力
+	vec3 F_light;     // 光压
+	vec3 F_ppn;       // 后牛顿
+	vec3 F_Thrust;    // 推力
 };
 
 /*!
 \class CLEO
-����͹������
-ʹ��Сƫ���ʹ��������Ϊ״̬�������л���
-һ�㲻ʹ�ã�����Ϊ�˱����������Ļ��֣�Ϊ�Ժ���о��ȱȽϱ������
+地球低轨道卫星
+使用小偏心率轨道根数作为状态变量进行积分
+一般不使用，仅仅为了保留轨道根数的积分，为以后进行精度比较保留代码
 */
 class ORBITDYN_API CLEO:public CSatellite
 {
@@ -423,42 +430,42 @@ private:
 };
 /*!
 \class CGEO
-����ͬ���������
-���ӵ���ͬ��������õĹ����������û�о���ʵ��
+地球同步轨道卫星
+增加地球同步轨道常用的轨道根数，还没有具体实现
 */
 class ORBITDYN_API CGEO:public CSatellite
 {
 public:
-	double D;      //! ���Ư����
-	double ex,ey;  //! ƫ����ʸ��
-	double ix,iy;  //! ���ʸ��
+	double D;      //! 相对漂移率
+	double ex,ey;  //! 偏心率矢量
+	double ix,iy;  //! 倾角矢量
 	double L;      //! L=Omega+w+M
 };
 /*!
 \class CMoonSat
-�������ǵĹ������
-�������·��е����ǵĹ��
-����
+月球卫星的轨道计算
+计算绕月飞行的卫星的轨道
+这里
 */
 class ORBITDYN_API CMoonSat: public CSatelliteBase
 {
 private:
-	// �Զ���ѧ���̺͹�������ļ������¶���
+	// 对动力学方程和轨道根数的计算重新定义
 	void DynFunction(const double t,const vec& x,vec& y);
 	void RefreshStatus();
 	void SaveElem();
 public:
 	CMoonSat(){
-		// �������ODP_LUNAR��ʾ�Ƿ��ǵ�������
+		// 这里借用ODP_LUNAR表示是否考虑地球引力
 		Perturbation = ODP_LUNAR_SAT;
 		LL = 70;
 		LightPressArea = 15.076;
 		Mass0 = 1460.0;
 		Cr = 1.44;
 	}
-	//! ʹ�����Ĺ���ϵ���������ʼ��
+	//! 使用月心惯性系轨道根数初始化
 	void Initialize(const CDateTime& t,const Kepler elem);
-	//! ʹ�����Ĺ���ϵλ���ٶȳ�ʼ��
+	//! 使用月心惯性系位置速度初始化
 	void Initialize(const CDateTime& t,const vec3 p,const vec3 v);
 };
 
@@ -469,7 +476,7 @@ public:
 		: BaseException("CSatellite exception:",details)
 	{
 	}
-	virtual ~SatelliteException() _NOEXCEPT
+	virtual ~SatelliteException()
 	{
 	}
 	SatelliteException(const SatelliteException& cdte)

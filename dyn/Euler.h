@@ -17,7 +17,7 @@ public:
 		: BaseException("CEuler exception:",details)
 	{
 	}
-	virtual ~CEulerException() _NOEXCEPT
+	virtual ~CEulerException()
 	{
 	}
 	CEulerException(const CEulerException& cdte)
@@ -26,14 +26,14 @@ public:
 	}
 };
 
-/*!ŷ����
+/*!欧拉角
 */
 class ORBITDYN_API CEuler
 {
 public:
-	//! ŷ����ת��
+	//! 欧拉角转序
 	unsigned int seq;
-	//! ŷ����
+	//! 欧拉角
 	double phi,theta,psi;
 
 	CEuler();
@@ -44,7 +44,7 @@ public:
 
 	vec3 ToVec();
 	
-	// ����̬���������̬��
+	// 由姿态矩阵计算姿态角
 	void SetValueFromMatrix312(const mat& m);
 	void SetValueFromMatrix123(const mat& m);
 	void SetValueFromMatrix231(const mat& m);
@@ -53,10 +53,10 @@ public:
 	void SetValueFromMatrix321(const mat& m);
 	void SetValue(double a,double b,double c);
 
-	//! ����ת��Ķ�������������
+	//! 按照转序的定义生成余弦阵
 	mat33 ToMatrix();
 	
-	//! ����С�Ƕ��µ���̬����
+	//! 生成小角度下的姿态矩阵
 	mat33 SmallAngleMatrix();
 
 	double operator[](const int i) const{

@@ -111,15 +111,15 @@ public:
 	}
 
 private:
-	// 文件指针
+	// File
 	H5::H5File* hf;
-	// 数据包列表
+	// table list
 	std::vector<FL_PacketTable *> vpt;
-	// 数据指针列表
+	// data pointer list
 	std::vector<void*> vdata;
-	// 数据名列表
+	// data name list
 	std::vector<std::string> vname;
-	// 上面三个列表为一一对应关系
+	// three list are one by one
 };
 
 /** Example:
@@ -133,9 +133,9 @@ private:
 	file1.AddVarDouble("att",1,3,&att);
 	file1.AddVarDouble("datt",1,3,&datt);
 	
-	while(仿真循环)
+	while(锟斤拷锟斤拷循锟斤拷)
 	{
-		// 进行仿真计算，改变att和datt的值
+		// 锟斤拷锟叫凤拷锟斤拷锟斤拷悖拷谋锟絘tt锟斤拷datt锟斤拷值
 		
 		file1.Append();
 	}

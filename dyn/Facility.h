@@ -1,7 +1,7 @@
 /*!
 \file  Facility.cpp
 \author HanDle
-µØÃæÕ¾¹ßĞÔÏµÎ»ÖÃ
+åœ°é¢ç«™æƒ¯æ€§ç³»ä½ç½®
 */
 
 #ifndef __FACILITY_H
@@ -10,21 +10,21 @@
 #include "Coordination.h"
 #include "Utility.h"
 
-/*!µØÃæÕ¾
+/*!åœ°é¢ç«™
 */
 class ORBITDYN_API CFacility
 {
 public:
-	//! ×îĞ¡Ñö½Ç
+	//! æœ€å°ä»°è§’
 	double Elevation;
 
-	//! µØÀí×ø±ê
+	//! åœ°ç†åæ ‡
 	double Longitude,Latitude,Altitude;
 
-	//! µØ¹ÌÏµÎ»ÖÃ
+	//! åœ°å›ºç³»ä½ç½®
 	vec3 ECFPosition;
 
-	//! Ä¬ÈÏ¹¹Ôìº¯Êı
+	//! é»˜è®¤æ„é€ å‡½æ•°
 	CFacility()
 		:Elevation(0.08726646),
 		Longitude(116.388),
@@ -35,31 +35,31 @@ public:
 		CalculateECF();
 	}
 
-	//! µØÀí¾­Î³¶È¹¹Ôìº¯Êı
+	//! åœ°ç†ç»çº¬åº¦æ„é€ å‡½æ•°
 	CFacility(double lon,double lat,double alt,double elev = 5.0);
 
-	//! Îö¹¹
+	//! ææ„
 	~CFacility(){ }
 
-	//! ÉèÖÃ¾­Î³¶È
+	//! è®¾ç½®ç»çº¬åº¦
 	void SetGeodetic(double Longitude,double Latitude,double Altitude);
 
-	//! ¹ßĞÔÏµÎ»ÖÃËÙ¶È
+	//! æƒ¯æ€§ç³»ä½ç½®é€Ÿåº¦
 	void GetECI(const CDateTime time,vec3 & Position,vec3 & Velocity);
 
-	//! J2000.0¹ßĞÔÏµÎ»ÖÃ
+	//! J2000.0æƒ¯æ€§ç³»ä½ç½®
 	vec3 ECIPos(const CDateTime time);
 
 private:
 
-	//! ¼ÆËã¹ßĞÔÏµÎ»ÖÃËÙ¶È
+	//! è®¡ç®—æƒ¯æ€§ç³»ä½ç½®é€Ÿåº¦
 	void CalculateECI(CDateTime time);
 
-	//! ¼ÆËãµØ¹ÌÏµÎ»ÖÃ
+	//! è®¡ç®—åœ°å›ºç³»ä½ç½®
 	void CalculateECF();
 };
 
-// µØ¹ÌÏµµ½µØÃæÕ¾×ø±êÏµµÄ×ª»»¾ØÕó
+// åœ°å›ºç³»åˆ°åœ°é¢ç«™åæ ‡ç³»çš„è½¬æ¢çŸ©é˜µ
 ORBITDYN_API mat33 VehicleCoord(double Longitude,double Latitude);
 
 #endif  // __FACILITY_H

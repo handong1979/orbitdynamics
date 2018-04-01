@@ -10,26 +10,26 @@
 
 namespace Constant
 {
-	//ÊıÑ§³£Á¿
+	//æ•°å­¦å¸¸é‡
 	const double PI  = 3.141592653589793;
 	const double PI2 = 6.283185307179586;
 	const double RAD = 0.0174532925199433;   //degree to radian
 	const double DEG = 57.2957795130823;     //radian to degree
 	
-	//Ê±¼ä³£Á¿
-	const double MJD2000 = 51544.5; // J2000.0µÄMJD(2000-1-1.5)
-	const double MJD1950 = 33281.9234; // B1950.0µÄMJD(1949-12-31 22:09:42UT)
-	const double MJD1900 = 15019.5;   // J1900.0µÄMJD(1900-1-1.5)
-	const double MJD2JD = 2400000.5;   // MJD×ª»»ÎªJDµÄ²î
+	//æ—¶é—´å¸¸é‡
+	const double MJD2000 = 51544.5; // J2000.0çš„MJD(2000-1-1.5)
+	const double MJD1950 = 33281.9234; // B1950.0çš„MJD(1949-12-31 22:09:42UT)
+	const double MJD1900 = 15019.5;   // J1900.0çš„MJD(1900-1-1.5)
+	const double MJD2JD = 2400000.5;   // MJDè½¬æ¢ä¸ºJDçš„å·®
 	
-	//ÎïÀí³£Á¿
+	//ç‰©ç†å¸¸é‡
 	const double G = 6.67259e-20;        //gravitational constant(Km^3/Kg/s^2)
-	const double LightVel = 299792.458;   //¹âËÙ(km/s)
-	const double AU = 1.49597870691e8;     //ÌìÎÄµ¥Î»(km)
-	const double SolarDay = 86400.0;   // Ì«ÑôÈÕÃëÊı
-	const double StellarDay = 86164.09; // ºãĞÇÈÕÃëÊı
+	const double LightVel = 299792.458;   //å…‰é€Ÿ(km/s)
+	const double AU = 1.49597870691e8;     //å¤©æ–‡å•ä½(km)
+	const double SolarDay = 86400.0;   // å¤ªé˜³æ—¥ç§’æ•°
+	const double StellarDay = 86164.09; // æ’æ˜Ÿæ—¥ç§’æ•°
 	
-	//µØÇòÏà¹Ø³£Êı
+	//åœ°çƒç›¸å…³å¸¸æ•°
 	const double GE = 398600.4418;     //WGS84  geocentric gravitational constant (km^3/s^2)
 	const double Re = 6378.137;	       //WGS84  earth equatorial mean radius(km)
 	const double Oblate = 0.00335281066433155; //WGS84  earth oblate(1/298.2572236)
@@ -41,18 +41,18 @@ namespace Constant
 	const double A2 = 0.0016239400253297270;
 	const double A3 = 2.5326564853322355e-006;
 	const double A4 = 7.0858444622306256e-006;
-	const double g = 9.80665;    // µØÇò±íÃæµÄÒıÁ¦¼ÓËÙ¶È³£Êı(m/s^2)
+	const double g = 9.80665;    // åœ°çƒè¡¨é¢çš„å¼•åŠ›åŠ é€Ÿåº¦å¸¸æ•°(m/s^2)
 	
-	//Ì«ÑôÏà¹Ø³£Êı
+	//å¤ªé˜³ç›¸å…³å¸¸æ•°
 	const double GS = 1.32712440018e+11;  //heliocentric gravitational constant (km^3/s^2)
-	const double SunMass = 1.9889e30;  //Ì«ÑôÖÊÁ¿(kg)
-	const double Rs = 695990.0;        //Ì«Ñô°ë¾¶(¹âÇò²ã?)(km)
-	const double M_sunD = 1.99096875e-7; //Ì«ÑôÆ½½üµã½Ç±ä»¯ÂÊ(rad/s)
+	const double SunMass = 1.9889e30;  //å¤ªé˜³è´¨é‡(kg)
+	const double Rs = 695990.0;        //å¤ªé˜³åŠå¾„(å…‰çƒå±‚?)(km)
+	const double M_sunD = 1.99096875e-7; //å¤ªé˜³å¹³è¿‘ç‚¹è§’å˜åŒ–ç‡(rad/s)
 	
-	//ÔÂÇòÏà¹Ø³£Êı
+	//æœˆçƒç›¸å…³å¸¸æ•°
 	const double GM = 4902.801056;     //selenocentric gravitational constant (km^3/s^2)
-	const double Rm = 1738.0;     // ÔÂÇòÆ½¾ù³àµÀ°ë¾¶
-	const double LunarGrvSph = 66200;	//ÔÂÇòÓ°ÏìÇò°ë¾¶(km)
+	const double Rm = 1738.0;     // æœˆçƒå¹³å‡èµ¤é“åŠå¾„
+	const double LunarGrvSph = 66200;	//æœˆçƒå½±å“çƒåŠå¾„(km)
 };
 
 #endif  // __CONSTANT_H

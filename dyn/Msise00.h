@@ -1,12 +1,12 @@
 #pragma once
-#include "Config.h"
+#include "config.h"
 #include "Constant.h"
 #include "CDateTime.h"
 #include "armadillo_BLAS_LAPACK.h"
 using namespace arma;
 #include "nrlmsise-00.h"
 /*!
- \class ��Msise00ģ�Ͱ�װ�������ʽ
+ \class 将Msise00模型包装成类的形式
 */
 class ORBITDYN_API CMsise00
 {
@@ -19,7 +19,7 @@ public:
 	CMsise00(void);
 	~CMsise00(void);
 
-	//��������ܶ�
+	//计算大气密度
 	double Density(const CDateTime& t,const vec3& ECFr);
 };
 
