@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 
 project(OrbitDynamics)
 
-include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/include)
+include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/orbitdyn)
 link_directories(${PROJECT_SOURCE_DIR}/lib)
 
 set(BUILD_SOFA "build sofa library" TRUE)
@@ -19,7 +19,7 @@ if(APPLE)
   message(STATUS "MacOS X detected. Added '-framework Accelerate' to compiler flags")
 endif(APPLE)
 
-add_subdirectory(src)
+add_subdirectory(orbitdyn)
 
 if(BUILD_SOFA)
 	add_subdirectory(sofa)
