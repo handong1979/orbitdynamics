@@ -1,10 +1,19 @@
-#include "orbitdyn.h"
+#include "OrbitDyn.h"
 
 #include <mex.h>
 #pragma comment(lib,"libmx.lib")
 #pragma comment(lib,"libmex.lib")
 
 static std::vector<CSatellite*> vsat;
+
+bool debug = true;
+
+char* stoupper( char* s )
+  {
+  char* p = s;
+  while (*p = toupper( *p )) p++;
+  return s;
+  }
 
 void Warning(std::string msg)
 {
@@ -39,15 +48,22 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
 	char *char_oper;
 	char_oper = mxArrayToString(prhs[1]);
-	char* char_upper_oper = strupr(char_oper);
+	char* char_upper_oper = stoupper(char_oper);
 	if(char_oper==NULL)
 		mexErrMsgTxt("Could not convert second input to string.");
-	std::string operat = char_oper;
-
+	std::string operat = char_upper_oper;
+    
+	try{
+    CDateTime dd(2010,1,1,0,0,0);
+    Kepler kp(27906,0.001,55*RAD,180*RAD,90*RAD,-90*RAD);
+    CSatellite ss;
+    ss.Initialize(dd,kp);
+    mexPrintf("a=%f,e=%f\n",ss.a,ss.e);
+        
 	size_t nsat = vsat.size();
 	size_t i;
 	std::vector<CSatellite*>::iterator itvsat;
-	// ²éÕÒvsatÖÐÃû×ÖÎªnameµÄÎÀÐÇ,¼ÇÂ¼ÆäÎ»ÖÃiºÍµü´úÆ÷itvsat
+	// ï¿½ï¿½ï¿½ï¿½vsatï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªnameï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Â¼ï¿½ï¿½Î»ï¿½ï¿½iï¿½Íµï¿½ï¿½ï¿½ï¿½itvsat
 	itvsat = vsat.begin();
 	for(i=0; i<nsat; i++)
 	{
@@ -55,11 +71,10 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			break;
 		itvsat++;
 	}
-
+    
 	std::string msg;
-	try{
 	if(i==nsat)
-	{// Ã»ÓÐÕÒµ½¶ÔÓ¦Ãû×ÖµÄÎÀÐÇ,ÔòÉú³ÉÒ»¸öÐÂÎÀÐÇ
+	{// Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 		if(operat == "INIT")
 		{
 			size_t N = mxGetN(prhs[2]);
@@ -68,13 +83,28 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			CDateTime t((int)tmp[0],(int)tmp[1],(int)tmp[2],(int)tmp[3],(int)tmp[4],tmp[5]);
 			CDateTimeView tv = t;
 			Kepler k(tmp[6],tmp[7],tmp[8]*RAD,tmp[9]*RAD,tmp[10]*RAD,tmp[11]*RAD);
-			CSatellite* sat = new CSatellite;
+            if(debug)
+            {
+                mexPrintf("Input Epoch: %d %d %d %d %d %f\n",(int)tmp[0],(int)tmp[1],(int)tmp[2],(int)tmp[3],(int)tmp[4],tmp[5]);
+                mexPrintf("Input Elements: %f %f %f %f %f %f\n",tmp[6],tmp[7],tmp[8]*RAD,tmp[9]*RAD,tmp[10]*RAD,tmp[11]*RAD);
+                mexPrintf("Input Mass: %f\n",tmp[12]);
+                mexPrintf("Input Kepler: %f %f %f %f %f %f\n",k.a,k.e,k.i*DEG,k.o*DEG,k.w*DEG,k.M*DEG);
+            }
+            CSatellite* sat = new CSatellite;
 			vsat.push_back(sat);
+            
 			//vsat[i] = new CSatellite;		
-			vsat[i]->Initialize(t-28800,k,'i');
+			vsat[i]->Initialize(t-28800,k);
 			vsat[i]->SetForce(6,ODP_EARTH_ALL);
 			vsat[i]->Name = name;
-			if(N==13) vsat[i]->Mass0 = tmp[12];
+            if(N==13) vsat[i]->Mass0 = tmp[12];
+            vsat[i]->SetAutoSave();
+            if(debug)
+            {
+                mexPrintf("Name = %s\n",vsat[i]->Name.c_str());
+                mexPrintf("Status a=%f\n",vsat[i]->Status0.a);
+                mexPrintf("Output Elements: %f %f %f %f %f %f\n",vsat[i]->a,vsat[i]->e,vsat[i]->i,vsat[i]->Omega,vsat[i]->w,vsat[i]->M);
+            }
 		}
 		else
 		{
@@ -82,8 +112,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		}
 	}
 	else
-	{ // ÒÑÕÒµ½name¶ÔÓ¦vsatµÄµÚi¿ÅÎÀÐÇ
-		if(operat == "STEP") // ÍâÍÆÒ»²½,prhs[2]Îª²½³¤
+	{ // ï¿½ï¿½ï¿½Òµï¿½nameï¿½ï¿½Ó¦vsatï¿½Äµï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if(operat == "STEP") // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½,prhs[2]Îªï¿½ï¿½ï¿½ï¿½
 		{
 			double* tmp = mxGetPr(prhs[2]);
 			if(vsat[i]==NULL)
@@ -91,7 +121,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			else
 			{
 				size_t N = mxGetN(prhs[2]);
-				if(N==9) // º¬±ä¹ì²ÎÊý
+				if(N==9) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					double dm;
 					vec3 F;
@@ -104,7 +134,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 					F[1] = *(tmp+6);
 					F[2] = *(tmp+7);
 					dm = *(tmp+8);					
-					double fm = norm(F,2);
+					double fm = norm(F,2);//sqrt(F(0)*F(0)+F(1)*F(1)+F(2)*F(2));
 					double Isp;
 					if(fm>0.0)
 					{
@@ -123,7 +153,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 						else
 							Error("Force is positive, but /dotm is positive.");
 					}
-					else // ºÏ³ÉÍÆÁ¦Îª0£¬µ«ÊÇÍÆ½ø¼ÁÓÐÏûºÄ
+					else // ï¿½Ï³ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					{
 						vsat[i]->ThrustIsOn = false;
 						if(*tmp>0)
@@ -133,7 +163,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 						vsat[i]->BurnedFuel += *tmp*(-dm);
 					}
 				}
-				else // ²»º¬±ä¹ì²ÎÊý
+				else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					vsat[i]->ThrustIsOn = false;
 					if(*tmp>0)
@@ -144,7 +174,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			}
 		}
 		else if(operat == "INIT")
-		{ // prhs[2]ÎªÊ±¼ä¡¢¹ìµÀ¸ùÊý
+		{ // prhs[2]ÎªÊ±ï¿½ä¡¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 			size_t N = mxGetN(prhs[2]);
 			if(N<12) Error("Init parameter is not enough.");
 			double* tmp = mxGetPr(prhs[2]);
@@ -153,7 +183,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			Kepler k(tmp[6],tmp[7],tmp[8]*RAD,tmp[9]*RAD,tmp[10]*RAD,tmp[11]*RAD);
 			if(vsat[i]!=NULL)
 				Warning("satellite '" + name + "' had been initialized,re-initializing...");
-			vsat[i]->Initialize(t-28800,k,'i'); // ÖØÐÂ³õÊ¼»¯Ê±£¬²»×Ô¶¯ÐÞ¸ÄÉã¶¯Ä£ÐÍ£¬²»ÓÃÉèÖÃÎÀÐÇÃû×Ö
+			vsat[i]->Initialize(t-28800,k); // ï¿½ï¿½ï¿½Â³ï¿½Ê¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½Þ¸ï¿½ï¿½ã¶¯Ä£ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(N==13) vsat[i]->Mass0 = tmp[12];
 		}
 		else if(operat == "PROPAGATE")
@@ -166,18 +196,18 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			double* tmp = mxGetPr(prhs[2]);
 			vsat[i]->PropagateBackward(-60,*tmp);
 		}
-		else if(operat == "REMOVE")  // É¾³ý
+		else if(operat == "REMOVE")  // É¾ï¿½ï¿½
 		{
 			delete vsat[i];
 			vsat.erase(itvsat);
 			return;
 		}
-		else if(operat == "SETFORCE") // ÉèÖÃÉã¶¯Ä£ÐÍ
+		else if(operat == "SETFORCE") // ï¿½ï¿½ï¿½ï¿½ï¿½ã¶¯Ä£ï¿½ï¿½
 		{
 			double* tmp = mxGetPr(prhs[2]);
 			vsat[i]->SetForce((int)tmp[0],(unsigned int)tmp[1]);
 		}
-		else if(operat == "GETMEAN") // »ñµÃÆ½¸ùÊý
+		else if(operat == "GETMEAN") // ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½?
 		{
 			Kepler km = vsat[i]->MedianElement();
 			plhs[0] = mxCreateDoubleMatrix(1,6,mxREAL);
@@ -232,6 +262,10 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
             return;
         }
 	}
+    if(debug)
+    {   
+        mexPrintf("Output Elements: %f %f %f %f %f %f\n",vsat[i]->a,vsat[i]->e,vsat[i]->i,vsat[i]->Omega,vsat[i]->w,vsat[i]->M);
+    }
 	
 	plhs[0] = mxCreateDoubleMatrix(1,13,mxREAL);
 	double* out = mxGetPr(plhs[0]);

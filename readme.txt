@@ -1,260 +1,260 @@
-OrbitDyn V2.0.2(2015Äê1ÔÂ7ÈÕ)
-* ½«hdf5Éý¼¶µ½1.8.14¾²Ì¬¿â,º¬Debug°æ±¾
+OrbitDyn V2.0.2(2015å¹´1æœˆ7æ—¥)
+* å°†hdf5å‡çº§åˆ°1.8.14é™æ€åº“,å«Debugç‰ˆæœ¬
 
-OrbitDyn V2.0.1(2015Äê1ÔÂ7ÈÕ)
-* ½«hdf5Éý¼¶µ½1.8.13¾²Ì¬¿â
+OrbitDyn V2.0.1(2015å¹´1æœˆ7æ—¥)
+* å°†hdf5å‡çº§åˆ°1.8.13é™æ€åº“
 
-OrbitDyn V2.0.0(2014Äê10ÔÂ30ÈÕ)
-* È¥µôVectorºÍMatrix£¬¾ØÕóÊ¸Á¿ÔËËãÈ«ÃæÉý¼¶µ½armadillo
-* Ìí¼Óhdf5,²ÉÓÃ1.8.10
+OrbitDyn V2.0.0(2014å¹´10æœˆ30æ—¥)
+* åŽ»æŽ‰Vectorå’ŒMatrixï¼ŒçŸ©é˜µçŸ¢é‡è¿ç®—å…¨é¢å‡çº§åˆ°armadillo
+* æ·»åŠ hdf5,é‡‡ç”¨1.8.10
 
 ================================================================================
 
-OrbitDyn V1.7.0(2014Äê2ÔÂ20ÈÕ)
-* Ôö¼Ósofa¿â
-* Ôö¼ÓLibrationSatÀà
-* FacilityÖÐÐÞ¸ÄµØ¹ÌÎ»ÖÃ¼ÆËã
+OrbitDyn V1.7.0(2014å¹´2æœˆ20æ—¥)
+* å¢žåŠ sofaåº“
+* å¢žåŠ LibrationSatç±»
+* Facilityä¸­ä¿®æ”¹åœ°å›ºä½ç½®è®¡ç®—
 
-OrbitDyn V1.6.1(2013Äê6ÔÂ4ÈÕ)
-* ÐÞÕýnrlmsise-00.cÖÐmeso_tn3Êý×é¶¨ÒåÐ¡µÄbug
-* ÓÅ»¯ÍâÍÆÐÔÄÜ£¬¼õÉÙÕÂ¶¯½ÇµÄ¼ÆËã
-* ¾ØÕó³Ë·¨ÖÐÔö¼Ó²¢ÐÐ´¦Àí£¬¾­¹ý²âÊÔ£¬ÐÔÄÜÌá¸ß²»¶à£¬ÈÔ±£³ÖÔ­×´Ì¬¡£
+OrbitDyn V1.6.1(2013å¹´6æœˆ4æ—¥)
+* ä¿®æ­£nrlmsise-00.cä¸­meso_tn3æ•°ç»„å®šä¹‰å°çš„bug
+* ä¼˜åŒ–å¤–æŽ¨æ€§èƒ½ï¼Œå‡å°‘ç« åŠ¨è§’çš„è®¡ç®—
+* çŸ©é˜µä¹˜æ³•ä¸­å¢žåŠ å¹¶è¡Œå¤„ç†ï¼Œç»è¿‡æµ‹è¯•ï¼Œæ€§èƒ½æé«˜ä¸å¤šï¼Œä»ä¿æŒåŽŸçŠ¶æ€ã€‚
 
-OrbitDyn V1.6.0(2012Äê9ÔÂ29ÈÕ)
-* Ôö¼ÓDE421£¬²¢Ä¬ÈÏÊ¹ÓÃ¸ÃÐÇÀú
-* Ôö¼ÓDelay,PosVelÁ½¸öÀà
-* Ôö¼Ó¾ØÕóºÍËÄÔªÊýµÄ³ÉÔ±º¯Êý£¬À©³ä¹¦ÄÜ
+OrbitDyn V1.6.0(2012å¹´9æœˆ29æ—¥)
+* å¢žåŠ DE421ï¼Œå¹¶é»˜è®¤ä½¿ç”¨è¯¥æ˜ŸåŽ†
+* å¢žåŠ Delay,PosVelä¸¤ä¸ªç±»
+* å¢žåŠ çŸ©é˜µå’Œå››å…ƒæ•°çš„æˆå‘˜å‡½æ•°ï¼Œæ‰©å……åŠŸèƒ½
 
-OrbitDyn V1.5.4(2012Äê7ÔÂ2ÈÕ)
-* Ôö¼ÓDE405Ä¿Â¼
-* Vector¼ÆËã²æ³Ë¾ØÕó´íÎóÐÞÕý
+OrbitDyn V1.5.4(2012å¹´7æœˆ2æ—¥)
+* å¢žåŠ DE405ç›®å½•
+* Vectorè®¡ç®—å‰ä¹˜çŸ©é˜µé”™è¯¯ä¿®æ­£
 
-OrbitDyn V1.5.3(2012Äê1ÔÂ17ÈÕ)
-* ÐÞ¸ÄºãÐÇÊ±¼ÆËã£¬Ìá¸ß¾«¶È£»
-* µØÓ°Ä£ÐÍÐÞ¸ÄÎªÔ²×¶µØÓ°ºÍÔ²ÖùµØÓ°Á½¸öº¯Êý£¬ÓÉ¹âÑ¹º¯Êýµ÷ÓÃÔ²×¶µØÓ°Ä£ÐÍ
-* matlabµÄmfº¯Êý¸ÄÃûÎªma2ta
+OrbitDyn V1.5.3(2012å¹´1æœˆ17æ—¥)
+* ä¿®æ”¹æ’æ˜Ÿæ—¶è®¡ç®—ï¼Œæé«˜ç²¾åº¦ï¼›
+* åœ°å½±æ¨¡åž‹ä¿®æ”¹ä¸ºåœ†é”¥åœ°å½±å’Œåœ†æŸ±åœ°å½±ä¸¤ä¸ªå‡½æ•°ï¼Œç”±å…‰åŽ‹å‡½æ•°è°ƒç”¨åœ†é”¥åœ°å½±æ¨¡åž‹
+* matlabçš„mfå‡½æ•°æ”¹åä¸ºma2ta
 
-OrbitDyn V1.5.2(2011Äê9ÔÂ2ÈÕ)
-* Ôö¼ÓÎÞÊý¾ÝÎÄ¼þÄ£Ê½£¬ÔËÐÐÊ±²»ÐèÒª¶ÁÈ¡ÈÎºÎÊý¾ÝÎÄ¼þ
+OrbitDyn V1.5.2(2011å¹´9æœˆ2æ—¥)
+* å¢žåŠ æ— æ•°æ®æ–‡ä»¶æ¨¡å¼ï¼Œè¿è¡Œæ—¶ä¸éœ€è¦è¯»å–ä»»ä½•æ•°æ®æ–‡ä»¶
 
-OrbitDyn V1.5.1(2011Äê3ÔÂ3ÈÕ)
-* À©³äÉã¶¯Ïî¶¨Òå
+OrbitDyn V1.5.1(2011å¹´3æœˆ3æ—¥)
+* æ‰©å……æ‘„åŠ¨é¡¹å®šä¹‰
 
-OrbitDyn V1.5.0(2011Äê2ÔÂ16ÈÕ)
-* ÐÞ¸ÄCDateTimeÄÚ²¿µÄ±äÁ¿ÎªÕûÌìÊýºÍµ±ÌìµÄÃëÊý
-* ÐÞ¸ÄCRapidSatelliteÄÚ²¿¼ÆÊ±±äÁ¿ÎªºÁÃëÊý(ÕûÊý)£¬±ÜÃâ½Ø¶ÏÎó²îµÄÀÛ¼Æ
+OrbitDyn V1.5.0(2011å¹´2æœˆ16æ—¥)
+* ä¿®æ”¹CDateTimeå†…éƒ¨çš„å˜é‡ä¸ºæ•´å¤©æ•°å’Œå½“å¤©çš„ç§’æ•°
+* ä¿®æ”¹CRapidSatelliteå†…éƒ¨è®¡æ—¶å˜é‡ä¸ºæ¯«ç§’æ•°(æ•´æ•°)ï¼Œé¿å…æˆªæ–­è¯¯å·®çš„ç´¯è®¡
 
-OrbitDyn V1.4.5(2010Äê7ÔÂ15ÈÕ)
-* Ôö¼ÓÔÂÇò½âÎöÐÇÀú£¬½«ÈÕÔÂµÄDE405ÐÇÀúºÍ½âÎöÐÇÀúÍ³Ò»ÓÉÖÐÐÄÌìÌå¹ÜÀí
-* Ôö¼Ó²»Ê¹ÓÃÈÎºÎÊý¾ÝÎÄ¼þµÄÄ£Ê½£¬ÈÕÔÂÐÇÀúÓÃ½âÎöÐÇÀú¡¢ÒýÁ¦³¡²ÎÊýÊ¹ÓÃÇ°20½×¡¢µØÇò×Ô×ª²ÎÊýÈ¡Îª0
-* ¸Ä±äÖÐÐÄÌìÌåÀàµÄÃû³Æ£¬²»ÔÙ¼ÓÇ°×ºC
+OrbitDyn V1.4.5(2010å¹´7æœˆ15æ—¥)
+* å¢žåŠ æœˆçƒè§£æžæ˜ŸåŽ†ï¼Œå°†æ—¥æœˆçš„DE405æ˜ŸåŽ†å’Œè§£æžæ˜ŸåŽ†ç»Ÿä¸€ç”±ä¸­å¿ƒå¤©ä½“ç®¡ç†
+* å¢žåŠ ä¸ä½¿ç”¨ä»»ä½•æ•°æ®æ–‡ä»¶çš„æ¨¡å¼ï¼Œæ—¥æœˆæ˜ŸåŽ†ç”¨è§£æžæ˜ŸåŽ†ã€å¼•åŠ›åœºå‚æ•°ä½¿ç”¨å‰20é˜¶ã€åœ°çƒè‡ªè½¬å‚æ•°å–ä¸º0
+* æ”¹å˜ä¸­å¿ƒå¤©ä½“ç±»çš„åç§°ï¼Œä¸å†åŠ å‰ç¼€C
 
-OrbitDyn V1.4.4(2010Äê6ÔÂ21ÈÕ)
-* Ôö¼ÓÔÂÇò¹ìµÀµÄ½âÎö½â¼ÆËã£»
-* ÐÞÕýCSatellite::GetECF()º¯ÊýÖÐµØÇò×Ô×ª½ÇËÙ¶ÈµÄ´íÎó£»
-* ¸üÐÂmÖÐµÄmexDE405.mexw32ÐÞÕýÁËÌìÌå¶ÔÓ¦ÕûÊýµÄ´íÎó£»¸üÐÂorbitdyn.mexw32Ôö¼ÓÏòÇ°ÍÆºÍ¼ÓÍÆÁ¦µÄ¹¦ÄÜ£»Ôö¼Óewmu.mº¯Êý£»Ôö¼ÓVC6ÏÂÉú³ÉmexÎÄ¼þµÄ¹¤³Ì£»
-* ¸üÐÂÑ¹ËõÓÃµÄlist.lstÎÄ¼þ
+OrbitDyn V1.4.4(2010å¹´6æœˆ21æ—¥)
+* å¢žåŠ æœˆçƒè½¨é“çš„è§£æžè§£è®¡ç®—ï¼›
+* ä¿®æ­£CSatellite::GetECF()å‡½æ•°ä¸­åœ°çƒè‡ªè½¬è§’é€Ÿåº¦çš„é”™è¯¯ï¼›
+* æ›´æ–°mä¸­çš„mexDE405.mexw32ä¿®æ­£äº†å¤©ä½“å¯¹åº”æ•´æ•°çš„é”™è¯¯ï¼›æ›´æ–°orbitdyn.mexw32å¢žåŠ å‘å‰æŽ¨å’ŒåŠ æŽ¨åŠ›çš„åŠŸèƒ½ï¼›å¢žåŠ ewmu.må‡½æ•°ï¼›å¢žåŠ VC6ä¸‹ç”Ÿæˆmexæ–‡ä»¶çš„å·¥ç¨‹ï¼›
+* æ›´æ–°åŽ‹ç¼©ç”¨çš„list.lstæ–‡ä»¶
 
-OrbitDyn V1.4.3(2010Äê5ÔÂ24ÈÕ)
-* ÐÞ¸ÄÁËVC6ÏÂ»·¾³±äÁ¿µÄ¶ÁÈ¡´íÎó£¬ÔÝÊ±ÆÁ±ÎÁËÊ¹ÓÃÅäÖÃÎÄ¼þµÄ¹¦ÄÜ
+OrbitDyn V1.4.3(2010å¹´5æœˆ24æ—¥)
+* ä¿®æ”¹äº†VC6ä¸‹çŽ¯å¢ƒå˜é‡çš„è¯»å–é”™è¯¯ï¼Œæš‚æ—¶å±è”½äº†ä½¿ç”¨é…ç½®æ–‡ä»¶çš„åŠŸèƒ½
 
-OrbitDyn V1.4.2(2010Äê5ÔÂ19ÈÕ)
-* ¸üÐÂVC6.0µÄÖ§³Ö
+OrbitDyn V1.4.2(2010å¹´5æœˆ19æ—¥)
+* æ›´æ–°VC6.0çš„æ”¯æŒ
 
-OrbitDyn V1.4.1(2010Äê5ÔÂ12ÈÕ)
-* ÊáÀíÀàµÄDLLµ¼³ö£¬½«ËùÓÐµÄÀà¾ùµ¼³ö£»ÐÞ¸ÄÓëVC60¼æÈÝ
+OrbitDyn V1.4.1(2010å¹´5æœˆ12æ—¥)
+* æ¢³ç†ç±»çš„DLLå¯¼å‡ºï¼Œå°†æ‰€æœ‰çš„ç±»å‡å¯¼å‡ºï¼›ä¿®æ”¹ä¸ŽVC60å…¼å®¹
 
-OrbitDyn V1.4.0(2010Äê5ÔÂ4ÈÕ)
-* ¸üÐÂDE405ÐÇÀú£¬Ê¹ÓÃÐÂµÄÐÇÀú¼ÆËã³ÌÐò
+OrbitDyn V1.4.0(2010å¹´5æœˆ4æ—¥)
+* æ›´æ–°DE405æ˜ŸåŽ†ï¼Œä½¿ç”¨æ–°çš„æ˜ŸåŽ†è®¡ç®—ç¨‹åº
 
-OrbitDyn V1.3.5(2010Äê3ÔÂ29ÈÕ)
-* VectorÖÐÔö¼ÓZero()º¯Êý
+OrbitDyn V1.3.5(2010å¹´3æœˆ29æ—¥)
+* Vectorä¸­å¢žåŠ Zero()å‡½æ•°
 
-OrbitDyn V1.3.4(2010Äê3ÔÂ24ÈÕ)
-* ¸üÐÂmexÎÄ¼þ¼°¹¤³Ì
-* VectorÖÐÔö¼Ó[]²Ù×÷·ûÖØÔØ£¬Ôö¼ÓZero()º¯Êý£»
-* matrixÖÐ»Ö¸´Ä£°å¶¨Òå
+OrbitDyn V1.3.4(2010å¹´3æœˆ24æ—¥)
+* æ›´æ–°mexæ–‡ä»¶åŠå·¥ç¨‹
+* Vectorä¸­å¢žåŠ []æ“ä½œç¬¦é‡è½½ï¼Œå¢žåŠ Zero()å‡½æ•°ï¼›
+* matrixä¸­æ¢å¤æ¨¡æ¿å®šä¹‰
 
-OrbitDyn V1.3.3(2010Äê3ÔÂ15ÈÕ)
-* Dll¿âÖÐÈ¥µôHDFCL.H
+OrbitDyn V1.3.3(2010å¹´3æœˆ15æ—¥)
+* Dllåº“ä¸­åŽ»æŽ‰HDFCL.H
 
-OrbitDyn V1.3.2(2009Äê12ÔÂ3ÈÕ~2010Äê3ÔÂ8ÈÕ)
-* ÐÞ¸Ä¸ñÁÖÍþÖÎºãÐÇÊ±µÄ¼ÆËã£»ÐÞ¸ÄmexÎÄ¼þ£¬Ôö¼ÓÆ½¸ùÊýÊä³ö
-* ÐÞ¸Ä¼«ÒÆµÄº¯ÊýÃû³Æ£»
-* ÐÞÕý²éÕÒdataÄ¿Â¼ÖÐµÄ´íÎó£»Ôö¼ÓGetSGMº¯Êý£»ÐÞÕýFacility.cppÖÐµÄ´íÎó£»
-* ¸ü¸ÄCentralBodyÎªSinglton£»matlabmexÖÐÔö¼ÓSetForce¹¦ÄÜ
-* ÇåÀíÒì³££»¸ü¸ÄCDateTime¶¨Òå£¬Ôö¼ÓÁËUTCG¡¢BJTµÈ¶¨Òå
-* ¸üÐÂËµÃ÷ÎÄ¼þ£»CDateTimeÖÐÔö¼Ó¶ÔÃëÊýµÄÈ¡Õû´¦Àí£»cart2Keplerº¯ÊýÖÐÔö¼Ó¶Ôe=0ºÍÊäÈëÖµµÄ±£»¤£»SatelliteÖÐÔö¼ÓÁËËµÃ÷ÐèÒªÐÞ¸Ä£¬µ«ÊÇ»¹Î´¸ü¸Ä£»É¾³ýÁËVC6µÄlib¹¤³ÌÎÄ¼þ
+OrbitDyn V1.3.2(2009å¹´12æœˆ3æ—¥~2010å¹´3æœˆ8æ—¥)
+* ä¿®æ”¹æ ¼æž—å¨æ²»æ’æ˜Ÿæ—¶çš„è®¡ç®—ï¼›ä¿®æ”¹mexæ–‡ä»¶ï¼Œå¢žåŠ å¹³æ ¹æ•°è¾“å‡º
+* ä¿®æ”¹æžç§»çš„å‡½æ•°åç§°ï¼›
+* ä¿®æ­£æŸ¥æ‰¾dataç›®å½•ä¸­çš„é”™è¯¯ï¼›å¢žåŠ GetSGMå‡½æ•°ï¼›ä¿®æ­£Facility.cppä¸­çš„é”™è¯¯ï¼›
+* æ›´æ”¹CentralBodyä¸ºSingltonï¼›matlabmexä¸­å¢žåŠ SetForceåŠŸèƒ½
+* æ¸…ç†å¼‚å¸¸ï¼›æ›´æ”¹CDateTimeå®šä¹‰ï¼Œå¢žåŠ äº†UTCGã€BJTç­‰å®šä¹‰
+* æ›´æ–°è¯´æ˜Žæ–‡ä»¶ï¼›CDateTimeä¸­å¢žåŠ å¯¹ç§’æ•°çš„å–æ•´å¤„ç†ï¼›cart2Keplerå‡½æ•°ä¸­å¢žåŠ å¯¹e=0å’Œè¾“å…¥å€¼çš„ä¿æŠ¤ï¼›Satelliteä¸­å¢žåŠ äº†è¯´æ˜Žéœ€è¦ä¿®æ”¹ï¼Œä½†æ˜¯è¿˜æœªæ›´æ”¹ï¼›åˆ é™¤äº†VC6çš„libå·¥ç¨‹æ–‡ä»¶
 
-OrbitDyn V1.3.1(2009Äê11ÔÂ27ÈÕ)
-* Ôö¼ÓMATLABÖÐµÄmexÎÄ¼þ£¬Ôö¼ÓÁËÉú³ÉmexÎÄ¼þµÄ¹¤³ÌmatlabmexºÍmexde405,ÆäÖÐmatlabmexÓÃÓÚÉú³ÉOrbitDyn.mexw32¹ì
-  µÀ¶¯Á¦Ñ§ÍâÍÆ³ÌÐò£¬mexde405ÓÃÓÚÉú³Émexde405.mexw32ÐÐÐÇÀú±í³ÌÐò£¬²¢Ôö¼ÓÁËÏàÓ¦µÄ.m¸¨ÖúÎÄ¼þ
-* ¸ü¸ÄOrbitDyn.hÎÄ¼þ,½öÖ§³ÖVC2005ÒÔÉÏ°æ±¾µÄVC£¬²»ÔÙÖ§³ÖVC6.0
+OrbitDyn V1.3.1(2009å¹´11æœˆ27æ—¥)
+* å¢žåŠ MATLABä¸­çš„mexæ–‡ä»¶ï¼Œå¢žåŠ äº†ç”Ÿæˆmexæ–‡ä»¶çš„å·¥ç¨‹matlabmexå’Œmexde405,å…¶ä¸­matlabmexç”¨äºŽç”ŸæˆOrbitDyn.mexw32è½¨
+  é“åŠ¨åŠ›å­¦å¤–æŽ¨ç¨‹åºï¼Œmexde405ç”¨äºŽç”Ÿæˆmexde405.mexw32è¡Œæ˜ŸåŽ†è¡¨ç¨‹åºï¼Œå¹¶å¢žåŠ äº†ç›¸åº”çš„.mè¾…åŠ©æ–‡ä»¶
+* æ›´æ”¹OrbitDyn.hæ–‡ä»¶,ä»…æ”¯æŒVC2005ä»¥ä¸Šç‰ˆæœ¬çš„VCï¼Œä¸å†æ”¯æŒVC6.0
 
-OrbitDyn V1.3(2009Äê9ÔÂ7ÈÕ)
-* È¥µôÈ«¾Ö±äÁ¿£¬¸ÄÓÃ¾²Ì¬Ö¸ÕëÉú³ÉµØÇò¡¢ÔÂÇò¡¢DE405µÈÈ«¾Ö¶ÔÏó
-* ¸ü¸ÄÒì³£´¦Àí£¬ÀûÓÃÍ³Ò»¶¨ÒåµÄÒì³£»ùÀà£¬Ã¿¸öÀà¶¨Òå×Ô¼ºµÄÒì³£ÀàÐÍ
+OrbitDyn V1.3(2009å¹´9æœˆ7æ—¥)
+* åŽ»æŽ‰å…¨å±€å˜é‡ï¼Œæ”¹ç”¨é™æ€æŒ‡é’ˆç”Ÿæˆåœ°çƒã€æœˆçƒã€DE405ç­‰å…¨å±€å¯¹è±¡
+* æ›´æ”¹å¼‚å¸¸å¤„ç†ï¼Œåˆ©ç”¨ç»Ÿä¸€å®šä¹‰çš„å¼‚å¸¸åŸºç±»ï¼Œæ¯ä¸ªç±»å®šä¹‰è‡ªå·±çš„å¼‚å¸¸ç±»åž‹
 
-OrbitDyn V1.2(2008Äê12ÔÂ28ÈÕ)
-* Ôö¼ÓCRapidSatelliteÀà¡£ÀàÖØÔØÁËOneStep()º¯Êý£¬ÔÚÆäÖÐÃ¿1800s¸üÐÂËê²îÕÂ¶¯¾ØÕóºÍÈÕÔÂÎ»ÖÃ£¬Ã¿50ms¸üÐÂÒ»´ÎÉã¶¯¼ÓËÙ¶È£¬
-¶øÔÚ¶¯Á¦Ñ§·½³ÌDynFunction()Ö±½ÓÊ¹ÓÃ¼ÆËãºÃµÄÉã¶¯¼ÓËÙ¶È¡£ÍâÍÆÊýÖµ·½·¨¸ÄÎªGill4·½·¨¡£´ÓÐÔÄÜ±È½ÏÀ´¿´£¬Ô­CSatelliteÍâÍÆ
-¼ÆËãÖÐ×îºÄÊ±µÄÊÇµØÇò·ÇÇòÐÎÒýÁ¦µÄ¼ÆËã£¬Èô½«CRapidSatelliteÖÐµÄµØÇò·ÇÇòÐÎÒýÁ¦¼ÆËã·ÅÔÚ¶¯Á¦Ñ§·½³ÌÖÐ£¬Ôò¼ÆËãºÄÊ±Óë
-Ô­CSatellite¼¸ºõÒ»Ñù¡£½«µØÇò·ÇÇòÐÎÒýÁ¦µÄ¼ÆËã·ÅÔÚOneStep()º¯ÊýÖÐ£¬²¢Ã¿¸ô50ms²Å¸üÐÂÒ»´Î£¬ÔòÍâÍÆËÙ¶È´ó´óÌá¸ß£¬¿É
-ÓÃEarthFullÖÐµÄÏàÓ¦²âÊÔº¯Êý²âÊÔËÙ¶ÈÌá¸ßµÄÐ§¹û¡£
-* CRapidSatelliteÖ»ÊÊÓÃÓÚÍâÍÆ²½³¤ºÜÐ¡(<50ms£¬Èç5ms)£¬ÍâÍÆÊ±¼ä²»³¤(¼¸Ç§Ãë)£¬²¢¶Ô¹ìµÀÍâÍÆ¾«¶ÈÒªÇó²»¸ßµÄ¼ÆËã¡£
+OrbitDyn V1.2(2008å¹´12æœˆ28æ—¥)
+* å¢žåŠ CRapidSatelliteç±»ã€‚ç±»é‡è½½äº†OneStep()å‡½æ•°ï¼Œåœ¨å…¶ä¸­æ¯1800sæ›´æ–°å²å·®ç« åŠ¨çŸ©é˜µå’Œæ—¥æœˆä½ç½®ï¼Œæ¯50msæ›´æ–°ä¸€æ¬¡æ‘„åŠ¨åŠ é€Ÿåº¦ï¼Œ
+è€Œåœ¨åŠ¨åŠ›å­¦æ–¹ç¨‹DynFunction()ç›´æŽ¥ä½¿ç”¨è®¡ç®—å¥½çš„æ‘„åŠ¨åŠ é€Ÿåº¦ã€‚å¤–æŽ¨æ•°å€¼æ–¹æ³•æ”¹ä¸ºGill4æ–¹æ³•ã€‚ä»Žæ€§èƒ½æ¯”è¾ƒæ¥çœ‹ï¼ŒåŽŸCSatelliteå¤–æŽ¨
+è®¡ç®—ä¸­æœ€è€—æ—¶çš„æ˜¯åœ°çƒéžçƒå½¢å¼•åŠ›çš„è®¡ç®—ï¼Œè‹¥å°†CRapidSatelliteä¸­çš„åœ°çƒéžçƒå½¢å¼•åŠ›è®¡ç®—æ”¾åœ¨åŠ¨åŠ›å­¦æ–¹ç¨‹ä¸­ï¼Œåˆ™è®¡ç®—è€—æ—¶ä¸Ž
+åŽŸCSatelliteå‡ ä¹Žä¸€æ ·ã€‚å°†åœ°çƒéžçƒå½¢å¼•åŠ›çš„è®¡ç®—æ”¾åœ¨OneStep()å‡½æ•°ä¸­ï¼Œå¹¶æ¯éš”50msæ‰æ›´æ–°ä¸€æ¬¡ï¼Œåˆ™å¤–æŽ¨é€Ÿåº¦å¤§å¤§æé«˜ï¼Œå¯
+ç”¨EarthFullä¸­çš„ç›¸åº”æµ‹è¯•å‡½æ•°æµ‹è¯•é€Ÿåº¦æé«˜çš„æ•ˆæžœã€‚
+* CRapidSatelliteåªé€‚ç”¨äºŽå¤–æŽ¨æ­¥é•¿å¾ˆå°(<50msï¼Œå¦‚5ms)ï¼Œå¤–æŽ¨æ—¶é—´ä¸é•¿(å‡ åƒç§’)ï¼Œå¹¶å¯¹è½¨é“å¤–æŽ¨ç²¾åº¦è¦æ±‚ä¸é«˜çš„è®¡ç®—ã€‚
 
-OrbitDyn V1.2(2008Äê7ÔÂ25ÈÕ)
-* ¸ü¸Ä´óÆøÃÜ¶È¼ÆËãÖÐÊ¹ÓÃµÄ¸ß¶ÈËã·¨£¬Ê¹ÓÃ´óµØ¸ß¶È´úÌær-Re
+OrbitDyn V1.2(2008å¹´7æœˆ25æ—¥)
+* æ›´æ”¹å¤§æ°”å¯†åº¦è®¡ç®—ä¸­ä½¿ç”¨çš„é«˜åº¦ç®—æ³•ï¼Œä½¿ç”¨å¤§åœ°é«˜åº¦ä»£æ›¿r-Re
 
-OrbitDyn V1.1(2007Äê10ÔÂ22ÈÕ)
-* ¸ü¸ÄÎÀÐÇµÄ×ËÌ¬±äÁ¿£¬½«Cbi¸ÄÎªqbiºÍwbi
-* É¾³ýCCentralBodyÖÐµÄStartEpoch±äÁ¿
-* Ôö¼ÓµØÇò´óÆøÄ£ÐÍµÄÑ¡Ôñ£¬Ôö¼ÓMSISE2000´óÆøÄ£ÐÍ£¬²¢Ä¬ÈÏÊ¹ÓÃMSISE2000´óÆøÄ£ÐÍ
-* ¸ü¸ÄPAirDrag()º¯Êý½Ó¿Ú£¬Ôö¼ÓÊ±¼äºÍµØ¹ÌÏµÎ»ÖÃÁ½¸ö±äÁ¿£¬É¾³ý´óÆøÃÜ¶È½Ó¿Ú£¬ÓÉº¯ÊýÄÚ²¿µ÷ÓÃEarth.AtmosRuoH()¼ÆËã´óÆøÃÜ¶È
-* CDateTimeÊ±¼äÊä³ö¸ñÊ½¸ü¸Ä£¬Ôö¼ÓBACCTIME¸ñÊ½
+OrbitDyn V1.1(2007å¹´10æœˆ22æ—¥)
+* æ›´æ”¹å«æ˜Ÿçš„å§¿æ€å˜é‡ï¼Œå°†Cbiæ”¹ä¸ºqbiå’Œwbi
+* åˆ é™¤CCentralBodyä¸­çš„StartEpochå˜é‡
+* å¢žåŠ åœ°çƒå¤§æ°”æ¨¡åž‹çš„é€‰æ‹©ï¼Œå¢žåŠ MSISE2000å¤§æ°”æ¨¡åž‹ï¼Œå¹¶é»˜è®¤ä½¿ç”¨MSISE2000å¤§æ°”æ¨¡åž‹
+* æ›´æ”¹PAirDrag()å‡½æ•°æŽ¥å£ï¼Œå¢žåŠ æ—¶é—´å’Œåœ°å›ºç³»ä½ç½®ä¸¤ä¸ªå˜é‡ï¼Œåˆ é™¤å¤§æ°”å¯†åº¦æŽ¥å£ï¼Œç”±å‡½æ•°å†…éƒ¨è°ƒç”¨Earth.AtmosRuoH()è®¡ç®—å¤§æ°”å¯†åº¦
+* CDateTimeæ—¶é—´è¾“å‡ºæ ¼å¼æ›´æ”¹ï¼Œå¢žåŠ BACCTIMEæ ¼å¼
 
-OrbitDyn V1.0(2007Äê8ÔÂ29ÈÕ)
-* ÎªÁË±ãÓÚ·¢²¼£¬½«´úÂë·Åµ½cppÎÄ¼þÖÐ£¬hÎÄ¼þÖÐÖ»±£Áô¶¨Òå
-* ¸ü¸ÄÄ¿Â¼¸ñÊ½£¬¸ÄÎªbin\data\doc\include\lib\m\src\testÐÎÊ½
-* ½«´úÂësubfunction.cpp¸üÃûÎªutility.cpp±ãÓÚË÷Òýº¯Êý
+OrbitDyn V1.0(2007å¹´8æœˆ29æ—¥)
+* ä¸ºäº†ä¾¿äºŽå‘å¸ƒï¼Œå°†ä»£ç æ”¾åˆ°cppæ–‡ä»¶ä¸­ï¼Œhæ–‡ä»¶ä¸­åªä¿ç•™å®šä¹‰
+* æ›´æ”¹ç›®å½•æ ¼å¼ï¼Œæ”¹ä¸ºbin\data\doc\include\lib\m\src\testå½¢å¼
+* å°†ä»£ç subfunction.cppæ›´åä¸ºutility.cppä¾¿äºŽç´¢å¼•å‡½æ•°
 
 EarthFull v5.3.1
-* ÐÞÕý»·¾³±äÁ¿Ã»ÕÒµ½Ê±µÄbug£¬µ±Ã»ÓÐÕÒµ½OrbitDynÊ±£¬getenv·µ»ØNULL£¬ÕâÊ±std::string DataDir(Name)Ê±¾Í»á³ö´í
-* ÐÞÕý¹ìµÀ¸ß¶ÈÐ¡ÓÚ0Ê±£¬¼ÆËã´óÆøÃÜ¶ÈÊ±µÄÒç³öbug£¬µ±¸ß¶ÈÐ¡ÓÚ0Ê±Å×³öÒì³£
-* Ôö¼ÓPropagate2Epoch()º¯Êý
+* ä¿®æ­£çŽ¯å¢ƒå˜é‡æ²¡æ‰¾åˆ°æ—¶çš„bugï¼Œå½“æ²¡æœ‰æ‰¾åˆ°OrbitDynæ—¶ï¼Œgetenvè¿”å›žNULLï¼Œè¿™æ—¶std::string DataDir(Name)æ—¶å°±ä¼šå‡ºé”™
+* ä¿®æ­£è½¨é“é«˜åº¦å°äºŽ0æ—¶ï¼Œè®¡ç®—å¤§æ°”å¯†åº¦æ—¶çš„æº¢å‡ºbugï¼Œå½“é«˜åº¦å°äºŽ0æ—¶æŠ›å‡ºå¼‚å¸¸
+* å¢žåŠ Propagate2Epoch()å‡½æ•°
 
 EarthFull v5.3
-* Ôö¼ÓÁËÍâÍÆµ½Ô¶µØµãº¯ÊýPropagate2Apogee()
-* ÎÀÐÇµÄÊ±¼ä²»ÔÙÊÇÏà¶ÔÓëEarth.StartEpochµÄÊ±¼ä£¬¶øÊ¹ÓÃ¶ÀÁ¢µÄÀúÔªEpoch,ÕâÑù²»Í¬µÄÎÀÐÇ¿ÉÒÔÓÐ²»Í¬µÄ³õÊ¼ÀúÔª
-* Earth.StartEpoch´æÔÚ±ØÒª²»´ó£¬µ«ÎªÁË±£³ÖÒ»¶¨µÄ¼Ì³ÐÐÔºÍ¿¼ÂÇÎ´À´¿ÉÄÜµÄÐèÒª£¬ÔÝÊ±±£Áô
-* ¸üÐÂÒì³£´¦Àí£¬²ÉÓÃthrow exception·½Ê½
-* Èç¹ûÃ»ÓÐÕÒµ½»·¾³±äÁ¿OrbitDyn,ÔòÊ¹ÓÃµ±Ç°Ä¿Â¼ÏÂµÄdataÄ¿Â¼×÷ÎªÊý¾ÝÎÄ¼þÄ¿Â¼
+* å¢žåŠ äº†å¤–æŽ¨åˆ°è¿œåœ°ç‚¹å‡½æ•°Propagate2Apogee()
+* å«æ˜Ÿçš„æ—¶é—´ä¸å†æ˜¯ç›¸å¯¹ä¸ŽEarth.StartEpochçš„æ—¶é—´ï¼Œè€Œä½¿ç”¨ç‹¬ç«‹çš„åŽ†å…ƒEpoch,è¿™æ ·ä¸åŒçš„å«æ˜Ÿå¯ä»¥æœ‰ä¸åŒçš„åˆå§‹åŽ†å…ƒ
+* Earth.StartEpochå­˜åœ¨å¿…è¦ä¸å¤§ï¼Œä½†ä¸ºäº†ä¿æŒä¸€å®šçš„ç»§æ‰¿æ€§å’Œè€ƒè™‘æœªæ¥å¯èƒ½çš„éœ€è¦ï¼Œæš‚æ—¶ä¿ç•™
+* æ›´æ–°å¼‚å¸¸å¤„ç†ï¼Œé‡‡ç”¨throw exceptionæ–¹å¼
+* å¦‚æžœæ²¡æœ‰æ‰¾åˆ°çŽ¯å¢ƒå˜é‡OrbitDyn,åˆ™ä½¿ç”¨å½“å‰ç›®å½•ä¸‹çš„dataç›®å½•ä½œä¸ºæ•°æ®æ–‡ä»¶ç›®å½•
 
-EarthFull v5.2(2006Äê3ÔÂ1ÈÕ)
-* µ÷ÕûÁËÊ±¼äµÄ¼ÆËã£¬ÔÚ¼ÆËã¸ñÁÖÍþÖÎºãÐÇÊ±µÄÊ±ºòÒª¿¼ÂÇdUT1
-* Ôö¼ÓÁËÍâÍÆµ½½üµØµãº¯ÊýPropagate2Perigee()
-* ¶Ô¹ìµÀ¸ùÊýÓëÖ±½Ç×ø±êµÄ¼ÆËãÖÐÀ©Õ¹µ½Ë«ÇúÏß¹ìµÀ
-* ³ÌÐòÓ¦ÓÃÓÚ»·ÔÂ¹ìµÀ¼ÆËã¡¢ÖÐÍ¾ÐÞÕýµÈ·ÂÕæ£¬ÑéÖ¤ÁË³ÌÐò¼ÆËã·¨µÄÕýÈ·ÐÔ
+EarthFull v5.2(2006å¹´3æœˆ1æ—¥)
+* è°ƒæ•´äº†æ—¶é—´çš„è®¡ç®—ï¼Œåœ¨è®¡ç®—æ ¼æž—å¨æ²»æ’æ˜Ÿæ—¶çš„æ—¶å€™è¦è€ƒè™‘dUT1
+* å¢žåŠ äº†å¤–æŽ¨åˆ°è¿‘åœ°ç‚¹å‡½æ•°Propagate2Perigee()
+* å¯¹è½¨é“æ ¹æ•°ä¸Žç›´è§’åæ ‡çš„è®¡ç®—ä¸­æ‰©å±•åˆ°åŒæ›²çº¿è½¨é“
+* ç¨‹åºåº”ç”¨äºŽçŽ¯æœˆè½¨é“è®¡ç®—ã€ä¸­é€”ä¿®æ­£ç­‰ä»¿çœŸï¼ŒéªŒè¯äº†ç¨‹åºè®¡ç®—æ³•çš„æ­£ç¡®æ€§
 
-EarthFull v5.1.1(2005Äê9ÔÂ21ÈÕ)
-* ÐÞÕýµØÓ°ÅÐ¶ÏÖÐµÄ´íÎó£¬Ôö¼Ó×¶ÐÎµØÓ°¡¢ÔÂÓ°µÄ¼ÆËã
+EarthFull v5.1.1(2005å¹´9æœˆ21æ—¥)
+* ä¿®æ­£åœ°å½±åˆ¤æ–­ä¸­çš„é”™è¯¯ï¼Œå¢žåŠ é”¥å½¢åœ°å½±ã€æœˆå½±çš„è®¡ç®—
 
-EarthFull v5.1(2005Äê9ÔÂ15ÈÕ)
-* ½¨Á¢³éÏó»ùÀàCSatelliteBase×÷ÎªËùÓÐÎÀÐÇµÄ»ùÀà£¬²¢ÒÔ´Ë½¨Á¢»·ÔÂÎÀÐÇ¶¯Á¦Ñ§
-* ½«Í·ÎÄ¼þ·Ö¿ª£¬ÒÔÃâ±à¼­Ò»¸öÍ·ÎÄ¼þµ¼ÖÂËùÓÐcppÎÄ¼þ¶¼ÐèÒªÖØÐÂ±àÒë
-* Ôö¼ÓÁËCentralBody.h,Coordination.h,Facility.h,Kepler.h,Tank.h,Utility.h,Satellite.hÍ·ÎÄ¼þ
-* OrbitDyn.hÖ»×÷Îª×îºó°üº¬ÓÃ
-* Ôö¼Ó¾ØÕóµÄÄÚÈÝ£¬°üÀ¨ÎÀÐÇµÄ¹ßÐÔ×ËÌ¬¡¢Ëê²î¡¢ÕÂ¶¯µÈµÄ¾ØÕóÔËËã£¬¹ßÐÔÏµµ½µØ¹ÌÏµµÄ×ª»»¸Ä³É¾ØÕóÔËËã
-* Ôö¼ÓÔÂÐÄ¹ßÐÔÏµµ½ÔÂ¹ÌÏµµÄ×ª»»º¯Êý£¬ÀûÓÃDE405ÖÐµÄÔÂÇòÌìÆ½¶¯Êý¾ÝÖ±½ÓµÃµ½×ø±êÏµ×ª»»µÄÈý¸öÅ·À­½Ç
-* Ôö¼Ó¹¤³ÌOrbitDynÓÃ×÷Êä³öDLL£¬Îª´ËÔö¼ÓÁËÍ·ÎÄ¼þconfig.h¶¨ÒådllÊäÈëÊä³ö
-* ²âÊÔÑéÖ¤ÁËÀÕÈÃµÂÇòÐ³ÏµÊýµÄ¼ÆËã£¬Í¬MatlabºÍGSLÏà±ÈÔÚ¹éÒ»»¯µÄÊ±ºòÓÐ²»Í¬Ö®´¦¡£ÔÚ´Ë»ù´¡ÉÏÕûÀíÁË
-* ÒýÁ¦³¡µÄ¼ÆËã¹«Ê½ºÍº¯Êý£¬ÖØÐÂÍÆµ¼ºÍÑéËãµÄÒýÁ¦³¡Ä£ÐÍ¡£Í¨¹ý»·ÔÂ¹ìµÀÍâÍÆÓëSTK±È½Ï£¬´ïµ½ÁË½Ï¸ßµÄ¾«¶È¡£
+EarthFull v5.1(2005å¹´9æœˆ15æ—¥)
+* å»ºç«‹æŠ½è±¡åŸºç±»CSatelliteBaseä½œä¸ºæ‰€æœ‰å«æ˜Ÿçš„åŸºç±»ï¼Œå¹¶ä»¥æ­¤å»ºç«‹çŽ¯æœˆå«æ˜ŸåŠ¨åŠ›å­¦
+* å°†å¤´æ–‡ä»¶åˆ†å¼€ï¼Œä»¥å…ç¼–è¾‘ä¸€ä¸ªå¤´æ–‡ä»¶å¯¼è‡´æ‰€æœ‰cppæ–‡ä»¶éƒ½éœ€è¦é‡æ–°ç¼–è¯‘
+* å¢žåŠ äº†CentralBody.h,Coordination.h,Facility.h,Kepler.h,Tank.h,Utility.h,Satellite.hå¤´æ–‡ä»¶
+* OrbitDyn.håªä½œä¸ºæœ€åŽåŒ…å«ç”¨
+* å¢žåŠ çŸ©é˜µçš„å†…å®¹ï¼ŒåŒ…æ‹¬å«æ˜Ÿçš„æƒ¯æ€§å§¿æ€ã€å²å·®ã€ç« åŠ¨ç­‰çš„çŸ©é˜µè¿ç®—ï¼Œæƒ¯æ€§ç³»åˆ°åœ°å›ºç³»çš„è½¬æ¢æ”¹æˆçŸ©é˜µè¿ç®—
+* å¢žåŠ æœˆå¿ƒæƒ¯æ€§ç³»åˆ°æœˆå›ºç³»çš„è½¬æ¢å‡½æ•°ï¼Œåˆ©ç”¨DE405ä¸­çš„æœˆçƒå¤©å¹³åŠ¨æ•°æ®ç›´æŽ¥å¾—åˆ°åæ ‡ç³»è½¬æ¢çš„ä¸‰ä¸ªæ¬§æ‹‰è§’
+* å¢žåŠ å·¥ç¨‹OrbitDynç”¨ä½œè¾“å‡ºDLLï¼Œä¸ºæ­¤å¢žåŠ äº†å¤´æ–‡ä»¶config.hå®šä¹‰dllè¾“å…¥è¾“å‡º
+* æµ‹è¯•éªŒè¯äº†å‹’è®©å¾·çƒè°ç³»æ•°çš„è®¡ç®—ï¼ŒåŒMatlabå’ŒGSLç›¸æ¯”åœ¨å½’ä¸€åŒ–çš„æ—¶å€™æœ‰ä¸åŒä¹‹å¤„ã€‚åœ¨æ­¤åŸºç¡€ä¸Šæ•´ç†äº†
+* å¼•åŠ›åœºçš„è®¡ç®—å…¬å¼å’Œå‡½æ•°ï¼Œé‡æ–°æŽ¨å¯¼å’ŒéªŒç®—çš„å¼•åŠ›åœºæ¨¡åž‹ã€‚é€šè¿‡çŽ¯æœˆè½¨é“å¤–æŽ¨ä¸ŽSTKæ¯”è¾ƒï¼Œè¾¾åˆ°äº†è¾ƒé«˜çš„ç²¾åº¦ã€‚
 
 EarthFull v5.0
-* ½«¹ìµÀ×´Ì¬Á¿£¨»ý·Ö±äÁ¿£©¸ÄÎª¹ßÐÔ×ø±ê
-* ¼õÉÙCSatelliteÖÐ³ÉÔ±µÄ¸öÊý
-* ÕûÀíÌ«Ñô¡¢ÔÂÇòÐÇÀú¼ÆËã
-* Keplerian¸üÃûÎªKepler
-* Kepler()¸üÃûÎªKeplerFunc()
-* Kepler2()¸üÃûÎªKeplerFunc2()
-* ½«¹ìµÀÉã¶¯¼ÓËÙ¶ÈµÄ¼ÆËã¸ÄÎª´øÁ¿¸ÙµÄ£¬Êä³ö¼ÓËÙ¶ÈÎªkm/s^2
-     ÆäÖÐµØÇòÒýÁ¦¼ÓËÙ¶ÈµÄ¼ÆËãÊ¹ÓÃÔ­À´µÄ³ÌÐò£¬Ö»ÊÇÔÚÊäÈëÊä³öÊ±½øÐÐÁ¿¸Ù×ª»¯
+* å°†è½¨é“çŠ¶æ€é‡ï¼ˆç§¯åˆ†å˜é‡ï¼‰æ”¹ä¸ºæƒ¯æ€§åæ ‡
+* å‡å°‘CSatelliteä¸­æˆå‘˜çš„ä¸ªæ•°
+* æ•´ç†å¤ªé˜³ã€æœˆçƒæ˜ŸåŽ†è®¡ç®—
+* Keplerianæ›´åä¸ºKepler
+* Kepler()æ›´åä¸ºKeplerFunc()
+* Kepler2()æ›´åä¸ºKeplerFunc2()
+* å°†è½¨é“æ‘„åŠ¨åŠ é€Ÿåº¦çš„è®¡ç®—æ”¹ä¸ºå¸¦é‡çº²çš„ï¼Œè¾“å‡ºåŠ é€Ÿåº¦ä¸ºkm/s^2
+     å…¶ä¸­åœ°çƒå¼•åŠ›åŠ é€Ÿåº¦çš„è®¡ç®—ä½¿ç”¨åŽŸæ¥çš„ç¨‹åºï¼Œåªæ˜¯åœ¨è¾“å…¥è¾“å‡ºæ—¶è¿›è¡Œé‡çº²è½¬åŒ–
 
-EarthFull v4.2(2005Äê8ÔÂ2ÈÕ)
-Ôö¼Ó¹ìµÀ»ú¶¯£¬Ê¹ÓÃSTL
-ÔÚVC6.0ÖÐ±àÒëÊ±ÓÐ²»Í¬Ö®´¦
+EarthFull v4.2(2005å¹´8æœˆ2æ—¥)
+å¢žåŠ è½¨é“æœºåŠ¨ï¼Œä½¿ç”¨STL
+åœ¨VC6.0ä¸­ç¼–è¯‘æ—¶æœ‰ä¸åŒä¹‹å¤„
 
 EarthFull v4.1
-½«ËùÓÐÍ·ÎÄ¼þºÏ²¢³ÉOrbitDyn.h£¬±ãÓÚÆäËû³ÌÐòÖÐÒýÓÃ
+å°†æ‰€æœ‰å¤´æ–‡ä»¶åˆå¹¶æˆOrbitDyn.hï¼Œä¾¿äºŽå…¶ä»–ç¨‹åºä¸­å¼•ç”¨
 
-EarthFull v4.0(2004Äê11ÔÂ22ÈÕ)
-´óÁ¿¸ü¸Ä...
-´æÔÚÎÊÌâ£º´óÆø×èÁ¦µÄ¼ÆËã
+EarthFull v4.0(2004å¹´11æœˆ22æ—¥)
+å¤§é‡æ›´æ”¹...
+å­˜åœ¨é—®é¢˜ï¼šå¤§æ°”é˜»åŠ›çš„è®¡ç®—
 
-EarthFull v3.0(2004Äê10ÔÂ20ÈÕ)
-¸ü¸Ä¼«ÒÆµÄÊý¾Ý¶ÁÈ¡·½Ê½
-½«ÈÕÆÚÊ±¼ä¡¢Ê¸Á¿ÔËËã·ÖÀë³ÉÍ¨ÓÃ¿âÎÄ¼þ
-Ê¹³ÌÐò½á¹¹¸ü¼ÓºÏÀí
+EarthFull v3.0(2004å¹´10æœˆ20æ—¥)
+æ›´æ”¹æžç§»çš„æ•°æ®è¯»å–æ–¹å¼
+å°†æ—¥æœŸæ—¶é—´ã€çŸ¢é‡è¿ç®—åˆ†ç¦»æˆé€šç”¨åº“æ–‡ä»¶
+ä½¿ç¨‹åºç»“æž„æ›´åŠ åˆç†
 
-EarthFull v2.6(2004Äê5ÔÂ26ÈÕ)
-Ôö¼ÓKeplerianÀà
-ÖØÔØSatelliteµÄoperator =
-Ôö¼ÓÊÇ·ñ×Ô¶¯±£´æ¹ìµÀ¸ùÊýµÄÑ¡Ïî
-Ôö¼ÓTVectorºÍÊý×éµÄÏà»¥×ª»¯
-!¸üÕýRICº¯ÊýÖÐµÄ´íÎóËã·¨
-!¸üÕýCartesian_OrbitElementsº¯ÊýÖÐrvµÄ±í´ïÊ½´íÎó
+EarthFull v2.6(2004å¹´5æœˆ26æ—¥)
+å¢žåŠ Keplerianç±»
+é‡è½½Satelliteçš„operator =
+å¢žåŠ æ˜¯å¦è‡ªåŠ¨ä¿å­˜è½¨é“æ ¹æ•°çš„é€‰é¡¹
+å¢žåŠ TVectorå’Œæ•°ç»„çš„ç›¸äº’è½¬åŒ–
+!æ›´æ­£RICå‡½æ•°ä¸­çš„é”™è¯¯ç®—æ³•
+!æ›´æ­£Cartesian_OrbitElementså‡½æ•°ä¸­rvçš„è¡¨è¾¾å¼é”™è¯¯
 
-EarthFull v2.5(2004Äê5ÔÂ14ÈÕ)
-¾­¹ý54ËùÏîÄ¿µÄÐÞ¸Äºó·µ»ØµÄÎÄ¼þ
+EarthFull v2.5(2004å¹´5æœˆ14æ—¥)
+ç»è¿‡54æ‰€é¡¹ç›®çš„ä¿®æ”¹åŽè¿”å›žçš„æ–‡ä»¶
 
-EarthFull v2.3.4(2004Äê2ÔÂ23ÈÕ)
-Ô¶³Ìµ¼ÒýºÍ°é·ÉÊ¹ÓÃµ¥²½µ÷ÓÃ
+EarthFull v2.3.4(2004å¹´2æœˆ23æ—¥)
+è¿œç¨‹å¯¼å¼•å’Œä¼´é£žä½¿ç”¨å•æ­¥è°ƒç”¨
 
-EarthFull v2.3.3(2004Äê1ÔÂ15ÈÕ)
-Ô¶³Ìµ¼Òý»ù±¾³ÉÐÍÁË
-°é·É»¹ÓÐ²¿·ÖÎÊÌâ
-¼ÓÈëÁËcatÐ´µÄC-WÖÆµ¼ÂÊºÍ£¨ÊÓÏßÖÆµ¼ÂÊ£©£¬Íê³É±Æ½ü½×¶ÎµÄ×Ó³ÌÐò
+EarthFull v2.3.3(2004å¹´1æœˆ15æ—¥)
+è¿œç¨‹å¯¼å¼•åŸºæœ¬æˆåž‹äº†
+ä¼´é£žè¿˜æœ‰éƒ¨åˆ†é—®é¢˜
+åŠ å…¥äº†catå†™çš„C-Wåˆ¶å¯¼çŽ‡å’Œï¼ˆè§†çº¿åˆ¶å¯¼çŽ‡ï¼‰ï¼Œå®Œæˆé€¼è¿‘é˜¶æ®µçš„å­ç¨‹åº
 
-	Ê¹ÓÃµ¥²½µ÷ÓÃ£¬ÈÏÎªÕû¸ö¹ý³ÌÎª¿ØÖÆ¹ý³Ì£¬×ÔÓÉÔË¶¯Ïàµ±ÓÚ¿ØÖÆÁ¿Îª0£¬
-¼ÇÂ¼µ±Ç°¿ØÖÆÁ¿Îªmaneuver1£¬ÏÂ´Î¿ØÖÆÁ¿Îªmaneuver2£¬Êä³ö²½³¤ÎªStepOut,»ý
-·Ö²½³¤ÓÉ¼ÆËã¾ö¶¨£¨Îª¼Ó¿ì¼ÆËãËÙ¶È£¬¿ÉÒÔ²ÉÓÃ±ä²½³¤»ý·Ö£©¡£ÐèÒªÉèÖÃÔ¶
-³Ìµ¼Òý½×¶Î±êÖ¾£¬±ä¹ìÊ±£¬¸ù¾Ý½×¶Î±êÖ¾È·¶¨ÏÂÁ½´ÎµÃ·½·¨¼°¿ØÖÆÁ¿¡£
+	ä½¿ç”¨å•æ­¥è°ƒç”¨ï¼Œè®¤ä¸ºæ•´ä¸ªè¿‡ç¨‹ä¸ºæŽ§åˆ¶è¿‡ç¨‹ï¼Œè‡ªç”±è¿åŠ¨ç›¸å½“äºŽæŽ§åˆ¶é‡ä¸º0ï¼Œ
+è®°å½•å½“å‰æŽ§åˆ¶é‡ä¸ºmaneuver1ï¼Œä¸‹æ¬¡æŽ§åˆ¶é‡ä¸ºmaneuver2ï¼Œè¾“å‡ºæ­¥é•¿ä¸ºStepOut,ç§¯
+åˆ†æ­¥é•¿ç”±è®¡ç®—å†³å®šï¼ˆä¸ºåŠ å¿«è®¡ç®—é€Ÿåº¦ï¼Œå¯ä»¥é‡‡ç”¨å˜æ­¥é•¿ç§¯åˆ†ï¼‰ã€‚éœ€è¦è®¾ç½®è¿œ
+ç¨‹å¯¼å¼•é˜¶æ®µæ ‡å¿—ï¼Œå˜è½¨æ—¶ï¼Œæ ¹æ®é˜¶æ®µæ ‡å¿—ç¡®å®šä¸‹ä¸¤æ¬¡å¾—æ–¹æ³•åŠæŽ§åˆ¶é‡ã€‚
 
-EarthFull v2.3.2(2004Äê1ÔÂ6ÈÕ)
-°é·ÉËãÊÇ»ù±¾OKÁË£¬»¹ÓÐÐ©Ð¡bug£¬¶Ô´óÆ«ÐÄÂÊÎÊÌâÈÔÈ»²»ÊÊÓÃ£¬»ØÍ·ÔÙËµÁË
-°é·ÉÖÐÓÃµ½ÁËC++µÄÄ¬ÈÏ¿½±´´¦Àí£¬Õâ²¿·Ö»¹Ðè½øÒ»²½Ì½ÌÖ
-Ô¶³Ìµ¼ÒýÒ²Íê³ÉÒ»´ó²¿·ÖÁË£¬ÖÐ¼ä»¹ÐèÓÅ»¯
+EarthFull v2.3.2(2004å¹´1æœˆ6æ—¥)
+ä¼´é£žç®—æ˜¯åŸºæœ¬OKäº†ï¼Œè¿˜æœ‰äº›å°bugï¼Œå¯¹å¤§åå¿ƒçŽ‡é—®é¢˜ä»ç„¶ä¸é€‚ç”¨ï¼Œå›žå¤´å†è¯´äº†
+ä¼´é£žä¸­ç”¨åˆ°äº†C++çš„é»˜è®¤æ‹·è´å¤„ç†ï¼Œè¿™éƒ¨åˆ†è¿˜éœ€è¿›ä¸€æ­¥æŽ¢è®¨
+è¿œç¨‹å¯¼å¼•ä¹Ÿå®Œæˆä¸€å¤§éƒ¨åˆ†äº†ï¼Œä¸­é—´è¿˜éœ€ä¼˜åŒ–
 
-EarthFull v2.3(2003Äê12ÔÂ27ÈÕ)
-½á¹¹ÈÎÈ»ÔÚµ÷ÕûÖÐ£¬ÀÛ~~~ :(
-	¸Ä³ÉÁËÒ»¸öÎÀÐÇÀà,Ó¦ÓÃ¹ìµÀ¸ùÊý½á¹¹¶¨Òå
-Á½¿ÅÎÀÐÇµÄÏà¶ÔÎ»ÖÃËÙ¶ÈµÄ¼ÆËã,Ïà¶Ôµ¼º½µÄ¼ÆËã
-Ê±¼ä±äÁ¿µÄ±ä¶¯
+EarthFull v2.3(2003å¹´12æœˆ27æ—¥)
+ç»“æž„ä»»ç„¶åœ¨è°ƒæ•´ä¸­ï¼Œç´¯~~~ :(
+	æ”¹æˆäº†ä¸€ä¸ªå«æ˜Ÿç±»,åº”ç”¨è½¨é“æ ¹æ•°ç»“æž„å®šä¹‰
+ä¸¤é¢—å«æ˜Ÿçš„ç›¸å¯¹ä½ç½®é€Ÿåº¦çš„è®¡ç®—,ç›¸å¯¹å¯¼èˆªçš„è®¡ç®—
+æ—¶é—´å˜é‡çš„å˜åŠ¨
 
-ÐèÒª×öµÄ£º¡°ÓÃº¯ÊýÀ´ÊµÏÖ¹ý³Ì£¬ÓÃÀàÀ´·â×°Êý¾Ý¡±
+éœ€è¦åšçš„ï¼šâ€œç”¨å‡½æ•°æ¥å®žçŽ°è¿‡ç¨‹ï¼Œç”¨ç±»æ¥å°è£…æ•°æ®â€
 
-EarthFull v2.2(2003Äê12ÔÂ10ÈÕ)
-½á¹¹»¯¸ÄÔì:	¶¨ÒåÁËVector
-ÅÉÉúÐÂÀàFacility
-½á¹¹´óµ÷Õû£¬ÀÛËÀÎÒÁË......
+EarthFull v2.2(2003å¹´12æœˆ10æ—¥)
+ç»“æž„åŒ–æ”¹é€ :	å®šä¹‰äº†Vector
+æ´¾ç”Ÿæ–°ç±»Facility
+ç»“æž„å¤§è°ƒæ•´ï¼Œç´¯æ­»æˆ‘äº†......
 
-EarthFull v2.1(2003Äê11ÔÂ13ÈÕ)
-´íÎóÌáÊ¾¸Ä³Éµ¯³öÏûÏ¢´°¿Ú
-±ä¹ìÊ±£¬¶ÔÓÚ¹ýÐ¡µÄdv£¬¾Í²»ÔÙÖ´ÐÐ
-ÐÞÕýÉã¶¯¼ÆËã¹ý³ÌÖÐÊ±¼ä¼ÆËãµÄ´íÎó£¬Íê³É¾«¶È·ÖÎö
-Êä³ö³õÊ¼²ÎÊýµ½InitConditions.txt
+EarthFull v2.1(2003å¹´11æœˆ13æ—¥)
+é”™è¯¯æç¤ºæ”¹æˆå¼¹å‡ºæ¶ˆæ¯çª—å£
+å˜è½¨æ—¶ï¼Œå¯¹äºŽè¿‡å°çš„dvï¼Œå°±ä¸å†æ‰§è¡Œ
+ä¿®æ­£æ‘„åŠ¨è®¡ç®—è¿‡ç¨‹ä¸­æ—¶é—´è®¡ç®—çš„é”™è¯¯ï¼Œå®Œæˆç²¾åº¦åˆ†æž
+è¾“å‡ºåˆå§‹å‚æ•°åˆ°InitConditions.txt
 
-EarthFull v2.0(2003Äê11ÔÂ3ÈÕ)
-¹ì¿Ø²ßÂÔµÄÊµÏÖ
-²é±íÇóÊ±¼ä×ª»»³£Êý
-¸ÄÁËÉã¶¯¼ÓËÙ¶Èº¯ÊýÃû
-¸ÄÕýÁËµØÇò×Ô×ªÐý×ª¾ØÕóÖÖµÄ¼ÆËã´íÎó
-µØÇòÒýÁ¦Ä£ÐÍÓÐ£ºWGS-84¡¢JGM-2¡¢JGM-3¡¢EGM-96
-WGS-84Ä£ÐÍ½ÏÀÏ£¬ÆäµØÇò°ë¾¶¡¢µØÇòÒýÁ¦³£ÊýÓÐ²»Í¬Ö®´¦
+EarthFull v2.0(2003å¹´11æœˆ3æ—¥)
+è½¨æŽ§ç­–ç•¥çš„å®žçŽ°
+æŸ¥è¡¨æ±‚æ—¶é—´è½¬æ¢å¸¸æ•°
+æ”¹äº†æ‘„åŠ¨åŠ é€Ÿåº¦å‡½æ•°å
+æ”¹æ­£äº†åœ°çƒè‡ªè½¬æ—‹è½¬çŸ©é˜µç§çš„è®¡ç®—é”™è¯¯
+åœ°çƒå¼•åŠ›æ¨¡åž‹æœ‰ï¼šWGS-84ã€JGM-2ã€JGM-3ã€EGM-96
+WGS-84æ¨¡åž‹è¾ƒè€ï¼Œå…¶åœ°çƒåŠå¾„ã€åœ°çƒå¼•åŠ›å¸¸æ•°æœ‰ä¸åŒä¹‹å¤„
 
-EarthFull v1.4(2003Äê10ÔÂ7ÈÕ)
-ÊµÏÖÓÐÏÞÍÆÁ¦±ä¹ì£¡°üÀ¨£º
-	1.FiniteManeuver°´ÕÕËÙ¶È±ä»¯Á¿¹Ø»ú
-	2.tankµÄÖµÔÚÍâÍÆº¯ÊýÄÚ¸üÐÂ£¬maneuverµÄÖµÓÉÊµ¼ÊÍâÍÆµÄ½á¹ûÈ·¶¨
-	3.¸ÄÐ´Tank::dv_dt()º¯Êý
-DateTimeµÄÊµÏÖ·ÖÀë³öDateTime.cpp
-TankºÍManeuverµÄ¶¨ÒåÕûºÏµ½SatelliteÖÐ
-¸Ä½øDateTime¡¢Satellite¡¢XeSatelliteµÄÄ¬ÈÏ¹¹Ôìº¯Êý
+EarthFull v1.4(2003å¹´10æœˆ7æ—¥)
+å®žçŽ°æœ‰é™æŽ¨åŠ›å˜è½¨ï¼åŒ…æ‹¬ï¼š
+	1.FiniteManeuveræŒ‰ç…§é€Ÿåº¦å˜åŒ–é‡å…³æœº
+	2.tankçš„å€¼åœ¨å¤–æŽ¨å‡½æ•°å†…æ›´æ–°ï¼Œmaneuverçš„å€¼ç”±å®žé™…å¤–æŽ¨çš„ç»“æžœç¡®å®š
+	3.æ”¹å†™Tank::dv_dt()å‡½æ•°
+DateTimeçš„å®žçŽ°åˆ†ç¦»å‡ºDateTime.cpp
+Tankå’ŒManeuverçš„å®šä¹‰æ•´åˆåˆ°Satelliteä¸­
+æ”¹è¿›DateTimeã€Satelliteã€XeSatelliteçš„é»˜è®¤æž„é€ å‡½æ•°
 
-EarthFull v1.3(2003Äê9ÔÂ23ÈÕ)
-ÐÞÕý´óÆøÃÜ¶È¶àÏîÊ½²åÖµÖÐµÄ´íÎó
-¼ÓÈëÍÆÁ¦ºÍÖüÏä²ÎÊý¼ÆËã£¬µ«Ã»ÓÐµ÷ÊÔÍê³É£¬ÔÝÎÞ±ä¹ìÄ£¿é
+EarthFull v1.3(2003å¹´9æœˆ23æ—¥)
+ä¿®æ­£å¤§æ°”å¯†åº¦å¤šé¡¹å¼æ’å€¼ä¸­çš„é”™è¯¯
+åŠ å…¥æŽ¨åŠ›å’Œè´®ç®±å‚æ•°è®¡ç®—ï¼Œä½†æ²¡æœ‰è°ƒè¯•å®Œæˆï¼Œæš‚æ— å˜è½¨æ¨¡å—
 
-EarthFull v1.2(2003Äê9ÔÂ8ÈÕ)
-°Ñ½á¹¹ÌåTime¸Ä³ÉÓÃÀàÊµÏÖ
-ÍêÉÆ·â×°£¬°ÑRKF78¼¯³Éµ½SatelliteÀàÖÐÊµÏÖ
-°ÑSatelliteºÍXeSatelliteµÄÊµÏÖ·Ö³ÉÁ½¸öÎÄ¼þ
-´óÆøÃÜ¶ÈÓÉÏßÐÔ²åÖµ¸ÄÎª¶àÏîÊ½²åÖµ
-µ÷ÓÃMatlab»­Í¼¹¦ÄÜ
+EarthFull v1.2(2003å¹´9æœˆ8æ—¥)
+æŠŠç»“æž„ä½“Timeæ”¹æˆç”¨ç±»å®žçŽ°
+å®Œå–„å°è£…ï¼ŒæŠŠRKF78é›†æˆåˆ°Satelliteç±»ä¸­å®žçŽ°
+æŠŠSatelliteå’ŒXeSatelliteçš„å®žçŽ°åˆ†æˆä¸¤ä¸ªæ–‡ä»¶
+å¤§æ°”å¯†åº¦ç”±çº¿æ€§æ’å€¼æ”¹ä¸ºå¤šé¡¹å¼æ’å€¼
+è°ƒç”¨Matlabç”»å›¾åŠŸèƒ½
 
-EarthFull v1.1(2003Äê8ÔÂ25ÈÕ)
-²¿·ÖÐ¡ÐÞ²¹
+EarthFull v1.1(2003å¹´8æœˆ25æ—¥)
+éƒ¨åˆ†å°ä¿®è¡¥
 
-EarthFull v1.0(2003Äê7ÔÂ23ÈÕ)
-Õâ¿ÉÊÇµÚÒ»°æ°¡:)ºÃµÄ¿ªÊ¼ÊÇ³É¹¦µÄÒ»°ë
-¹¦ÄÜ£ºÍâÍÆ¼ÆËã
+EarthFull v1.0(2003å¹´7æœˆ23æ—¥)
+è¿™å¯æ˜¯ç¬¬ä¸€ç‰ˆå•Š:)å¥½çš„å¼€å§‹æ˜¯æˆåŠŸçš„ä¸€åŠ
+åŠŸèƒ½ï¼šå¤–æŽ¨è®¡ç®—

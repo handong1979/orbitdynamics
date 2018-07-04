@@ -1,5 +1,5 @@
-% ÄêÔÂÈÕÊ±·ÖÃë(ÊÀ½çÊ±)×ª»¯Îª¼òÔ¼ÈåÂÔÈÕ
-% ÊäÈë²ÎÊı¸ñÊ½¿ÉÒÔ¼ûdatenumº¯ÊıµÄ¸ñÊ½
+% å¹´æœˆæ—¥æ—¶åˆ†ç§’(ä¸–ç•Œæ—¶)è½¬åŒ–ä¸ºç®€çº¦å„’ç•¥æ—¥
+% è¾“å…¥å‚æ•°æ ¼å¼å¯ä»¥è§datenumå‡½æ•°çš„æ ¼å¼
 %
 % Example:
 %      date2mjd('2009-1-1 12:0:0');
@@ -7,7 +7,7 @@
 %
 % See Also mjd2date,datenum,datevec
 function MJD = date2mjd( varargin )
-[year month day hour min sec] = datevec(datenum(varargin{:}));
+[year,month,day,hour,min,sec] = datevec(datenum(varargin{:}));
 tmp = fix((month-14)/12);
 J = day - 32075 +  fix( 1461.*(year+4800+tmp)./4 )  ...
     +  fix( 367.*(month - 2- tmp*12)./12 )  ...

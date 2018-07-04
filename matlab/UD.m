@@ -1,6 +1,6 @@
-% 正定矩阵的UD分解
+% 姝ｅ畾鐭╅樀鐨刄D鍒嗚В
 % [U, D] = UDUT(P)
-% satifized: P = U*D*D'
+% satifized: P = U*D*U'
 function [UU, DD] = UD(P)
 if nargin == 0 % self test
     n = 6;
@@ -12,7 +12,7 @@ if nargin == 0 % self test
     % use matlab ldl function
 %     [ll dd] = ldl(P);
 end
-%% UDUT 分解
+%% UDUT 鍒嗚В
 n = length(P);
 DD = zeros(n,1);
 UU = eye(n,n);

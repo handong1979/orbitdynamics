@@ -19,5 +19,5 @@ elseif nargin == 1
 else
     error('输入参数数目错误');
 end
-[zeta theta Z] = precession_angle(TDT);
+[zeta,theta,Z] = precession_angle(TDT);
 PR = rotz(-Z)*roty(theta)*rotz(-zeta);

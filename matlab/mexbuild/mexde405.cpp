@@ -18,7 +18,7 @@ void Error(std::string msg)
 // input prhs[0]: MJD of epoch
 //       prhs[1]: index of center body
 //       prhs[2]: index of target body
-// output: plhs[0]: Î»ÖÃËÙ¶È(km,km/s)
+// output: plhs[0]: ä½ç½®é€Ÿåº¦(km,km/s)
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
 	// check for proper number of arguments

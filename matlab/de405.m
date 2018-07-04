@@ -1,11 +1,11 @@
-% DE405ĞÇÀú±í
+% DE405æ˜Ÿå†è¡¨
 % rv = DE405(mjd,cent,target)
-% mjd: ±±¾©Ê±¼òÔ¼ÈåÂÔÈÕ
-% cent: ÖĞĞÄÌìÌå
-% target: Ä¿±êÌìÌå
-% rv: Êä³ö1*6¾ØÕó£¬·Ö±ğÎªÎ»ÖÃËÙ¶È£¬µ¥Î»kmºÍkm/s
-% ÖĞĞÄÌìÌåºÍÄ¿±êÌìÌåµÄÃû³ÆÎª(²»Çø·Ö´óĞ¡Ğ´):
-%  Ãû³ÆÓë±àºÅµÄ¶ÔÓ¦ÁĞ±í
+% mjd: åŒ—äº¬æ—¶ç®€çº¦å„’ç•¥æ—¥
+% cent: ä¸­å¿ƒå¤©ä½“
+% target: ç›®æ ‡å¤©ä½“
+% rv: è¾“å‡º1*6çŸ©é˜µï¼Œåˆ†åˆ«ä¸ºä½ç½®é€Ÿåº¦ï¼Œå•ä½kmå’Œkm/s
+% ä¸­å¿ƒå¤©ä½“å’Œç›®æ ‡å¤©ä½“çš„åç§°ä¸º(ä¸åŒºåˆ†å¤§å°å†™):
+%  åç§°ä¸ç¼–å·çš„å¯¹åº”åˆ—è¡¨
 %   0--Mercury
 %   1--Venus
 %   2--Earth
@@ -23,24 +23,24 @@
 %   14--Librations
 % Example:
 %     mjd = date2mjd(2009,1,19,12,0,0)
-%  ¼ÆËãÔÂÇòÎ»ÖÃ
+%  è®¡ç®—æœˆçƒä½ç½®
 %     rv = de405(mjd,'Earth','moon')
-%  ¼ÆËãÕÂ¶¯½Ç   
+%  è®¡ç®—ç« åŠ¨è§’   
 %     nt = de405(mjd,'Nutations')
-%  ¼ÆËãÔÂÇòÌìÆ½¶¯½Ç
+%  è®¡ç®—æœˆçƒå¤©å¹³åŠ¨è§’
 %     lb = de405(mjd,'Librations')
 function out = de405(mjd,cent,target)
 icent = name2int(cent);
 if (icent == 13) || (icent == 14)
-    % ÕÂ¶¯»òÌìÆ½¶¯
+    % ç« åŠ¨æˆ–å¤©å¹³åŠ¨
     out = mexDE405(mjd,icent);
 else
-    % ĞĞĞÇ
+    % è¡Œæ˜Ÿ
     itar = name2int(target);
     out = mexDE405(mjd,icent,itar);
 end
 
-% Ã¿¸öÌìÌå¶ÔÓ¦µÄ±àºÅ
+% æ¯ä¸ªå¤©ä½“å¯¹åº”çš„ç¼–å·
 function i = name2int(name)
 switch upper(name)
     case 'MERCURY'

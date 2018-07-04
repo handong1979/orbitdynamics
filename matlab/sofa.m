@@ -1,9 +1,9 @@
-% IAU sofa ¹ú¼ÊÌìÎÄÁªºÏ»á»ù´¡ÌìÎÄ³ÌÐò¿â
+% IAU sofa å›½é™…å¤©æ–‡è”åˆä¼šåŸºç¡€å¤©æ–‡ç¨‹åºåº“
 % sofa(function,param,...)
-% functionÎªÒ»¸ö×Ö·û´®£¬ÎªsofaÖÐµÄº¯ÊýÃû£¬²»Çø·Ö´óÐ¡Ð´
-% param,... Îªsofaº¯ÊýÐèÒªµÄ²ÎÊý¾ßÌå¼ûÒÔÏÂµÄº¯ÊýËµÃ÷
-% Ä¿Ç°½öÊµÏÖÁËÒÔÏÂµÄº¯Êý£º
-% 1. ¸ñÁÖÄáÖÎºãÐÇÊ±¼ÆËã 
+% functionä¸ºä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œä¸ºsofaä¸­çš„å‡½æ•°åï¼Œä¸åŒºåˆ†å¤§å°å†™
+% param,... ä¸ºsofaå‡½æ•°éœ€è¦çš„å‚æ•°å…·ä½“è§ä»¥ä¸‹çš„å‡½æ•°è¯´æ˜Ž
+% ç›®å‰ä»…å®žçŽ°äº†ä»¥ä¸‹çš„å‡½æ•°ï¼š
+% 1. æ ¼æž—å°¼æ²»æ’æ˜Ÿæ—¶è®¡ç®— 
 %  GMST06
 %  GST06
 %  GST06A
@@ -11,7 +11,7 @@
 %  GST00B
 %  GMST82
 %  GST94
-% 2. ´ý¿ª·¢
+% 2. å¾…å¼€å‘
 %  
 % Example:
 % mjd = 53736;
@@ -27,6 +27,10 @@
 % (gst00a - gst06)*deg*3600
 % (gmst06 - gst06)*deg*3600
 % (gst06a - gst06)*deg*3600
+
+%if ~libisloaded('sofa')
+%  loadlibrary('sofa');
+%end
 
 % utc = 1:0.7:365*20;
 % dlg = zeros(size(utc));

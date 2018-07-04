@@ -1,141 +1,396 @@
-% ĞÇÃô°²×°¡¢¹â¸ÉÈÅÉè¼Æ¹¤¾ß
-% Origined by ÀîÌúÊÙ
-%             ÓÃÓÚæÏ¶ğÒ»ºÅÃô¸ĞÆ÷ÊÓ³¡¡¢¹â¸ÉÈÅ·ÖÎö
-% Created by º«¶¬
-%            ÕªÈ¡ÀîÌúÊÙ³ÌĞòÖĞ»æÍ¼µÄ²¿·Ö£¬Ö»±£ÁôĞÇÃôÊÓ³¡·ÖÎö
-%            »æÍ¼¹¦ÄÜÀ©Õ¹£¬GUIÉè¼Æ£¬½»»¥¹¦ÄÜ¿ª·¢
-% 2014.9.23  Ôö¼ÓĞÇÃô¹âÖáÉèÖÃÎÄ±¾¿ò£¬ÖØ»æÍ¼ĞÎÊ±¶ÁÈëĞÇÃô¹âÖá
+% æ˜Ÿæ•å®‰è£…è®¾è®¡ã€å…‰å¹²æ‰°åˆ†æå·¥å…·
+% Origined by æé“å¯¿
+%             ç”¨äºå«¦å¨¥ä¸€å·æ•æ„Ÿå™¨è§†åœºã€å…‰å¹²æ‰°åˆ†æ
+% Created by éŸ©å†¬
+%            æ‘˜å–æé“å¯¿ç¨‹åºä¸­ç»˜å›¾çš„éƒ¨åˆ†ï¼Œåªä¿ç•™æ˜Ÿæ•è§†åœºåˆ†æ
+%            ç»˜å›¾åŠŸèƒ½æ‰©å±•ï¼ŒGUIè®¾è®¡ï¼Œäº¤äº’åŠŸèƒ½å¼€å‘
+% 2014.9.23  å¢åŠ æ˜Ÿæ•å…‰è½´è®¾ç½®æ–‡æœ¬æ¡†ï¼Œé‡ç»˜å›¾å½¢æ—¶è¯»å…¥æ˜Ÿæ•å…‰è½´
+% 2015.9     ä¿®æ”¹æ˜Ÿæ•å®‰è£…çš„äº¤äº’åŠŸèƒ½ï¼Œè®¾è®¡æ˜Ÿæ•å®‰è£…è¿‡ç¨‹ä¸­å®æ—¶æ˜¾ç¤ºä¸‰ä¸ªæ˜Ÿæ•çš„å¤¹è§’
+% 2015.11    å¢åŠ ç•Œé¢ä¿®æ”¹åœ°çƒå’Œå¤ªé˜³å½±å“èŒƒå›´
+% 2015.12    å¢åŠ ç•Œé¢è®¾ç½®ä¸‰ä¸ªæ˜Ÿæ•çš„é®å…‰è§’
+% 2016.10    ç‚¹é€‰çš„æ˜Ÿæ•å®‰è£…è‡ªåŠ¨æ›´æ–°ç•Œé¢
+%            å¢åŠ é…ç½®æ–‡ä»¶ä¿å­˜å’Œè¯»å–åŠŸèƒ½
+%            å¢åŠ ä¸€ä¸ªæ˜Ÿæ•D
+%            å¢åŠ è®¡ç®—å—å¹²æ‰°å¼§æ®µç™¾åˆ†æ¯”
+% 2016.11    å¢åŠ å§¿æ€è§’è½¬åºé€‰æ‹©
+%            æ›´æ”¹betaè§’çš„æ­£è´Ÿå®šä¹‰
+%            
 
 % TODO:
-%    1. ÔÚ½çÃæÉÏÉèÖÃĞÇÃôÕÚ±Î½Ç
-%    2. ¶¯Ì¬²âÁ¿Á½µãÖ®¼äµÄÇòÃæ½Ç---Íê³É¶¥ÊÓÍ¼£¬ÓĞ´ı²¹³ä²àÊÓÍ¼
-%    3. ÍêÉÆ½»»¥Ê½µÄĞÇÃô°²×°Éè¼Æ£¬¼æÈİ²»Í¬µÄĞÇÃô¸öÊı,Ôö¼ÓÖØĞÂ³õÊ¼»¯¹¦ÄÜ(µü´úÉè¼Æ)
-%    4. Ê¹ÓÃMATLAB Mapping ToolboxÖĞµÄ¸÷ÖÖ¹¦ÄÜ»æÖÆÍ¶Ó°Í¼
-%    5. ½«µØÇò±ßÔµ¡¢µØÇò¸ÉÈÅ±ßÔµÓÃ²»Í¬µÄÑÕÉ«Çø·Ö---Íê³É£¬µØÇò±ßÔµÊ¹ÓÃÀ¶É«£¬¸ÉÈÅ±ßÔµÒÀ´Î±äÇ³
-%    6. ½«Ì«Ñô±ßÔµ¡¢Ì«Ñô¸ÉÈÅ±ßÔµÓÃ²»Í¬µÄÑÕÉ«Çø·Ö---Íê³É£¬µØÇò±ßÔµÊ¹ÓÃºìÉ«£¬¸ÉÈÅ±ßÔµÒÀ´Î±äÇ³
-%    7. ÔÚÈıÎ¬ÊÓÍ¼ÖĞ£¬»æÖÆ±¾ÌåÏµÈı¸ö×ø±êÖá¡¢¹ìµÀÏµÈı¸ö×ø±êÖá
+%    åŠ¨æ€æµ‹é‡ä¸¤ç‚¹ä¹‹é—´çš„çƒé¢è§’---å®Œæˆé¡¶è§†å›¾ï¼Œæœ‰å¾…è¡¥å……ä¾§è§†å›¾
+%    å®Œå–„äº¤äº’å¼çš„æ˜Ÿæ•å®‰è£…è®¾è®¡ï¼Œå…¼å®¹ä¸åŒçš„æ˜Ÿæ•ä¸ªæ•°,å¢åŠ é‡æ–°åˆå§‹åŒ–åŠŸèƒ½(è¿­ä»£è®¾è®¡)
+%    åœ¨ä¸‰ç»´è§†å›¾ä¸­ï¼Œç»˜åˆ¶æœ¬ä½“ç³»ä¸‰ä¸ªåæ ‡è½´ã€è½¨é“ç³»ä¸‰ä¸ªåæ ‡è½´
+%    ä¸‰ç»´è§†å›¾ä¸­ï¼Œå¢åŠ å«æ˜Ÿæ˜Ÿä½“æ„å‹
 % BUG:
-%    1.patchÇøÓòÔÚÍ¼ĞÎÖĞ»á±»½Ø¶Ï£¬ĞÎ³É´íÎóµÄÇøÓò
-%    2.Í¶Ó°Í¼Ê¹ÓÃÂó¿¨ÎıÍ¶Ó°£¬Í¼ÖĞ¡°ÄÏ±±¼«¡±²¿·Ö±äĞÎ´ó£¬Í¶Ó°Í¼ÖĞµÄÁ½µã¾àÀë±»À­³¤
+%    1.patchåŒºåŸŸåœ¨å›¾å½¢ä¸­ä¼šè¢«æˆªæ–­ï¼Œå½¢æˆé”™è¯¯çš„åŒºåŸŸ
+%    2.æŠ•å½±å›¾ä½¿ç”¨éº¦å¡é”¡æŠ•å½±ï¼Œå›¾ä¸­â€œå—åŒ—æâ€éƒ¨åˆ†å˜å½¢å¤§ï¼ŒæŠ•å½±å›¾ä¸­çš„ä¸¤ç‚¹è·ç¦»è¢«æ‹‰é•¿ï¼Œè®¾ç½®å¯é€‰å¤šç§æŠ•å½±æ–¹å¼
 
 function stsassemble
 rad = pi/180;
-Re = 6378.137;% µØÇò³àµÀ°ë¾¶
-default_orbit_height = 673;
-default_beta = -58;
+Re = 6378.137;% åœ°çƒèµ¤é“åŠå¾„
+default_orbit_height = 600;
+default_beta = 0;
 default_phi = 0;
 default_theta = 0;
 default_psi = 0;
 
-% za = cosd([46.4137;   77.1297;   133.5698]); % ĞÇÃôA¹âÖá
-% zb = cosd([133.5449;    77.1047;  133.6003]); % ĞÇÃôB¹âÖá
-% zc = [0.20424014  0.73179743 -0.65006076]'; % ĞÇÃôC¹âÖá
-% FH-2ĞÇÃô°²×°
-za = cosd([60+12/60+58/3600	35 	106+39/60+57/3600]');
-zb = cosd([119+47/60+2*3600	35 	106+39/60+57/3600]');
-zc = cosd([90     	145 	125]');
+% za = cosd([46.4137;   77.1297;   133.5698]); % æ˜Ÿæ•Aå…‰è½´
+% zb = cosd([133.5449;    77.1047;  133.6003]); % æ˜Ÿæ•Bå…‰è½´
+% zc = [0.20424014  0.73179743 -0.65006076]'; % æ˜Ÿæ•Cå…‰è½´
+% FH-2æ˜Ÿæ•å®‰è£…
+% za = cosd([60+12/60+58/3600	35 	106+39/60+57/3600]');
+% zb = cosd([119+47/60+2*3600	35 	106+39/60+57/3600]');
+% zc = cosd([90     	145 	125]');
+% za = [  0.52992     -0.82353   -0.20244]';
+% zb = [ -0.52992     -0.82353   -0.20244]';
+% zc = [  0.0          0.82353   -0.56727]';
 
-%% ´´½¨½çÃæ
-hf = figure('Position',[50 110 1140 820],'MenuBar','figure','Toolbar','figure',...
-    'Name','ĞÇÃô°²×°Éè¼Æ·ÖÎö¹¤¾ß','NumberTitle','off','Color',[0.9 0.9 0.8],...
-    'Resize','off','HandleVisibility','on','Visible','on');
-% ¶¥ÊÓÍ¼¹¦ÄÜ°´¼ü
-uicontrol('Parent',hf,  'Callback',@setButtonDown, ...
-    'String','²âÁ¿Á½µãÇòÃæ¾àÀë(Êó±ê×ó¼ü¿ªÊ¼ÓÒ¼ü½áÊø)',...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[700 10 250 50]);
+% za = [ 0.49481     -0.82413      0.27564]';
+% zb = [ -0.49481     -0.82413     0.27564]';
+% zc = [ 0.17365      0.82413      0.53913]';
+za = cosd([59.747        145.5           75]');
+zb = cosd([120.25        145.5           75]');
+zc = cosd([67            34.5       65.7917]');
+zd = [ 0.17365      0.82413      0.53913]';
+% æ˜Ÿæ•é®å…‰è§’
+az = 30;
+bz = 30;
+cz = 30;
+dz = 30;
+
+%% åˆ›å»ºç•Œé¢
+hf = figure('Position',[20 40 1140 820],'MenuBar','figure','Toolbar','figure',...
+    'Name','æ˜Ÿæ•æ„Ÿå™¨å¯ç”¨æ€§åˆ†æ','NumberTitle','off','Color',[0.9 0.9 0.8],...
+    'Resize','off','HandleVisibility','off','Visible','on');
+uicontrol('Parent',hf,'style','text','String','æ˜Ÿæ•æ„Ÿå™¨å¯ç”¨æ€§åˆ†æV1.00','Units','normalized',...
+        'fontsize',22,'Position',[0.50,0.95,0.3,0.05]);
+% é¡¶è§†å›¾åŠŸèƒ½æŒ‰é”®
+uicontrol('Parent',hf,  'Callback',@MeasureDist, ...
+    'String','æµ‹é‡å¤¹è§’','TooltipString','(é¼ æ ‡å·¦é”®å¼€å§‹ã€å³é”®ç»“æŸ)',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[650 35 250 25]);
+uicontrol('Parent',hf,  'Style','text',...
+    'String','(é¼ æ ‡å·¦é”®å¼€å§‹ã€å³é”®ç»“æŸ)',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[650 10 250 25]);
 uicontrol('Parent',hf,  'Callback',@manualInstallSS, ...
-    'String','ÓÃÊó±êµã»÷ĞÇÃô¹âÖáÎ»ÖÃ',...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[960 10 150 50]);
-% ×ËÌ¬½ÇÉèÖÃUI
-xb = 30;yb = 740;
+    'String','ç”¨é¼ æ ‡ç‚¹å‡»æ˜Ÿæ•å…‰è½´ä½ç½®','TooltipString','(ç‚¹å‡»é¡ºåº:å·¦é”®ã€å·¦é”®ã€å³é”®)',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[910 35 200 25]);
+uicontrol('Parent',hf,  'Style','text',...
+    'String','(é¼ æ ‡ç‚¹å‡»é¡ºåº:å·¦é”®ã€å·¦é”®ã€å³é”®)',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[910 10 200 25]);
+% å¸®åŠ©æŒ‰é’®
+uicontrol('Parent',hf,'style','pushbutton','String','è¯¦ç»†è®¾è®¡','Units','normalized','fontsize',12,...
+        'callback','web(''.\help\æ˜Ÿæ•å¯ç”¨æ€§åˆ†æè½¯ä»¶è¯¦ç»†è®¾è®¡(å†…éƒ¨).htm'',''-browser'')','Position',[0.90,0.95,0.1,0.05]);
+uicontrol('Parent',hf,'style','pushbutton','String','ä½¿ç”¨è¯´æ˜','Units','normalized','fontsize',12,...
+        'callback','web(''.\help\æ˜Ÿæ•å¯ç”¨æ€§åˆ†æè½¯ä»¶ä½¿ç”¨è¯´æ˜(å†…éƒ¨).htm'',''-browser'')','Position',[0.80,0.95,0.1,0.05]);
+
+% å§¿æ€è§’è®¾ç½®UI
+xb = 80;yb = 740;
+uicontrol('Parent',hf,  'Style','text', 'String','å§¿æ€è½¬åº','Tag','tzhuanxu',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[10 yb+30 50 20]);
+zhuanxu = {'ZYX';'ZXY';'YXZ';'YZX';'XYZ';'XZY';'ZYX'};
+hzhuanxu = uicontrol('Parent',hf,  'Style','popupmenu', 'String',zhuanxu,'Value',2,'Tag','zhuanxu',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[10 yb+5 65 20]);
 hphi = uicontrol('Parent',hf,  'Style','edit', 'String',num2str(default_phi),...
     'FontUnits','pixels', 'FontSize',12,    'Position',[xb yb 50 20]);
 htheta = uicontrol('Parent',hf,  'Style','edit', 'String',num2str(default_theta),...
     'FontUnits','pixels', 'FontSize',12,    'Position',[xb+55 yb 50 20]);
 hpsi = uicontrol('Parent',hf,  'Style','edit', 'String',num2str(default_psi),...
     'FontUnits','pixels', 'FontSize',12,    'Position',[xb+110 yb 50 20]);
-uicontrol('Parent',hf,  'Style','text', 'String','¹ö¶¯(¶È)','Tag','tphi',...
+uicontrol('Parent',hf,  'Style','text', 'String','æ»šåŠ¨(åº¦)','Tag','tphi',...
     'FontUnits','pixels', 'FontSize',12,    'Position',[xb yb+20 50 20]);
-uicontrol('Parent',hf,  'Style','text', 'String','¸©Ñö(¶È)','Tag','ttheta',...
+uicontrol('Parent',hf,  'Style','text', 'String','ä¿¯ä»°(åº¦)','Tag','ttheta',...
     'FontUnits','pixels', 'FontSize',12,    'Position',[xb+55 yb+20 50 20]);
-uicontrol('Parent',hf,  'Style','text', 'String','Æ«º½(¶È)','Tag','tpsi',...
+uicontrol('Parent',hf,  'Style','text', 'String','åèˆª(åº¦)','Tag','tpsi',...
     'FontUnits','pixels', 'FontSize',12,    'Position',[xb+110 yb+20 50 20]);
-uicontrol('Parent',hf,  'Style','text', 'String','×ËÌ¬½ÇÉèÖÃ',...
-    'FontUnits','pixels', 'FontSize',14,    'Position',[xb yb+50 160 20]);
-% ¹ìµÀÉèÖÃ
+uicontrol('Parent',hf,  'Style','text', 'String','å§¿æ€è§’è®¾ç½®',...
+    'FontUnits','pixels', 'FontSize',14,    'Position',[10 yb+50 230 20]);
+% è½¨é“è®¾ç½®
 hheight = uicontrol('Parent',hf,  'Style','edit', 'String',num2str(default_orbit_height),...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+180 yb 75 20]);
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+165 yb 75 20]);
 hbeta = uicontrol('Parent',hf,  'Style','edit', 'String',num2str(default_beta),...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+180+80 yb 75 20]);
-uicontrol('Parent',hf,  'Style','text', 'String','¹ìµÀ¸ß¶È(km)',...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+180 yb+20 75 20]);
-uicontrol('Parent',hf,  'Style','text', 'String','beta(¶È)',...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+180+80 yb+20 75 20]);
-uicontrol('Parent',hf,  'Style','text', 'String','¹ìµÀÉèÖÃ',...
-    'FontUnits','pixels', 'FontSize',14,    'Position',[xb+180 yb+50 160 20]);
-% ¸üĞÂ»æÍ¼°´Å¥
-uicontrol('Parent',hf,  'Callback',@refreshcoord, ...
-    'String','ÖØ»æ',...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+280+75 yb 150 30]);
-% ĞÇÃô¹âÖáÉèÖÃ
-uicontrol('Parent',hf,  'Style','text', 'String','ĞÇÃôA¹âÖá',...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb 100 75 20]);
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+165+80 yb 85 20]);
+uicontrol('Parent',hf,  'Style','text', 'String','è½¨é“é«˜åº¦(km)',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+165 yb+20 75 20]);
+uicontrol('Parent',hf,  'Style','text', 'String','å¤ªé˜³é«˜åº¦è§’(åº¦)',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+165+80 yb+20 85 20]);
+uicontrol('Parent',hf,  'Style','text', 'String','è½¨é“è®¾ç½®',...
+    'FontUnits','pixels', 'FontSize',14,    'Position',[xb+165 yb+50 160 20]);
+% æ›´æ–°ç»˜å›¾æŒ‰é’®
+uicontrol('Parent',hf,  'Callback',@redraw, ...
+    'String','é‡ç»˜',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+260+75 yb 150 30]);
+uicontrol('Parent',hf,  'Callback',@distpecent, ...
+    'String','å¯ç”¨æ€§ç™¾åˆ†æ¯”',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+260+75 yb-30 150 30]);
+% æ›´æ–°ç»˜å›¾æŒ‰é’®
+uicontrol('Parent',hf,  'Callback',@savecfg, ...
+    'String','ä¿å­˜é…ç½®',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+260+75 yb+40 70 30]);
+uicontrol('Parent',hf,  'Callback',@loadcfg, ...
+    'String','è¯»å…¥é…ç½®',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+260+145 yb+40 70 30]);
+% æ˜Ÿæ•å…‰è½´è®¾ç½®
+uicontrol('Parent',hf,  'Style','text', 'String','æ˜Ÿæ•Aå…‰è½´',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb 120 75 20]);
 hsza = uicontrol('Parent',hf,  'Style','edit', 'String',['[',num2str(za'),']'],...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+80 100 275 20]);
-uicontrol('Parent',hf,  'Style','text', 'String','ĞÇÃôB¹âÖá',...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb 80 75 20]);
-hszb = uicontrol('Parent',hf,  'Style','edit', 'String',['[',num2str(zb'),']'],...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+80 80 275 20]);
-uicontrol('Parent',hf,  'Style','text', 'String','ĞÇÃôC¹âÖá',...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb 60 75 20]);
-hszc = uicontrol('Parent',hf,  'Style','edit', 'String',['[',num2str(zc'),']'],...
-    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+80 60 275 20]);
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+80 120 275 20]);
+uicontrol('Parent',hf,  'Style','text', 'String','é®å…‰è§’',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+360 120 50 20]);
+haz = uicontrol('Parent',hf,  'Style','edit', 'String',num2str(az),...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+410 120 50 20]);
 
+uicontrol('Parent',hf,  'Style','text', 'String','æ˜Ÿæ•Bå…‰è½´',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb 100 75 20]);
+hszb = uicontrol('Parent',hf,  'Style','edit', 'String',['[',num2str(zb'),']'],...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+80 100 275 20]);
+uicontrol('Parent',hf,  'Style','text', 'String','é®å…‰è§’',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+360 100 50 20]);
+hbz = uicontrol('Parent',hf,  'Style','edit', 'String',num2str(bz),...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+410 100 50 20]);
+
+uicontrol('Parent',hf,  'Style','text', 'String','æ˜Ÿæ•Cå…‰è½´',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb 80 75 20]);
+hszc = uicontrol('Parent',hf,  'Style','edit', 'String',['[',num2str(zc'),']'],...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+80 80 275 20]);
+uicontrol('Parent',hf,  'Style','text', 'String','é®å…‰è§’',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+360 80 50 20]);
+hcz = uicontrol('Parent',hf,  'Style','edit', 'String',num2str(cz),...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+410 80 50 20]);
+
+uicontrol('Parent',hf,  'Style','text', 'String','æ˜Ÿæ•Då…‰è½´',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb 60 75 20]);
+hszd = uicontrol('Parent',hf,  'Style','edit', 'String',['[',num2str(zd'),']'],...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+80 60 275 20]);
+uicontrol('Parent',hf,  'Style','text', 'String','é®å…‰è§’',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+360 60 50 20]);
+hdz = uicontrol('Parent',hf,  'Style','edit', 'String',num2str(dz),...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+410 60 50 20]);
+% åœ°çƒå’Œå¤ªé˜³æ‰©å±•åœ†è®¾ç½®
+uicontrol('Parent',hf,  'Style','text', 'String','åœ°çƒå½±å“èŒƒå›´',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb 40 75 20]);
+hearthc = uicontrol('Parent',hf,  'Style','edit', 'String','30',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+80 40 275 20]);
+uicontrol('Parent',hf,  'Style','text', 'String','å¤ªé˜³å½±å“èŒƒå›´',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb 20 75 20]);
+hsunc = uicontrol('Parent',hf,  'Style','edit', 'String','30',...
+    'FontUnits','pixels', 'FontSize',12,    'Position',[xb+80 20 275 20]);
+% ä¸‰ä¸ªç»˜å›¾çš„å¥æŸ„
 f3d = [];
 f2d1 = [];
 f2d2 = [];
-% »æÖÆÄ¬ÈÏÍ¼ĞÎ
-coordinate(); %»æÖÆ×ø±êÖá
-ah = f2d2; % ÓÃÓÚ¶¯Ì¬²âÁ¿ÏÔÊ¾
-drawf();
-sts(za(:),[30],'A');
-sts(zb(:),[30],'B');
-sts(zc(:),[30],'C');
+% share value
+beta = default_beta;
+Cbo = eye(3);
+% ç»˜åˆ¶é»˜è®¤å›¾å½¢
+coordinate(); %ç»˜åˆ¶åæ ‡è½´
+drawes(); %ç»˜åˆ¶åœ°çƒå’Œå¤ªé˜³
+% ç»˜åˆ¶ä¸‰ä¸ªæ˜Ÿæ•
+drawss();
 
-%% »æÍ¼
-    function drawf(hObject,~)
+%% ç»˜å›¾
+% è¯»å…¥è®¾ç½®ï¼Œç”»åœ°çƒå’Œå¤ªé˜³
+    function drawes(hObject, eventdata, handles)
         h = str2double(get(hheight, 'String')); % orbit height
         rou = asind(Re/(Re+h)); % earth half angle
-        beta = str2double(get(hbeta, 'String')); % Ì«ÑôÓë¹ìµÀÃæ¼Ğ½Ç,+YÒ»²àÎªÕı
+        beta = str2double(get(hbeta, 'String')); % å¤ªé˜³ä¸è½¨é“é¢å¤¹è§’,-Yä¸€ä¾§ä¸ºæ­£
+        getCbo();
+        % ç»˜åˆ¶åœ°çƒ
+        ec = str2num(get(hearthc, 'String')); % åœ°çƒå½±å“èŒƒå›´
+        if ~isempty(ec)
+            ec = ec(:)';
+            ec = rou + [0,ec];
+            ec = unique(sort(abs(ec)));
+        else
+            ec = rou;
+        end
+        earth(ec,Cbo);
+        % ç»˜åˆ¶å¤ªé˜³
+        sc = str2num(get(hsunc, 'String')); % å¤ªé˜³å½±å“èŒƒå›´
+        if ~isempty(sc)
+        	sc = sc(:)';
+            sc = unique(sort(abs(sc)));
+            sun(beta + [0,sc],Cbo);
+            sun(beta - [0,sc],Cbo);
+        else
+            sun(beta,Cbo);
+        end
+    end
+% è¯»å…¥æ˜Ÿæ•è®¾ç½®ï¼Œç”»æ˜Ÿæ•
+    function drawss(hObject, eventdata, handles)
+        za = str2num(get(hsza, 'String')); % æ˜Ÿæ•Aå…‰è½´
+        zb = str2num(get(hszb, 'String')); % æ˜Ÿæ•Bå…‰è½´
+        zc = str2num(get(hszc, 'String')); % æ˜Ÿæ•Cå…‰è½´
+        zd = str2num(get(hszd, 'String')); % æ˜Ÿæ•Då…‰è½´
+        za = za(:);
+        zb = zb(:);
+        zc = zc(:);
+        zd = zd(:);
+        az = str2num(get(haz,'String')); % æ˜Ÿæ•Aé®å…‰è§’
+        bz = str2num(get(hbz,'String')); % æ˜Ÿæ•Bé®å…‰è§’
+        cz = str2num(get(hcz,'String')); % æ˜Ÿæ•Cé®å…‰è§’
+        dz = str2num(get(hdz,'String')); % æ˜Ÿæ•Dé®å…‰è§’
+        if ~isempty(za)
+            sts(za,az,'A');
+            fprintf('æ˜Ÿæ•Aå…‰è½´: %f %f %f\n',acosd(za'));
+        end
+        if ~isempty(zd)
+            sts(zb,bz,'B');
+            sts(zc,cz,'C');
+            sts(zd,cz,'D');
+            abangle = acosd(za'*zb);
+            acangle = acosd(zc'*za);
+            bcangle = acosd(zc'*zb);
+            adangle = acosd(za'*zd);
+            bdangle = acosd(zb'*zd);
+            cdangle = acosd(zc'*zd);
+            fprintf('æ˜Ÿæ•Bå…‰è½´: %f %f %f\n',acosd(zb'));
+            fprintf('æ˜Ÿæ•Cå…‰è½´: %f %f %f\n',acosd(zc'));
+            fprintf('æ˜Ÿæ•Då…‰è½´: %f %f %f\n',acosd(zd'));
+            fprintf('ABæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\nBCæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\nACæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\nADæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\nBDæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\nCDæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\n\n',...
+                abangle,bcangle,acangle,adangle,bdangle,cdangle);
+        elseif ~isempty(zc)
+            sts(zb,bz,'B');
+            sts(zc,cz,'C');
+            abangle = acosd(za'*zb);
+            acangle = acosd(zc'*za);
+            bcangle = acosd(zc'*zb);
+            fprintf('æ˜Ÿæ•Bå…‰è½´: %f %f %f\n',acosd(zb'));
+            fprintf('æ˜Ÿæ•Cå…‰è½´: %f %f %f\n',acosd(zc'));
+            fprintf('ABæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\nBCæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\nACæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\n\n',abangle,bcangle,acangle);	
+        elseif ~isempty(zb)
+            sts(zb,bz,'B');
+            abangle = acosd(za'*zb);
+            fprintf('æ˜Ÿæ•Bå…‰è½´: %f %f %f\n',acosd(zb'));
+            fprintf('ABæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\n',abangle);	
+        end
+    end
+% é‡ç»˜æŒ‰é’®callback
+    function redraw(hObject, eventdata, handles)
+        set(f3d,'NextPlot','replace');
+        set(f2d1,'NextPlot','replace');
+        set(f2d2,'NextPlot','replace');
+        coordinate();
+        drawes();
+        drawss();        
+    end
+% å—å¹²æ‰°çš„å¼§æ®µ(ç™¾åˆ†æ¯”)
+    function distpecent(hObject, eventdata, handles)
+        h = str2double(get(hheight, 'String')); % orbit height
+        rou = asind(Re/(Re+h)); % earth half angle
+        beta = str2double(get(hbeta, 'String')); % å¤ªé˜³ä¸è½¨é“é¢å¤¹è§’,-Yä¸€ä¾§ä¸ºæ­£
+        getCbo();
+        eb = Cbo*[0;0;1];
+        sth = linspace(0,360,1800);
+        nsth = length(sth);
+        sph = beta*ones(size(sth));
+        x = cosd(sph).*cosd(sth);
+        y = cosd(sph).*sind(sth);
+        z = sind(-sph);
+        
+        c = Cbo*rotx(pi/2)*[x;y;z];
+        figure('Name','æ˜Ÿæ•å…‰è½´ä¸å¤ªé˜³ã€åœ°çƒå¤¹è§’');
+        grid on,hold on;        
+        aga = nan;
+        agb = nan;
+        agc = nan;
+        agd = nan;
+        if ~isempty(za)
+            aga = acosd(za'*c);
+            pa = sum(aga<=az(1))/nsth*100;
+            plot(sth,aga,'Color','k','linestyle','-');
+        end
+        if ~isempty(zb)
+            agb = acosd(zb'*c);
+            pb = sum(agb<=bz(1))/nsth*100;
+            plot(sth,agb,'Color','k','linestyle','--');
+        end
+        if ~isempty(zc)
+            agc = acosd(zc'*c);
+            pc = sum(agc<=cz(1))/nsth*100;
+            plot(sth,agc,'Color','k','linestyle',':');
+        end
+        if ~isempty(zd)
+            agd = acosd(zd'*c);
+            pd = sum(agd<=dz(1))/nsth*100;
+            plot(sth,agd,'Color','k','linestyle','-.');
+        end
+        % ä¸åœ°çƒè¾¹ç¼˜å¤¹è§’
+        if ~isempty(za)
+            ase = acosd(za'*eb) - rou;
+            plot(0,ase,'marker','o','markersize',4);
+            text(3,ase,'æ˜Ÿæ•Aä¸åœ°çƒè¾¹ç¼˜å¤¹è§’');
+        end
+        if ~isempty(zb)
+            ase = acosd(zb'*eb) - rou;
+            plot(0,ase,'marker','o','markersize',4);
+            text(3,ase,'æ˜Ÿæ•Bä¸åœ°çƒè¾¹ç¼˜å¤¹è§’');
+        end
+        if ~isempty(zc)
+            ase = acosd(zc'*eb) - rou;
+            plot(0,ase,'marker','o','markersize',4);
+            text(3,ase,'æ˜Ÿæ•Cä¸åœ°çƒè¾¹ç¼˜å¤¹è§’');
+        end
+        if ~isempty(zd)
+            ase = acosd(zd'*eb) - rou;
+            plot(0,ase,'marker','o','markersize',4);
+            text(3,ase,'æ˜Ÿæ•Dä¸åœ°çƒè¾¹ç¼˜å¤¹è§’');
+        end
+        xlim([0,360]),set(gca,'XTick',0:30:360);
+        xlabel('å¤ªé˜³æ–¹ä½è§’(deg)'),ylabel('æ˜Ÿæ•å…‰è½´ä¸å¤ªé˜³å¤¹è§’(deg)');
+        if isnan(agc)
+            legend(['æ˜Ÿæ•A-',num2str(pa,'%.2f'),'%'],...
+                   ['æ˜Ÿæ•B-',num2str(pb,'%.2f'),'%']);
+        elseif isnan(agd)
+            legend(['æ˜Ÿæ•A-',num2str(pa,'%.2f'),'%'],...
+                   ['æ˜Ÿæ•B-',num2str(pb,'%.2f'),'%'],...
+                   ['æ˜Ÿæ•C-',num2str(pc,'%.2f'),'%']);
+        else
+            legend(['æ˜Ÿæ•A-',num2str(pa,'%.2f'),'%'],...
+                   ['æ˜Ÿæ•B-',num2str(pb,'%.2f'),'%'],...
+                   ['æ˜Ÿæ•C-',num2str(pc,'%.2f'),'%'],...
+                   ['æ˜Ÿæ•D-',num2str(pd,'%.2f'),'%']);
+        end
+
+        plot([0,360],[az(1) az(1)],'r');
+        plot([0,360],[bz(1) bz(1)],'r');
+        plot([0,360],[cz(1) cz(1)],'r');
+        plot([0,360],[dz(1) dz(1)],'r');
+    end
+    function getCbo()
         phi = str2double(get(hphi, 'String'));
         theta = str2double(get(htheta, 'String'));
         psi = str2double(get(hpsi, 'String'));
-        Cbo = roty(theta*rad)*rotx(phi*rad)*rotz(psi*rad);
-        % »æÖÆµØÇò
-        earth([rou rou+30 rou+40],Cbo);
-        % »æÖÆÌ«Ñô
-        sun([beta beta-30 beta+30 beta-40 beta+40],Cbo);
-        za = str2num(get(hsza, 'String')); % ĞÇÃôA¹âÖá
-        zb = str2num(get(hszb, 'String')); % ĞÇÃôB¹âÖá
-        zc = str2num(get(hszc, 'String')); % ĞÇÃôC¹âÖá
-        sts(za(:),[30],'A');
-        sts(zb(:),[30],'B');
-        sts(zc(:),[30],'C');
+        zv = get(hzhuanxu,'Value');
+        for i=1:3
+            switch zhuanxu{zv}(i)
+                case 'Z'
+                    angle(i) = psi;
+                case 'Y'
+                    angle(i) = theta;
+                case 'X'
+                    angle(i) = phi;
+            end
+        end
+        Cbo = angle2dcm(angle(1)*rad,angle(2)*rad,angle(3)*rad,zhuanxu{zv});
+    end
+%% æŠ•å½±ç®—æ³•
+% ä¾§è§†å›¾æŠ•å½±
+    function [a,b] = MercatorSide(X,Y,Z)
+        b = asin(-Z)/rad;
+        a = atan2(X,-Y)/rad;
+    end
+% é¡¶è§†å›¾æŠ•å½±
+    function [a,b] = MercatorTop(X,Y,Z)
+        b = asin(X)/rad;
+        a = atan2(Y,-Z)/rad;
+%         jp = find(abs(diff(a))>180);
+%         if ~isempty(jp)
+%             a = [a(1:jp),nan,a(jp+1:end)];
+%             b = [b(1:jp),nan,b(jp+1:end)];
+%         end
     end
 
-%% Í¶Ó°Ëã·¨
-% ²àÊÓÍ¼Í¶Ó°
-    function [x y] = Mercator1(X,Y,Z)
-        y = asin(-Z)/rad;
-        x = atan2(X,-Y)/rad;
-    end
-% ¶¥ÊÓÍ¼Í¶Ó°
-    function [x y] = Mercator2(X,Y,Z)
-        y = asin(X)/rad;
-        x = atan2(Y,-Z)/rad;
-    end
-
-%% ×ø±êÍ¼
+%% åæ ‡å›¾
     function coordinate()
         n = 24;
         theta = pi*(-n:2:n)/n;
@@ -150,70 +405,72 @@ sts(zc(:),[30],'C');
         else
             set(hf,'CurrentAxes',f3d);
         end
-        colormap(0.9*[1 1 1;1 1 1]);
-        mesh(X,Y,Z,'facealpha',0.5);
+        colormap(f3d,0.9*[1 1 1;1 1 1]);
+        mesh(f3d,X,Y,Z,'facealpha',0.5);
         set(f3d,'CameraViewAngle',5,'CameraViewAngleMode','manual',...
             'CameraTarget',[0 0 0],'CameraTargetMode','manual',...
             'NextPlot','add','Visible','off',...
             'Zdir','Reverse','Ydir','Reverse');
-        view([-95 10]);
-        xlabel('X');ylabel('Y');zlabel('Z');d=0.1;
-        text(1+d,d,d,'+X');text(-1-d,d,d,'-X');
-        text(d,1+d,d,'+Y');text(d,-1-d,d,'-Y');
-        text(d,d,1+d,'+Z');text(d,d,-1-d,'-Z');
-        line(-1,0,0,'marker','o','markeredgecolor',[1,0,0]);
-        line(1,0,0,'marker','o','markerfacecolor',[1,0,0]);
-        line(0,-1,0,'marker','o','markeredgecolor',[0,1,0]);
-        line(0,1,0,'marker','o','markerfacecolor',[0,1,0]);
-        line(0,0,-1,'marker','o','markeredgecolor',[0,0,1]);
-        line(0,0,1,'marker','o','markerfacecolor',[0,0,1]);
-        axis square;hidden on;
+        view(f3d,[77 28]);
+        xlabel(f3d,'X');ylabel(f3d,'Y');zlabel(f3d,'Z');d=0.1;
+        text(1+d,d,d,'+X','parent',f3d);text(-1-d,d,d,'-X','parent',f3d);
+        text(d,1+d,d,'+Y','parent',f3d);text(d,-1-d,d,'-Y','parent',f3d);
+        text(d,d,1+d,'+Z','parent',f3d);text(d,d,-1-d,'-Z','parent',f3d);
+        line(-1,0,0,'parent',f3d,'marker','o','markeredgecolor',[1,0,0]);
+        line(1,0,0,'parent',f3d,'marker','o','markerfacecolor',[1,0,0]);
+        line(0,-1,0,'parent',f3d,'marker','o','markeredgecolor',[0,1,0]);
+        line(0,1,0,'parent',f3d,'marker','o','markerfacecolor',[0,1,0]);
+        line(0,0,-1,'parent',f3d,'marker','o','markeredgecolor',[0,0,1]);
+        line(0,0,1,'parent',f3d,'marker','o','markerfacecolor',[0,0,1]);
+        axis(f3d,'square');
+        shading(f3d,'interp');
         f2d1 = subplot(2,2,2,'Parent',hf);
-        set(hf,'CurrentAxes',f2d1);
         set(f2d1,'Units','Pixel','Position',[650 457 460 300]);
         % axesm('MapProjection','mercator','MapLatLimit',[-90 90],'MapLonLimit',[-180 180]),grid on;
         d=4;
-        plot(-90,0,'marker','o','markeredgecolor',[1,0,0]);grid on,hold on;
-        line(90,0,'marker','o','markerfacecolor',[1,0,0]);
-        line(0,-90,'marker','o','markeredgecolor',[0,1,0]);
-        line(0,90,'marker','o','markerfacecolor',[0,1,0]);
-        line(0,0,'marker','o','markeredgecolor',[0,0,1]);
-        line(180,0,'marker','o','markerfacecolor',[0,0,1]);
-        line(-180,0,'marker','o','markerfacecolor',[0,0,1]);
-        text(d,d,'-Y');text(180+d,d,'+Y');text(-180-d,d,'+Y');
-        text(90+d,d,'+X');        text(-90-d,d,'-X');
-        text(d,90+d,'-Z');        text(d,-90-d,'+Z');
-        axis([-180,180,-90,90]);        title('²àÊÓÍ¼');
+        plot(f2d1,-90,0,'marker','o','markeredgecolor',[1,0,0]);
+        grid(f2d1,'on');hold(f2d1,'on');
+        line(90,0,'Parent',f2d1,'marker','o','markerfacecolor',[1,0,0]);
+        line(0,-90,'Parent',f2d1,'marker','o','markeredgecolor',[0,1,0]);
+        line(0,90,'Parent',f2d1,'marker','o','markerfacecolor',[0,1,0]);
+        line(0,0,'Parent',f2d1,'marker','o','markeredgecolor',[0,0,1]);
+        line(180,0,'Parent',f2d1,'marker','o','markerfacecolor',[0,0,1]);
+        line(-180,0,'Parent',f2d1,'marker','o','markerfacecolor',[0,0,1]);
+        text(d,d,'-Y','Parent',f2d1);
+        text(180+d,d,'+Y','Parent',f2d1);
+        text(-180-d,d,'+Y','Parent',f2d1);
+        text(90+d,d,'+X','Parent',f2d1);        text(-90-d,d,'-X','Parent',f2d1);
+        text(d,90+d,'-Z','Parent',f2d1);        text(d,-90-d,'+Z','Parent',f2d1);
+        axis(f2d1,[-180,180,-90,90]);        title(f2d1,'ä¾§è§†å›¾');
         set(f2d1,'XTick',-180:30:180);   set(f2d1,'YTick',-90:30:90);
+        
         f2d2 = subplot(2,2,4,'Parent',hf);
-        set(hf,'CurrentAxes',f2d2);
         set(f2d2,'Units','Pixel','Position',[650 100 460 310]);
         % axesm('MapProjection','mercator','MapLatLimit',[-90 90],'MapLonLimit',[-180 180]),grid on;
         d=4;
-        plot(90,0,'marker','o','markerfacecolor',[1,0,0]);grid on,hold on;
-        line(-90,0,'marker','o','markeredgecolor',[1,0,0]);
-        line(0,-90,'marker','o','markeredgecolor',[0,1,0]);
-        line(0,90,'marker','o','markerfacecolor',[0,1,0]);
-        line(0,0,'marker','o','markeredgecolor',[0,0,1]);
-        line(180,0,'marker','o','markerfacecolor',[0,0,1]);
-        line(-180,0,'marker','o','markerfacecolor',[0,0,1]);
-        text(d,d,'-Z');text(180+d,d,'+Z');text(-180-d,d,'+Z');
-        text(d,90+d,'+X');text(d,-90-d,'-X');
-        text(-90+d,d,'-Y');text(90+d,d,'+Y');
-        axis([-180,180,-90,90]);title('¶¥ÊÓÍ¼');
+        plot(f2d2,90,0,'marker','o','markerfacecolor',[1,0,0]);
+        grid(f2d2,'on');hold(f2d2,'on');
+        line(-90,0,'Parent',f2d2,'marker','o','markeredgecolor',[1,0,0]);
+        line(0,-90,'Parent',f2d2,'marker','o','markeredgecolor',[0,1,0]);
+        line(0,90,'Parent',f2d2,'marker','o','markerfacecolor',[0,1,0]);
+        line(0,0,'Parent',f2d2,'marker','o','markeredgecolor',[0,0,1]);
+        line(180,0,'Parent',f2d2,'marker','o','markerfacecolor',[0,0,1]);
+        line(-180,0,'Parent',f2d2,'marker','o','markerfacecolor',[0,0,1]);
+        text(d,d,'-Z','Parent',f2d2);text(180+d,d,'+Z','Parent',f2d2);text(-180-d,d,'+Z','Parent',f2d2);
+        text(d,90+d,'+X','Parent',f2d2);text(d,-90-d,'-X','Parent',f2d2);
+        text(-90+d,d,'-Y','Parent',f2d2);text(90+d,d,'+Y','Parent',f2d2);
+        axis(f2d2,[-180,180,-90,90]);title(f2d2,'é¡¶è§†å›¾');
         set(f2d2,'XTick',-180:30:180);   set(f2d2,'YTick',-90:30:90);
     end
-    function refreshcoord(hObject,~)
-        set(f3d,'NextPlot','replace');
-        set(f2d1,'NextPlot','replace');
-        set(f2d2,'NextPlot','replace');
-        coordinate();
-        drawf();
-    end
-%% µØÇò
+
+%% åœ°çƒ
     function earth(rou,Cbo)
-        sth = linspace(0,360,360);
-        for i = 1:length(rou)
+        sth = linspace(0,360,720);
+        nth = length(rou);
+        for i = 1:nth
+            if rou(i)>180
+                continue;
+            end
             sph = (90-rou(i))*ones(size(sth));
             x = cos(sph*rad).*cos(sth*rad);
             y = cos(sph*rad).*sin(sth*rad);
@@ -222,28 +479,24 @@ sts(zc(:),[30],'C');
             x = c(1,:);
             y = c(2,:);
             z = c(3,:);
-            color = [0 0.15*i 1];
-            set(hf,'CurrentAxes',f3d);
-            line(x,y,z,'color',color,'linewidth',1.5);
+            color = [0.95/nth*(i-1),0.95/nth*(i-1),1];
+            line(x,y,z,'parent',f3d,'color',color,'linewidth',1.5);
             d=1.05;
-            text(x(1)*d,y(1)*d,z(1)*d,['Earth' num2str(rou(i),'%.1f')]);
-            
-            [a b] = Mercator1(x,y,z);
-            set(hf,'CurrentAxes',f2d1);
-            line(a,b,'color',color,'linewidth',1.0,'linestyle','none','marker','.');
+            text(x(1)*d,y(1)*d,z(1)*d,['Earth' num2str(rou(i),'%.1f')],'parent',f3d);            
+            [a,b] = MercatorSide(x,y,z);
+            line(a,b,'Parent',f2d1,'color',color,'markersize',5.0,'linestyle','none','marker','.');
             % linem(b,a);
             % patch(a,b,'b','FaceAlpha',0.2);
-            [a b] = Mercator2(x,y,z);
-            set(hf,'CurrentAxes',f2d2);
-            line(a,b,'color',color,'linewidth',1.0,'linestyle','none','marker','.');
-            % linem(b,a);patchm(b,a,'b','FaceAlpha',0.2);
-            % patch(a,b,'b','FaceAlpha',0.2);
+            [a,b] = MercatorTop(x,y,z);
+            line(a,b,'Parent',f2d2,'color',color,'markersize',5.0,'linestyle','none','marker','.');
+%             linem(b,a);patchm(b,a,'b','FaceAlpha',0.2);
+%             patch(a,b,'b','FaceAlpha',0.2);
         end
     end
 
-%% Ì«Ñô
+%% å¤ªé˜³
     function sun(beta,Cbo)
-        sth = linspace(0,360,360);
+        sth = linspace(0,360,720);
         for i = 1:length(beta)
             if abs(beta(i))>90
                 continue;
@@ -251,32 +504,29 @@ sts(zc(:),[30],'C');
             sph = beta(i)*ones(size(sth));
             x = cosd(sph).*cosd(sth);
             y = cosd(sph).*sind(sth);
-            z = sind(sph);
+            z = sind(-sph);
             c = Cbo*rotx(pi/2)*[x;y;z];
             x = c(1,:);
             y = c(2,:);
             z = c(3,:);
             
-            set(gcf,'CurrentAxes',f3d);
-            color = [1 0.5/length(beta)*i 0];
-            line(x,y,z,'color',color,'linewidth',1.5);
+            color = [1,0.95/length(beta)*(i-1),0.95/length(beta)*(i-1)];
+            line(x,y,z,'parent',f3d,'color',color,'linewidth',1.5);
             d=1.05;
-            text(x(1)*d,y(1)*d,z(1)*d,['Sun' num2str(beta(i),'%.1f')]);
+            text(x(1)*d,y(1)*d,z(1)*d,['Sun' num2str(beta(i),'%.1f')],'parent',f3d);
             
-            [a b] = Mercator1(x,y,z);
-            set(gcf,'CurrentAxes',f2d1);
-            line(a,b,'color',color,'linewidth',1.0,'linestyle','none','marker','.');
-            %             patch(a,b,'r','FaceAlpha',0.2);
-            [a b] = Mercator2(x,y,z);
-            set(gcf,'CurrentAxes',f2d2);
-            line(a,b,'color',color,'linewidth',1.0,'linestyle','none','marker','.');
-            %             patch(a,b,'r','FaceAlpha',0.2);
+            [a,b] = MercatorSide(x,y,z);
+            line(a,b,'Parent',f2d1,'color',color,'markersize',5.0,'linestyle','none','marker','.');
+%             patch(a,b,'r','FaceAlpha',0.2);
+            [a,b] = MercatorTop(x,y,z);
+            line(a,b,'Parent',f2d2,'color',color,'markersize',5.0,'linestyle','none','marker','.');
+%             patch(a,b,'r','FaceAlpha',0.2);
         end
     end
 
-%% ĞÇÃô
+%% æ˜Ÿæ•
     function sts(za,angle,name)
-        sth = linspace(0,360,360);
+        sth = linspace(0,360,720);
         za = za(:);
         for i=1:length(angle)
             sph = (90-angle(i))*ones(size(sth));
@@ -295,48 +545,125 @@ sts(zc(:),[30],'C');
             x = xyz(1,:);
             y = xyz(2,:);
             z = xyz(3,:);
-            set(gcf,'CurrentAxes',f3d);
-            line(x,y,z,'color','k','linewidth',1.5);
+            line(x,y,z,'parent',f3d,'color','k','linewidth',1.5);
             d=1.1;
-            text(ia(3,1)*d,ia(3,2)*d,ia(3,3)*d,name);
-            line(ia(3,1),ia(3,2),ia(3,3),'marker','o','markerfacecolor',[1,0,0])
+            text(ia(3,1)*d,ia(3,2)*d,ia(3,3)*d,name,'parent',f3d);
+            line(ia(3,1),ia(3,2),ia(3,3),'parent',f3d,'marker','o','markerfacecolor',[1,0,0])
             
-            [a b] = Mercator1(x,y,z);
-            set(gcf,'CurrentAxes',f2d1);
-            line(a,b,'color','k','linewidth',1.0,'linestyle','none','marker','.','markersize',1);
-            [a b] = Mercator1(za(1),za(2),za(3));
-            line(a,b,'color','c','marker','o','markerfacecolor',[0,0,1]);text(a,b,name);
+            [a b] = MercatorSide(x,y,z);
+            line(a,b,'Parent',f2d1,'color','k','linewidth',1.0,'linestyle','none','marker','.','markersize',1);
+            [a b] = MercatorSide(za(1),za(2),za(3));
+            line(a,b,'Parent',f2d1,'color','c','marker','o','markerfacecolor',[0,0,1]);
+            text(a,b,name,'Parent',f2d1);
             
-            [a b] = Mercator2(x,y,z);
-            set(gcf,'CurrentAxes',f2d2);
-            line(a,b,'color','k','linewidth',1.0,'linestyle','none','marker','.','markersize',1);
-            [a b] = Mercator2(za(1),za(2),za(3));
-            line(a,b,'color','c','marker','o','markerfacecolor',[0,0,1]);text(a,b,name);
+            [a b] = MercatorTop(x,y,z);
+            line(a,b,'Parent',f2d2,'color','k','linewidth',1.0,'linestyle','none','marker','.','markersize',1);
+            [a b] = MercatorTop(za(1),za(2),za(3));
+            line(a,b,'Parent',f2d2,'color','c','marker','o','markerfacecolor',[0,0,1]);
+            text(a,b,name,'Parent',f2d2);
         end
     end
 
-%% ¹¦ÄÜUI
-% ¿ªÊ¼²âÁ¿¾àÀë
-    function setButtonDown(hObject,~)
-        set(gcf,'WindowButtonDownFcn',@wbdcb);
+%% åŠŸèƒ½UI
+% ä¿å­˜é…ç½®
+    function savecfg(hObject, eventdata, handles)
+        [FileName,PathName] = uiputfile('*.txt','ä¿å­˜é…ç½®');
+        if FileName~=0
+            fp = fopen(fullfile(PathName,FileName),'w');
+            fprintf(fp,'å§¿æ€è½¬åº: %s\n',zhuanxu{get(hzhuanxu,'Value')});
+            fprintf(fp,'ä¸‰è½´å§¿æ€è§’: %s %s %s\n',get(hphi, 'String'),get(htheta, 'String'),get(hpsi, 'String'));
+            fprintf(fp,'è½¨é“é«˜åº¦: %s\n',get(hheight, 'String'));
+            fprintf(fp,'å¤ªé˜³é«˜åº¦è§’: %s\n',get(hbeta, 'String'));
+            fprintf(fp,'æ˜Ÿæ•Aå…‰è½´: %s\n',get(hsza, 'String'));
+            fprintf(fp,'æ˜Ÿæ•Aé®å…‰è§’: %s\n',get(haz, 'String'));
+            fprintf(fp,'æ˜Ÿæ•Bå…‰è½´: %s\n',get(hszb, 'String'));
+            fprintf(fp,'æ˜Ÿæ•Bé®å…‰è§’: %s\n',get(hbz, 'String'));
+            fprintf(fp,'æ˜Ÿæ•Cå…‰è½´: %s\n',get(hszc, 'String'));
+            fprintf(fp,'æ˜Ÿæ•Cé®å…‰è§’: %s\n',get(hcz, 'String'));
+            fprintf(fp,'æ˜Ÿæ•Då…‰è½´: %s\n',get(hszd, 'String'));
+            fprintf(fp,'æ˜Ÿæ•Dé®å…‰è§’: %s\n',get(hdz, 'String'));
+            fprintf(fp,'åœ°çƒå½±å“èŒƒå›´: %s\n',get(hearthc, 'String'));
+            fprintf(fp,'å¤ªé˜³å½±å“èŒƒå›´: %s\n',get(hsunc, 'String'));
+            fclose(fp);
+        end
     end
-% ¶¯Ì¬ÏÔÊ¾Á½µãµÄÁ¬ÏßºÍÊó±êµ±Ç°µãµÄ×ø±ê
+% è¯»å…¥é…ç½®
+    function loadcfg(hObject, eventdata, handles)
+        [FileName,PathName] = uigetfile('*.txt','é€‰æ‹©è¯»å…¥çš„é…ç½®æ–‡ä»¶');
+        if FileName==0
+            return
+        end
+        fp = fopen(fullfile(PathName,FileName),'r');
+        while(~feof(fp))
+            nl = fgetl(fp);
+            if numel(nl)==0 || strcmp(nl(1),'#') 
+                continue
+            end
+            ss = strsplit(nl,':');
+            switch ss{1}
+                case 'å§¿æ€è½¬åº'
+                    token = strtok(ss{2});
+                    for i=1:length(zhuanxu)
+                        if strcmpi(zhuanxu{i},token)
+                            break;
+                        end
+                    end
+                    set(hzhuanxu,'Value',i);                    
+                case 'ä¸‰è½´å§¿æ€è§’'
+                    satt = sscanf(ss{2},'%f %f %f');
+                    set(hphi,'String',    num2str(satt(1)));
+                    set(htheta,'String',  num2str(satt(2)));
+                    set(hpsi,'String',    num2str(satt(3)));
+                case 'è½¨é“é«˜åº¦'
+                    set(hheight,'String', ss{2} );
+                case 'å¤ªé˜³é«˜åº¦è§’'
+                    set(hbeta,'String', ss{2} );
+                case 'æ˜Ÿæ•Aå…‰è½´'
+                    set(hsza,'String', ss{2} );
+                case 'æ˜Ÿæ•Aé®å…‰è§’'
+                    set(haz,'String', ss{2} );
+                case 'æ˜Ÿæ•Bå…‰è½´'
+                    set(hszb,'String', ss{2} );
+                case 'æ˜Ÿæ•Bé®å…‰è§’'
+                    set(hbz,'String', ss{2} );
+                case 'æ˜Ÿæ•Cå…‰è½´'
+                    set(hszc,'String', ss{2} );
+                case 'æ˜Ÿæ•Cé®å…‰è§’'
+                    set(hcz,'String', ss{2} );
+                case 'æ˜Ÿæ•Då…‰è½´'
+                    set(hszd,'String', ss{2} );
+                case 'æ˜Ÿæ•Dé®å…‰è§’'
+                    set(hdz,'String', ss{2} );
+                case 'åœ°çƒå½±å“èŒƒå›´'
+                    set(hearthc,'String', ss{2} );
+                case 'å¤ªé˜³å½±å“èŒƒå›´'
+                    set(hsunc,'String', ss{2} );
+            end
+        end
+        fclose(fp);
+    end
+    function MeasureDist(hObject, eventdata, handles)
+        set(hf,'WindowButtonDownFcn',@wbdcb);
+    end
+% åŠ¨æ€æ˜¾ç¤ºä¸¤ç‚¹çš„è¿çº¿å’Œé¼ æ ‡å½“å‰ç‚¹çš„åæ ‡
+    % é¼ æ ‡ç‚¹å‡»å›è°ƒå‡½æ•°
     function wbdcb(src,evnt)
         if strcmp(get(src,'SelectionType'),'normal')
             [x,y,str] = disp_point();
-            hl = line('XData',x,'YData',y,'Color','r');
-            ht = text(x,y,'0.0');
-            text(x,y,str,'VerticalAlignment','bottom');
+            hl = line('XData',x,'YData',y,'parent',f2d2,'Color','r'); % ä¸¤ç‚¹çƒé¢å¤§åœ†è¿çº¿
+            ht = text(x,y,'0.0','parent',f2d2); % ä¸¤ç‚¹ä¸¤ç‚¹çƒé¢å¤§åœ†å¤¹è§’æ–‡å­—
+            text(x,y,str,'parent',f2d2,'VerticalAlignment','bottom'); % èµ·ç‚¹åæ ‡
             drawnow
             set(src,'WindowButtonMotionFcn',@wbmcb);
         elseif strcmp(get(src,'SelectionType'),'alt')
             set(src,'WindowButtonMotionFcn','')
             [x,y,str] = disp_point();
-            text(x,y,str,'VerticalAlignment','bottom');
+            text(x,y,str,'parent',f2d2,'VerticalAlignment','bottom');
             drawnow
-            set(gcf,'WindowButtonDownFcn','');
+            set(hf,'WindowButtonDownFcn','');
         end
-        function wbmcb(src,evnt)
+        % åµŒå¥— é¼ æ ‡ç§»åŠ¨å›è°ƒå‡½æ•°
+    	function wbmcb(src,evnt)
             [xn,yn,str] = disp_point();
             A = [sind(y); cosd(y)*sind(x); -cosd(y)*cosd(x) ];
             B = [sind(yn); cosd(yn)*sind(xn); -cosd(yn)*cosd(xn) ];
@@ -349,59 +676,131 @@ sts(zc(:),[30],'C');
                 q = [N*sind(alfa(i)/2);cosd(alfa(i)/2)];
                 c = q2c(q);
                 P = c'*A;
-                [xdat(i) ydat(i)]=Mercator2(P(1),P(2),P(3));
+                [xdat(i),ydat(i)]=MercatorTop(P(1),P(2),P(3));
             end
             set(hl,'XData',xdat,'YData',ydat);
             set(ht,'Position',[xdat(10) ydat(10)],'String',num2str(angleAB,'%0.3g'));
             drawnow
         end
     end
+    % å–å½“å‰ç‚¹é¼ æ ‡ä½ç½®
     function [x,y,str] = disp_point()
-        cp = get(ah,'CurrentPoint');
+        cp = get(f2d2,'CurrentPoint');
         x = cp(1,1);y = cp(1,2);
         str = ['(',num2str(x,'%0.3g'),', ',num2str(y,'%0.3g'),')'];
     end
-% ÔÚÍ¼ĞÎÉÏÊÖ¶¯µã³öÁ½¸öĞÇÃô¹âÖáµÄÎ»ÖÃ£¬²¢»­³öÁ½¸öĞÇÃôµÄÕÚ¹â½Ç¡¢Á½ĞÇÃô¹âÖá¼Ğ½Ç
-    function manualInstallSS(hObject,~)
-        %         while 1
-        axes(f2d2)
-        [x,y] = ginput(1);
-        x = -x;
-        line(x,y,'linewidth',2.0);
-        xx = x;
-        yy = y;
-        za = [sind(y);-cosd(y).*sind(x); -cosd(y).*cosd(x)];
-        sts(za,[40 90],'A');
-        [x,y] = ginput(1);
-        x = -x;
-        line(x,y,'linewidth',2.0);
-        xx = [xx;x];
-        yy = [yy;y];
-        zb = [sind(y); -cosd(y).*sind(x); -cosd(y).*cosd(x)];
-        sts(zb,[40 90],'B');
-        %     [x,y] = ginput(1);
-        %     x = -x;
-        %     line(x,y,'linewidth',2.0);
-        %     xx = [xx;x];
-        %     yy = [yy;y];
-        %     zb = [sin(y*rad); -cos(y*rad).*sin(x*rad); -cos(y*rad).*cos(x*rad)];
-        %     sts(zb,90,'C');
-        %     sts(zb,40,'C');
-        zzangle = acosd(za'*zb);
-        text(mean(xx),mean(yy)+4,sprintf('ZZ=%.2f',zzangle));
-        fprintf('Á½ĞÇÃô¹âÖá¼Ğ½Ç=%.2f\n',zzangle)
-        fprintf('ĞÇÃôA¹âÖá: %f %f %f    ĞÇÃôB¹âÖá: %f %f %f\n',acosd(za),acosd(zb));
-        %end
+% åœ¨å›¾å½¢ä¸Šæ‰‹åŠ¨ç‚¹å‡ºä¸¤ä¸ªæ˜Ÿæ•å…‰è½´çš„ä½ç½®ï¼Œå¹¶ç”»å‡ºä¸¤ä¸ªæ˜Ÿæ•çš„é®å…‰è§’ã€ä¸¤æ˜Ÿæ•å…‰è½´å¤¹è§’
+    function manualInstallSS(hObject, eventdata, handles)
+        ss = 1; % ç‚¹å‡»æ¬¡æ•°è®¡æ•°
+        set(hf,'WindowButtonDownFcn',@wbdcbx);        
+        % é¼ æ ‡ç‚¹å‡»å›è°ƒå‡½æ•°
+        function wbdcbx(src,evnt)
+            if strcmp(get(src,'SelectionType'),'normal')
+                [x,y,str] = disp_point();
+                text(x,y,str,'parent',f2d2,'VerticalAlignment','bottom'); % èµ·ç‚¹åæ ‡
+                if ss == 1
+                    za = [sind(y); cosd(y)*sind(x); -cosd(y)*cosd(x) ];
+                    sts(za,[30,90],'A');
+                    hl = line('XData',x,'YData',y,'parent',f2d2,'Color','r'); % ä¸¤ç‚¹çƒé¢å¤§åœ†è¿çº¿
+                    ht = text(x,y,'0.0','parent',f2d2); % ä¸¤ç‚¹ä¸¤ç‚¹çƒé¢å¤§åœ†å¤¹è§’æ–‡å­—
+                    drawnow
+                    set(src,'WindowButtonMotionFcn',@wbmcb1);
+                    ss = ss+1;
+                elseif ss == 2
+                    zb = [sind(y); cosd(y)*sind(x); -cosd(y)*cosd(x) ];
+                    sts(zb,[30,90],'B');
+                    h21 = line('XData',x,'YData',y,'parent',f2d2,'Color','r'); % ä¸¤ç‚¹çƒé¢å¤§åœ†è¿çº¿
+                    h22 = line('XData',x,'YData',y,'parent',f2d2,'Color','r'); % ä¸¤ç‚¹çƒé¢å¤§åœ†è¿çº¿
+                    ht1 = text(x,y,'0.0','parent',f2d2); % ä¸¤ç‚¹ä¸¤ç‚¹çƒé¢å¤§åœ†å¤¹è§’æ–‡å­—
+                    ht2 = text(x,y,'0.0','parent',f2d2); % ä¸¤ç‚¹ä¸¤ç‚¹çƒé¢å¤§åœ†å¤¹è§’æ–‡å­—
+                    set(src,'WindowButtonMotionFcn',@wbmcb2);
+                    ss = ss+1;
+                elseif ss == 3
+                    ss = ss+1;
+                end
+            elseif strcmp(get(src,'SelectionType'),'alt')
+                set(src,'WindowButtonMotionFcn','')
+                [x,y,str] = disp_point();
+                text(x,y,str,'parent',f2d2,'VerticalAlignment','bottom');
+                zc = [sind(y); cosd(y)*sind(x); -cosd(y)*cosd(x) ];
+                sts(zc,[30,90],'C');
+                abangle = acosd(za'*zb);
+                acangle = acosd(zc'*za);
+                bcangle = acosd(zc'*zb);
+                fprintf('ABæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f,BCæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f,ACæ˜Ÿæ•å…‰è½´å¤¹è§’=%.2f\n',...
+                    abangle,bcangle,acangle);
+                fprintf('æ˜Ÿæ•Aå…‰è½´: %f %f %f\næ˜Ÿæ•Bå…‰è½´: %f %f %f\næ˜Ÿæ•Cå…‰è½´: %f %f %f\n\n',...
+                    acosd(za),acosd(zb),acosd(zc));
+                set(hsza,'String',['[',num2str(za'),']']);
+                set(hszb,'String',['[',num2str(zb'),']']);
+                set(hszc,'String',['[',num2str(zc'),']']);
+                drawnow
+                set(hf,'WindowButtonDownFcn','');
+            end
+            % åµŒå¥— é¼ æ ‡ç§»åŠ¨å›è°ƒå‡½æ•°
+            function wbmcb1(src,evnt)
+                [xn,yn,str] = disp_point();
+                A = [sind(y); cosd(y)*sind(x); -cosd(y)*cosd(x) ];
+                B = [sind(yn); cosd(yn)*sind(xn); -cosd(yn)*cosd(xn) ];
+                N = cross(A,B);    N=N/norm(N);
+                angleAB = acosd(A'*B);
+                alfa = linspace(0,angleAB,20);
+                xdat = nan(20,1);
+                ydat = nan(20,1);
+                for i=1:20
+                    q = [N*sind(alfa(i)/2);cosd(alfa(i)/2)];
+                    c = q2c(q);
+                    P = c'*A;
+                    [xdat(i),ydat(i)]=MercatorTop(P(1),P(2),P(3));
+                end
+                set(hl,'XData',xdat,'YData',ydat);
+                set(ht,'Position',[xdat(10) ydat(10)],'String',num2str(angleAB,'%0.3g'));
+                drawnow
+            end
+            function wbmcb2(src,evnt)
+                [xn,yn,str] = disp_point();
+                zc = [sind(yn); cosd(yn)*sind(xn); -cosd(yn)*cosd(xn) ];
+                N = cross(zb,zc);    N=N/norm(N);
+                angleBC = acosd(zb'*zc);
+                alfa = linspace(0,angleBC,20);
+                xdat = nan(20,1);
+                ydat = nan(20,1);
+                for i=1:20
+                    q = [N*sind(alfa(i)/2);cosd(alfa(i)/2)];
+                    c = q2c(q);
+                    P = c'*zb;
+                    [xdat(i),ydat(i)]=MercatorTop(P(1),P(2),P(3));
+                end
+                set(h22,'XData',xdat,'YData',ydat);
+                set(ht2,'Position',[xdat(10),ydat(10)],'String',num2str(angleBC,'%0.3g'));
+                drawnow
+
+                N = cross(za,zc);    N=N/norm(N);
+                angleAC = acosd(za'*zc);
+                alfa = linspace(0,angleAC,20);
+                xdat = nan(20,1);
+                ydat = nan(20,1);
+                for i=1:20
+                    q = [N*sind(alfa(i)/2);cosd(alfa(i)/2)];
+                    c = q2c(q);
+                    P = c'*za;
+                    [xdat(i),ydat(i)]=MercatorTop(P(1),P(2),P(3));
+                end
+                set(h21,'XData',xdat,'YData',ydat);
+                set(ht1,'Position',[xdat(10),ydat(10)],'String',num2str(angleAC,'%0.3g'));
+                drawnow
+            end            
+        end
     end
-%% ÆäËû»ù±¾º¯Êı
-% ËÄÔªÊı£½£½¡··½ÏòÓàÏÒÕó
+%% å…¶ä»–åŸºæœ¬å‡½æ•°
+% å››å…ƒæ•°ï¼ï¼ã€‹æ–¹å‘ä½™å¼¦é˜µ
     function C = q2c(q)
         error(nargchk(1,1,nargin));
         C = [1.0 - 2.0*(q(2)^2+q(3)^2),    2.0*(q(1)*q(2)+q(3)*q(4)),    2.0*(q(1)*q(3)-q(2)*q(4));
             2.0*(q(1)*q(2)-q(3)*q(4)),    1.0 - 2.0*(q(1)^2+q(3)^2),    2.0*(q(2)*q(3)+q(1)*q(4));
             2.0*(q(1)*q(3)+q(2)*q(4)),    2.0*(q(2)*q(3)-q(1)*q(4)),    1.0 - 2.0*(q(1)^2+q(2)^2)];
     end
-% ÈÆXÖáĞı×ª¾ØÕó
+% ç»•Xè½´æ—‹è½¬çŸ©é˜µ
     function R = rotx(angle)
         if isscalar(angle)
             R = [ 1          0         0;
@@ -414,10 +813,10 @@ sts(zc(:),[30],'C');
                 zeros(1,1,n)    cos(angle)      sin(angle);
                 zeros(1,1,n)   -sin(angle)      cos(angle)];
         else
-            error('ÊäÈë±ØĞëÎª±êÁ¿»òÊ¸Á¿');
+            error('è¾“å…¥å¿…é¡»ä¸ºæ ‡é‡æˆ–çŸ¢é‡');
         end
     end
-% ÈÆYÖáĞı×ª¾ØÕó
+% ç»•Yè½´æ—‹è½¬çŸ©é˜µ
     function R = roty(angle)
         if isscalar(angle)
             R = [cos(angle)  0    -sin(angle);
@@ -430,10 +829,10 @@ sts(zc(:),[30],'C');
                 zeros(1,1,n)  ones(1,1,n)      zeros(1,1,n);
                 sin(angle)    zeros(1,1,n)     cos(angle)];
         else
-            error('ÊäÈë±ØĞëÎª±êÁ¿»òÊ¸Á¿');
+            error('è¾“å…¥å¿…é¡»ä¸ºæ ‡é‡æˆ–çŸ¢é‡');
         end
     end
-% ÈÆZÖáĞı×ª¾ØÕó
+% ç»•Zè½´æ—‹è½¬çŸ©é˜µ
     function R = rotz(angle)
         if isscalar(angle)
             R = [ cos(angle)  sin(angle)  0;
@@ -442,11 +841,11 @@ sts(zc(:),[30],'C');
         elseif isvector(angle)
             n = length(angle);
             angle = reshape(angle,1,1,n);
-            R = [ cos(angle)    sin(angle)     zeros(1,1,n);
-                -sin(angle)    cos(angle)     zeros(1,1,n);
+            R = [ cos(angle)    sin(angle)   zeros(1,1,n);
+                -sin(angle)    cos(angle)    zeros(1,1,n);
                 zeros(1,1,n)  zeros(1,1,n)   ones(1,1,n)];
         else
-            error('ÊäÈë±ØĞëÎª±êÁ¿»òÊ¸Á¿');
+            error('è¾“å…¥å¿…é¡»ä¸ºæ ‡é‡æˆ–çŸ¢é‡');
         end
     end
 end

@@ -1,6 +1,6 @@
 % remove an entire row of data containing the outlier
-% µÚÒ»ÁĞÎªÊ±¼ä£¬²»½øĞĞ³¬²îÅĞ¶Ï£¬É¾³ıÊ±¶ÔÓ¦µÄÉ¾³ı
-function [t X] = removebias(t,X,y)
+% ç¬¬ä¸€åˆ—ä¸ºæ—¶é—´ï¼Œä¸è¿›è¡Œè¶…å·®åˆ¤æ–­ï¼Œåˆ é™¤æ—¶å¯¹åº”çš„åˆ é™¤
+function [t,X] = removebias(t,X,y)
 error(nargchk(1, 3, nargin))
 if nargin == 1
     X = t;
@@ -24,7 +24,7 @@ elseif nargout == 2
     mt = mean(dt);
     st = std(dt);
     tout = abs(dt-mt) > y*st;
-    outliers = [tout outliers];
+    outliers = [tout,outliers];
     t(any(outliers,2),:) = [];
     X(any(outliers,2),:) = [];
 end

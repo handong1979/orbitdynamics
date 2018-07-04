@@ -1,7 +1,7 @@
 /*!
 \file test.cpp
 \author HanDle
-²âÊÔ³ÌĞò
+æµ‹è¯•ç¨‹åº
 */
 #include "stdafx.h"
 //#include "..\EarthOrbit/EarthOrbit.h"
@@ -13,7 +13,7 @@
 
 using namespace Constant;
 
-//! ²âÊÔµØÔÂ×ªÒÆ¹ìµÀ
+//! æµ‹è¯•åœ°æœˆè½¬ç§»è½¨é“
 void test_earth_lunar_transfer()
 {
 	fstream sat("satECI.dat",ios::out);
@@ -33,7 +33,7 @@ void test_earth_lunar_transfer()
 	CE1.SetForce(8,ODP_EARTH_TESSERAL|ODP_LUNAR_CENT|ODP_SOLAR_CENT);
 
 	double Step = 360;
-	vec3 Pos,Vel; // ÔÂĞÄ¹ßĞÔÏµÎ»ÖÃËÙ¶È
+	vec3 Pos,Vel; // æœˆå¿ƒæƒ¯æ€§ç³»ä½ç½®é€Ÿåº¦
 	CDateTime time = CE1.CurrentEpoch();
 
 	Kepler elem;
@@ -57,7 +57,7 @@ void test_earth_lunar_transfer()
 	cout<<time<<endl<<Pos<<TAB<<Vel<<endl;
 }
 
-//! ²âÊÔ»·ÔÂ¹ìµÀÍâÍÆ
+//! æµ‹è¯•ç¯æœˆè½¨é“å¤–æ¨
 void test_circle_moon()
 {
 	CMoonSat CE;
@@ -87,24 +87,24 @@ void test_circle_moon()
 }
 
 
-//! ²âÊÔµØÃæÕ¾¼ÆËã
+//! æµ‹è¯•åœ°é¢ç«™è®¡ç®—
 void test_facility()
 {
 	CDateTime t(2012,5,31,4,0,0);
 	double lg;
 	lg = GetSG(t);
 	/************************************************************************/
-	/* Ô¤±¨µØÃæÕ¾ÔÚ¹ßĞÔÏµµÄÎ»ÖÃËÙ¶È                                         */
+	/* é¢„æŠ¥åœ°é¢ç«™åœ¨æƒ¯æ€§ç³»çš„ä½ç½®é€Ÿåº¦                                         */
 	/************************************************************************/
 	double xyz[3];
 	double dxyz[3];
 
-	double R0=6378140.0;	// Ã×
+	double R0=6378140.0;	// ç±³
 	double We0=7.292115e-5;
 	double lam0 = 118*RAD;
 	double phi0 = 33*RAD;
 
-	xyz[0] =  R0 * cos(phi0) * cos(lg+lam0+We0*0 );// ÓëÔ­¹«Ê½²»Í¬TimeSysN.DynStep
+	xyz[0] =  R0 * cos(phi0) * cos(lg+lam0+We0*0 );// ä¸åŸå…¬å¼ä¸åŒTimeSysN.DynStep
 	xyz[1] =  R0 * cos(phi0) * cos(lg+lam0+We0*0 - 90.0*RAD);
 	xyz[2] =  R0 * sin(phi0);
 	dxyz[0]= -We0* xyz[1];
@@ -114,7 +114,7 @@ void test_facility()
 	CFacility fac(118,33,0);
     vec3 eci = fac.ECIPos(t);
 }
-//! ²âÊÔ¹ìµÀ»ú¶¯
+//! æµ‹è¯•è½¨é“æœºåŠ¨
 void test_orbit_maneuver()
 {
 	CSatellite target,chaser;
@@ -166,12 +166,12 @@ void test_orbit_maneuver()
 	cout<<endl<<"Time:"<<chaser.t()<<endl;
 	cout<<"RelPos:"<<p<<"\t\tDis:"<<norm(p,2)<<endl;
 
-	// Êä³öÖ´ĞĞ¹ıµÄDV
+	// è¾“å‡ºæ‰§è¡Œè¿‡çš„DV
 // 	list<Maneuver>::iterator iter;
 // 	for(iter=chaser.ManeuverList.begin();iter!=chaser.ManeuverList.end();iter++)
 // 		cout<<"StartTime:"<<(*iter).StartTime<<"     EndTime:"<<(*iter).EndTime<<"     DV="<<(*iter).DV<<endl;
 }
-//! ²âÊÔÉã¶¯¼ÓËÙ¶ÈµÄ¼ÆËã
+//! æµ‹è¯•æ‘„åŠ¨åŠ é€Ÿåº¦çš„è®¡ç®—
 void test_acceleration()
 {
 	CDateTime StartEpoch(2005,1,1,0,0,0);
@@ -243,7 +243,7 @@ void test_ECI_ECF()
 	}
 }
 
-//! ²âÊÔRKF78
+//! æµ‹è¯•RKF78
 void test_rkf78()
 {
 	CSatellite sat;
@@ -255,7 +255,7 @@ void test_rkf78()
 	sat.Propagate(60,86400);
 }
 
-//! ²âÊÔ¹ìµÀÍâÍÆ
+//! æµ‹è¯•è½¨é“å¤–æ¨
 void test_orbit_propagator()
 {
 	enum SATELLITE{ZY,SZ,DFH,BD};
@@ -322,7 +322,7 @@ void test_orbit_propagator()
 	ff<<t<<TAB<<LLA.Longitude<<TAB<<LLA.Latitude<<TAB<<LLA.Altitude<<endl;
 	xyz << t << TAB << sat.Pos().t() << TAB << sat.Vel().t() << endl;
 }
-//! ²âÊÔÌ«Ñô¡¢ÔÂÇòĞÇÀú
+//! æµ‹è¯•å¤ªé˜³ã€æœˆçƒæ˜Ÿå†
 void test_DE405()
 {
 	CDateTime t0(2000,1,1,0,0,0);
@@ -362,7 +362,7 @@ void test_DE405()
 	eph21.close();
 }
 
-//! ²âÊÔÆ½¸ùÊıºÍË²¸ùÊıµÄ¼ÆËã
+//! æµ‹è¯•å¹³æ ¹æ•°å’Œç¬æ ¹æ•°çš„è®¡ç®—
 void test_mean_inst()
 {
 	FILE * cla = fopen("Mean\\cla.txt","r");
@@ -398,18 +398,18 @@ void test_mean_inst()
 void test_Solar_eph()
 {
 	typedef float BASE;
-//	const BASE es = 0.01670529110116;  // Ì«Ñô¹ìµÀÆ«ĞÄÂÊ
-//	const BASE is = 0.40907487; // »Æ³à½»½Ç
-//	const BASE ws = -1.3426259; // Ì«Ñô½üµØµã·ù½Ç
-//	const BASE dMs = 1.99096875e-7; //Ì«ÑôÆ½½üµã½Ç±ä»¯ÂÊ
-	BASE es = (BASE)0.016712;  // Ì«Ñô¹ìµÀÆ«ĞÄÂÊ
-	BASE is = (BASE)0.409093; // »Æ³à½»½Ç
-	BASE ws = (BASE)-1.347398; // Ì«Ñô½üµØµã·ù½Ç
-	BASE dMs = (BASE)1.991e-7; //Ì«ÑôÆ½½üµã½Ç±ä»¯ÂÊ
+//	const BASE es = 0.01670529110116;  // å¤ªé˜³è½¨é“åå¿ƒç‡
+//	const BASE is = 0.40907487; // é»„èµ¤äº¤è§’
+//	const BASE ws = -1.3426259; // å¤ªé˜³è¿‘åœ°ç‚¹å¹…è§’
+//	const BASE dMs = 1.99096875e-7; //å¤ªé˜³å¹³è¿‘ç‚¹è§’å˜åŒ–ç‡
+	BASE es = (BASE)0.016712;  // å¤ªé˜³è½¨é“åå¿ƒç‡
+	BASE is = (BASE)0.409093; // é»„èµ¤äº¤è§’
+	BASE ws = (BASE)-1.347398; // å¤ªé˜³è¿‘åœ°ç‚¹å¹…è§’
+	BASE dMs = (BASE)1.991e-7; //å¤ªé˜³å¹³è¿‘ç‚¹è§’å˜åŒ–ç‡
 
 	CDateTime Epoch(2005,11,4,0,0,0);
 
-	is = (BASE)Ecliptic_Equator_Angle(Epoch); // »Æ³à½»½Ç
+	is = (BASE)Ecliptic_Equator_Angle(Epoch); // é»„èµ¤äº¤è§’
 	ws = (BASE)Sun_Argument_Perigee(Epoch);
 
 	double sis = sin(is);
@@ -433,7 +433,7 @@ void test_Solar_eph()
 		Sr = Sr/norm(Sr,2);
 		//Sun_Kepler = Cartesian_Kepler(Sr,Sv,GS);
 
-		/****Ì«ÑôĞÇÀú¼ÆËã*****/
+		/****å¤ªé˜³æ˜Ÿå†è®¡ç®—*****/
 		Ms = Ms0 + dMs*t;
 		us = Ms + 2.0*es*sin(Ms) + 1.25*es*es*sin(2.0*Ms) + ws - PI2;
 
@@ -505,7 +505,7 @@ void test_Legendre_polynomial()
 		printf("\n");
 	}
 	}
-	// ±¾³ÌĞòºÍgslµÄ½á¹ûÏà±È²îÒ»¸ö(-1)^m£¬±¾³ÌĞò½á¹ûÓëmatlabÒ»ÖÂ£¬µ«matlabµÄ¹«Ê½ÖĞº¬(-1)^m
+	// æœ¬ç¨‹åºå’Œgslçš„ç»“æœç›¸æ¯”å·®ä¸€ä¸ª(-1)^mï¼Œæœ¬ç¨‹åºç»“æœä¸matlabä¸€è‡´ï¼Œä½†matlabçš„å…¬å¼ä¸­å«(-1)^m
 }
 
 void test_shadow()
@@ -653,19 +653,19 @@ void test_sg()
 	CDateTime t(2006,9,13,1,2,3);
 
 	double dpsi,deps;
-	nutation_angle(t,dpsi,deps); // dpsi:»Æ¾­ÕÂ¶¯
+	nutation_angle(t,dpsi,deps); // dpsi:é»„ç»ç« åŠ¨
 	double eps = Ecliptic_Equator_Angle(t);
 	double zeta,theta,Z;
 	precession_angle(t,zeta,theta,Z);
 
-	double dt = t.GetUT1CentNum()*36525.0; // + Earth.GetdUT1(t)/86400.0; // ÔÚ t.GetUT1CentNum()ÖĞ¿¼ÂÇdUT1
+	double dt = t.GetUT1CentNum()*36525.0; // + Earth.GetdUT1(t)/86400.0; // åœ¨ t.GetUT1CentNum()ä¸­è€ƒè™‘dUT1
 	double sgm = fmod((280.4606184 + 360.985647365*dt + 0.2908e-12*dt*dt)*RAD,PI2);
 	double sgs =  fmod(dpsi*cos(eps) + sgm, PI2);
 	double sgj2000 = sgm - zeta - Z;
 
-	cout << "¸ñÁÖÍşÖÎÆ½ºãĞÇÊ±£º" << sgm << "rad    " << sgm*DEG << "deg" << endl;
-	cout << "¸ñÁÖÍşÖÎÕæºãĞÇÊ±£º" << sgs << "rad    " << sgs*DEG << "deg" << endl;
-	cout << "J2000¸ñÁÖÍşÖÎÆ½ºãĞÇÊ±£º" << sgj2000 << "rad    " << sgj2000*DEG << "deg" << endl;
+	cout << "æ ¼æ—å¨æ²»å¹³æ’æ˜Ÿæ—¶ï¼š" << sgm << "rad    " << sgm*DEG << "deg" << endl;
+	cout << "æ ¼æ—å¨æ²»çœŸæ’æ˜Ÿæ—¶ï¼š" << sgs << "rad    " << sgs*DEG << "deg" << endl;
+	cout << "J2000æ ¼æ—å¨æ²»å¹³æ’æ˜Ÿæ—¶ï¼š" << sgj2000 << "rad    " << sgj2000*DEG << "deg" << endl;
 }
 
 void test_RIC()
@@ -766,8 +766,8 @@ void testBackward()
 //	a.Init(ai);
 //	b.Init(bi);
 //
-//	int simtime; // ·ÂÕæÊ±¼ä(ºÁÃë)
-//	int step=10; // ·ÂÕæ²½³¤(ºÁÃë)
+//	int simtime; // ä»¿çœŸæ—¶é—´(æ¯«ç§’)
+//	int step=10; // ä»¿çœŸæ­¥é•¿(æ¯«ç§’)
 //
 //	EARTHORBITDYNINPUT input;
 //	EARTHORBITDYNOUTPUT output;

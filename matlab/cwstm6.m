@@ -1,4 +1,4 @@
-% CW����״̬ת�ƾ���
+% CW方程状态转移矩阵
 function phi = cwstm6(w,t)
 wt = w*t;
 s = sin(wt);

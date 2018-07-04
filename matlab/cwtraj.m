@@ -1,18 +1,21 @@
-% ¸ù¾İ³õÊ¼×´Ì¬¼ÆËãCW¹ì¼£
+% æ ¹æ®åˆå§‹çŠ¶æ€è®¡ç®—CWè½¨è¿¹
 function traj = cwtraj(x0,w,T,h)
 if ~isvector(x0)
-    error('ÊäÈë³õÊ¼×´Ì¬x0±ØĞëÎªÊ¸Á¿');
+    error('è¾“å…¥åˆå§‹çŠ¶æ€x0å¿…é¡»ä¸ºçŸ¢é‡');
 end
-[m n] = size(x0);
+[m,n] = size(x0);
 dim = max(m,n);
 if ~(dim==4 || dim==6)
-    error('ÊäÈë³õÊ¼×´Ì¬±ØĞëÎª4Î¬»ò6Î¬Ê¸Á¿');
+    error('è¾“å…¥åˆå§‹çŠ¶æ€å¿…é¡»ä¸º4ç»´æˆ–6ç»´çŸ¢é‡');
 end
-t = [0:h:T T];
+t = 0:h:T;
+if t(end)~=T
+    t = [t,T];
+end
 len = length(t);
 traj = nan(dim,len);
 if m==1
-    x0 = x0'; %×ª³ÉÁĞÊ¸Á¿
+    x0 = x0'; %è½¬æˆåˆ—çŸ¢é‡
 end
 for i=1:len
     if dim==4

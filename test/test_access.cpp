@@ -1,11 +1,8 @@
 /*!
 \file test.cpp
 \author HanDle
-≤‚ ‘≥Ã–Ú
 */
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
-
 using namespace Constant;
 
 bool facaccess(CFacility * fac,CSatellite* sat)
@@ -53,10 +50,7 @@ void test_access()
 
 int main(int argc, char* argv[])
 {
-	CPerfTimer timer;
-	timer.Start();
-
-	try
+    try
 	{
 		cout.precision(12);
 
@@ -71,7 +65,5 @@ int main(int argc, char* argv[])
  		cerr << ((BaseException*)e)->what() << endl;
  	}
 
-	timer.Stop();
-	cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
 	return 0;
 }

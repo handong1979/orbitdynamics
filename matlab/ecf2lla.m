@@ -1,5 +1,5 @@
 function [ lla ] = ecf2lla( ecf )
-%ecf2lla µØ¹ÌÏµÎ»ÖÃ×ª»¯ÎªµØĞÄ¾­Î³¶È
+%ecf2lla åœ°å›ºç³»ä½ç½®è½¬åŒ–ä¸ºåœ°å¿ƒç»çº¬åº¦
 %   Detailed explanation goes here
 [m,n] = size(ecf);
 if n==3 || n==6

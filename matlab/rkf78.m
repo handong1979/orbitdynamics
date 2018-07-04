@@ -1,4 +1,4 @@
-% RK78ÍâÍÆËã·¨
+% RK78å¤–æ¨ç®—æ³•
 function xh = rkf78(dynfunc,h,x)
 persistent ak b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 W
 if isempty(ak)

@@ -1,14 +1,12 @@
 /*!
 \file test.cpp
 \author HanDle
-测试程序
+娴嬭瘯绋嬪簭
 */
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
-
 using namespace Constant;
 
-//! 测试环月轨道外推
+//! 娴嬭瘯鐜湀杞ㄩ亾澶栨帹
 void test_circle_moon()
 {
 	CMoonSat CE;
@@ -32,9 +30,6 @@ void test_circle_moon()
 
 int main(int argc, char* argv[])
 {
-	CPerfTimer timer;
-	timer.Start();
-
 	try
 	{
 		cout.precision(12);
@@ -50,7 +45,6 @@ int main(int argc, char* argv[])
  		cerr << ((BaseException*)e)->what() << endl;
  	}
 
-	timer.Stop();
-	cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
+
 	return 0;
 }

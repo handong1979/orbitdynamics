@@ -17,3 +17,6 @@
 *.filters
 *.idb
 *.exp
+.DS_Store
+.vscode/settings.json
+.vscode/c_cpp_properties.json

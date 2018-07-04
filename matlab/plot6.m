@@ -1,4 +1,4 @@
-% 绘制3×2的六个subplot曲线
+% 缁樺埗3脳2鐨勫叚涓猻ubplot鏇茬嚎
 % plot a 3*2 subplot in current figure
 % plot6(x)
 % subplot is column order with x

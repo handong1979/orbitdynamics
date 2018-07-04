@@ -1,11 +1,11 @@
-% ÕÂ¶¯¾ØÕó¼ÆËã
-%   nutation(year,month,day,hour,minute,second)¼ÆËãUTCÊÀ½çÊ±Ê±¿ÌµÄÕÂ¶¯¾ØÕó
-%   nutation(mjd)¼ÆËã¼òÔ¼ÈåÂÔÈÕmjdÊ±¿ÌµÄÕÂ¶¯¾ØÕó
+% ç« åŠ¨çŸ©é˜µè®¡ç®—
+%   nutation(year,month,day,hour,minute,second)è®¡ç®—UTCä¸–ç•Œæ—¶æ—¶åˆ»çš„ç« åŠ¨çŸ©é˜µ
+%   nutation(mjd)è®¡ç®—ç®€çº¦å„’ç•¥æ—¥mjdæ—¶åˆ»çš„ç« åŠ¨çŸ©é˜µ
 %
-% ÕÂ¶¯¾ØÕó nutation matrix
-%   ÉèÓĞÒ»¸öÊ¸Á¿ÔÚË²Ê±Æ½³àµÀ×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚË²Ê±Õæ³àµÀ×ø±êÏµÖĞµÄ×ø±êÎª Nutation*r
-%   ·´Ö®£¬Ò»¸öÊ¸Á¿ÔÚË²Ê±Õæ³àµÀ×ø±êÏµÏÂµÄ×ø±êÎªr£¬ÆäÔÚË²Ê±Æ½³àµÀ×ø±êÏµÖĞµÄ×ø±êÎª Nutation'*r
-%   Èı¸öÕÂ¶¯½Çu1,u2,u3µÄ×ªĞòÎªNutation = Rz(-(eps+deps))*Ry(dksi)*Rx(eps)
+% ç« åŠ¨çŸ©é˜µ nutation matrix
+%   è®¾æœ‰ä¸€ä¸ªçŸ¢é‡åœ¨ç¬æ—¶å¹³èµ¤é“åæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨ç¬æ—¶çœŸèµ¤é“åæ ‡ç³»ä¸­çš„åæ ‡ä¸º Nutation*r
+%   åä¹‹ï¼Œä¸€ä¸ªçŸ¢é‡åœ¨ç¬æ—¶çœŸèµ¤é“åæ ‡ç³»ä¸‹çš„åæ ‡ä¸ºrï¼Œå…¶åœ¨ç¬æ—¶å¹³èµ¤é“åæ ‡ç³»ä¸­çš„åæ ‡ä¸º Nutation'*r
+%   ä¸‰ä¸ªç« åŠ¨è§’u1,u2,u3çš„è½¬åºä¸ºNutation = Rz(-(eps+deps))*Ry(dksi)*Rx(eps)
 % 
 % Example:
 %      nutation(2006,1,1,0,0,0);
@@ -18,8 +18,8 @@ if nargin == 6
 elseif nargin == 1
     TDT = utc2tdt(Y);
 else
-    error('ÊäÈë²ÎÊıÊıÄ¿´íÎó');
+    error('è¾“å…¥å‚æ•°æ•°ç›®é”™è¯¯');
 end
 eps = ecliptic_equator_angle(TDT);
-[dksi deps] = nutation_angle(TDT);
+[dksi,deps] = nutation_angle(TDT);
 nu = rotx(-eps-deps)*rotz(-dksi)*rotx(eps);

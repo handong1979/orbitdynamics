@@ -1,3 +1,7 @@
-% ÈÆXÖáĞı×ª¾ØÕó
+% ç»•Xè½´æ—‹è½¬çŸ©é˜µ
 function R = rotationx(angle)
+<<<<<<< HEAD
 R = rotx(angle);
+=======
+R = rotx(angle);
+>>>>>>> 943c4faedec0557bb03b6d917afd83996852ce2a

@@ -1,22 +1,22 @@
-% ���J2000ƽ���ֵ�ĸ�������ƽ����ʱ(Greenwich hour angle)
-% "���J2000ƽ���ֵ�ĸ�������ƽ����ʱ"��û��ȷ�е����������壬
-%  ��Ϊ���ֲ�֮ǰ���ǹ�������е�ȱ�ݶ��ճ�������,�����ʹ��
+% 相对J2000平春分点的格林威治平恒星时(Greenwich hour angle)
+% "相对J2000平春分点的格林威治平恒星时"并没有确切的物理量定义，
+%  是为了弥补之前卫星轨道计算中的缺陷而凑出来的量,请谨慎使用
 % ghamj2000(year,month,day,hour,minute,second)
-%        ����UTC���ڵ����J2000ƽ���ֵ�ĸ�������ƽ����ʱ(rad)
-% ghamj2000(mjd)����UTC(MJD��ʾ)ʱ�̵����J2000ƽ���ֵ�ĸ�������ƽ����ʱ(rad)
+%        计算UTC日期的相对J2000平春分点的格林威治平恒星时(rad)
+% ghamj2000(mjd)计算UTC(MJD表示)时刻的相对J2000平春分点的格林威治平恒星时(rad)
 % Example:
 %    ghamj2000(2007,7,1,12,0,0)
 %    ghamj2000(54282.5)
 % See also: gham, gha, date2mjd
 function SG = ghamj2000(Y,M,D,h,m,s)
-warning('"���J2000ƽ���ֵ�ĸ�������ƽ����ʱ"��û��ȷ�е����������壬');
-warning('��Ϊ���ֲ�֮ǰ���ǹ�������е�ȱ�ݶ��ճ�������,�����ʹ��');
+warning('"相对J2000平春分点的格林威治平恒星时"并没有确切的物理量定义，');
+warning('是为了弥补之前卫星轨道计算中的缺陷而凑出来的量,请谨慎使用');
 if nargin == 6
     UTC  = date2mjd(Y,M,D,h,m,s);
 elseif nargin ==1 
     UTC = Y;
 else
-    error('���������Ŀ����');
+    error('输入参数数目错误');
 end
 dt = utc2ut1(UTC) - mjd2000;
 [zeta theta Z] = precession_angle(UTC);

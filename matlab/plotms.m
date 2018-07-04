@@ -1,3 +1,4 @@
+% 画曲线并标注均值和RMS
 function plotms(t,x)
 m = mean(x);
 s = std(x);

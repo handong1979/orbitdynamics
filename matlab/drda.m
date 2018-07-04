@@ -1,4 +1,4 @@
-% 半长轴的小偏差造成每个轨道周期的位置漂移量(km)
+% 鍗婇暱杞寸殑灏忓亸宸�犳垚姣忎釜杞ㄩ亾鍛ㄦ湡鐨勪綅缃紓绉婚噺(km)
 function dr = drda(a,da)
 n = sqrt(GEarth/a^3);
 dn = -1.5*da/a*n;

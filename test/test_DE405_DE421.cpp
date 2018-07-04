@@ -1,14 +1,13 @@
 /*!
 \file test.cpp
 \author HanDle
-²âÊÔ³ÌĞò
+æµ‹è¯•ç¨‹åº
 */
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
 
 using namespace Constant;
 
-//! ²âÊÔÌ«Ñô¡¢ÔÂÇòĞÇÀú
+//! æµ‹è¯•å¤ªé˜³ã€æœˆçƒæ˜Ÿå†
 void test_DE405_DE421()
 {
 	CDateTime t0(2000,1,1,0,0,0);
@@ -50,9 +49,6 @@ void test_DE405_DE421()
 
 int main(int argc, char* argv[])
 {
-	CPerfTimer timer;
-	timer.Start();
-
 	try
 	{
 		cout.precision(12);
@@ -68,7 +64,5 @@ int main(int argc, char* argv[])
  		cerr << ((BaseException*)e)->what() << endl;
  	}
 
-	timer.Stop();
-	cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
 	return 0;
 }

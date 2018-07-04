@@ -1,4 +1,4 @@
-% ×ËÌ¬½Ç==>·½ÏòÓàÏÒÕó
+% å§¿æ€è§’==>æ–¹å‘ä½™å¼¦é˜µ
 function A = Ayrp(b1,b2,b3)
 error(nargchk(3,3,nargin));
 c1 = cos(b1);

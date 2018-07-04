@@ -1,11 +1,9 @@
 /*!
 \file test.cpp
 \author HanDle
-²âÊÔ³ÌĞò
+æµ‹è¯•ç¨‹åº
 */
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
-
 using namespace Constant;
 
 void test_RIC()
@@ -22,9 +20,6 @@ void test_RIC()
 
 int main(int argc, char* argv[])
 {
-	CPerfTimer timer;
-	timer.Start();
-
 	try
 	{
 		cout.precision(12);
@@ -40,7 +35,5 @@ int main(int argc, char* argv[])
  		cerr << ((BaseException*)e)->what() << endl;
  	}
 
-	timer.Stop();
-	cout<<"Total Timer:"<<timer.Elapsed()<<"s"<<endl;
 	return 0;
 }

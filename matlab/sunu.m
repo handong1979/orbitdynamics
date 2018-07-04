@@ -1,11 +1,11 @@
-% Ì«Ñô¹ìµÀµÄÎ³¶È·ù½Ç
+% å¤ªé˜³è½¨é“çš„çº¬åº¦å¹…è§’
 function u = sunu(Y,M,D,h,m,s)
 if nargin == 6
     mjd = date2mjd(Y,M,D,h,m,s);
 elseif nargin == 1
     mjd = Y;
 else
-    error('ÊäÈë²ÎÊıÊıÄ¿´íÎó');
+    error('è¾“å…¥å‚æ•°æ•°ç›®é”™è¯¯');
 end
 w = sunw(mjd);
 e = sune(mjd);

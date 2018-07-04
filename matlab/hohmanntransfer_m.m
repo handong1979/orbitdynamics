@@ -1,9 +1,9 @@
-% ���¹���Ļ���ת��
+% 环月轨道的霍曼转移
 % [dv1 dv2] = hohmanntransfer(h1,h2)
-% a1 ��ʼԲ����볤��(km)
-% a2 Ŀ��԰����볤��(km)
-% dv1 ��һ�α���ٶ�����
-% dv2 �ڶ��α���ٶ�����
+% a1 初始圆轨道半长轴(km)
+% a2 目标园轨道半长轴(km)
+% dv1 第一次变轨速度增量
+% dv2 第二次变轨速度增量
 function [dv dv1 dv2] = hohmanntransfer_m(a1,a2)
 if a1<Rm
     a1 = Rm + a1;

@@ -1,4 +1,4 @@
-% ¶ÁÈ¡sp3ÎÄ¼ş
+% è¯»å–sp3æ–‡ä»¶
 function [name,time,pos] = readsp3(filename)
 if nargin == 0 % self test
     warning('selftest');
@@ -9,14 +9,14 @@ fp = fopen(filename,'r');
 
 %read head
 tl = fgetl(fp);
-ts = str2num(tl(38:39)); % Ê±¼ä¼ÇÂ¼Êı£¬Ò»°ã15·ÖÖÓÒ»Ìõ£¬Ò»¸öÎÄ¼ş96Ìõ
+ts = str2num(tl(38:39)); % æ—¶é—´è®°å½•æ•°ï¼Œä¸€èˆ¬15åˆ†é’Ÿä¸€æ¡ï¼Œä¸€ä¸ªæ–‡ä»¶96æ¡
 tl = fgetl(fp);
 tl = fgetl(fp);
-ns = sscanf(tl(5:6),'%d'); % ÎÀĞÇÊı
+ns = sscanf(tl(5:6),'%d'); % å«æ˜Ÿæ•°
 n = tl(10:end);
 tl = fgetl(fp);
 n = [n,tl(10:end)];
-name = reshape(n(1:ns*3),3,ns)'; % ÎÀĞÇÃû³Æ
+name = reshape(n(1:ns*3),3,ns)'; % å«æ˜Ÿåç§°
 for i=1:18
     tl = fgetl(fp);
 end
@@ -32,7 +32,7 @@ for t=1:ts
         if strcmp(tl(2:4),name(i,:))
             pos(t,:,i) = sscanf(tl(5:46),'%f %f %f',3);
         else
-            error('read sp3 error£¬ÎÀĞÇÃû³ÆÓëÎÄ¼şÍ·²»·û,%s~=%s',tl(2:4),name(i,:));
+            error('read sp3 errorï¼Œå«æ˜Ÿåç§°ä¸æ–‡ä»¶å¤´ä¸ç¬¦,%s~=%s',tl(2:4),name(i,:));
         end
     end
 end

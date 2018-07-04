@@ -1,25 +1,25 @@
-%¹ßÐÔ×ø±ê×ª»¯Îª¹ìµÀ¸ùÊý cart2kepler(cart,miu)
+%æƒ¯æ€§åæ ‡è½¬åŒ–ä¸ºè½¨é“æ ¹æ•° cart2kepler(cart,miu)
 % use:
-%    cart2kepler(cart); %Ä¬ÈÏÎªµØÐÄ
-%    cart2kepler(cart,miu);  %ÆäËûÖÐÐÄÌìÌå
-%    ²ÎÊýcart±ØÐëÎª1*6(µ¥Î»km,km/s)
-%    µØÐÄÊ±miuÎª398600.5km^3/s^2£¬ÔÂÐÄÊ±miuÎª4902.8km^3/s^2
+%    cart2kepler(cart); %é»˜è®¤ä¸ºåœ°å¿ƒ
+%    cart2kepler(cart,miu);  %å…¶ä»–ä¸­å¿ƒå¤©ä½“
+%    å‚æ•°cartå¿…é¡»ä¸º1*6(å•ä½km,km/s)
+%    åœ°å¿ƒæ—¶miuä¸º398600.5km^3/s^2ï¼Œæœˆå¿ƒæ—¶miuä¸º4902.8km^3/s^2
 % result:
-%    kepler = [a  e  i Omega  w  M](µ¥Î»:km  rad)
+%    kepler = [a  e  i Omega  w  M](å•ä½:km  rad)
 function kepler = cart2kepler(cart,miu)
 if nargin == 0 %self test
     cart =   [   6637.6      -851.42         4317     -0.76017        6.622       2.4748;...
        2659.3       2705.9       5970.5      -2.9926      -5.6122       3.9568];
 %    cart = cart';
 end
-[m n] = size(cart);
+[m,n] = size(cart);
 if m == 6
     tr = 0;
     len = n;
 elseif n == 6;
-    cart = cart'; % Í³Ò»×÷ÎªÁÐÊ¸Á¿´¦Àí
+    cart = cart'; % ç»Ÿä¸€ä½œä¸ºåˆ—çŸ¢é‡å¤„ç†
     len = m;
-    tr = 1; % ¼ÆËã½á¹ûÐèÒª×ªÖÃ³ÉÓëÊäÈëÒ»ÖÂ
+    tr = 1; % è®¡ç®—ç»“æžœéœ€è¦è½¬ç½®æˆä¸Žè¾“å…¥ä¸€è‡´
 else
     error('input dimension error');
 end
@@ -54,38 +54,38 @@ end
 
 % i
 cosi = dot(h,Uz)./sqrt(h2);
+kepler(3,:) = acos(cosi);
 kepler(3,cosi >= 1.0) = 0.0;
 kepler(3,cosi <= -1.0) = pi;
-kepler(3,abs(cosi)<1.0) = acos(cosi);
 
 % Omega
 Nx = N(1,:)./Nn;
-kepler(4,Nx > 1.0) = 0.0;
-kepler(4,Nx < -1.0) = pi;
 id = find(N(2,:)>=0);
 kepler(4,id) = acos(Nx(id));
 id = find(N(2,:)<0);
 kepler(4,id) = pi*2 - acos(Nx(id));
+kepler(4,Nx > 1.0) = 0.0;
+kepler(4,Nx < -1.0) = pi;
 
 % w
 E = cross(V,h)/miu - P./(ones(3,1)*r);
 cosw = dot(N,E)./Nn./sqrt(sum(E.^2,1));
-kepler(5,cosw > 1.0) = 0.0;
-kepler(5,cosw < -1.0) = pi;
 id = find(E(3,:)>0);
 kepler(5,id) = acos(cosw(id));
 id = find(E(3,:)<=0);
 kepler(5,id) = pi*2 - acos(cosw(id));
+kepler(5,cosw > 1.0) = 0.0;
+kepler(5,cosw < -1.0) = pi;
 
 % M
 cosu = dot(P,N)./r./Nn;
 u = nan(1,len);
-u(cosu >= 1.0) = 0.0;
-u(cosu <= -1.0) = pi;
 id = find(P(3,:)>0);
 u(id) = acos(cosu(id));
 id = find(P(3,:)<=0);
 u(id) = pi*2 - acos(cosu(id));
+u(cosu >= 1.0) = 0.0;
+u(cosu <= -1.0) = pi;
 
 id = find(kepler(2,:)>1);
 if ~isempty(id)
