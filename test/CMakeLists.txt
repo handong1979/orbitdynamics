@@ -7,9 +7,6 @@ target_link_libraries(test_DE405_DE421 OrbitDyn)
 add_executable(test_earth_lunar_transfer test_earth_lunar_transfer.cpp)
 target_link_libraries(test_earth_lunar_transfer OrbitDyn)
 
-add_executable(test_facility test_facility.cpp)
-target_link_libraries(test_facility OrbitDyn)
-
 add_executable(checkmemoryleak checkmemoryleak.cpp)
 target_link_libraries(checkmemoryleak OrbitDyn)
 
@@ -18,9 +15,6 @@ target_link_libraries(test_mean_inst OrbitDyn)
 
 add_executable(test_orbit_propagator test_orbit_propagator.cpp)
 target_link_libraries(test_orbit_propagator OrbitDyn)
-
-add_executable(test_orbit_maneuver test_orbit_maneuver.cpp)
-target_link_libraries(test_orbit_maneuver OrbitDyn)
 
 add_executable(test_rapidsattlite test_rapidsattlite.cpp)
 target_link_libraries(test_rapidsattlite OrbitDyn)
