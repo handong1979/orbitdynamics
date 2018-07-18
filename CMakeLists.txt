@@ -2,18 +2,13 @@ cmake_minimum_required(VERSION 3.2)
 
 project(OrbitDynamics)
 
-<<<<<<< HEAD
 include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/orbitdyn)
-=======
-include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/dyn)
-include_directories(SYSTEM ${PROJECT_SOURCE_DIR}/sofa)
->>>>>>> 943c4faedec0557bb03b6d917afd83996852ce2a
 link_directories(${PROJECT_SOURCE_DIR}/lib)
 
 set(BUILD_SOFA "build sofa library" TRUE)
 set(BUILD_TEST "build test" TRUE)
 
-<<<<<<< HEAD
+
 if(APPLE)
 
   set(ARMA_OS macos)
@@ -26,9 +21,9 @@ if(APPLE)
 endif(APPLE)
 
 add_subdirectory(orbitdyn)
-=======
-add_subdirectory(dyn)
->>>>>>> 943c4faedec0557bb03b6d917afd83996852ce2a
+add_subdirectory(maneuver)
+#add_subdirectory(dyn)
+
 
 if(BUILD_SOFA)
 	add_subdirectory(sofa)
