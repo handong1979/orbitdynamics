@@ -1,3 +1,4 @@
+clc
 %% param
 epoch = [2015,1,1,4,0,0];
 kp = [24371.137,0.73,28,90,20,40];
@@ -6,10 +7,10 @@ Isp = 2400;
 dm = -F/Isp/9.8;
 Mass = 2000;
 %% de421
-mjd = date2mjd(epoch);
-moon = de421(mjd,'Earth','Moon');
-mars = de421(mjd,'Earth','Mars');
-venus = de421(mjd,'Earth','Venus');
+% mjd = date2mjd(epoch);
+% moon = de421(mjd,'Earth','Moon');
+% mars = de421(mjd,'Earth','Mars');
+% venus = de421(mjd,'Earth','Venus');
 
 %% orbitdyn
 s1 = mexOrbitDyn('sat','init',[epoch,kp,Mass]);

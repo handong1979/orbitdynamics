@@ -9,7 +9,7 @@
 #ifndef BaseException_hpp
 #define BaseException_hpp
 
-#define USE_STD_EXCEPTION 1
+#define USE_STD_EXCEPTION 0
 
 #if USE_STD_EXCEPTION
 #include <exception>

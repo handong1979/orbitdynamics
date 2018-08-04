@@ -57,7 +57,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     CDateTime dd(2010,1,1,0,0,0);
     Kepler kp(27906,0.001,55*RAD,180*RAD,90*RAD,-90*RAD);
     CSatellite ss;
-    ss.Initialize(dd,kp);
+    //ss.Initialize(dd,kp);
     mexPrintf("a=%f,e=%f\n",ss.a,ss.e);
         
 	size_t nsat = vsat.size();
@@ -94,7 +94,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			vsat.push_back(sat);
             
 			//vsat[i] = new CSatellite;		
-			vsat[i]->Initialize(t-28800,k);
+			//vsat[i]->Initialize(t-28800,k);
 			vsat[i]->SetForce(6,ODP_EARTH_ALL);
 			vsat[i]->Name = name;
             if(N==13) vsat[i]->Mass0 = tmp[12];
@@ -183,7 +183,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			Kepler k(tmp[6],tmp[7],tmp[8]*RAD,tmp[9]*RAD,tmp[10]*RAD,tmp[11]*RAD);
 			if(vsat[i]!=NULL)
 				Warning("satellite '" + name + "' had been initialized,re-initializing...");
-			vsat[i]->Initialize(t-28800,k); // ���³�ʼ��ʱ�����Զ��޸��㶯ģ�ͣ�����������������
+			//vsat[i]->Initialize(t-28800,k); // ���³�ʼ��ʱ�����Զ��޸��㶯ģ�ͣ�����������������
 			if(N==13) vsat[i]->Mass0 = tmp[12];
 		}
 		else if(operat == "PROPAGATE")

@@ -119,8 +119,7 @@ protected:
 	//!中心体
 	PLANET center;
 public:
-	//!卫星名称，用作储存数据，默认为a、b、c......
-	std::string Name;
+	
 	//!初始轨道根数
 	Kepler Status0;
 	//!卫星起始重量(单位:kg)(默认1000kg)
@@ -177,6 +176,9 @@ public:
 	mat33 Coi;
 	//! 加速度
 	vec3 acc;
+
+	//!卫星名称，用作储存数据，默认为a、b、c......
+	std::string Name;
 
 /////// 数据输出函数 //////////////////////////
 

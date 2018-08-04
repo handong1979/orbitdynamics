@@ -1,0 +1,37 @@
+#
+# From "Report of the IAU/IAG Working Group on Cartographic Coordinates and
+# Rotational Elements of the Planets and satellites: 2000", 
+# Celestial Mechanics 82: 83-110, 2002.
+#
+
+BEGIN RotationalData
+
+	Description	Coefficients from the IAU 2000 parameter set
+
+	RotationEpoch	2451545.0
+
+	Begin RotationalElement
+	Type			SpinAxisRightAscension
+	Constant		317.68143
+	Rate			-0.1061
+	RateDot		 	0.0
+	NumberOfTerms		0
+	End RotationalElement
+
+	Begin RotationalElement
+	Type			SpinAxisDeclination
+	Constant		52.88650
+	Rate			-0.0609
+	RateDot		 	0.0
+	NumberOfTerms		0
+	End RotationalElement
+
+	Begin RotationalElement
+	Type			Rotation
+	Constant		176.630
+	Rate			350.89198226
+	RateDot		   	0.0
+	NumberOfTerms	   	0
+	End RotationalElement
+
+END RotationalData	

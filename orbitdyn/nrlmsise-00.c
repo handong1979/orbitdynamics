@@ -387,7 +387,7 @@ void spline (double *x, double *y, int n, double yp1, double ypn, double *y2) {
 /* ------------------------------- DENSM ----------------------------- */
 /* ------------------------------------------------------------------- */
 
-__inline double zeta(double zz, double zl) {
+double zeta(double zz, double zl) {
 	return ((zz-zl)*(re+zl)/(re+zz));
 }
 
@@ -621,17 +621,17 @@ double densu (double alt, double dlb, double tinf, double tlb, double xm, double
 
 /*    3hr Magnetic activity functions */
 /*    Eq. A24d */
-__inline double g0(double a, double *p) {
+double g0(double a, double *p) {
 	return (a - 4.0 + (p[25] - 1.0) * (a - 4.0 + (exp(-sqrt(p[24]*p[24]) * (a - 4.0)) - 1.0) / sqrt(p[24]*p[24])));
 }
 
 /*    Eq. A24c */
-__inline double sumex(double ex) {
+double sumex(double ex) {
 	return (1.0 + (1.0 - pow(ex,19.0)) / (1.0 - ex) * pow(ex,0.5));
 }
 
 /*    Eq. A24a */
-__inline double sg0(double ex, double *p, double *ap) {
+double sg0(double ex, double *p, double *ap) {
 	return (g0(ap[1],p) + (g0(ap[2],p)*ex + g0(ap[3],p)*ex*ex + \
                 g0(ap[4],p)*pow(ex,3.0)	+ (g0(ap[5],p)*pow(ex,4.0) + \
                 g0(ap[6],p)*pow(ex,12.0))*(1.0-pow(ex,8.0))/(1.0-ex)))/sumex(ex);
