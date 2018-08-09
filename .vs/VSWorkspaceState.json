@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\maneuver"
+    "\\attdyn"
   ],
-  "SelectedNode": "\\maneuver\\sma.cpp",
+  "SelectedNode": "\\orbitdyn",
   "PreviewInSolutionExplorer": false
 }

@@ -5,7 +5,7 @@
 using namespace Constant;
 
 //! 近圆轨道的半长轴机动
-double sma_nearcircle(double a,double delta)
+double sma_nearcircle(double a,double deltaa)
 {
 	double n = sqrt(GE / a / a / a);
 	return 2 / n * deltaa;
