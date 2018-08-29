@@ -12,7 +12,7 @@ using namespace Constant;
 // ascordes = 1 在升交点
 // ascordes = 0 在降交点
 // 返回：轨道Y方向的速度增量m/s
-double leo_Linc(double a,double i0,double it,int ascordes)
+double leo_inclination(double a,double i0,double it,int ascordes)
 {	
 	double v = sqrt(GE /a);
 	if(ascordes == 1) // 升交点
@@ -36,28 +36,28 @@ vec3 leo_Binc(double a,double i0,double it,int ascordes)
 	vec3 vo;
 	if(ascordes == 1) // 升交点
 	{
-		dv = v*sin((i0-it)*RAD/2)*2*1000;
-		vo(0) = dv*sin((i0-it)/2);
-		vo(1) = dv*cos((i0-it)/2);
+		dv = v*sin((it - i0)*RAD/2)*2*1000;
+		vo(0) = -dv*sin((it - i0) * RAD / 2);
+		vo(1) = -dv*cos((it - i0) * RAD / 2) * sign(it - i0);
 	}
 	else
 	{
-		dv = v*sin((i0-it)*RAD/2)*2*1000;
-		vo(0) = dv*sin((i0-it)/2);
-		vo(1) = dv*cos((i0-it)/2);
-	}	
+		dv = v*sin((it - i0)*RAD/2)*2*1000;
+		vo(0) = -dv*sin((it - i0) * RAD / 2);
+		vo(1) = dv*cos((it - i0) * RAD / 2) * sign(it-i0);
+	}
+	vo(2) = 0;
 	
-	
+	return vo;
 }
-
 
 int main(int argc, char* argv[])
 {
 	double dv;
 
-	dv = leo_inclination(7000, 0.1);
+	dv = leo_inclination(7000, 98.2, 98.22,1);
 
-	dv = sma_ellipse(7000, 0.2, 0, 10);
+	vec3 dvb = leo_Binc(7000, 98.2, 98.22, 0);
 
 	return 0;
 }

@@ -8,7 +8,7 @@ using namespace Constant;
 double sma_nearcircle(double a,double deltaa)
 {
 	double n = sqrt(GE / a / a / a);
-	return 2 / n * deltaa;
+	return n / 2 * deltaa;
 }
 
 double sma_ellipse(double a, double e, double f, double deltaa)
