@@ -328,6 +328,8 @@ public:
 	
 	//double FiniteManeuver(Direction , StopCondition);
 
+	//! propagate to earth equator
+	void Propagate2Equator();
 private:
 	void DynFunction(const double t,const vec& x,vec& y);
 	void RefreshStatus();

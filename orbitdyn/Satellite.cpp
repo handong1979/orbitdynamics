@@ -750,6 +750,41 @@ CSpherical CSatellite::SubSatPoint(CSpherical & Geodetic,CSpherical & SSP)
 	return SSP;
 }
 
+
+/*! 外推到升交点
+*/
+void CSatellite::Propagate2Equator()
+{
+	double Step = 30;
+	double lat,lastlat;
+	bool first = true, endwile = false;
+	while (true)
+	{
+		Propagate(Step, Step);
+
+		if (endwile)
+			break;
+
+		CSpherical lla = GetLLA();
+		lat = lla.Latitude;
+
+		if (first)
+		{
+			first = false;
+		}
+		else
+		{
+			double n = (lat - lastlat) / Step;
+			if ( (lat<0 && n >0 && lat+n*Step>0) || (lat>0 && n<0 && lat+n*Step<0) )
+			{
+				endwile = true;
+				Step = fabs(lat / n); // 最后一步改变步长使u刚好为0，即到达升交点
+			}
+		}
+		lastlat = lat;
+	}
+}
+
 //double CSatellite::Propagate2u(double &t,double h,CSatellite &s,double ut,const double dd,FILE* out)
 //{//failure
 //	double x1[6],x[6],tmp[6],tt;

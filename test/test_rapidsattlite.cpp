@@ -38,20 +38,6 @@ void test_rapidsattlite()
 
 int main(int argc, char* argv[])
 {
-	try
-	{
-		cout.precision(12);
-
-		test_rapidsattlite();
-	}
-	catch(BaseException& e)
-	{
-		cerr << e.GetFullMessage() << endl;
-	}
- 	catch(exception* e)
- 	{
- 		cerr << ((BaseException*)e)->what() << endl;
- 	}
-
+	test_rapidsattlite();
 	return 0;
 }

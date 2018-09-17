@@ -10,23 +10,28 @@ void groundtraj()
 
 	chaser.SetForce(6, ODP_LEO); 
 	chaser.SetAutoSave();
-	target.SetForce(4, ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL);
+	//target.SetForce(4, ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL);
+	target.SetForce(2, ODP_EARTH_ZONAL);
 	target.SetAutoSave();
 
-	double elem[6] = { 7051.1057, 0.003005,	  98.5051*RAD,	  202.2820*RAD,  43.0580*RAD,	  211.4238*RAD };
-	double elem2[6] = { 7157.7833, 0.001215,	  98.5160*RAD,	  202.2820*RAD,  143.8963*RAD,    122.135*RAD };
-
-	chaser.Initialize(CDateTime(2006, 8, 13, 12, 0, 0.0), elem, 'm');
-	target.Initialize(CDateTime(2006, 8, 13, 12, 0, 0.0), elem2, 'm');
-
-	cout << "Chaser's Mean:" << chaser.MedianElement() << endl;
-	cout << "Target's Mean:" << target.MedianElement() << endl << endl;
-
-	chaser.Propagate2AscendingNode();
-	target.Propagate2AscendingNode();
+	double elem[6] = { 7051.1057, 0.003005,	  98.5051*RAD,	  202.2820*RAD,  0.0580*RAD,	  211.4238*RAD };
+	
+	chaser.Initialize(CDateTime(2006, 8, 13, 12, 0, 0.0), elem, 'i');
+	target.Initialize(CDateTime(2006, 8, 13, 12, 0, 0.0), elem, 'i');
 
 	cout << "Chaser's Mean:" << chaser.MedianElement() << endl;
 	cout << "Target's Mean:" << target.MedianElement() << endl << endl;
+
+	CSpherical lla,llat;
+	for (int i = 0;i < 400;i++)
+	{
+		chaser.Propagate2Equator();
+		target.Propagate2Equator();
+
+		lla = chaser.GetLLA();
+		llat = target.GetLLA();
+		cout << "Chaser's Lon:" << lla.Longitude << "\tLon err:" << (lla.Longitude-llat.Longitude)*RAD*6378 << endl;
+	}
 
 
 	/*
