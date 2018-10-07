@@ -1952,7 +1952,7 @@ vec3 DE421::Moon(const CDateTime& t)
 	if( TDT < R1.timeData[0] || TDT > R1.timeData[1] )
 	{
 		DE421Exception e;
-		e.SetDetails("time %lf is not in plteph.405 file!",TDT);
+		e.SetDetails("time %lf is not in planetEph.421 file!",TDT);
 		throw e;
 	}
 	Interpolate_Position(TDT,PLANET2int(MOON),r);

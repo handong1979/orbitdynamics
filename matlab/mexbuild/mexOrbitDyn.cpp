@@ -4,9 +4,9 @@
 #pragma comment(lib,"libmx.lib")
 #pragma comment(lib,"libmex.lib")
 
-static std::vector<CSatellite*> vsat;
+#define DEBUG_MEXORBITDYN 0
 
-bool debug = true;
+static std::vector<CSatellite*> vsat;
 
 char* stoupper( char* s )
   {
@@ -54,11 +54,14 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	std::string operat = char_upper_oper;
     
 	try{
-    CDateTime dd(2010,1,1,0,0,0);
-    Kepler kp(27906,0.001,55*RAD,180*RAD,90*RAD,-90*RAD);
-    CSatellite ss;
+#if DEBUG_MEXORBITDYN
+    //CDateTime dd(2010,1,1,0,0,0);
+    //Kepler kp(27906,0.001,55*RAD,180*RAD,90*RAD,-90*RAD);
+    //CSatellite ss;
     //ss.Initialize(dd,kp);
-    mexPrintf("a=%f,e=%f\n",ss.a,ss.e);
+    //mexPrintf("a=%f,e=%f\n",ss.a,ss.e);
+		mexPrintf("operat = %s\n", operat.c_str());
+#endif
         
 	size_t nsat = vsat.size();
 	size_t i;
@@ -83,28 +86,30 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			CDateTime t((int)tmp[0],(int)tmp[1],(int)tmp[2],(int)tmp[3],(int)tmp[4],tmp[5]);
 			CDateTimeView tv = t;
 			Kepler k(tmp[6],tmp[7],tmp[8]*RAD,tmp[9]*RAD,tmp[10]*RAD,tmp[11]*RAD);
-            if(debug)
+#if DEBUG_MEXORBITDYN
             {
                 mexPrintf("Input Epoch: %d %d %d %d %d %f\n",(int)tmp[0],(int)tmp[1],(int)tmp[2],(int)tmp[3],(int)tmp[4],tmp[5]);
                 mexPrintf("Input Elements: %f %f %f %f %f %f\n",tmp[6],tmp[7],tmp[8]*RAD,tmp[9]*RAD,tmp[10]*RAD,tmp[11]*RAD);
                 mexPrintf("Input Mass: %f\n",tmp[12]);
                 mexPrintf("Input Kepler: %f %f %f %f %f %f\n",k.a,k.e,k.i*DEG,k.o*DEG,k.w*DEG,k.M*DEG);
             }
+#endif
             CSatellite* sat = new CSatellite;
 			vsat.push_back(sat);
             
 			//vsat[i] = new CSatellite;		
-			//vsat[i]->Initialize(t-28800,k);
+			vsat[i]->Initialize(t-28800,k);
 			vsat[i]->SetForce(6,ODP_EARTH_ALL);
 			vsat[i]->Name = name;
             if(N==13) vsat[i]->Mass0 = tmp[12];
             vsat[i]->SetAutoSave();
-            if(debug)
+#if DEBUG_MEXORBITDYN
             {
                 mexPrintf("Name = %s\n",vsat[i]->Name.c_str());
                 mexPrintf("Status a=%f\n",vsat[i]->Status0.a);
                 mexPrintf("Output Elements: %f %f %f %f %f %f\n",vsat[i]->a,vsat[i]->e,vsat[i]->i,vsat[i]->Omega,vsat[i]->w,vsat[i]->M);
             }
+#endif
 		}
 		else
 		{
@@ -262,10 +267,11 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
             return;
         }
 	}
-    if(debug)
+#if DEBUG_MEXORBITDYN
     {   
         mexPrintf("Output Elements: %f %f %f %f %f %f\n",vsat[i]->a,vsat[i]->e,vsat[i]->i,vsat[i]->Omega,vsat[i]->w,vsat[i]->M);
-    }
+	}
+#endif
 	
 	plhs[0] = mxCreateDoubleMatrix(1,13,mxREAL);
 	double* out = mxGetPr(plhs[0]);
