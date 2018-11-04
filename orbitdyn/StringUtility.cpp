@@ -263,7 +263,7 @@ bool IsBlank(const std::string &text, bool ignoreEol/* = false*/)
 }
 
 /**
-读取一行，跳过注释，读到之后返回name和value
+璇诲彇涓�琛岋紝璺宠繃娉ㄩ噴锛岃鍒颁箣鍚庤繑鍥瀗ame鍜寁alue
 */
 bool ReadLine(std::istream* file,std::string& name,std::string& value)
 {

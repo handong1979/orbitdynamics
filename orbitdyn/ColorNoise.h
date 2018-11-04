@@ -23,15 +23,15 @@ public:
 	{
 	}
 
-	double sigma; // Çı¶¯°×ÔëÉùµÄ·½²î
-	double mean;  // Çı¶¯°×ÔëÉùµÄ¾ùÖµ
+	double sigma; // é©±åŠ¨ç™½å™ªå£°çš„æ–¹å·®
+	double mean;  // é©±åŠ¨ç™½å™ªå£°çš„å‡å€¼
 
-	double delta; // ´óÔ¼Îª·½²î
-	double a;     // ×ÔÏà¹ØÏµÊı0<a<1,a=0Ê±Îª°×ÔëÉù
+	double delta; // å¤§çº¦ä¸ºæ–¹å·®
+	double a;     // è‡ªç›¸å…³ç³»æ•°0<a<1,a=0æ—¶ä¸ºç™½å™ªå£°
 
-	double s;     // ×´Ì¬
+	double s;     // çŠ¶æ€
 
-	// È¡¸öĞÂÊı
+	// å–ä¸ªæ–°æ•°
 	double GetNum()
 	{
 		s = delta*WhiteNoise(sigma*3,mean) + a*s;

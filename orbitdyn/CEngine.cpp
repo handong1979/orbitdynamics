@@ -5,7 +5,7 @@
 
 #include <cmath>
 #include "CEngine.h"
-#include "constant.h"
+#include "Constant.h"
 
 double CEngine::dm()
 {
@@ -21,7 +21,7 @@ bool CEngine_const::dv_dt(double SatMass,const double dv,double &halfdt) const
 
 CEngine_Poly::CEngine_Poly(void)
 {
-//ÄâºÍ²ÎÊı
+//æ‹Ÿå’Œå‚æ•°
 	D0 = -0.97f;
 	D1 = 28.64f;
 	D2 = -6.09f;
@@ -31,26 +31,26 @@ CEngine_Poly::CEngine_Poly(void)
 	G1 = 635.1f;
 	G2 = -403.6f;
 	G3 = 89.61f;
-//ÖüÏäÊôĞÔ
+//è´®ç®±å±æ€§
 	FullFuelMass=120.0f;
 	FuelMass0=100.0f;
 	FuelDensity=1008.0f;
 	Temperature0=273.0f;
 	Press0=1.7f;
-//ÖüÏä×´Ì¬
+//è´®ç®±çŠ¶æ€
 	Temperature=Temperature0;
 	M=FuelMass0;
 	Press=Press0;
-//·¢¶¯»ú×î´óÁ¬Ğø¹¤×÷Ê±¼ä(Ãë)
+//å‘åŠ¨æœºæœ€å¤§è¿ç»­å·¥ä½œæ—¶é—´(ç§’)
 	MaxManeuverTime=2400.0f;
 }
 
 /*!
-³åÁ¿dvĞèÒªµÄÇ°ºó¶ÎÊ±¼ä¡¢Ñ¹½µºÍÈ¼ÁÏÏûºÄ\n
-SatMass£ºÎÀĞÇ¸ÉÖØ     dv£ºĞèÒªµÄËÙ¶È±ä»¯Á¿\n
-halfdt1£ºÔÚ±ä¹ìµãÇ°µÄÊ±¼ä\n
-Ö»Êä³öÇ°°ë¶ÎµÄÊ±¼ä£¬º¯ÊıÄÚ²»¸Ä±ämaneuverºÍtankµÄÖµ\n
-\return ·µ»ØtrueÊ±£¬±íÊ¾ÇóµÃhalfdtµÄÖµ£»·µ»ØfalseÊ±£¬±íÊ¾ĞèÒªµÄ·¢¶¯»ú¹¤×÷Ê±¼ä³¬¹ıÁË×î³¤Á¬Ğø¹¤×÷Ê±¼ä£¬Ö»ÄÜ¹¤×÷×î³¤Ê±¼äµÄ80£¥(¿Éµ÷£¬Ì«³¤»áµ¼ÖÂ±ä¹ìÎó²îÔö´ó)
+å†²é‡dvéœ€è¦çš„å‰åæ®µæ—¶é—´ã€å‹é™å’Œç‡ƒæ–™æ¶ˆè€—\n
+SatMassï¼šå«æ˜Ÿå¹²é‡     dvï¼šéœ€è¦çš„é€Ÿåº¦å˜åŒ–é‡\n
+halfdt1ï¼šåœ¨å˜è½¨ç‚¹å‰çš„æ—¶é—´\n
+åªè¾“å‡ºå‰åŠæ®µçš„æ—¶é—´ï¼Œå‡½æ•°å†…ä¸æ”¹å˜maneuverå’Œtankçš„å€¼\n
+\return è¿”å›trueæ—¶ï¼Œè¡¨ç¤ºæ±‚å¾—halfdtçš„å€¼ï¼›è¿”å›falseæ—¶ï¼Œè¡¨ç¤ºéœ€è¦çš„å‘åŠ¨æœºå·¥ä½œæ—¶é—´è¶…è¿‡äº†æœ€é•¿è¿ç»­å·¥ä½œæ—¶é—´ï¼Œåªèƒ½å·¥ä½œæœ€é•¿æ—¶é—´çš„80ï¼…(å¯è°ƒï¼Œå¤ªé•¿ä¼šå¯¼è‡´å˜è½¨è¯¯å·®å¢å¤§)
 */
 bool CEngine_Poly::dv_dt(double SatMass,const double dv,double &halfdt) const
 {
@@ -80,7 +80,7 @@ bool CEngine_Poly::dv_dt(double SatMass,const double dv,double &halfdt) const
 		}
 	}
     halfdt=t/2;
-	if(halfdt>MaxManeuverTime/2.0f)  //³¬³ö·¢¶¯»ú×î´óÁ¬Ğø¹¤×÷Ê±¼ä
+	if(halfdt>MaxManeuverTime/2.0f)  //è¶…å‡ºå‘åŠ¨æœºæœ€å¤§è¿ç»­å·¥ä½œæ—¶é—´
 	{
 		//halfdt=MaxManeuverTime/2.0;
 		return false;
@@ -88,11 +88,11 @@ bool CEngine_Poly::dv_dt(double SatMass,const double dv,double &halfdt) const
 	return true;
 }  //end of dv_dt
 
-/*!³åÁ¿dv1ºÍdv2ĞèÒªµÄÇ°ºó¶ÎÊ±¼ä¡¢Ñ¹½µºÍÈ¼ÁÏÏûºÄ\n
-SatMass£ºÎÀĞÇ¸ÉÖØ     dv1,dv2£ºĞèÒªµÄËÙ¶È±ä»¯Á¿\n
-halfdt1,halfdt2£ºÔÚ±ä¹ìµãÇ°µÄÊ±¼ä\n
-Ö»Êä³öÇ°°ë¶ÎµÄÊ±¼ä£¬º¯ÊıÄÚ²»¸Ä±ämaneuverºÍtankµÄÖµ\n
-\return ·µ»ØtrueÊ±£¬±íÊ¾ÇóµÃhalfdtµÄÖµ£»·µ»ØfalseÊ±£¬±íÊ¾ĞèÒªµÄ·¢¶¯»ú¹¤×÷Ê±¼ä³¬¹ıÁË×î³¤Á¬Ğø¹¤×÷Ê±¼ä£¬Ö»ÄÜ¹¤×÷×î³¤Ê±¼äµÄ80£¥(¿Éµ÷£¬Ì«³¤»áµ¼ÖÂ±ä¹ìÎó²îÔö´ó)
+/*!å†²é‡dv1å’Œdv2éœ€è¦çš„å‰åæ®µæ—¶é—´ã€å‹é™å’Œç‡ƒæ–™æ¶ˆè€—\n
+SatMassï¼šå«æ˜Ÿå¹²é‡     dv1,dv2ï¼šéœ€è¦çš„é€Ÿåº¦å˜åŒ–é‡\n
+halfdt1,halfdt2ï¼šåœ¨å˜è½¨ç‚¹å‰çš„æ—¶é—´\n
+åªè¾“å‡ºå‰åŠæ®µçš„æ—¶é—´ï¼Œå‡½æ•°å†…ä¸æ”¹å˜maneuverå’Œtankçš„å€¼\n
+\return è¿”å›trueæ—¶ï¼Œè¡¨ç¤ºæ±‚å¾—halfdtçš„å€¼ï¼›è¿”å›falseæ—¶ï¼Œè¡¨ç¤ºéœ€è¦çš„å‘åŠ¨æœºå·¥ä½œæ—¶é—´è¶…è¿‡äº†æœ€é•¿è¿ç»­å·¥ä½œæ—¶é—´ï¼Œåªèƒ½å·¥ä½œæœ€é•¿æ—¶é—´çš„80ï¼…(å¯è°ƒï¼Œå¤ªé•¿ä¼šå¯¼è‡´å˜è½¨è¯¯å·®å¢å¤§)
 */
 bool CEngine_Poly::dv_dt(double SatMass,const double dv1,double &halfdt1,const double dv2,double &halfdt2) const
 {
@@ -145,19 +145,19 @@ bool CEngine_Poly::dv_dt(double SatMass,const double dv1,double &halfdt1,const d
 	halfdt1=t1/2;
 	halfdt2=t2/2;
 
-	if(halfdt1>MaxManeuverTime/2.0 ||halfdt2>MaxManeuverTime)  //³¬³ö·¢¶¯»ú×î´óÁ¬Ğø¹¤×÷Ê±¼ä
+	if(halfdt1>MaxManeuverTime/2.0 ||halfdt2>MaxManeuverTime)  //è¶…å‡ºå‘åŠ¨æœºæœ€å¤§è¿ç»­å·¥ä½œæ—¶é—´
 	{
 		//halfdt=MaxManeuverTime/2.0;
 		return false;
 	}
 	return true;
 }
-//! ¸ù¾İµ±Ç°´¢ÏäÑ¹Á¦¼ÆËã·¢¶¯»úÍÆÁ¦
+//! æ ¹æ®å½“å‰å‚¨ç®±å‹åŠ›è®¡ç®—å‘åŠ¨æœºæ¨åŠ›
 double CEngine_Poly::GetPower()
 {
 	return F = D0 + Press * (D1 + Press * (D2 + Press * (D3 + Press * D4) ) );
 }
-//! ¸üĞÂ´¢ÏäµÄÑ¹Á¦ºÍÊ£ÓàÈ¼ÁÏÖÊÁ¿
+//! æ›´æ–°å‚¨ç®±çš„å‹åŠ›å’Œå‰©ä½™ç‡ƒæ–™è´¨é‡
 void CEngine_Poly::UpdateStatus(double dt)
 {
 	Isp = G0 + Press * (G1 + Press * (G2 + Press * G3));
@@ -166,7 +166,7 @@ void CEngine_Poly::UpdateStatus(double dt)
 	M = FullFuelMass-(FullFuelMass-FuelMass0)*(Temperature/Temperature0)*(Press0/Pt);
 }
 
-/*! Ä¬ÈÏÎªÈı¸öÅç¹Ü
+/*! é»˜è®¤ä¸ºä¸‰ä¸ªå–·ç®¡
 */
 CThrusterSet::CThrusterSet():Num(3)
 {

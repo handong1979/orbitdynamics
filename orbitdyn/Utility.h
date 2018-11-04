@@ -17,15 +17,15 @@ class CSatellite;
 
 std::string GetOrbitDynDir();
 // Orbit Element
-void Short2(const Kepler & MElem,double ZS[6],double & AS2);//¼ÆËã¶ÌÖÜÆÚÏî
-ORBITDYN_API Kepler Mean(const Kepler & Inst);//Ë²¸ùÊı==>Æ½¸ùÊı
-ORBITDYN_API Kepler Instant(const Kepler & MElem);//Æ½¸ùÊı==>Ë²¸ùÊı
+void Short2(const Kepler & MElem,double ZS[6],double & AS2);//è®¡ç®—çŸ­å‘¨æœŸé¡¹
+ORBITDYN_API Kepler Mean(const Kepler & Inst);//ç¬æ ¹æ•°==>å¹³æ ¹æ•°
+ORBITDYN_API Kepler Instant(const Kepler & MElem);//å¹³æ ¹æ•°==>ç¬æ ¹æ•°
 ORBITDYN_API Kepler Cartesian_Kepler(const vec3 & Position,const vec3 & Velocity,double miu = GE);
 ORBITDYN_API void Kepler_Cartesian(const Kepler& obl,vec3& Pos,vec3& Vel,double miu = GE);
 
 // Perturbation Accelerations
-ORBITDYN_API const vec3 PZonalHarmonic(const int LL,const vec3& SatPos,const CentralBody* cb = NULL);  //´øĞ³ÏîÉã¶¯Zonal Harmonic Terms
-ORBITDYN_API const vec3 PTesseralHarmonic(const int LL,const vec3& SatPos,const CentralBody* cb = NULL); //ÌïĞ³ÏîÉã¶¯
+ORBITDYN_API const vec3 PZonalHarmonic(const int LL,const vec3& SatPos,const CentralBody* cb = NULL);  //å¸¦è°é¡¹æ‘„åŠ¨Zonal Harmonic Terms
+ORBITDYN_API const vec3 PTesseralHarmonic(const int LL,const vec3& SatPos,const CentralBody* cb = NULL); //ç”°è°é¡¹æ‘„åŠ¨
 ORBITDYN_API const vec3 PThirdBodyGrv(const vec3& SatVector,const vec3& ThirdBodyVector,double ThirdBodyGrvConst); // Third body gravitaional
 ORBITDYN_API const vec3 PLightPressure(const double CrSM,const vec3& r,const vec3& rs,double Radius = Re);
 ORBITDYN_API const vec3 PAirDrag(const CDateTime& t,const double CdSM,const vec3& ECFr,const vec3& r,const vec3& rd); // Air Drag
@@ -37,8 +37,8 @@ ORBITDYN_API double WhiteNoise(double sigma3,double mean);
 ORBITDYN_API double EvenNoise(double min, double max);
 ORBITDYN_API double RKF78(CSatelliteBase& s,double h,double* x,double* xh,const int dim);
 ORBITDYN_API double Gill4(CSatelliteBase& s,double hh,double* x,double* xh,const int dim);
-ORBITDYN_API void Legendre_sphPl(const int LL,const double x,double PL[]);//ÀÕÈÃµÃ¶àÏîÊ½
-ORBITDYN_API void Legendre_sphPlm(const int LL,const double x,double PLM[][71]);//µŞºÏÀÕÈÃµÃ¶àÏîÊ½
+ORBITDYN_API void Legendre_sphPl(const int LL,const double x,double PL[]);//å‹’è®©å¾—å¤šé¡¹å¼
+ORBITDYN_API void Legendre_sphPlm(const int LL,const double x,double PLM[][71]);//ç¼”åˆå‹’è®©å¾—å¤šé¡¹å¼
 ORBITDYN_API void SmxCmx(const int LL,const double S1X,const double C1X,double* SX,double* CX);
 ORBITDYN_API inline double GG345(double b,double c) { return sqrt(b*b+c*c); }
 ORBITDYN_API inline int sign(double x) { if(x==0) return 0; else return x>0 ? 1 : -1 ; }
@@ -52,69 +52,69 @@ ORBITDYN_API mat33 out_product(const vec3 &v1,const vec3& v2);
 ORBITDYN_API mat33 Avv( vec3 X1I, vec3 X2I, vec3 X1B, vec3 X2B );
 
 // Star
-ORBITDYN_API double Sun_Eccentricity(const CDateTime& t);         // Ì«Ñô¹ìµÀÆ«ĞÄÂÊ
-ORBITDYN_API double Ecliptic_Equator_Angle(const CDateTime& t);   // »Æ³à½»½Ç¦Å
-ORBITDYN_API double Sun_Argument_Perigee(const CDateTime& t);     // Ì«Ñô½üµØµãÆ½»Æ¾­¦£
-ORBITDYN_API double Sun_Mean_Anomaly(const CDateTime& t);         // Ì«ÑôÆ½½üµã½ÇM
-ORBITDYN_API double Sun_Ecliptic_Longitude(const CDateTime& t);   // Ì«ÑôÆ½»Æ¾­L
-ORBITDYN_API double Moon_Argument_Perigee(const CDateTime& t);    // °×µÀ½üµØµãÆ½»Æ¾­¦£
-ORBITDYN_API double Moon_RAAN(const CDateTime& t);                // °×µÀÉı½»µãÆ½»Æ¾­¦¸
-ORBITDYN_API double Moon_Ecliptic_Longitude(const CDateTime& t);  // ÔÂÇòÆ½»Æ¾­L
-ORBITDYN_API double Moon_Mean_Anomaly(const CDateTime& t);        // ÔÂÇòÆ½½üµã½ÇM
-ORBITDYN_API double Moon_Sun_Ecliptic_Angle(const CDateTime& t);  // ÔÂÇòÓëÌ«ÑôµÄÆ½¾à½ÇD
+ORBITDYN_API double Sun_Eccentricity(const CDateTime& t);         // å¤ªé˜³è½¨é“åå¿ƒç‡
+ORBITDYN_API double Ecliptic_Equator_Angle(const CDateTime& t);   // é»„èµ¤äº¤è§’Îµ
+ORBITDYN_API double Sun_Argument_Perigee(const CDateTime& t);     // å¤ªé˜³è¿‘åœ°ç‚¹å¹³é»„ç»Î“
+ORBITDYN_API double Sun_Mean_Anomaly(const CDateTime& t);         // å¤ªé˜³å¹³è¿‘ç‚¹è§’M
+ORBITDYN_API double Sun_Ecliptic_Longitude(const CDateTime& t);   // å¤ªé˜³å¹³é»„ç»L
+ORBITDYN_API double Moon_Argument_Perigee(const CDateTime& t);    // ç™½é“è¿‘åœ°ç‚¹å¹³é»„ç»Î“
+ORBITDYN_API double Moon_RAAN(const CDateTime& t);                // ç™½é“å‡äº¤ç‚¹å¹³é»„ç»Î©
+ORBITDYN_API double Moon_Ecliptic_Longitude(const CDateTime& t);  // æœˆçƒå¹³é»„ç»L
+ORBITDYN_API double Moon_Mean_Anomaly(const CDateTime& t);        // æœˆçƒå¹³è¿‘ç‚¹è§’M
+ORBITDYN_API double Moon_Sun_Ecliptic_Angle(const CDateTime& t);  // æœˆçƒä¸å¤ªé˜³çš„å¹³è·è§’D
 
-ORBITDYN_API const Kepler SunOrbit(const CDateTime& t);//Ì«Ñô½âÎö¹ìµÀ¸ùÊı
-ORBITDYN_API const vec3 SunAnalytic(const CDateTime& t);//Ì«Ñô½âÎöĞÇÀú
-ORBITDYN_API const vec3 MoonAnalytic(const CDateTime& t);//ÔÂÇò½âÎöĞÇÀú
-ORBITDYN_API void precession_angle(const CDateTime& t,double& zeta,double& theta,double& Z);   //Ëê²î
-ORBITDYN_API void nutation_angle(const CDateTime& t,double& dksi,double& deps);     //ÕÂ¶¯
+ORBITDYN_API const Kepler SunOrbit(const CDateTime& t);//å¤ªé˜³è§£æè½¨é“æ ¹æ•°
+ORBITDYN_API const vec3 SunAnalytic(const CDateTime& t);//å¤ªé˜³è§£ææ˜Ÿå†
+ORBITDYN_API const vec3 MoonAnalytic(const CDateTime& t);//æœˆçƒè§£ææ˜Ÿå†
+ORBITDYN_API void precession_angle(const CDateTime& t,double& zeta,double& theta,double& Z);   //å²å·®
+ORBITDYN_API void nutation_angle(const CDateTime& t,double& dksi,double& deps);     //ç« åŠ¨
 
 // Orbit Maneuver
-// Æ½ÃæÄÚaewÁªºÏ¿ØÖÆ
+// å¹³é¢å†…aewè”åˆæ§åˆ¶
 ORBITDYN_API void InitPlaneJet(const Kepler & init,const Kepler & destin,Maneuver& m1,Maneuver& m2,double distri=1);
-// ¹ìµÀÆ½Ãæ¿ØÖÆ
+// è½¨é“å¹³é¢æ§åˆ¶
 ORBITDYN_API void InitNormalJet(const Kepler & init,const Kepler & destin,Maneuver& m1,Maneuver& m2,double distri=1);
 
 // Relative Motion
-//ÒÑÖªÁ½ÎÀĞÇ¡¢ÇóÆäÏà¶ÔÎ»ÖÃºÍÏà¶ÔËÙ¶È
+//å·²çŸ¥ä¸¤å«æ˜Ÿã€æ±‚å…¶ç›¸å¯¹ä½ç½®å’Œç›¸å¯¹é€Ÿåº¦
 ORBITDYN_API void RIC(const Kepler& chaser,const Kepler& RefSat,vec3& RelPos,vec3& RelVel);
-//ÒÑÖªÒ»¸öÎÀĞÇºÍÏà¶ÔÎ»ÖÃÏà¶ÔËÙ¶È£¬ÇóÁíÒ»¸ö¿ÅÎÀĞÇµÄ¹ìµÀ¸ùÊı
+//å·²çŸ¥ä¸€ä¸ªå«æ˜Ÿå’Œç›¸å¯¹ä½ç½®ç›¸å¯¹é€Ÿåº¦ï¼Œæ±‚å¦ä¸€ä¸ªé¢—å«æ˜Ÿçš„è½¨é“æ ¹æ•°
 ORBITDYN_API Kepler RIC(const Kepler & RefSat,const vec3 & relpos,const vec3 & relvel);
 
 // Coordinate Transform
 ORBITDYN_API mat RotationX(double angle);
 ORBITDYN_API mat RotationY(double angle);
 ORBITDYN_API mat RotationZ(double angle);
-// µØĞÄ¹ßĞÔÏµ==>ÔÂĞÄ¹ßĞÔÏµ
+// åœ°å¿ƒæƒ¯æ€§ç³»==>æœˆå¿ƒæƒ¯æ€§ç³»
 ORBITDYN_API vec3 ECI_MCI(const CDateTime t,vec3 & r);
-// µØĞÄ¹ßĞÔÏµ==>ÔÂĞÄ¹ßĞÔÏµ
+// åœ°å¿ƒæƒ¯æ€§ç³»==>æœˆå¿ƒæƒ¯æ€§ç³»
 ORBITDYN_API void ECI_MCI(const CDateTime& t,vec3 & r,vec3& v,vec3 & rm,vec3& vm);
-// ÔÂĞÄJ2000¹ßĞÔÏµ==>ÔÂĞÄ³àµÀ¹ßĞÔ¹ìµÀ¸ùÊı
+// æœˆå¿ƒJ2000æƒ¯æ€§ç³»==>æœˆå¿ƒèµ¤é“æƒ¯æ€§è½¨é“æ ¹æ•°
 ORBITDYN_API Kepler MCI_MCI2Kepler(const CDateTime& t,vec3& r,vec3& v);
 //ECI==>ECF  Matirx
 ORBITDYN_API mat33 ECI_ECF(const CDateTime& t);
 //MCI==>MCF  Matirx
 ORBITDYN_API mat33 MCI_MCF(const CDateTime& t);
-//Ëê²î
+//å²å·®
 ORBITDYN_API mat33 Precession(const CDateTime& t);
-//ÕÂ¶¯  
+//ç« åŠ¨  
 ORBITDYN_API mat33 Nutation(const CDateTime& t);  
-//µØÇò×Ô×ª
+//åœ°çƒè‡ªè½¬
 ORBITDYN_API mat33 EarthRotation(const CDateTime& t);
-//¼«ÒÆ  
+//æç§»  
 ORBITDYN_API mat33 PolarMotion(const CDateTime& t); 
 ORBITDYN_API CSpherical ECF_LLA(const vec3 & ECF);
-// Coi¾ØÕó
+// CoiçŸ©é˜µ
 ORBITDYN_API mat33 GetCoi(const Kepler& k);
 
 // Greenwich Stellar Time
-// ¸ñÁÖÍşÖÎÕæºãĞÇÊ±
+// æ ¼æ—å¨æ²»çœŸæ’æ˜Ÿæ—¶
 ORBITDYN_API double GetSG(const CDateTime & t);
-// ¸ñÁÖÍşÖÎÆ½ºãĞÇÊ±
+// æ ¼æ—å¨æ²»å¹³æ’æ˜Ÿæ—¶
 ORBITDYN_API double GetSGM(const CDateTime& t);
 
 // Atmosphere Model
-//	ÃÀ¹ú1976±ê×¼´óÆøÄ£ĞÍ	ÊäÈë: ¸ß¶Èh(km) 	Êä³ö: ´óÆøÃÜ¶È(kg/m^3)
+//	ç¾å›½1976æ ‡å‡†å¤§æ°”æ¨¡å‹	è¾“å…¥: é«˜åº¦h(km) 	è¾“å‡º: å¤§æ°”å¯†åº¦(kg/m^3)
 ORBITDYN_API double SA76(double h);
 
 

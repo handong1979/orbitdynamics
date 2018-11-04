@@ -17,7 +17,7 @@
 	using namespace std;
 #endif // _MSC_VER
 
-#include "config.h"
+#include "Config.h"
 #include "BaseException.h"
 #include "armadillo_BLAS_LAPACK.h"
 using namespace arma;
@@ -29,7 +29,7 @@ public:
 		: BaseException("CEuler exception:",details)
 	{
 	}
-	virtual ~CQuaternionException() _NOEXCEPT
+	virtual ~CQuaternionException()
 	{
 	}
 	CQuaternionException(const CQuaternionException& cdte)
@@ -38,53 +38,53 @@ public:
 	}
 };
 
-/*!ËÄÔªÊı
+/*!å››å…ƒæ•°
 */
 class ORBITDYN_API CQuaternion
 {
 public:
 	double qx,qy,qz,qs;
 
-	/*!Ä¬ÈÏ¹¹Ôìº¯Êı*/
+	/*!é»˜è®¤æ„é€ å‡½æ•°*/
 	CQuaternion();
 
-	/*!¹¹Ôìº¯Êı*/
+	/*!æ„é€ å‡½æ•°*/
 	CQuaternion(double x,double y,double z,double s);
 	
-	/*!ÓÃ×ªÖá¡¢×ª½Ç¹¹Ôì*/
+	/*!ç”¨è½¬è½´ã€è½¬è§’æ„é€ */
 	CQuaternion(const vec3& e,double phi);
 
-	/*!ÓÃÊı×é¹¹Ôì*/
+	/*!ç”¨æ•°ç»„æ„é€ */
 	CQuaternion(double *);
 
-	/*!ÓÃ·½ÏòÓàÏÒÕó¹¹Ôì*/
+	/*!ç”¨æ–¹å‘ä½™å¼¦é˜µæ„é€ */
 	CQuaternion(const mat& c);
 
-	/*!Îö¹¹º¯Êı*/
+	/*!ææ„å‡½æ•°*/
 	~CQuaternion(){}
 
-	/*!ËÄÔªÊıµÄ·¶Êı*/
+	/*!å››å…ƒæ•°çš„èŒƒæ•°*/
 	double Norm()const;
 
-	/*! ²Ù×÷·û[]È¡Öµ */
+	/*! æ“ä½œç¬¦[]å–å€¼ */
 	double & operator[](int i);
 
-	/*! ²Ù×÷·û[]¸³Öµ */
+	/*! æ“ä½œç¬¦[]èµ‹å€¼ */
 	double operator[](int i) const;
 
-	/*!ËÄÔªÊı¹æ·¶»¯*/
+	/*!å››å…ƒæ•°è§„èŒƒåŒ–*/
 	void Normalize();
 	
-	/*!ÇóÒ»¶¨×ªĞòÏÂµÄÅ·À­½Ç*/
+	/*!æ±‚ä¸€å®šè½¬åºä¸‹çš„æ¬§æ‹‰è§’*/
 	void EulerAngles(char* seq,double& phi,double& theta,double& ksi) const;
 	
-	/*!ËÄÔªÊı¶ÔÓ¦µÄ·½ÏòÓàÏÒÕó*/
+	/*!å››å…ƒæ•°å¯¹åº”çš„æ–¹å‘ä½™å¼¦é˜µ*/
 	mat33 C() const;
 
-	/*!Ê¸Á¿²¿·Ö*/
+	/*!çŸ¢é‡éƒ¨åˆ†*/
 	vec3 v() const;
 	
-	/*!Omega¾ØÕó*/
+	/*!OmegaçŸ©é˜µ*/
 	mat Eq() const;
 	
 	void QInt(const vec3& wbi,double dt);

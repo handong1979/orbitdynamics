@@ -24,16 +24,16 @@ switch(arch)
         builddir = '~/Program/GitHub/orbitdynamics/bin';
         dyfile = fullfile(builddir,'libOrbitDyn.dylib');
         eval(['!cp ',dyfile,' libOrbitDyn.dylib']);
-         mex -v -I../../dyn libOrbitDyn.dylib mexDE405.cpp
-         mex -v -I../../dyn libOrbitDyn.dylib mexDE421.cpp
-         mex -v -I../../dyn libOrbitDyn.dylib LINKLIBS='$LINKLIBS -framework Accelerate' mexOrbitDyn.cpp
+        mex -v -I../../orbitdyn libOrbitDyn.dylib mexDE405.cpp
+        mex -v -I../../orbitdyn libOrbitDyn.dylib mexDE421.cpp
+        mex -v -I../../orbitdyn libOrbitDyn.dylib LINKLIBS='$LINKLIBS -framework Accelerate' mexOrbitDyn.cpp
         !otool -L mexOrbitDyn.mexmaci64
         !cp mexOrbitDyn.mexmaci64 ../
         !cp mexDE421.mexmaci64 ../
         !cp mexDE405.mexmaci64 ../
-        !rm mexDE421.mexmaci64
-        !rm mexDE405.mexmaci64
-        !rm mexOrbitDyn.mexmaci64
+        %!rm mexDE421.mexmaci64
+        %!rm mexDE405.mexmaci64
+        %!rm mexOrbitDyn.mexmaci64
     case 'glnxa64'
         error('TODO');
 end

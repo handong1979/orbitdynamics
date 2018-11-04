@@ -116,16 +116,16 @@ ORBITDYN_API std::string RemoveAll(const std::string &str, char ch,int start = 0
 ORBITDYN_API bool IsBlank(const std::string &text, bool ignoreEol = false);
 
 /**
-读取一行，跳过注释，读到之后返回name和value
+ read a line
 */
 ORBITDYN_API bool ReadLine(std::istream* file,std::string& name,std::string& value);
 
 
 //////////////////////////////////////////////////////////////////////////
-// 读取设置文件
+// File read macros
 #define BEGIN_READ(filename)	{fstream file(filename,ios::in);      \
 								if(!file.is_open())                   \
-									throw FileException(string("Can't open file") + filename);      \
+									throw (string("Can't open file") + filename);      \
 								std::string name,value;                \
 								while(!file.eof()){                    \
 									if(ReadLine(&file,name,value))	{

@@ -9,3 +9,6 @@ target_link_libraries(incl OrbitDyn)
 
 add_executable(groundtraj groundtraj.cpp)
 target_link_libraries(groundtraj OrbitDyn)
+
+add_executable(AdjustTime AdjustTime.cpp)
+target_link_libraries(AdjustTime OrbitDyn)

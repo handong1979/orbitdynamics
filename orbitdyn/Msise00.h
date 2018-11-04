@@ -1,12 +1,12 @@
 #pragma once
-#include "config.h"
+#include "Config.h"
 #include "Constant.h"
 #include "CDateTime.h"
 #include "armadillo_BLAS_LAPACK.h"
 using namespace arma;
 #include "nrlmsise-00.h"
 /*!
- \class ½«Msise00Ä£ĞÍ°ü×°³ÉÀàµÄĞÎÊ½
+ \class å°†Msise00æ¨¡å‹åŒ…è£…æˆç±»çš„å½¢å¼
 */
 class ORBITDYN_API CMsise00
 {
@@ -19,7 +19,7 @@ public:
 	CMsise00(void);
 	~CMsise00(void);
 
-	//¼ÆËã´óÆøÃÜ¶È
+	//è®¡ç®—å¤§æ°”å¯†åº¦
 	double Density(const CDateTime& t,const vec3& ECFr);
 };
 

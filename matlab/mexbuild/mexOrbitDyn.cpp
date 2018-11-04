@@ -98,7 +98,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			vsat.push_back(sat);
             
 			//vsat[i] = new CSatellite;		
-			vsat[i]->Initialize(t-28800,k);
+			CDateTime utc = t - 28800;
+            vsat[i]->Initialize(utc,k);
 			vsat[i]->SetForce(6,ODP_EARTH_ALL);
 			vsat[i]->Name = name;
             if(N==13) vsat[i]->Mass0 = tmp[12];
@@ -184,11 +185,10 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			if(N<12) Error("Init parameter is not enough.");
 			double* tmp = mxGetPr(prhs[2]);
 			CDateTime t((int)tmp[0],(int)tmp[1],(int)tmp[2],(int)tmp[3],(int)tmp[4],tmp[5]);
-			CDateTimeView tv = t;
 			Kepler k(tmp[6],tmp[7],tmp[8]*RAD,tmp[9]*RAD,tmp[10]*RAD,tmp[11]*RAD);
 			if(vsat[i]!=NULL)
 				Warning("satellite '" + name + "' had been initialized,re-initializing...");
-			//vsat[i]->Initialize(t-28800,k); // ���³�ʼ��ʱ�����Զ��޸��㶯ģ�ͣ�����������������
+			vsat[i]->Initialize(t - 28800,k); // ���³�ʼ��ʱ�����Զ��޸��㶯ģ�ͣ�����������������
 			if(N==13) vsat[i]->Mass0 = tmp[12];
 		}
 		else if(operat == "PROPAGATE")

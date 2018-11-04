@@ -1,6 +1,6 @@
 #include "Euler.h"
-#include "utility.h"
-#include "constant.h"
+#include "Utility.h"
+#include "Constant.h"
 using namespace Constant;
 
 

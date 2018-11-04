@@ -12,7 +12,7 @@
 	using namespace std;
 #endif
 
-#include "config.h"
+#include "Config.h"
 #include "Msise00.h"
 
 #pragma warning(disable:4251)
@@ -23,50 +23,50 @@ class ORBITDYN_API CentralBody
 {
 public:
 
-	//! ÒıÁ¦³¡ÏµÊı
+	//! å¼•åŠ›åœºç³»æ•°
 	double CLM[71][71],SLM[71][71];
 
-	//! ÒıÁ¦³¡Ä£ĞÍ
+	//! å¼•åŠ›åœºæ¨¡å‹
 	enum GRAVITY {WGS84, WGS84_EGM96, EGM96, JGM2, JGM3, GLGM2, LP165P} GrvModel;
 
-	//! ĞÇÀúÄ£ĞÍ
+	//! æ˜Ÿå†æ¨¡å‹
 	enum EPHEMICS {DE421EPH, DE405EPH , ANALYTICEPH } EphModel;
 
 	CentralBody();
 	virtual ~CentralBody();
 	
-	//! ÉèÖÃÒıÁ¦³¡
+	//! è®¾ç½®å¼•åŠ›åœº
 	virtual void SetGravityField(GRAVITY) = 0;
 
-	//! »ñµÃµØĞÄJ2000¹ßĞÔÏµÏÂµÄÎ»ÖÃ
+	//! è·å¾—åœ°å¿ƒJ2000æƒ¯æ€§ç³»ä¸‹çš„ä½ç½®
 	virtual vec3 GetECI(const CDateTime&) = 0;
 
-	//! »ñµÃµØĞÄJ2000¹ßĞÔÏµÏÂµÄÎ»ÖÃËÙ¶È
+	//! è·å¾—åœ°å¿ƒJ2000æƒ¯æ€§ç³»ä¸‹çš„ä½ç½®é€Ÿåº¦
 	//virtual void GetECI(const CDateTime&,vec& r,vec& v) = 0;
 
 	inline double GE()const{ return GrvParam; }
 	inline double RE()const{ return Equator_Radius; }
 protected:
-	//! ÒıÁ¦³£Êı
+	//! å¼•åŠ›å¸¸æ•°
 	double GrvParam;
-	//! Æ½¾ù³àµÀ°ë¾¶³£Êı
+	//! å¹³å‡èµ¤é“åŠå¾„å¸¸æ•°
 	double Equator_Radius;
-	//! Êı¾İÎÄ¼şÄ¿Â¼
+	//! æ•°æ®æ–‡ä»¶ç›®å½•
 	std::string DataDir;
-    //! ¶ÁÈ¡ÒıÁ¦³¡ÎÄ¼ş
+    //! è¯»å–å¼•åŠ›åœºæ–‡ä»¶
 	void ReadGrvFile(const char* file);
 };
 
-//! Ì«Ñô
+//! å¤ªé˜³
 class ORBITDYN_API Sun : public CentralBody
 {
 public:
-	//! »ñÈ¡±¾Àı
+	//! è·å–æœ¬ä¾‹
 	static Sun* Instance();
 
 	void SetGravityField(GRAVITY);
 
-	//! »ñµÃµØĞÄJ2000¹ßĞÔÏµÏÂµÄÎ»ÖÃ
+	//! è·å¾—åœ°å¿ƒJ2000æƒ¯æ€§ç³»ä¸‹çš„ä½ç½®
 	vec3 GetECI(const CDateTime&);
 private:
 	Sun();
@@ -75,68 +75,68 @@ private:
 };
 
 
-//! µØÇò
+//! åœ°çƒ
 class ORBITDYN_API Earth : public CentralBody
 {
 public:
-	//! ³£ÓÃµØÇòÒıÁ¦³¡ÏµÊı
+	//! å¸¸ç”¨åœ°çƒå¼•åŠ›åœºç³»æ•°
 	double A2,A3,A4,J2,J3,J4;
 
-	//! ´óÆøÄ£ĞÍ
+	//! å¤§æ°”æ¨¡å‹
 	enum ATMOS { STANDARD1976, MSISE2000, MANUAL } AtmosModel;
 
-	//! »ñÈ¡±¾Àı
+	//! è·å–æœ¬ä¾‹
 	static Earth* Instance();
 
-	//! ¼ÆËã¸ß¶Èh(km)´¦µÄ´óÆøÃÜ¶È
+	//! è®¡ç®—é«˜åº¦h(km)å¤„çš„å¤§æ°”å¯†åº¦
 	double AtmosRuoH(const CDateTime& t,const vec3& ECFr);
-	//! ÉèÖÃÒıÁ¦³¡
+	//! è®¾ç½®å¼•åŠ›åœº
 	void SetGravityField(GRAVITY);
 
-	//! ´Óeop²åÖµ¼ÆËã¼«ÒÆ²ÎÊı
+	//! ä»eopæ’å€¼è®¡ç®—æç§»å‚æ•°
 	void GetPolarMotion(const CDateTime& t,double& Xp,double& Yp);
 
-	//! ´Óeop²åÖµ¼ÆËãdUT1 = UT1 - UTC
+	//! ä»eopæ’å€¼è®¡ç®—dUT1 = UT1 - UTC
 	double GetdUT1(const CDateTime& t);
 
-	//! »ñµÃµØĞÄJ2000¹ßĞÔÏµÏÂµÄÎ»ÖÃ
+	//! è·å¾—åœ°å¿ƒJ2000æƒ¯æ€§ç³»ä¸‹çš„ä½ç½®
 	vec3 GetECI(const CDateTime&);
 private:
 	Earth();
 	~Earth();
 	
-	//! ±¾Àı
+	//! æœ¬ä¾‹
 	static Earth* theInstance;
-	//! ¼«ÒÆ¡¢dUT1Êı¾İ±í
+	//! æç§»ã€dUT1æ•°æ®è¡¨
 	double ** eop;
-	//! Êı¾İ±íĞĞÊı
+	//! æ•°æ®è¡¨è¡Œæ•°
     int Num;
-	//! Êı¾İ±í³õÊ¼MJD
+	//! æ•°æ®è¡¨åˆå§‹MJD
 	double mjd1;
 
-	//! ´óÆøÃÜ¶ÈÎÄ¼ş½á¹¹
+	//! å¤§æ°”å¯†åº¦æ–‡ä»¶ç»“æ„
 	struct FILE_ATMOS_DEN {
-		int nrow; // ĞĞÊı
+		int nrow; // è¡Œæ•°
 		double step; // ??
-		double* t; // Ê±¼ä(MJD±íÊ¾)
-		double* rou; // ´óÆøÃÜ¶È
+		double* t; // æ—¶é—´(MJDè¡¨ç¤º)
+		double* rou; // å¤§æ°”å¯†åº¦
 	} file_atmos_den;
 
 public:
-	//! ÉèÖÃ´óÆøÄ£ĞÍ
+	//! è®¾ç½®å¤§æ°”æ¨¡å‹
 	void SetAtmosphereModel(ATMOS);
 };
 
-//! ÔÂÇò
+//! æœˆçƒ
 class ORBITDYN_API Moon : public CentralBody
 {
 public:
-	//! »ñÈ¡±¾Àı
+	//! è·å–æœ¬ä¾‹
 	static Moon* Instance();
 
 	void SetGravityField(GRAVITY);
 
-	//! »ñµÃµØĞÄJ2000¹ßĞÔÏµÏÂµÄÎ»ÖÃ
+	//! è·å¾—åœ°å¿ƒJ2000æƒ¯æ€§ç³»ä¸‹çš„ä½ç½®
 	vec3 GetECI(const CDateTime&);
 private:
 	Moon();
@@ -151,7 +151,7 @@ public:
 		: BaseException("CCentralBody exception:",details)
 	{
 	}
-	virtual ~CentralBodyException() _NOEXCEPT
+	virtual ~CentralBodyException()
 	{
 	}
 	CentralBodyException(const CentralBodyException& cdte)

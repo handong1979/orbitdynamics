@@ -12,12 +12,12 @@ const double VU = AU/TU;
 
 void ECI_RLP(const CDateTime& t,Vector& r_GCI,Vector& v_GCI,Vector& r_RLP,Vector& v_RLP)
 {
-	Matrix Q,dQ;  // ECI==>RLP×ª»»¾ØÕó
+	Matrix Q,dQ;  // ECI==>RLPè½¬æ¢çŸ©é˜µ
 
 	Vector r_SE,v_SE;
 	DE405::Instance()->PlanetEphemeris(t,SUN,EARTH_MOON_BARYCENTER,r_SE,v_SE);
-	double R = r_SE.Module();  // ÈÕ-µØÎ»ÖÃÊ¸Á¿
-	double V = v_SE.Module();  // µØÇòÏà¶ÔÌ«ÑôµÄËÙ¶ÈÊ¸Á¿
+	double R = r_SE.Module();  // æ—¥-åœ°ä½ç½®çŸ¢é‡
+	double V = v_SE.Module();  // åœ°çƒç›¸å¯¹å¤ªé˜³çš„é€Ÿåº¦çŸ¢é‡
 
 	Vector x = r_SE/R;
 	Vector y = Cross(Cross(r_SE,v_SE),r_SE);
@@ -37,10 +37,10 @@ void ECI_RLP(const CDateTime& t,Vector& r_GCI,Vector& v_GCI,Vector& r_RLP,Vector
 	Q(2,1) = z.y;   dQ(2,1) = 0;
 	Q(2,2) = z.z;   dQ(2,2) = 0;
 
-	Vector r_EMB,v_EMB; //µØÔÂÏµÖÊĞÄÔÚµØĞÄ¹ßĞÔÏµµÄÊ¸Á¿
+	Vector r_EMB,v_EMB; //åœ°æœˆç³»è´¨å¿ƒåœ¨åœ°å¿ƒæƒ¯æ€§ç³»çš„çŸ¢é‡
 	DE405::Instance()->PlanetEphemeris(t,EARTH,EARTH_MOON_BARYCENTER,r_EMB,v_EMB);
-	Vector r0 = -r_SE*gamaL1 + r_EMB; // µØĞÄ¹ßĞÔÏµÏÂL1µãÎ»ÖÃ
-	Vector v0 = -v_SE*gamaL1 + v_EMB; // µØĞÄ¹ßĞÔÏµÏÂL1µãËÙ¶È
+	Vector r0 = -r_SE*gamaL1 + r_EMB; // åœ°å¿ƒæƒ¯æ€§ç³»ä¸‹L1ç‚¹ä½ç½®
+	Vector v0 = -v_SE*gamaL1 + v_EMB; // åœ°å¿ƒæƒ¯æ€§ç³»ä¸‹L1ç‚¹é€Ÿåº¦
 	
 	r_RLP = Q*(r_GCI-r0);
 	v_RLP = dQ*(r_GCI-r0) + Q*(v_GCI-v0); 
@@ -48,7 +48,7 @@ void ECI_RLP(const CDateTime& t,Vector& r_GCI,Vector& v_GCI,Vector& r_RLP,Vector
 
 void RLP_ECI(const CDateTime& t,Vector& r_RLP,Vector& v_RLP,Vector& r_GCI,Vector& v_GCI)
 {
-	Matrix Q,dQ;  // ECI==>RLP×ª»»¾ØÕó
+	Matrix Q,dQ;  // ECI==>RLPè½¬æ¢çŸ©é˜µ
 
 	Vector r_SE,v_SE;
 	DE405::Instance()->PlanetEphemeris(t,SUN,EARTH_MOON_BARYCENTER,r_SE,v_SE);
@@ -63,7 +63,7 @@ void RLP_ECI(const CDateTime& t,Vector& r_RLP,Vector& v_RLP,Vector& r_GCI,Vector
 	y = y/y.Module();
 	z = z/z.Module();
 
-	// ÕâÀïµÄQÓëECI_RLPÖĞµÄQ»¥Îª×ªÖÃ
+	// è¿™é‡Œçš„Qä¸ECI_RLPä¸­çš„Qäº’ä¸ºè½¬ç½®
 	Q(0,0) = x.x;	dQ(0,0) = dx.x;
 	Q(1,0) = x.y;   dQ(0,1) = dx.y;
 	Q(2,0) = x.z;   dQ(0,2) = dx.z;
@@ -74,7 +74,7 @@ void RLP_ECI(const CDateTime& t,Vector& r_RLP,Vector& v_RLP,Vector& r_GCI,Vector
 	Q(1,2) = z.y;   dQ(2,1) = 0;
 	Q(2,2) = z.z;   dQ(2,2) = 0;
 
-	Vector r_EMB,v_EMB; //µØÔÂÏµÖÊĞÄÔÚµØĞÄ¹ßĞÔÏµµÄÊ¸Á¿
+	Vector r_EMB,v_EMB; //åœ°æœˆç³»è´¨å¿ƒåœ¨åœ°å¿ƒæƒ¯æ€§ç³»çš„çŸ¢é‡
 	DE405::Instance()->PlanetEphemeris(t,EARTH,EARTH_MOON_BARYCENTER,r_EMB,v_EMB);
 	Vector r0 = -r_SE*gamaL1 + r_EMB;
 	Vector v0 = -v_SE*gamaL1 + v_EMB;
@@ -150,15 +150,15 @@ void TestLibrationSat()
 	double step = 7200;
 	for(double t=0;t<=86400*365;t+=step)
 	{
-		DE405::Instance()->PlanetEphemeris(epoch+t,EARTH,EARTH_MOON_BARYCENTER,rEEM,vEEM); // µØÔÂÏµÖÊĞÄµÄÎ»ÖÃËÙ¶È
-		DE405::Instance()->PlanetEphemeris(epoch+t,EARTH,MOON,rM,vM); // ÔÂÇòµÄÎ»ÖÃËÙ¶È
+		DE405::Instance()->PlanetEphemeris(epoch+t,EARTH,EARTH_MOON_BARYCENTER,rEEM,vEEM); // åœ°æœˆç³»è´¨å¿ƒçš„ä½ç½®é€Ÿåº¦
+		DE405::Instance()->PlanetEphemeris(epoch+t,EARTH,MOON,rM,vM); // æœˆçƒçš„ä½ç½®é€Ÿåº¦
 
 		ECI_RLP(epoch+t,sat.Pos(),sat.Vel(),r_RLP,v_RLP);
 		ECI_RLP(epoch+t,rE,vE,rEEM_L1,vEEM_L1);
 		ECI_RLP(epoch+t,rM,vM,rM_L1,vM_L1);
 
 		fxyz<<t/86400<<TAB<<sat.Pos()<<TAB<<sat.Vel()<<TAB<<r_RLP<<TAB<<v_RLP<<endl;
-		fem<<t/86400<<TAB<<rEEM_L1<<TAB<<rM_L1<<endl; // ¡°L1-µØÔÂÖÊĞÄ¡±ºÍ¡°L1-ÔÂÇò¡±Ê¸Á¿
+		fem<<t/86400<<TAB<<rEEM_L1<<TAB<<rM_L1<<endl; // â€œL1-åœ°æœˆè´¨å¿ƒâ€å’Œâ€œL1-æœˆçƒâ€çŸ¢é‡
 		
 		sat.Propagate(step,step);
 	}

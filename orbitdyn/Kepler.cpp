@@ -1,15 +1,15 @@
 #include "Kepler.h"
 
-//! ½â¿ªÆÕÀÕ·½³Ì M = E - e*sin(E)
-// ¼´ÒÑÖªeºÍM£¬ÕÒµ½EÂú×ã¿ªÆÕÀÕ·½³Ì
-// ²ÉÓÃÅ£¶Ùµü´ú·¨½â·½³Ì£¬¶¨Òåº¯Êı:
+//! è§£å¼€æ™®å‹’æ–¹ç¨‹ M = E - e*sin(E)
+// å³å·²çŸ¥eå’ŒMï¼Œæ‰¾åˆ°Eæ»¡è¶³å¼€æ™®å‹’æ–¹ç¨‹
+// é‡‡ç”¨ç‰›é¡¿è¿­ä»£æ³•è§£æ–¹ç¨‹ï¼Œå®šä¹‰å‡½æ•°:
 // f(E) = E - e*sin(E) - M
-// Ôò f'(E) = 1 - e*cos(E)
-// Í¨¹ıÏÂÊ½½øĞĞµü´ú¼ÆËãE:
+// åˆ™ f'(E) = 1 - e*cos(E)
+// é€šè¿‡ä¸‹å¼è¿›è¡Œè¿­ä»£è®¡ç®—E:
 //                  f(E|k)
 // E|k+1 = E|k - ----------
 //                 f'(E|k)
-// ¶ÔÓÚË«ÇúÏß¹ìµÀ£¬¿ªÆÕÀÕ·½³ÌÎª M = e*sin(E) - E£¬½â·¨ÀàËÆ
+// å¯¹äºåŒæ›²çº¿è½¨é“ï¼Œå¼€æ™®å‹’æ–¹ç¨‹ä¸º M = e*sin(E) - Eï¼Œè§£æ³•ç±»ä¼¼
 ORBITDYN_API double KeplerFunc(double ee,double MM)
 {
 	double E0 = MM;
@@ -25,17 +25,17 @@ ORBITDYN_API double KeplerFunc(double ee,double MM)
 	return E1;
 }
 
-//! ½â¹ãÒå¿ªÆÕÀÕ·½³Ì£¬·µ»ØÖµÎªE+w
-// ÕâÀïºÍÁõÁÖÊéÉÏÓĞµã²»Í¬£¬´Ë´¦¶¨ÒåÎª£º
+//! è§£å¹¿ä¹‰å¼€æ™®å‹’æ–¹ç¨‹ï¼Œè¿”å›å€¼ä¸ºE+w
+// è¿™é‡Œå’Œåˆ˜æ—ä¹¦ä¸Šæœ‰ç‚¹ä¸åŒï¼Œæ­¤å¤„å®šä¹‰ä¸ºï¼š
 // ksi = e*cos(w)
 // eta = e*sin(w)
 // lamda = w + M
-// ¹ãÒå¿ªÆÕÀÕ·½³ÌĞ´Îª
+// å¹¿ä¹‰å¼€æ™®å‹’æ–¹ç¨‹å†™ä¸º
 // u~ - lamda = ksi*sin(u~) - eta*cos(u~) 
-// ÆäÖĞu~ = w + E
-// ²ÉÓÃÅ£¶Ùµü´ú·¨£¬¶¨Òå·½³Ì
+// å…¶ä¸­u~ = w + E
+// é‡‡ç”¨ç‰›é¡¿è¿­ä»£æ³•ï¼Œå®šä¹‰æ–¹ç¨‹
 // f(u~) = u~ - lamda - (ksi*sin(u~) - eta*cos(u~))
-// Ôò f'(u~) = 1 - (ksi*cos(u~) + eta*sin(u~))
+// åˆ™ f'(u~) = 1 - (ksi*cos(u~) + eta*sin(u~))
 ORBITDYN_API double KeplerFunc2(double ksi,double eta,double lamda)
 {
 	int JJ = 0;
@@ -59,12 +59,12 @@ ORBITDYN_API double KeplerFunc2(double ksi,double eta,double lamda)
 	return Ew;
 }
 
-//Ä¬ÈÏ¹¹Ôì
+//é»˜è®¤æ„é€ 
 Kepler::Kepler():a(6978.14),e(0.0),i(0.0),o(0.0),w(0.0),M(0.0)
 {
 }
 
-//ÀàĞÍ×ª»»
+//ç±»å‹è½¬æ¢
 Kepler::Kepler(const double oe[6]) 
 {
 	a = oe[0];	e = oe[1];	i = oe[2];
@@ -81,7 +81,7 @@ Kepler::Kepler(double SemimajorAxis,double Eccentricity,double Inclination,
 Kepler::~Kepler()
 {
 
-};
+}
 
 
 double Kepler::Axis() const 
@@ -182,21 +182,21 @@ double Kepler::PerigeeAltitude(double r /*= Re*/) const
 	return a*(1-e)-r; 
 }
 
-//! ÉèÖÃ¹ìµÀ¸ùÊı,ÊäÈë½Ç¶È±ØĞëÎª»¡¶È£¬¹ìµÀÎ»ÖÃÎªÆ½½üµã½Ç
+//! è®¾ç½®è½¨é“æ ¹æ•°,è¾“å…¥è§’åº¦å¿…é¡»ä¸ºå¼§åº¦ï¼Œè½¨é“ä½ç½®ä¸ºå¹³è¿‘ç‚¹è§’
 void Kepler::SetElements(double SemimajorAxis,double Eccentricity,double Inclination,
 								double RAAN,double ArgPerigee,double MeanAnomaly)
 {
 	a = SemimajorAxis;	e = Eccentricity;	i = Inclination;
 	o = RAAN;			w = ArgPerigee;		M = MeanAnomaly;
 }
-//! ÉèÖÃ¹ìµÀ¸ùÊı,ÊäÈë½Ç¶È±ØĞëÎª»¡¶È£¬¹ìµÀÎ»ÖÃÎªÕæ½üµã½Ç
+//! è®¾ç½®è½¨é“æ ¹æ•°,è¾“å…¥è§’åº¦å¿…é¡»ä¸ºå¼§åº¦ï¼Œè½¨é“ä½ç½®ä¸ºçœŸè¿‘ç‚¹è§’
 void Kepler::SetElementsF(double SemimajorAxis,double Eccentricity,double Inclination,
 								 double RAAN,double ArgPerigee,double TrueAnomaly)
 {
 	a = SemimajorAxis;	e = Eccentricity;	i = Inclination;
 	o = RAAN;			w = ArgPerigee;
 	double r = a*(1-e*e)/(1+e*cos(TrueAnomaly));
-	// ¶ÔÓÚÍÖÔ²ºÍË«ÇúÏß£¬ÏÂÊ½ÔÚĞÎÊ½ÉÏ»ù±¾ÏàÍ¬£¬Ö»ÊÇÔÚ¸ùºÅÏÂ²îÒ»¸ö·ûºÅ£¬Ö»Òª¶Ô1-e^2È¡¾ø¶ÔÖµ¾Í¿ÉÒÔÁË
+	// å¯¹äºæ¤­åœ†å’ŒåŒæ›²çº¿ï¼Œä¸‹å¼åœ¨å½¢å¼ä¸ŠåŸºæœ¬ç›¸åŒï¼Œåªæ˜¯åœ¨æ ¹å·ä¸‹å·®ä¸€ä¸ªç¬¦å·ï¼Œåªè¦å¯¹1-e^2å–ç»å¯¹å€¼å°±å¯ä»¥äº†
 	double E;
 	if(e<1.0)
 	{
@@ -214,7 +214,7 @@ void Kepler::SetElementsF(double SemimajorAxis,double Eccentricity,double Inclin
 		//??
 	}
 }
-//! ÉèÖÃ¹ìµÀ¸ùÊı,ÊäÈë½Ç¶È±ØĞëÎª»¡¶È£¬¹ìµÀÎ»ÖÃÎª¹ìµÀ·ù½Ç
+//! è®¾ç½®è½¨é“æ ¹æ•°,è¾“å…¥è§’åº¦å¿…é¡»ä¸ºå¼§åº¦ï¼Œè½¨é“ä½ç½®ä¸ºè½¨é“å¹…è§’
 void Kepler::SetElementsU(double SemimajorAxis,double Eccentricity,double Inclination,
 								 double RAAN,double ArgPerigee,double Argument)
 {
@@ -240,14 +240,14 @@ void Kepler::SetElementsU(double SemimajorAxis,double Eccentricity,double Inclin
 		//??
 	}
 }
-//! ÉèÖÃ¹ìµÀ¸ùÊı,ÊäÈë½Ç¶È±ØĞëÎª»¡¶È
+//! è®¾ç½®è½¨é“æ ¹æ•°,è¾“å…¥è§’åº¦å¿…é¡»ä¸ºå¼§åº¦
 void Kepler::SetElements(const double elem[6])
 {
 	a = elem[0];	e = elem[1];	i = elem[2];
 	o = elem[3];	w = elem[4];	M = elem[5];
 }
 
-//! ¹ìµÀÁù¸ùÊı´æÈëÊı×é
+//! è½¨é“å…­æ ¹æ•°å­˜å…¥æ•°ç»„
 double * Kepler::ToArray(double array[6])
 {
 	array[0]=a;	array[1]=e;	array[2]=i;
@@ -256,7 +256,7 @@ double * Kepler::ToArray(double array[6])
 }
 
 
-// ±ê×¼Êä³öÁ÷,½Ç¶Èµ¥Î»Îª¶È
+// æ ‡å‡†è¾“å‡ºæµ,è§’åº¦å•ä½ä¸ºåº¦
 ORBITDYN_API ostream & operator << (ostream & out,const Kepler & kp)
 {
 //#define SPACE  "     "
@@ -285,7 +285,7 @@ ORBITDYN_API ostream & operator << (ostream & out,const Kepler & kp)
 	return out;
 }
 
-// ±ê×¼ÊäÈëÁ÷,½Ç¶Èµ¥Î»Îª»¡¶È
+// æ ‡å‡†è¾“å…¥æµ,è§’åº¦å•ä½ä¸ºå¼§åº¦
 ORBITDYN_API istream & operator >> (istream & in,Kepler & kp)
 {
 	in>>kp.a;	in>>kp.e;	in>>kp.i;

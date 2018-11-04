@@ -69,7 +69,7 @@ public:
 				os << std::setw(14) << std::showpos;
 				os << *((int*)(it->p));
 				break;
-			case dlFLOAT:  // TODO: 设置精度、宽度等参数
+			case dlFLOAT:  // TODO: 璁剧疆绮惧害銆佸搴︾瓑鍙傛暟
 				os.precision(6);
 				os << std::scientific << std::showpos;
 				os << *((float*)(it->p));

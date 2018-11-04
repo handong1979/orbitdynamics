@@ -1,22 +1,22 @@
 #ifndef __MANEUVER_H
 #define __MANEUVER_H
 
-#include "config.h"
+#include "Config.h"
 #include <float.h>
 
-//! ±ä¹ì»ú¶¯
+//! å˜è½¨æœºåŠ¨
 class ORBITDYN_API Maneuver
 {
 public:
-	//! ¿ª»úÊ±¼ä
+	//! å¼€æœºæ—¶é—´
 	double StartTime;
-	//! ¹Ø»úÊ±¼ä
+	//! å…³æœºæ—¶é—´
 	double EndTime;
-	//! ¹ì¿Ø·½Ïò
+	//! è½¨æ§æ–¹å‘
 	vec3 DV;
-	//! ¹ì¿ØµãµÄÆ½½üµã½Ç
+	//! è½¨æ§ç‚¹çš„å¹³è¿‘ç‚¹è§’
 	double M;
-	//! È¼ÁÏÏûºÄÁ¿
+	//! ç‡ƒæ–™æ¶ˆè€—é‡
 	double Fuel;
 	Maneuver():DV("0 0 0"){
 		StartTime = DBL_MAX;
@@ -24,23 +24,23 @@ public:
 		Fuel = 0;
 	}
 	~Maneuver(){}
-	//! tÊ±¿ÌÊÇ·ñ´ïµ½¿ª»úÊ±¼ä
+	//! tæ—¶åˆ»æ˜¯å¦è¾¾åˆ°å¼€æœºæ—¶é—´
 	bool Start(double t) const{
 		return t>StartTime;
 	}
-	//! tÊ±¿ÌÊÇ·ñ´ïµ½¹Ø»úÊ±¼ä
+	//! tæ—¶åˆ»æ˜¯å¦è¾¾åˆ°å…³æœºæ—¶é—´
 	bool Finish(double t) const{
 		return t>EndTime;
 	}
 };
 
-////! ±ä¹ì»ú¶¯:Ê±¼ä¿ª¹Ø»ú
+////! å˜è½¨æœºåŠ¨:æ—¶é—´å¼€å…³æœº
 //class Maneuver_Duration : public Maneuver
 //{
 //public:
-//	vec DV;          // ¹ìµÀ»ú¶¯ĞèÒªµÄDV
-//	double StartTime;   // »ú¶¯¿ªÊ¼Ê±¼ä
-//	double EndTime;     // »ú¶¯½áÊøÊ±¼ä
+//	vec DV;          // è½¨é“æœºåŠ¨éœ€è¦çš„DV
+//	double StartTime;   // æœºåŠ¨å¼€å§‹æ—¶é—´
+//	double EndTime;     // æœºåŠ¨ç»“æŸæ—¶é—´
 //	Maneuver_Duration()	{
 //	}
 //	~Maneuver_Duration(){
@@ -53,11 +53,11 @@ public:
 //	}
 //};
 
-////! ±ä¹ì»ú¶¯:ËÙ¶ÈÔöÁ¿¹Ø»ú
+////! å˜è½¨æœºåŠ¨:é€Ÿåº¦å¢é‡å…³æœº
 //class Maneuver_DV : public Maneuver
 //{
 //public:
-//	double DV_Need;     // ¹ìµÀ»ú¶¯ĞèÒªµÄDV
+//	double DV_Need;     // è½¨é“æœºåŠ¨éœ€è¦çš„DV
 //	double DV_Now;
 //	Maneuver_DV(){
 //		DV_Need = 0;

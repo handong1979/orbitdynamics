@@ -39,12 +39,12 @@ CSatelliteBase::~CSatelliteBase()
 	if(FileInstElem.is_open()) FileInstElem.close();
 	Counter--;
 }
-/*! ³õÊ¼»¯ÎÀĞÇ
-½«ElapsedTimeÖÃÁã
-½«BurnedFuelÖÃÁã
-Èç¹ûFileInstElemÒÑ¾­´ò¿ª£¬Ôò¼´½«Æä¹Ø±Õ¡£ÔÚĞ´ÈëĞÂµÄÊı¾İÊ±£¬»á½«ÆäÇå¿ÕºóÔÙĞ´Èë
-½«FirstTimeOutputÖÃÎªtrue
-#ÅÉÉúÀàµÄInitialize()º¯ÊıÖĞÓ¦¸Ãµ÷ÓÃ´Ëº¯Êı£¬ÒÔ±£Ö¤³õÊ¼»¯ÍêÈ«#
+/*! åˆå§‹åŒ–å«æ˜Ÿ
+å°†ElapsedTimeç½®é›¶
+å°†BurnedFuelç½®é›¶
+å¦‚æœFileInstElemå·²ç»æ‰“å¼€ï¼Œåˆ™å³å°†å…¶å…³é—­ã€‚åœ¨å†™å…¥æ–°çš„æ•°æ®æ—¶ï¼Œä¼šå°†å…¶æ¸…ç©ºåå†å†™å…¥
+å°†FirstTimeOutputç½®ä¸ºtrue
+#æ´¾ç”Ÿç±»çš„Initialize()å‡½æ•°ä¸­åº”è¯¥è°ƒç”¨æ­¤å‡½æ•°ï¼Œä»¥ä¿è¯åˆå§‹åŒ–å®Œå…¨#
 */
 void CSatelliteBase::Initialize()
 {
@@ -58,12 +58,12 @@ void CSatelliteBase::Initialize()
 	RefreshStatus();
 }
 
-/*! ³õÊ¼»¯ÎÀĞÇ
-½«ElapsedTimeÖÃÁã
-½«BurnedFuelÖÃÁã
-Èç¹ûFileInstElemÒÑ¾­´ò¿ª£¬Ôò¼´½«Æä¹Ø±Õ¡£ÔÚĞ´ÈëĞÂµÄÊı¾İÊ±£¬»á½«ÆäÇå¿ÕºóÔÙĞ´Èë
-½«FirstTimeOutputÖÃÎªtrue
-#ÅÉÉúÀàµÄInitialize()º¯ÊıÖĞÓ¦¸Ãµ÷ÓÃ´Ëº¯Êı£¬ÒÔ±£Ö¤³õÊ¼»¯ÍêÈ«#
+/*! åˆå§‹åŒ–å«æ˜Ÿ
+å°†ElapsedTimeç½®é›¶
+å°†BurnedFuelç½®é›¶
+å¦‚æœFileInstElemå·²ç»æ‰“å¼€ï¼Œåˆ™å³å°†å…¶å…³é—­ã€‚åœ¨å†™å…¥æ–°çš„æ•°æ®æ—¶ï¼Œä¼šå°†å…¶æ¸…ç©ºåå†å†™å…¥
+å°†FirstTimeOutputç½®ä¸ºtrue
+#æ´¾ç”Ÿç±»çš„Initialize()å‡½æ•°ä¸­åº”è¯¥è°ƒç”¨æ­¤å‡½æ•°ï¼Œä»¥ä¿è¯åˆå§‹åŒ–å®Œå…¨#
 */
 void CSatelliteBase::Initialize(const CDateTime& t,const vec3& r,const vec3& v)
 {
@@ -81,7 +81,7 @@ void CSatelliteBase::Initialize(const CDateTime& t,const vec3& r,const vec3& v)
 	RefreshStatus();
 }
 
-/*!´ÓÎÄ¼ş¶ÁÈ¡³õÊ¼»¯Êı¾İ
+/*!ä»æ–‡ä»¶è¯»å–åˆå§‹åŒ–æ•°æ®
 */
 void CSatelliteBase::Initialize( const char* filename )
 {
@@ -96,7 +96,7 @@ void CSatelliteBase::Initialize( const char* filename )
 	{
 		rorbit.getline(buf,1024);
 		sscanf_s(buf,"%s",strbuf);
-		strdup(strbuf); // ×ª»»Îª´óĞ´×ÖÄ¸
+		strdup(strbuf); // è½¬æ¢ä¸ºå¤§å†™å­—æ¯
 		std::string str(strbuf);
 		if(str == "CENTER_NAME") {
 			sscanf_s(buf,"%s %s %s",strbuf,strbuf,strbuf);
@@ -136,9 +136,9 @@ void CSatelliteBase::Initialize( const char* filename )
 	RefreshStatus();
 }
 
-/*! ÉèÖÃĞèÒª¿¼ÂÇµÄÉã¶¯ÒòËØ
-\param l ÒıÁ¦³¡µÄ½×Êı
-\param PTB ĞèÒª¿¼ÂÇµÄÉã¶¯µÄ±êÖ¾£¬Ä¬ÈÏÎªODP_LEO
+/*! è®¾ç½®éœ€è¦è€ƒè™‘çš„æ‘„åŠ¨å› ç´ 
+\param l å¼•åŠ›åœºçš„é˜¶æ•°
+\param PTB éœ€è¦è€ƒè™‘çš„æ‘„åŠ¨çš„æ ‡å¿—ï¼Œé»˜è®¤ä¸ºODP_LEO
 */
 void CSatelliteBase::SetForce(int l,unsigned int PTB)
 {
@@ -146,9 +146,9 @@ void CSatelliteBase::SetForce(int l,unsigned int PTB)
 	Perturbation = PTB;
 }
 
-/*! ÉèÖÃ·¢¶¯»úµÄ±È³åºÍÍÆÁ¦
-\param I ±È³å
-\param f ÍÆÁ¦
+/*! è®¾ç½®å‘åŠ¨æœºçš„æ¯”å†²å’Œæ¨åŠ›
+\param I æ¯”å†²
+\param f æ¨åŠ›
 */
 void CSatelliteBase::SetEngine(double I,double f)
 {
@@ -156,24 +156,24 @@ void CSatelliteBase::SetEngine(double I,double f)
 	Engine->F = f;
 }
 
-/*! ÉèÖÃÊÇ·ñ×Ô¶¯±£´æ¹ìµÀÊı¾İ
-SetAutoSave() »ò SetAutoSave(true) ×Ô¶¯±£´æ\n
-SetAutoSave(false)   ²»×Ô¶¯±£´æ
+/*! è®¾ç½®æ˜¯å¦è‡ªåŠ¨ä¿å­˜è½¨é“æ•°æ®
+SetAutoSave() æˆ– SetAutoSave(true) è‡ªåŠ¨ä¿å­˜\n
+SetAutoSave(false)   ä¸è‡ªåŠ¨ä¿å­˜
 */
 void CSatelliteBase::SetAutoSave(bool save /* =true */)
 {
 	Save = save;
 }
-/*!  ×Ô¶¯±£´æ¹ìµÀ¸ùÊı
-×Ô¶¯±£´æµÄ¸ñÊ½Îª£º\n
-Ê±¼ät       °ë³¤Öáa    Æ«ĞÄÂÊe    Çã½Çi    Éı½»µã³à¾­Omega     ½üµØµã·ù½Çw     Æ½½üµã½ÇM      ¹ìµÀ·ù½Çu
+/*!  è‡ªåŠ¨ä¿å­˜è½¨é“æ ¹æ•°
+è‡ªåŠ¨ä¿å­˜çš„æ ¼å¼ä¸ºï¼š\n
+æ—¶é—´t       åŠé•¿è½´a    åå¿ƒç‡e    å€¾è§’i    å‡äº¤ç‚¹èµ¤ç»Omega     è¿‘åœ°ç‚¹å¹…è§’w     å¹³è¿‘ç‚¹è§’M      è½¨é“å¹…è§’u
 */
 void CSatellite::SaveElem()
 {
 #define SPACE  "     "
 	if(!FileInstElem.is_open())
 	{
-		std::string finst = Name + ".dat";
+		std::string finst = Name + ".txt";
 		const char * fi = finst.c_str();
 		FileInstElem.open(fi,ios::out|ios::trunc);
 	}
@@ -208,15 +208,15 @@ void CSatellite::SaveElem()
 #undef SPACE
 }
 
-/*! »ı·ÖÒ»²½£¬²½³¤¿ØÖÆ£¬Í£Ö¹Ìõ¼ş¿ØÖÆ
-	Ò»°ã´Ëº¯ÊıµÄ¹¦ÄÜË³ĞòÎª£º
-- 1. ¹¹³ÉÎÀĞÇ×´Ì¬ÏòÁ¿x
-- 2. µ÷ÓÃRKF78·½·¨¼ÆËãÏÂÒ»²½µÄÎÀĞÇ×´Ì¬ÏòÁ¿xh
-- 3. ¸ù¾İÍ£Ö¹Ìõ¼şÈ·¶¨ÊÇ·ñÓÉxh¸üĞÂÎÀĞÇµÄ×´Ì¬£¬\n
-     Èç¹û³¬³öÍ£Ö¹Ìõ¼şÔòËõĞ¡²½³¤ÔÙ´Îµ÷ÓÃRKF78,Ö±µ½´ïµ½Í£Ö¹Ìõ¼ş
-- 4. Èç¹ûÎª±ä²½³¤»ı·Ö£¬¸ù¾İRKF78·µ»ØµÄ½Ø¶ÏÎó²îĞŞ¸Ä²½³¤
+/*! ç§¯åˆ†ä¸€æ­¥ï¼Œæ­¥é•¿æ§åˆ¶ï¼Œåœæ­¢æ¡ä»¶æ§åˆ¶
+	ä¸€èˆ¬æ­¤å‡½æ•°çš„åŠŸèƒ½é¡ºåºä¸ºï¼š
+- 1. æ„æˆå«æ˜ŸçŠ¶æ€å‘é‡x
+- 2. è°ƒç”¨RKF78æ–¹æ³•è®¡ç®—ä¸‹ä¸€æ­¥çš„å«æ˜ŸçŠ¶æ€å‘é‡xh
+- 3. æ ¹æ®åœæ­¢æ¡ä»¶ç¡®å®šæ˜¯å¦ç”±xhæ›´æ–°å«æ˜Ÿçš„çŠ¶æ€ï¼Œ\n
+     å¦‚æœè¶…å‡ºåœæ­¢æ¡ä»¶åˆ™ç¼©å°æ­¥é•¿å†æ¬¡è°ƒç”¨RKF78,ç›´åˆ°è¾¾åˆ°åœæ­¢æ¡ä»¶
+- 4. å¦‚æœä¸ºå˜æ­¥é•¿ç§¯åˆ†ï¼Œæ ¹æ®RKF78è¿”å›çš„æˆªæ–­è¯¯å·®ä¿®æ”¹æ­¥é•¿
 
-\nÈç¹ûĞèÒªÖØÔØ´Ëº¯Êı£¬Ôò±ØĞë°´ÕÕÉÏÃæËùÊö¹¦ÄÜÖğÏîÍê³É¡£
+\nå¦‚æœéœ€è¦é‡è½½æ­¤å‡½æ•°ï¼Œåˆ™å¿…é¡»æŒ‰ç…§ä¸Šé¢æ‰€è¿°åŠŸèƒ½é€é¡¹å®Œæˆã€‚
 */
 int CSatelliteBase::OneStep(double StepSize,double MaxCutError /* = 1 */,CStopCondition* StopCon/* = NULL */)
 {
@@ -237,7 +237,7 @@ int CSatelliteBase::OneStep(double StepSize,double MaxCutError /* = 1 */,CStopCo
 	}
 	else
 	{
-		// Í£Ö¹Ìõ¼şµÄÅĞ¶Ï
+		// åœæ­¢æ¡ä»¶çš„åˆ¤æ–­
 	}
 
 	vec7 y;
@@ -247,17 +247,17 @@ int CSatelliteBase::OneStep(double StepSize,double MaxCutError /* = 1 */,CStopCo
 	return 1;
 }
 
-/*! ÍâÍÆdtµÄÊ±¼ä
-\param h ÍâÍÆµÄ¼ÆËã²½³¤(Ãë)
-\param dt ÍâÍÆµÄÊ±¼ä(Ãë)
-Èç¹û½ö½ö½øĞĞ¹ìµÀÍâÍÆÔòÖ±½Óµ÷ÓÃÒ»±é´Ëº¯Êı¼´¿É£¬ÀıÈçÒÔ60ÃëµÄ²½³¤ÍâÍÆÒ»ÌìÓÃ£º\n
+/*! å¤–æ¨dtçš„æ—¶é—´
+\param h å¤–æ¨çš„è®¡ç®—æ­¥é•¿(ç§’)
+\param dt å¤–æ¨çš„æ—¶é—´(ç§’)
+å¦‚æœä»…ä»…è¿›è¡Œè½¨é“å¤–æ¨åˆ™ç›´æ¥è°ƒç”¨ä¸€éæ­¤å‡½æ•°å³å¯ï¼Œä¾‹å¦‚ä»¥60ç§’çš„æ­¥é•¿å¤–æ¨ä¸€å¤©ç”¨ï¼š\n
 Satellite.Propagate(60,86400); \n
-Ò»°ãÕâÖÖÇé¿öÏÂĞèÒª²é¿´ÕâÒ»ÌìµÄ¹ìµÀÊı¾İ£¬ÔòĞèÒªÊÂÏÈÉèÖÃ×Ô¶¯±£´æ: \n
+ä¸€èˆ¬è¿™ç§æƒ…å†µä¸‹éœ€è¦æŸ¥çœ‹è¿™ä¸€å¤©çš„è½¨é“æ•°æ®ï¼Œåˆ™éœ€è¦äº‹å…ˆè®¾ç½®è‡ªåŠ¨ä¿å­˜: \n
 Satellite.SetAutoSave(true); \n
-ÍâÍÆÍê³Éºó¿ÉÒÔÖ±½Ó¶ÁÈ¡×Ô¶¯±£´æµÄÎÄ¼ş\n\n
-Èç¹û°Ñ¹ìµÀÍâÍÆ·Åµ½Õû¸ö·ÂÕæÑ­»·ÖĞ£¬ÔòÊ¹ÓÃ:\n
+å¤–æ¨å®Œæˆåå¯ä»¥ç›´æ¥è¯»å–è‡ªåŠ¨ä¿å­˜çš„æ–‡ä»¶\n\n
+å¦‚æœæŠŠè½¨é“å¤–æ¨æ”¾åˆ°æ•´ä¸ªä»¿çœŸå¾ªç¯ä¸­ï¼Œåˆ™ä½¿ç”¨:\n
 Satellite.Propagate(Step,Step); \n
-ÆäÖĞStepÎª¶¯Á¦Ñ§¼ÆËãÖÜÆÚ/·ÂÕæ²½³¤/²ÉÑùÖÜÆÚ
+å…¶ä¸­Stepä¸ºåŠ¨åŠ›å­¦è®¡ç®—å‘¨æœŸ/ä»¿çœŸæ­¥é•¿/é‡‡æ ·å‘¨æœŸ
 */
 void CSatelliteBase::Propagate(double h,const double dt)
 {	
@@ -286,7 +286,7 @@ void CSatelliteBase::Propagate(double h,const double dt)
 }
 }
 
-//! Ë¢ĞÂËê²îÕÂ¶¯µÈ¾ØÕó
+//! åˆ·æ–°å²å·®ç« åŠ¨ç­‰çŸ©é˜µ
 void CSatelliteBase::RefreshMatrix( const CDateTime tt )
 {
 	PR = Precession(tt);
@@ -295,7 +295,7 @@ void CSatelliteBase::RefreshMatrix( const CDateTime tt )
 }
 
 /*!
-ÏòºóÍâÍÆ
+å‘åå¤–æ¨
 */
 void CSatelliteBase::PropagateBackward(double h,const double dt)
 {
@@ -324,7 +324,7 @@ void CSatelliteBase::PropagateBackward(double h,const double dt)
 }
 }
 
-/*! ÍâÍÆµ½½üĞÄµã
+/*! å¤–æ¨åˆ°è¿‘å¿ƒç‚¹
 */
 void CSatelliteBase::Propagate2Perigee()
 {
@@ -350,7 +350,7 @@ void CSatelliteBase::Propagate2Perigee()
 				if( M+n*Step>PI2 )
 				{
 					endwile = true;
-					Step = fabs( (PI2-M) / n); // ×îºóÒ»²½¸Ä±ä²½³¤Ê¹M¸ÕºÃÎª0£¬¼´µ½´ï½üĞÄµã
+					Step = fabs( (PI2-M) / n); // æœ€åä¸€æ­¥æ”¹å˜æ­¥é•¿ä½¿Måˆšå¥½ä¸º0ï¼Œå³åˆ°è¾¾è¿‘å¿ƒç‚¹
 				}
 			}
 			pM = M;
@@ -358,7 +358,7 @@ void CSatelliteBase::Propagate2Perigee()
 	}
 }
 
-/*! ÍâÍÆµ½Ô¶ĞÄµã
+/*! å¤–æ¨åˆ°è¿œå¿ƒç‚¹
 */
 void CSatelliteBase::Propagate2Apogee()
 {
@@ -384,7 +384,7 @@ void CSatelliteBase::Propagate2Apogee()
 				if( M+n*Step>PI )
 				{
 					endwile = true;
-					Step = fabs( (PI-M) / n); // ×îºóÒ»²½¸Ä±ä²½³¤Ê¹M¸ÕºÃÎªPI£¬¼´µ½´ïÔ¶ĞÄµã
+					Step = fabs( (PI-M) / n); // æœ€åä¸€æ­¥æ”¹å˜æ­¥é•¿ä½¿Måˆšå¥½ä¸ºPIï¼Œå³åˆ°è¾¾è¿œå¿ƒç‚¹
 				}
 			}
 			pM = M;
@@ -392,7 +392,7 @@ void CSatelliteBase::Propagate2Apogee()
 	}
 }
 
-/*! ÍâÍÆµ½Éı½»µã
+/*! å¤–æ¨åˆ°å‡äº¤ç‚¹
 */
 void CSatelliteBase::Propagate2AscendingNode()
 {
@@ -418,7 +418,7 @@ void CSatelliteBase::Propagate2AscendingNode()
 				if( u+n*Step>PI2 )
 				{
 					endwile = true;
-					Step = fabs( (PI2-u) / n); // ×îºóÒ»²½¸Ä±ä²½³¤Ê¹u¸ÕºÃÎª0£¬¼´µ½´ïÉı½»µã
+					Step = fabs( (PI2-u) / n); // æœ€åä¸€æ­¥æ”¹å˜æ­¥é•¿ä½¿uåˆšå¥½ä¸º0ï¼Œå³åˆ°è¾¾å‡äº¤ç‚¹
 				}
 			}
 			pu = u;
@@ -426,7 +426,7 @@ void CSatelliteBase::Propagate2AscendingNode()
 	}
 }
 
-/*! ÍâÍÆµ½½µ½»µã
+/*! å¤–æ¨åˆ°é™äº¤ç‚¹
 */
 void CSatelliteBase::Propagate2DescendingNode()
 {
@@ -452,7 +452,7 @@ void CSatelliteBase::Propagate2DescendingNode()
 				if( u+n*Step>PI )
 				{
 					endwile = true;
-					Step = fabs( (PI-u) / n); // ×îºóÒ»²½¸Ä±ä²½³¤Ê¹u¸ÕºÃÎªPI£¬¼´µ½´ï½µ½»µã
+					Step = fabs( (PI-u) / n); // æœ€åä¸€æ­¥æ”¹å˜æ­¥é•¿ä½¿uåˆšå¥½ä¸ºPIï¼Œå³åˆ°è¾¾é™äº¤ç‚¹
 				}
 			}
 			pu = u;
@@ -460,7 +460,7 @@ void CSatelliteBase::Propagate2DescendingNode()
 	}
 }
 
-/*!ÍâÍÆµ½Ò»¶¨µÄÀúÔª*/
+/*!å¤–æ¨åˆ°ä¸€å®šçš„å†å…ƒ*/
 void CSatelliteBase::Propagate2Epoch(const CDateTime epoch)
 {
 	if(epoch < CurrentEpoch() )
@@ -469,8 +469,8 @@ void CSatelliteBase::Propagate2Epoch(const CDateTime epoch)
 		Propagate(100,epoch-CurrentEpoch());
 }
 
-/*! Ë²Ê±Âö³å»ú¶¯
-Input:  Dv:ËÙ¶ÈÔöÁ¿(km/s)  d:ËÙ¶ÈÔöÁ¿µÄ×ø±êÏµ
+/*! ç¬æ—¶è„‰å†²æœºåŠ¨
+Input:  Dv:é€Ÿåº¦å¢é‡(km/s)  d:é€Ÿåº¦å¢é‡çš„åæ ‡ç³»
 
 Output:   None
 Return:     None
@@ -499,23 +499,22 @@ ORBITDYN_API ostream & operator<<(ostream & os, const CSatelliteBase& sat)
 	return os;
 }
 
-/*! ³õÊ¼»¯¹ìµÀ
-\param elem ¹ìµÀ¸ùÊıa,e,i,O,w,M
-\param flag Æ½¸ùÊı»òË²Ê±¸ùÊıµÄ±êÖ¾
-flag = 'i' ±íÊ¾Ë²Ê±¸ùÊı\n
-flag = 'm' ±íÊ¾Æ½¾ù¸ùÊı\n
+/*! åˆå§‹åŒ–è½¨é“
+\param elem è½¨é“æ ¹æ•°a,e,i,O,w,M
+\param flag å¹³æ ¹æ•°æˆ–ç¬æ—¶æ ¹æ•°çš„æ ‡å¿—
+flag = 'i' è¡¨ç¤ºç¬æ—¶æ ¹æ•°\n
+flag = 'm' è¡¨ç¤ºå¹³å‡æ ¹æ•°\n
 */
-void CSatellite::Initialize(const CDateTime& t,const Kepler elem,const char flag/*='i'*/)
+void CSatellite::Initialize(const CDateTime& t,const Kepler elem)
 {
 	Epoch = t;
-	if(flag=='i')
-	{
-		Status0 = elem;
-	}
-	else if(flag=='m')
-	{
-		Status0 = Instant(elem);
-	}
+    Status0 = elem;
+    
+    FILE * fp = fopen("test init.txt","w");
+    fprintf(fp,"elem:%f %f %f %f %f %f\n",elem.a,elem.e,elem.i,elem.o,elem.w,elem.M);
+    fprintf(fp,"Status0:%f %f %f %f %f %f",Status0.a,Status0.e,Status0.i,Status0.o,Status0.w,Status0.M);
+    fclose(fp);
+    
 	a = Status0.a;
 	e = Status0.e;
 	i = Status0.i;
@@ -534,7 +533,7 @@ void CSatellite::Initialize(const CDateTime& t,const Kepler elem,const char flag
 	CSatelliteBase::Initialize();
 }
 
-/*! Éú³É³õÊ¼Ìõ¼şµÄ±¨¸æ
+/*! ç”Ÿæˆåˆå§‹æ¡ä»¶çš„æŠ¥å‘Š
 */
 //void CSatellite::ReportInitial()
 //{
@@ -584,7 +583,7 @@ void CSatellite::GetECF(vec3& ECFr,vec3& ECFv)
 }
 
 /*!
-   Ã¿´ÎÎÀĞÇ×´Ì¬PositionºÍVelocity±ä»¯Ê±µ÷ÓÃ´Ëº¯Êı¸üĞÂÎÀĞÇ¹ìµÀ¸ùÊı
+   æ¯æ¬¡å«æ˜ŸçŠ¶æ€Positionå’ŒVelocityå˜åŒ–æ—¶è°ƒç”¨æ­¤å‡½æ•°æ›´æ–°å«æ˜Ÿè½¨é“æ ¹æ•°
 */
 void CSatellite::RefreshStatus()
 {
@@ -605,16 +604,16 @@ void CSatellite::RefreshStatus()
 	w0 = sqrt(GE/a/a/a)*(1+2*e*cos(f)+e*e*cos(f)*cos(f))/sqrt(pow(1-e*e,3));
 	Coi = GetCoi(newkepler);
 }
-/*! ¼ÆËãÆ½¾ù¸ùÊı
+/*! è®¡ç®—å¹³å‡æ ¹æ•°
 */
 Kepler CSatellite::MedianElement() const
 {
 	Kepler Inst(a,e,i,Omega,w,M);
 	return Mean(Inst);
 }
-/*! ¶¯Á¦Ñ§·½³Ì
-   Input:  t:Ê±¼ä   x[6]:×´Ì¬±äÁ¿
-   Output:    y[6]:×´Ì¬±äÁ¿µÄÎ¢·Ö
+/*! åŠ¨åŠ›å­¦æ–¹ç¨‹
+   Input:  t:æ—¶é—´   x[6]:çŠ¶æ€å˜é‡
+   Output:    y[6]:çŠ¶æ€å˜é‡çš„å¾®åˆ†
 */
 void CSatellite::DynFunction(const double t,const vec& x,vec& y)
 {
@@ -628,7 +627,7 @@ void CSatellite::DynFunction(const double t,const vec& x,vec& y)
 
 	// Zonal Harmonic Terms and Tesseral Harmonic Terms
 	mat33 HG = PW*EarthRotation(tt)*NU*PR;
-	ECFr =  HG * r;  //J2000.0==>ECF  //´Ë´¦ÈÏÎª¼«ÒÆÊÇ³õÊ¼ÀúÔªµÄÖµ
+	ECFr =  HG * r;  //J2000.0==>ECF  //æ­¤å¤„è®¤ä¸ºæç§»æ˜¯åˆå§‹å†å…ƒçš„å€¼
 
 	if(Perturbation & ODP_EARTH_ZONAL)
 	{
@@ -637,7 +636,7 @@ void CSatellite::DynFunction(const double t,const vec& x,vec& y)
 		{
 			FG += PTesseralHarmonic(LL,ECFr);
 		}
-		F12 = HG.t() * FG;  //ECF==>J2000.0   //´Ë´¦ÈÏÎª¼«ÒÆÊÇ³õÊ¼ÀúÔªµÄÖµ
+		F12 = HG.t() * FG;  //ECF==>J2000.0   //æ­¤å¤„è®¤ä¸ºæç§»æ˜¯åˆå§‹å†å…ƒçš„å€¼
 		F = F + F12;
 	}
 
@@ -679,7 +678,7 @@ void CSatellite::DynFunction(const double t,const vec& x,vec& y)
 	}
 
 	//if(Perturbation & ODP_LUNAR_NON_SPHERE)
-	//{   // Ò»°ãÓÃÔÚµØÔÂ×ªÒÆ¹ìµÀ½øÈëÔÂÇòÓ°ÏìÇòÖ®ºó
+	//{   // ä¸€èˆ¬ç”¨åœ¨åœ°æœˆè½¬ç§»è½¨é“è¿›å…¥æœˆçƒå½±å“çƒä¹‹å
 	//	F += PLunar_NonSphere(TDT,ECI_MCI(r,TDT));
 	//}
 
@@ -700,29 +699,29 @@ void CSatellite::DynFunction(const double t,const vec& x,vec& y)
 		y[6] = 0;
 }
 
-/*!  ÇóÎÀĞÇµÄµØ¹ÌÏµ×ø±ê
+/*!  æ±‚å«æ˜Ÿçš„åœ°å›ºç³»åæ ‡
 */
 const vec3 CSatellite::ECFPos()
 {
 	return ECI_ECF(Epoch + ElapsedTime) * Position;
 }
-/*! ÇóÎÀĞÇµÄ¾­Î³¶È(µØÀí×ø±ê)
+/*! æ±‚å«æ˜Ÿçš„ç»çº¬åº¦(åœ°ç†åæ ‡)
 */
 CSpherical CSatellite::GetLLA()
 {
-	vec3 ECF = ECFPos(); // µØ¹ÌÏµÎ»ÖÃ
+	vec3 ECF = ECFPos(); // åœ°å›ºç³»ä½ç½®
 	return ECF_LLA(ECF);
 }
-/*! ÓÉ¸ùÊıÇóÎÀĞÇĞÇÏÂµã¾­Î³¶È
+/*! ç”±æ ¹æ•°æ±‚å«æ˜Ÿæ˜Ÿä¸‹ç‚¹ç»çº¬åº¦
 */
 CSpherical CSatellite::SubSatPoint(CSpherical & Geodetic,CSpherical & SSP)
 {
 	double r = a*(1 - e * cos(E));
-	// ¾­¶È
+	// ç»åº¦
 	double lmdG = GetSG(Epoch+ElapsedTime);
 	Geodetic.Longitude = fmod(atan2(Position(1),Position(0))-lmdG+4*PI,PI2);
 	if(Geodetic.Longitude>PI) Geodetic.Longitude -= PI2;
-	// Î³¶È
+	// çº¬åº¦
 	double zsr = Position(2)/r;
 	double Lan,BB,Rs0,hh;
 	if( zsr<-1 ) Geodetic.Latitude = -90;
@@ -730,9 +729,9 @@ CSpherical CSatellite::SubSatPoint(CSpherical & Geodetic,CSpherical & SSP)
 	else Geodetic.Latitude = asin(zsr);
 	Lan = Geodetic.Latitude;
 
-	// ĞÇÏÂµã¾­¶È
+	// æ˜Ÿä¸‹ç‚¹ç»åº¦
 	SSP.Longitude = Geodetic.Longitude;
-	// ĞÇÏÂµãÎ³¶È
+	// æ˜Ÿä¸‹ç‚¹çº¬åº¦
 	double Lane = Geodetic.Latitude;
 	double Ob1 = 1-Oblate;
 	for(int II=1;II<=4;II++)
@@ -748,41 +747,6 @@ CSpherical CSatellite::SubSatPoint(CSpherical & Geodetic,CSpherical & SSP)
 	SSP.Latitude = Lane;
 	SSP.Altitude = 0;
 	return SSP;
-}
-
-
-/*! ÍâÍÆµ½Éı½»µã
-*/
-void CSatellite::Propagate2Equator()
-{
-	double Step = 30;
-	double lat,lastlat;
-	bool first = true, endwile = false;
-	while (true)
-	{
-		Propagate(Step, Step);
-
-		if (endwile)
-			break;
-
-		CSpherical lla = GetLLA();
-		lat = lla.Latitude;
-
-		if (first)
-		{
-			first = false;
-		}
-		else
-		{
-			double n = (lat - lastlat) / Step;
-			if ( (lat<0 && n >0 && lat+n*Step>0) || (lat>0 && n<0 && lat+n*Step<0) )
-			{
-				endwile = true;
-				Step = fabs(lat / n); // ×îºóÒ»²½¸Ä±ä²½³¤Ê¹u¸ÕºÃÎª0£¬¼´µ½´ïÉı½»µã
-			}
-		}
-		lastlat = lat;
-	}
 }
 
 //double CSatellite::Propagate2u(double &t,double h,CSatellite &s,double ut,const double dd,FILE* out)
@@ -807,7 +771,7 @@ void CSatellite::Propagate2Equator()
 //	double u1=s.M_u;
 //	double du=ut-u1;
 //	du=du>0?du:(du+PI2);
-////¶ÔÓÚĞ¡Æ«ĞÄÂÊ¹ìµÀ£¬df+dwÔ¼µÈÓÚdM+dwÔ¼µÈÓÚdlamda
+////å¯¹äºå°åå¿ƒç‡è½¨é“ï¼Œdf+dwçº¦ç­‰äºdM+dwçº¦ç­‰äºdlamda
 //	double dt1=du/(n+lamda1);   //(unit:minute)
 //	double dt=dt1;
 //	double dt2=dt1;
@@ -834,7 +798,7 @@ void CSatellite::Propagate2Equator()
 //	return dt;
 //}
 
-//double CSatellite::Propagate2M(double &t,double h,CSatellite &s,const double Mt,const double dd,FILE* out)	//ÍâÍÆµ½Æ½½üµã½ÇM		|
+//double CSatellite::Propagate2M(double &t,double h,CSatellite &s,const double Mt,const double dd,FILE* out)	//å¤–æ¨åˆ°å¹³è¿‘ç‚¹è§’M		|
 //{
 //	double n=sqrt(1/s.a/s.a/s.a);
 //	s.other('i');
@@ -851,14 +815,14 @@ void CSatellite::Propagate2Equator()
 //	}
 //}
 
-//! ³õÊ¼»¯¼°ÉèÖÃº¯Êı
-void CRapidSatellite::Initialize(const CDateTime& t,const Kepler elem,const char flag)
+//! åˆå§‹åŒ–åŠè®¾ç½®å‡½æ•°
+void CRapidSatellite::Initialize(const CDateTime& t,const Kepler elem)
 {
 	ElapsedTimems = 0;
 	ElapsedTime = 0;
 	m_lastpert = 0;
-	CSatellite::Initialize(t,elem,flag);
-	// ¼ÆËã³õÊ¼Ê±¿ÌµÄĞı×ª¾ØÕó¡¢Éã¶¯¼ÓËÙ¶È
+	CSatellite::Initialize(t,elem);
+	// è®¡ç®—åˆå§‹æ—¶åˆ»çš„æ—‹è½¬çŸ©é˜µã€æ‘„åŠ¨åŠ é€Ÿåº¦
 	RefreshPert(Epoch);
 }
 
@@ -866,7 +830,7 @@ void CRapidSatellite::RefreshPert( const CDateTime tt )
 {
 	mat33 ER = EarthRotation(tt);
 	mat33 HG = PW*ER*NU*PR;
-	vec3 ECFr =  HG * Position;  //J2000.0==>ECF  //´Ë´¦ÈÏÎª¼«ÒÆÊÇ³õÊ¼ÀúÔªµÄÖµ
+	vec3 ECFr =  HG * Position;  //J2000.0==>ECF  //æ­¤å¤„è®¤ä¸ºæç§»æ˜¯åˆå§‹å†å…ƒçš„å€¼
 	if(Perturbation & ODP_EARTH_ZONAL)
 	{
 		F_zonal = PZonalHarmonic(LL,ECFr);
@@ -909,7 +873,7 @@ void CRapidSatellite::RefreshPert( const CDateTime tt )
 		F_ppn = PPostNewton(Position,Velocity);
 	}
 }
-// hÎªÍâÍÆ²½³¤£¬µ¥Î»Îªms
+// hä¸ºå¤–æ¨æ­¥é•¿ï¼Œå•ä½ä¸ºms
 void CRapidSatellite::Propagate(int h)
 {	
 	if(FirstTimeOutput){
@@ -926,7 +890,7 @@ void CRapidSatellite::Propagate(int h)
 }
 }
 
-// StepSizeµ¥Î»Îªms
+// StepSizeå•ä½ä¸ºms
 int CRapidSatellite::OneStep(int StepSize,double MaxCutError /* = 1 */,CStopCondition* StopCon/* = NULL */)
 {
 	vec7 x,xh;
@@ -937,9 +901,9 @@ int CRapidSatellite::OneStep(int StepSize,double MaxCutError /* = 1 */,CStopCond
 
 	CDateTime tt = Epoch + ElapsedTimems/1000.0;
 
-	// µ±ÖØĞÂ³õÊ¼»¯ÒÔºó£¬ElapsedTime±äÎª0£¬¶øm_lastpert±£ÁôÔ­À´µÄÖµ£¬µ¼ÖÂÉã¶¯Á¦Ã»ÓĞ¸üĞÂ
-	//if(ElapsedTime>=m_lastpert+0.05-DBL_EPSILON£©
-	// ÏÖÔÚ¸ÄÎªÒ»¸öÕı¸ºµÄÇø¼ä£¬±£Ö¤ElapsedTimeÓëm_lastpertµÄ²î³¬¹ıÒ»¶¨Ê±¼äºóÈÔ»á¸üĞÂÉã¶¯Á¦
+	// å½“é‡æ–°åˆå§‹åŒ–ä»¥åï¼ŒElapsedTimeå˜ä¸º0ï¼Œè€Œm_lastpertä¿ç•™åŸæ¥çš„å€¼ï¼Œå¯¼è‡´æ‘„åŠ¨åŠ›æ²¡æœ‰æ›´æ–°
+	//if(ElapsedTime>=m_lastpert+0.05-DBL_EPSILONï¼‰
+	// ç°åœ¨æ”¹ä¸ºä¸€ä¸ªæ­£è´Ÿçš„åŒºé—´ï¼Œä¿è¯ElapsedTimeä¸m_lastpertçš„å·®è¶…è¿‡ä¸€å®šæ—¶é—´åä»ä¼šæ›´æ–°æ‘„åŠ¨åŠ›
 	if( fabs(double(ElapsedTimems - m_lastpert)) >= PeriodPert)
 	{
 		m_lastpert = ElapsedTimems;
@@ -967,19 +931,19 @@ int CRapidSatellite::OneStep(int StepSize,double MaxCutError /* = 1 */,CStopCond
 	}
 	else
 	{
-		// Í£Ö¹Ìõ¼şµÄÅĞ¶Ï
+		// åœæ­¢æ¡ä»¶çš„åˆ¤æ–­
 	}
 
 	vec7 y;
-	DynFunction(ElapsedTime,xh,y); //ElapsedTimeÊµ¼ÊÃ»ÓĞÓÃ
+	DynFunction(ElapsedTime,xh,y); //ElapsedTimeå®é™…æ²¡æœ‰ç”¨
 	acc = y.subvec(3,5);
 
 	return 1;
 }
 
-/*! ¶¯Á¦Ñ§·½³Ì
-Input:  t:Ê±¼ä   x[6]:×´Ì¬±äÁ¿
-Output:    y[6]:×´Ì¬±äÁ¿µÄÎ¢·Ö
+/*! åŠ¨åŠ›å­¦æ–¹ç¨‹
+Input:  t:æ—¶é—´   x[6]:çŠ¶æ€å˜é‡
+Output:    y[6]:çŠ¶æ€å˜é‡çš„å¾®åˆ†
 */
 void CRapidSatellite::DynFunction(const double t,const vec& x,vec& y)
 {
@@ -1044,7 +1008,7 @@ void CRapidSatellite::DynFunction(const double t,const vec& x,vec& y)
 }
 
 /*!
-Ã¿´ÎÎÀĞÇ×´Ì¬PositionºÍVelocity±ä»¯Ê±µ÷ÓÃ´Ëº¯Êı¸üĞÂÎÀĞÇ¹ìµÀ¸ùÊı
+æ¯æ¬¡å«æ˜ŸçŠ¶æ€Positionå’ŒVelocityå˜åŒ–æ—¶è°ƒç”¨æ­¤å‡½æ•°æ›´æ–°å«æ˜Ÿè½¨é“æ ¹æ•°
 */
 void CRapidSatellite::RefreshStatus()
 {
@@ -1067,14 +1031,14 @@ void CRapidSatellite::RefreshStatus()
 }
 
 /*!
-Ê¹ÓÃĞ¡Æ«ĞÄÂÊ¹ìµÀ¸ùÊı×÷Îª»ı·Ö±äÁ¿£¬RKF78ÑØÓÃ×î³õ°æ±¾Ê¹ÓÃµÄ·½·¨
-Ö»ÊÇËùÓĞµÄµ¥Î»ÓÉÎŞÁ¿¸ÙÁ¿±äÎªkm,s,rad
+ä½¿ç”¨å°åå¿ƒç‡è½¨é“æ ¹æ•°ä½œä¸ºç§¯åˆ†å˜é‡ï¼ŒRKF78æ²¿ç”¨æœ€åˆç‰ˆæœ¬ä½¿ç”¨çš„æ–¹æ³•
+åªæ˜¯æ‰€æœ‰çš„å•ä½ç”±æ— é‡çº²é‡å˜ä¸ºkm,s,rad
 */
 int CLEO::OneStep(double StepSize,double MaxCutError /* = 1.0 */,CStopCondition* SC /* = NULL */)
 {
 	vec x,xh;
 	double ee;
-	// »ı·Ö±äÁ¿Êı×éÎª a  i  Omega  ksi  eta  lamda
+	// ç§¯åˆ†å˜é‡æ•°ç»„ä¸º a  i  Omega  ksi  eta  lamda
 	x[0] = a;
 	x[1] = i;
 	x[2] = Omega;
@@ -1101,7 +1065,7 @@ int CLEO::OneStep(double StepSize,double MaxCutError /* = 1.0 */,CStopCondition*
 		e = sqrt(xh[3]*xh[3]+xh[4]*xh[4]);
 		w = fmod(atan2(xh[4],xh[3])+PI2,PI2);
 		M = fmod(xh[5]-w+PI2,PI2);
-		//... ¼ÆËãÆäËû¹ìµÀ¸ùÊı¡¢Î»ÖÃ¡¢ËÙ¶È
+		//... è®¡ç®—å…¶ä»–è½¨é“æ ¹æ•°ã€ä½ç½®ã€é€Ÿåº¦
 		RefreshStatus();
 		BurnedFuel += Mass() - xh[6];
 	}
@@ -1115,7 +1079,7 @@ int CLEO::OneStep(double StepSize,double MaxCutError /* = 1.0 */,CStopCondition*
 	//return StepSize;
 	return 1;
 }
-/*! ´Ëº¯ÊıÊµÏÖCSatelliteBase::RefreshKepler()º¯Êı£¬µ«
+/*! æ­¤å‡½æ•°å®ç°CSatelliteBase::RefreshKepler()å‡½æ•°ï¼Œä½†
 */
 void CLEO::RefreshStatus()
 {
@@ -1130,16 +1094,16 @@ void CLEO::RefreshStatus()
 	v = norm(Velocity,2);
 }
 
-/*!¶¯Á¦Ñ§·½³Ì
-t:Ê±¼ä   x[6]:×´Ì¬±äÁ¿a  i  Omega  ksi  eta  lamda
-y[6]:×´Ì¬±äÁ¿µÄÎ¢·Ö
+/*!åŠ¨åŠ›å­¦æ–¹ç¨‹
+t:æ—¶é—´   x[6]:çŠ¶æ€å˜é‡a  i  Omega  ksi  eta  lamda
+y[6]:çŠ¶æ€å˜é‡çš„å¾®åˆ†
 */
 void CLEO::DynFunction(const double t,const vec& x,vec& y)
 {
 	vec3 F;
 	F.zeros();
 	static vec3 rs,FG,ECFr,F12,r,rd,RR,TT,P,Q,S;
-	// ¼ÆËãu
+	// è®¡ç®—u
 	double uE=KeplerFunc2(x[3],x[4],x[5]);
 	double SuE=sin(uE);
 	double CuE=cos(uE);
@@ -1148,13 +1112,13 @@ void CLEO::DynFunction(const double t,const vec& x,vec& y)
 	double WE2=1.0+GE2;
 	double ZuE=x[3]*CuE+x[4]*SuE;
 	double FuE=x[3]*SuE-x[4]*CuE;
-	double r0=x[0]*(1.0-ZuE); //Ê¸¾¶
+	double r0=x[0]*(1.0-ZuE); //çŸ¢å¾„
 	double Gp=sqrt(x[0]*(1.0-e2));
 	double Sdu=x[0]/r0*FuE*(1.0-ZuE/WE2);
 	double Cdu=sqrt(1.0-Sdu*Sdu);
 	double du=atan2(Sdu,Cdu);
 	double u=uE+du;
-	// ¼ÆËã×ø±êµ¥Î»Ê¸Á¿
+	// è®¡ç®—åæ ‡å•ä½çŸ¢é‡
 	double Su=sin(u);
 	double Cu=cos(u);
 	double Si=sin(x[1]);
@@ -1177,10 +1141,10 @@ void CLEO::DynFunction(const double t,const vec& x,vec& y)
 	mat33 HG = PW*EarthRotation(tt)*NU*PR;;
 
 	// Zonal Harmonic Terms and Tesseral Harmonic Terms
-	ECFr = HG * r;	//J2000.0==>ECF  //´Ë´¦ÈÏÎª¼«ÒÆÊÇ³õÊ¼ÀúÔªµÄÖµ
+	ECFr = HG * r;	//J2000.0==>ECF  //æ­¤å¤„è®¤ä¸ºæç§»æ˜¯åˆå§‹å†å…ƒçš„å€¼
 	if(Perturbation & ODP_EARTH_TESSERAL) FG = PZonalHarmonic(LL,ECFr) + PTesseralHarmonic(LL,ECFr);
 	else FG = PZonalHarmonic(LL,ECFr);
-	F12 = HG.t() * FG; //ECF==>J2000.0   //´Ë´¦ÈÏÎª¼«ÒÆÊÇ³õÊ¼ÀúÔªµÄÖµ
+	F12 = HG.t() * FG; //ECF==>J2000.0   //æ­¤å¤„è®¤ä¸ºæç§»æ˜¯åˆå§‹å†å…ƒçš„å€¼
 	F = F + F12;
 
 	// Lunar Gravitation
@@ -1210,7 +1174,7 @@ void CLEO::DynFunction(const double t,const vec& x,vec& y)
 
 	// Thrust
 	if(ThrustIsOn)		
-		F += trans(qbi.C())*(ThrustDirection*Engine->F/(Mass0-BurnedFuel)/1000.0);  //¹ßĞÔÏµÖĞµÄÅçÆø¼ÓËÙ¶È
+		F += trans(qbi.C())*(ThrustDirection*Engine->F/(Mass0-BurnedFuel)/1000.0);  //æƒ¯æ€§ç³»ä¸­çš„å–·æ°”åŠ é€Ÿåº¦
 
 	// All Perturbation Accelerations
 	S = RotationZ(u)*RotationX(x[1])*RotationZ(x[2])*F;
@@ -1234,8 +1198,8 @@ void CLEO::DynFunction(const double t,const vec& x,vec& y)
 		y[6] = 0;
 }
 
-/*! ³õÊ¼»¯¹ìµÀ
-\param elem ÔÂĞÄ¹ßĞÔÏµ¹ìµÀ¸ùÊıa,e,i,O,w,M
+/*! åˆå§‹åŒ–è½¨é“
+\param elem æœˆå¿ƒæƒ¯æ€§ç³»è½¨é“æ ¹æ•°a,e,i,O,w,M
 */
 void CMoonSat::Initialize(const CDateTime& t,const Kepler elem)
 {
@@ -1258,8 +1222,8 @@ void CMoonSat::Initialize(const CDateTime& t,const Kepler elem)
 	CSatelliteBase::Initialize();
 }
 
-/*! ³õÊ¼»¯¹ìµÀ
-\param elem ÔÂĞÄ¹ßĞÔÏµ¹ìµÀ¸ùÊıa,e,i,O,w,M
+/*! åˆå§‹åŒ–è½¨é“
+\param elem æœˆå¿ƒæƒ¯æ€§ç³»è½¨é“æ ¹æ•°a,e,i,O,w,M
 */
 void CMoonSat::Initialize(const CDateTime& t,const vec3 p,const vec3 v)
 {
@@ -1268,7 +1232,7 @@ void CMoonSat::Initialize(const CDateTime& t,const vec3 p,const vec3 v)
 }
 
 /*!
-Ã¿´ÎÎÀĞÇ×´Ì¬PositionºÍVelocity±ä»¯Ê±µ÷ÓÃ´Ëº¯Êı¸üĞÂÎÀĞÇ¹ìµÀ¸ùÊı
+æ¯æ¬¡å«æ˜ŸçŠ¶æ€Positionå’ŒVelocityå˜åŒ–æ—¶è°ƒç”¨æ­¤å‡½æ•°æ›´æ–°å«æ˜Ÿè½¨é“æ ¹æ•°
 */
 void CMoonSat::RefreshStatus()
 {
@@ -1288,10 +1252,10 @@ void CMoonSat::RefreshStatus()
 	v = norm(Velocity,2);
 }
 
-/*! »·ÔÂ¹ìµÀ¶¯Á¦Ñ§·½³Ì
-\param t Ê±¼ä
-\param x ×´Ì¬±äÁ¿
-\param y ×´Ì¬±äÁ¿µÄÎ¢·Ö
+/*! ç¯æœˆè½¨é“åŠ¨åŠ›å­¦æ–¹ç¨‹
+\param t æ—¶é—´
+\param x çŠ¶æ€å˜é‡
+\param y çŠ¶æ€å˜é‡çš„å¾®åˆ†
 */
 void CMoonSat::DynFunction(const double t,const vec& x,vec& y)
 {
@@ -1303,8 +1267,8 @@ void CMoonSat::DynFunction(const double t,const vec& x,vec& y)
 
 	CDateTime tt = Epoch + t;
 
-	// ÔÂÇò·ÇÇòĞÎÒıÁ¦
-	mat33 MIF = MCI_MCF(tt); //ÔÂĞÄ¹ßĞÔÏµµ½ÔÂ¹ÌÏµ×ª»»¾ØÕó
+	// æœˆçƒéçƒå½¢å¼•åŠ›
+	mat33 MIF = MCI_MCF(tt); //æœˆå¿ƒæƒ¯æ€§ç³»åˆ°æœˆå›ºç³»è½¬æ¢çŸ©é˜µ
 	vec3 SatMCF = MIF*r;
 	if(Perturbation & ODP_LUNAR_TESSERAL)
 		FG = PZonalHarmonic(LL,SatMCF,Moon::Instance()) + PTesseralHarmonic(LL,SatMCF,Moon::Instance());
@@ -1317,16 +1281,16 @@ void CMoonSat::DynFunction(const double t,const vec& x,vec& y)
 
 	vec3 Moon = Moon::Instance()->GetECI(tt);
 	// earth gravity
-	if(Perturbation & ODP_EARTH_CENT) //ÕâÀï½èÓÃODP_LUNAR±íÊ¾ÊÇ·ñ¿¼ÂÇµØÇòÒıÁ¦ 
+	if(Perturbation & ODP_EARTH_CENT) //è¿™é‡Œå€Ÿç”¨ODP_LUNARè¡¨ç¤ºæ˜¯å¦è€ƒè™‘åœ°çƒå¼•åŠ› 
 	{	
-		F += PThirdBodyGrv(r, -Moon , GE); // µØÇòÔÚMCIµÄÎ»ÖÃ¼´¹ßĞÔÏµÔÂÇòÎ»ÖÃµÄ·´·½Ïò
+		F += PThirdBodyGrv(r, -Moon , GE); // åœ°çƒåœ¨MCIçš„ä½ç½®å³æƒ¯æ€§ç³»æœˆçƒä½ç½®çš„åæ–¹å‘
 	}
 
 	// Solar Gravitation
 	if( (Perturbation & ODP_SOLAR_CENT)  || (Perturbation & ODP_SOLAR_PRESSURE))
 	{
 		rs = Sun::Instance()->GetECI(tt);   // rs:solar coordinate in J2000.0
-		rs -= Moon; // ÔÂĞÄ¹ßĞÔÏµÌ«Ñô·½Ïò
+		rs -= Moon; // æœˆå¿ƒæƒ¯æ€§ç³»å¤ªé˜³æ–¹å‘
     }
 
 	// solar gravity
@@ -1358,9 +1322,9 @@ void CMoonSat::DynFunction(const double t,const vec& x,vec& y)
 		y[6] = 0;
 }
 
-/*!  ×Ô¶¯±£´æ¹ìµÀ¸ùÊı
-×Ô¶¯±£´æµÄ¸ñÊ½Îª£º\n
-Ê±¼ät       °ë³¤Öáa    Æ«ĞÄÂÊe    Çã½Çi    Éı½»µã³à¾­Omega     ½üµØµã·ù½Çw     Æ½½üµã½ÇM      ¹ìµÀ·ù½Çu
+/*!  è‡ªåŠ¨ä¿å­˜è½¨é“æ ¹æ•°
+è‡ªåŠ¨ä¿å­˜çš„æ ¼å¼ä¸ºï¼š\n
+æ—¶é—´t       åŠé•¿è½´a    åå¿ƒç‡e    å€¾è§’i    å‡äº¤ç‚¹èµ¤ç»Omega     è¿‘åœ°ç‚¹å¹…è§’w     å¹³è¿‘ç‚¹è§’M      è½¨é“å¹…è§’u
 */
 void CMoonSat::SaveElem()
 {

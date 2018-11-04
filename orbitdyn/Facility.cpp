@@ -1,14 +1,12 @@
 /*!
 \file  Facility.cpp
 \author HanDle
-µØÃæÕ¾µÄº¯Êý
-*/
-
+ åœ°é¢ç«™çš„å‡½æ•°*/
 #include "Facility.h"
 
 /*!
-¹¹Ôìº¯Êý
-Longitude,Latitude,Altitude:¾­¶È(¶È)¡¢Î³¶È(¶È)¡¢¸ß¶È(km)
+æž„é€ å‡½æ•°
+Longitude,Latitude,Altitude:ç»åº¦(åº¦)ã€çº¬åº¦(åº¦)ã€é«˜åº¦(km)
 */
 CFacility::CFacility(double Lon,double Lat,double Alt,double elev /* = 5 */)
 {
@@ -19,8 +17,8 @@ CFacility::CFacility(double Lon,double Lat,double Alt,double elev /* = 5 */)
 	CalculateECF();
 }
 /*!
-ÉèÖÃµØÀí×ø±ê
-lon,lat,alt:¾­¶È(¶È)¡¢Î³¶È(¶È)¡¢¸ß¶È(km)
+è®¾ç½®åœ°ç†åæ ‡
+lon,lat,alt:ç»åº¦(åº¦)ã€çº¬åº¦(åº¦)ã€é«˜åº¦(km)
 */
 void CFacility::SetGeodetic(double Lon,double Lat,double Alt)
 {
@@ -30,32 +28,32 @@ void CFacility::SetGeodetic(double Lon,double Lat,double Alt)
 	CalculateECF();
 }
 /*!
-¼ÆËãµØÃæÕ¾ÔÚJ2000×ø±êÏµÖÐÎ»ÖÃºÍËÙ¶È
-time:Ê±¼ä
-pos,vel:Î»ÖÃºÍËÙ¶È
+è®¡ç®—åœ°é¢ç«™åœ¨J2000åæ ‡ç³»ä¸­ä½ç½®å’Œé€Ÿåº¦
+time:æ—¶é—´
+pos,vel:ä½ç½®å’Œé€Ÿåº¦
 */
 void CFacility::GetECI(const CDateTime time,vec3 & pos,vec3 & vel)
 {
-	vec3 r = trans(PolarMotion(time))*ECFPosition; // ×¼µØ¹ÌÏµÎ»ÖÃ
+	vec3 r = trans(PolarMotion(time))*ECFPosition; // å‡†åœ°å›ºç³»ä½ç½®
 	vec3 w;
 	w.zeros();
 	w(2) = We;
-	vec3 v = cross(w,r); // ·ÇÐý×ª×¼µØ¹ÌÏµËÙ¶È
+	vec3 v = cross(w,r); // éžæ—‹è½¬å‡†åœ°å›ºç³»é€Ÿåº¦
 	mat33 PN = trans(Precession(time))*trans(Nutation(time))*trans(EarthRotation(time));
 	pos = PN*r;
 	vel = PN*v;
 }
 
 /*!
-¼ÆËãµØÃæÕ¾ÔÚJ2000×ø±êÏµÖÐÎ»ÖÃºÍËÙ¶È
-time:Ê±¼ä
+è®¡ç®—åœ°é¢ç«™åœ¨J2000åæ ‡ç³»ä¸­ä½ç½®å’Œé€Ÿåº¦
+time:æ—¶é—´
 */
 vec3 CFacility::ECIPos(const CDateTime time)
 {
 	return trans(ECI_ECF(time))*ECFPosition;
 }
 
-//! ¸ù¾ÝµØÀí¾­Î³¶È¼ÆËãµØ¹ÌÏµÎ»ÖÃ
+//! æ ¹æ®åœ°ç†ç»çº¬åº¦è®¡ç®—åœ°å›ºç³»ä½ç½®
 void CFacility::CalculateECF()
 {
 //	double GeocentricLatitude = atan(tan(Latitude)*(1.0-Oblate)*(1.0-Oblate));
@@ -72,14 +70,14 @@ void CFacility::CalculateECF()
 	//const static double f = 1.0/298.25645;
 
 	const static double ee = 1-(1-f)*(1-f);
-	// ¿ªÊ¼¼ÆËã
-	// Elliott D.Kaplan GPSÔ­ÀíÓëÓ¦ÓÃ(µÚ¶þ°æ), ¿ÜÑÞºì Òë,p21
+	// å¼€å§‹è®¡ç®—
+	// Elliott D.Kaplan GPSåŽŸç†ä¸Žåº”ç”¨(ç¬¬äºŒç‰ˆ), å¯‡è‰³çº¢ è¯‘,p21
 	//double fm = sqrt(1+(1-ee)*tan(Latitude)*tan(Latitude));
 	//ECFPosition[0] = a*cos(Longitude)/fm + Altitude*cos(Longitude)*cos(Latitude);
 	//ECFPosition[1] = a*sin(Longitude)/fm + Altitude*sin(Longitude)*cos(Latitude);
 	//ECFPosition[2] = a*(1-ee)*sin(Latitude)/sqrt(1-ee*sin(Latitude)*sin(Latitude)) + Altitude*sin(Latitude);
 	
-	// Á½ÖÖ¼ÆËã¹«Ê½ÍêÈ«µÈ¼Û
+	// ä¸¤ç§è®¡ç®—å…¬å¼å®Œå…¨ç­‰ä»·
 
 	// Xu GuoChang, GPS Theory,Algorithms and Applications,  p4-5
 	double N = a/sqrt(1-ee*sin(Latitude)*sin(Latitude));
@@ -88,12 +86,12 @@ void CFacility::CalculateECF()
 	ECFPosition[2] = (N*(1-ee)+Altitude)*sin(Latitude);
 }
 
-// µØ¹ÌÏµµ½µØÃæÕ¾×ø±êÏµµÄ×ª»»¾ØÕó
-// ÊäÈë£ºLongitudeµØÀí¾­¶È(rad)
-//       LatitudeµØÐÄÎ³¶È(rad)
+// åœ°å›ºç³»åˆ°åœ°é¢ç«™åæ ‡ç³»çš„è½¬æ¢çŸ©é˜µ
+// è¾“å…¥ï¼šLongitudeåœ°ç†ç»åº¦(rad)
+//       Latitudeåœ°å¿ƒçº¬åº¦(rad)
 ORBITDYN_API mat33 VehicleCoord(double Longitude,double Latitude)
 {
-	const static double f = 1.0/298.257;
+	//const static double f = 1.0/298.257;
 	double phic = Latitude;//atan((1-f*f)*tan(Latitude));
 	mat33 C;
  	C(0,0) = -sin(Longitude);			 C(0,1) = cos(Longitude);			  C(0,2) = 0;
@@ -106,13 +104,13 @@ ORBITDYN_API mat33 VehicleCoord(double Longitude,double Latitude)
 	return C;
 }
 
-/* ¼ÆËãÎÀÐÇÔÚµØÃæÕ¾ÖÐ·½Î»½Ç¡¢Ñö½ÇºÍ¾àÀë
+/* è®¡ç®—å«æ˜Ÿåœ¨åœ°é¢ç«™ä¸­æ–¹ä½è§’ã€ä»°è§’å’Œè·ç¦»
 {
 	CFacility fac;
 	fac.SetGeodetic(input->v.Longitude,input->v.Latitude,input->v.Altitude);
 	CDateTime epoch;
 	epoch.SetTime(input->t.year,input->t.month,input->t.day,input->t.hour,input->t.minute,input->t.second);
-	epoch = epoch - 28800 + stepsize; //×ª»¯ÎªÊÀ½çÊ±
+	epoch = epoch - 28800 + stepsize; //è½¬åŒ–ä¸ºä¸–ç•Œæ—¶
 	Vector u = fac.ECFPosition;
 
 	struct OrbitElements* oe = &input->oe;
@@ -126,7 +124,7 @@ ORBITDYN_API mat33 VehicleCoord(double Longitude,double Latitude)
 	Matrix C = VehicleCoord(fac.Longitude*RAD,fac.Latitude*RAD);
 	Vector s = C*(R-u);
 
-	//Êä³ö
+	//è¾“å‡º
 	epoch = epoch + 28800;
 	GetCalendar(epoch.GetMJD(),output->t.year,output->t.month,output->t.day,output->t.hour,output->t.minute,output->t.second);
 	input->t = output->t;

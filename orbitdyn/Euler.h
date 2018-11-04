@@ -5,7 +5,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "config.h"
+#include "Config.h"
 #include "BaseException.h"
 #include "armadillo_BLAS_LAPACK.h"
 using namespace arma;
@@ -17,7 +17,7 @@ public:
 		: BaseException("CEuler exception:",details)
 	{
 	}
-	virtual ~CEulerException() _NOEXCEPT
+	virtual ~CEulerException()
 	{
 	}
 	CEulerException(const CEulerException& cdte)
@@ -26,14 +26,14 @@ public:
 	}
 };
 
-/*!Å·À­½Ç
+/*!æ¬§æ‹‰è§’
 */
 class ORBITDYN_API CEuler
 {
 public:
-	//! Å·À­½Ç×ªĞò
+	//! æ¬§æ‹‰è§’è½¬åº
 	unsigned int seq;
-	//! Å·À­½Ç
+	//! æ¬§æ‹‰è§’
 	double phi,theta,psi;
 
 	CEuler();
@@ -44,7 +44,7 @@ public:
 
 	vec3 ToVec();
 	
-	// ÓÉ×ËÌ¬¾ØÕó¼ÆËã×ËÌ¬½Ç
+	// ç”±å§¿æ€çŸ©é˜µè®¡ç®—å§¿æ€è§’
 	void SetValueFromMatrix312(const mat& m);
 	void SetValueFromMatrix123(const mat& m);
 	void SetValueFromMatrix231(const mat& m);
@@ -53,10 +53,10 @@ public:
 	void SetValueFromMatrix321(const mat& m);
 	void SetValue(double a,double b,double c);
 
-	//! °´ÕÕ×ªĞòµÄ¶¨ÒåÉú³ÉÓàÏÒÕó
+	//! æŒ‰ç…§è½¬åºçš„å®šä¹‰ç”Ÿæˆä½™å¼¦é˜µ
 	mat33 ToMatrix();
 	
-	//! Éú³ÉĞ¡½Ç¶ÈÏÂµÄ×ËÌ¬¾ØÕó
+	//! ç”Ÿæˆå°è§’åº¦ä¸‹çš„å§¿æ€çŸ©é˜µ
 	mat33 SmallAngleMatrix();
 
 	double operator[](const int i) const{

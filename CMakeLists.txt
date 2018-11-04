@@ -22,6 +22,7 @@ endif(APPLE)
 
 add_subdirectory(orbitdyn)
 add_subdirectory(maneuver)
+add_subdirectory(LowThrust)
 #add_subdirectory(dyn)
 
 

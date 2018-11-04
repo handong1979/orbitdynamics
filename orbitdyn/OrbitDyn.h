@@ -9,7 +9,7 @@
 #include "Euler.h"
 #include "Facility.h"
 #include "Satellite.h"
-#include "utility.h"
+#include "Utility.h"
 
 #define TAB "\t"
 
@@ -50,10 +50,6 @@ struct orbitdyn_version
 	}
 };
 
-#if _DEBUG
-#pragma comment(lib,"OrbitDynD.lib")
-#else
 #pragma comment(lib,"OrbitDyn.lib")
-#endif
 
 #endif // __ORBITDYN_H

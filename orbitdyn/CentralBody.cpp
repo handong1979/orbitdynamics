@@ -1,24 +1,24 @@
 /*!
 \file CentralBody.cpp
 \author HanDle
-ÖĞĞÄÌìÌå
+ä¸­å¿ƒå¤©ä½“
 */
 
 #include "CentralBody.h"
 #include "Utility.h"
 
 
-//! µØÇò,°üÀ¨Ê±¼ä¡¢ÒıÁ¦³¡Ä£ĞÍ(EGM96)ºÍ´óÆøÄ£ĞÍ(SA76)
+//! åœ°çƒ,åŒ…æ‹¬æ—¶é—´ã€å¼•åŠ›åœºæ¨¡å‹(EGM96)å’Œå¤§æ°”æ¨¡å‹(SA76)
 // ORBITDYN_API CEarth Earth;
 Earth* Earth::theInstance = NULL;
 
-//! ÔÂÇò,°üÀ¨ÒıÁ¦³¡Ä£ĞÍ(Ä¬ÈÏÎªGLGM-2)
+//! æœˆçƒ,åŒ…æ‹¬å¼•åŠ›åœºæ¨¡å‹(é»˜è®¤ä¸ºGLGM-2)
 // ORBITDYN_API CMoon Moon;
 
 CentralBody::CentralBody()
 {
 	memset(&(CLM[0][0]),0,sizeof(double)*10082);
-	DataDir = GetOrbitDynDir();// ¶ÁÈ¡»·¾³±äÁ¿OrbitDyn£¬¼´dataÄ¿Â¼ËùÔÚÎ»ÖÃ
+	DataDir = GetOrbitDynDir();// è¯»å–ç¯å¢ƒå˜é‡OrbitDynï¼Œå³dataç›®å½•æ‰€åœ¨ä½ç½®
 #ifndef NONE_DATA_FILE_MODE
 	EphModel = DE421EPH;
 #else
@@ -32,29 +32,29 @@ CentralBody::~CentralBody()
 }
 
 /*!
-´ÓÒıÁ¦³¡ÎÄ¼şÖĞ¶ÁÈ¡ÒıÁ¦³¡ÏµÊı
+ä»å¼•åŠ›åœºæ–‡ä»¶ä¸­è¯»å–å¼•åŠ›åœºç³»æ•°
 */
 void CentralBody::ReadGrvFile(const char* file)
 {
 	FILE* grv;
-	fopen_s(&grv,file,"r");
+	grv = fopen(file,"r");
 	if(grv==NULL)
 	{
 		CentralBodyException ept;
 		ept.SetDetails("Can't open file %s,please check the file in \\data directory and the file name!",file);
 		throw ept;
 	}
-	fscanf_s(grv,"%lf%lf",&GrvParam,&Equator_Radius); // ¶ÁÈ¡Ç°Á½¸öÊı£¬¼´ÒıÁ¦³£ÊıºÍ³àµÀ°ë¾¶
+	fscanf_s(grv,"%lf%lf",&GrvParam,&Equator_Radius); // è¯»å–å‰ä¸¤ä¸ªæ•°ï¼Œå³å¼•åŠ›å¸¸æ•°å’Œèµ¤é“åŠå¾„
 	int l,m;
 	for(int III=1;III<2554;III++)
-	{ // ¶ÁÈ¡ÒıÁ¦³¡ÏµÊı
+	{ // è¯»å–å¼•åŠ›åœºç³»æ•°
 		fscanf_s(grv,"%d%d",&l,&m);
 		fscanf_s(grv,"%lf%lf",&CLM[l][m],&SLM[l][m]);
 	}
 	fclose(grv);
 }
 /*!
-¹¹Ôìº¯Êı
+æ„é€ å‡½æ•°
 */
 Earth::Earth()
 {
@@ -62,10 +62,18 @@ Earth::Earth()
 	AtmosModel = MSISE2000;
 
 #ifndef NONE_DATA_FILE_MODE
-	std::string Name = DataDir + "\\data\\WGS84_EGM96.grv"; // Ä¬ÈÏÒıÁ¦³¡ÎÄ¼şÎªWGS84_EGM96.grv
+#if __APPLE__
+    std::string Name = DataDir + "/data/WGS84_EGM96.grv";
+#else
+    std::string Name = DataDir + "\\data\\WGS84_EGM96.grv"; // é»˜è®¤å¼•åŠ›åœºæ–‡ä»¶ä¸ºWGS84_EGM96.grv
+#endif
 	ReadGrvFile(Name.c_str());
 
+#if __APPLE__
+    Name = DataDir + "/data/EOP.dat";
+#else
 	Name = DataDir + "\\data\\EOP.dat";
+#endif
 	FILE* fp;
 	fopen_s(&fp,Name.c_str(),"r");
 	if(fp==NULL)
@@ -368,7 +376,7 @@ Earth* Earth::Instance()
 	return theInstance;
 }
 /*!
-ÉèÖÃÒıÁ¦³¡Ä£ĞÍ£¬´ÓÎÄ¼şÖĞ¶ÁÈëÒıÁ¦³¡ÏµÊı
+è®¾ç½®å¼•åŠ›åœºæ¨¡å‹ï¼Œä»æ–‡ä»¶ä¸­è¯»å…¥å¼•åŠ›åœºç³»æ•°
 */
 void Earth::SetGravityField(GRAVITY grv)
 {
@@ -377,6 +385,23 @@ void Earth::SetGravityField(GRAVITY grv)
 	std::string Name;
 	switch(grv)
 	{
+#if __APPLE__
+    case WGS84:
+        Name = DataDir + "/data/WGS84.grv";
+        break;
+    case WGS84_EGM96:
+        Name = DataDir + "/data/WGS84_EGM96.grv";
+        break;
+    case EGM96:
+        Name = DataDir + "/data/EGM96.grv";
+        break;
+    case JGM2:
+        Name = DataDir + "/data/JGM2.grv";
+        break;
+    case JGM3:
+        Name = DataDir + "/data/JGM3.grv";
+        break;
+#else
 	case WGS84:
 		Name = DataDir + "\\data\\WGS84.grv";
 		break;
@@ -392,6 +417,7 @@ void Earth::SetGravityField(GRAVITY grv)
 	case JGM3:
 		Name = DataDir + "\\data\\JGM3.grv";
 		break;
+#endif
 	default:
 		throw CentralBodyException("CEarth::SetEarthGravityField(): Can't find that Gravity model!");
 	}
@@ -405,7 +431,7 @@ void Earth::SetGravityField(GRAVITY grv)
 	A4 = -4.375*J4;	
 }
 
-/*! ÉèÖÃ´óÆøÄ£ĞÍ
+/*! è®¾ç½®å¤§æ°”æ¨¡å‹
 
 */
 void Earth::SetAtmosphereModel( ATMOS a)
@@ -414,7 +440,11 @@ void Earth::SetAtmosphereModel( ATMOS a)
 	AtmosModel = a;
 	if(AtmosModel == MANUAL)
 	{
+#if __APPLE__
+        std::string Name = DataDir + "/data/atmos.den";
+#else
 		std::string Name = DataDir + "\\data\\atmos.den";
+#endif
 		FILE* fp;
 		fopen_s(&fp,Name.c_str(),"r");
 		if(fp==NULL)
@@ -432,14 +462,14 @@ void Earth::SetAtmosphereModel( ATMOS a)
 	}
 }
 
-//! »ñµÃµØĞÄJ2000¹ßĞÔÏµÏÂµÄÎ»ÖÃ
+//! è·å¾—åœ°å¿ƒJ2000æƒ¯æ€§ç³»ä¸‹çš„ä½ç½®
 vec3 Earth::GetECI(const CDateTime& t)
 {
 	return vec3("0 0 0");;
 }
 
 /*!
-ÓÉeop½øĞĞ·Ö¶Î¶ş´Î¶àÏîÊ½²åÖµµÃµ½¼«ÒÆ
+ç”±eopè¿›è¡Œåˆ†æ®µäºŒæ¬¡å¤šé¡¹å¼æ’å€¼å¾—åˆ°æç§»
 \param  Xp ( X,Y ) component of pole wander
 \param  Yp ( X,Y ) component of pole wander
 */
@@ -453,7 +483,7 @@ void Earth::GetPolarMotion(const CDateTime& t,double& Xp,double& Yp)
 	}
 	else
 	{
-		int a,b,c; // ²åÖµÊ±Ê¹ÓÃµÄ½áµã±àºÅ
+		int a,b,c; // æ’å€¼æ—¶ä½¿ç”¨çš„ç»“ç‚¹ç¼–å·
 		if(utc<=eop[0][0]+0.5) { a=0; b=1; c=2; }
 		else if(utc>=eop[Num-1][0]-0.5) { a=Num-3; b=Num-2; c=Num-1; }
 		else {	b=(int)floor(utc-mjd1); a=b-1; c=b+1; }
@@ -480,7 +510,7 @@ double Earth::GetdUT1(const CDateTime& t)
 	}
 	else
 	{
-		int a,b,c; // ²åÖµÊ±Ê¹ÓÃµÄ½áµã±àºÅ
+		int a,b,c; // æ’å€¼æ—¶ä½¿ç”¨çš„ç»“ç‚¹ç¼–å·
 		if(utc<=eop[0][0]+0.5) { a=0; b=1; c=2; }
 		else if(utc>=eop[Num-1][0]-0.5) { a=Num-3; b=Num-2; c=Num-1; }
 		else {	b = (int)floor(utc-mjd1); a=b-1; c=b+1; }
@@ -494,20 +524,20 @@ double Earth::GetdUT1(const CDateTime& t)
 #endif //NONE_DATA_FILE_MODE
 }
 /*!
-¼ÆËã´óÆøÃÜ¶È£¬Ä¿Ç°Ê¹ÓÃµÄÊÇSA76´óÆøÄ£ĞÍ
-ÊäÈëhÎªÎÀĞÇ¸ß¶È£¬µ¥Î»km
-·µ»ØÖµÎª´óÆøÃÜ¶Èatmospheric density£¬µ¥Î»kg/m^3
+è®¡ç®—å¤§æ°”å¯†åº¦ï¼Œç›®å‰ä½¿ç”¨çš„æ˜¯SA76å¤§æ°”æ¨¡å‹
+è¾“å…¥hä¸ºå«æ˜Ÿé«˜åº¦ï¼Œå•ä½km
+è¿”å›å€¼ä¸ºå¤§æ°”å¯†åº¦atmospheric densityï¼Œå•ä½kg/m^3
 */
 double Earth::AtmosRuoH(const CDateTime& t,const vec3& ECFr)
 {
 	if(AtmosModel == STANDARD1976)
 	{
-		// lkhĞŞ¸Ä£¬Ê¹ÓÃ´óµØµØÀí¸ß¶È´úÌær-Re£¬Ê¹´óÆø×èÁ¦¼ÆËã¾«¶ÈÌá¸ß
+		// lkhä¿®æ”¹ï¼Œä½¿ç”¨å¤§åœ°åœ°ç†é«˜åº¦ä»£æ›¿r-Reï¼Œä½¿å¤§æ°”é˜»åŠ›è®¡ç®—ç²¾åº¦æé«˜
 		CSpherical lla = ECF_LLA(ECFr);
 		double h = lla.Altitude;
 		if( h>1000 ) return 0;
 		if( h<0 ) throw CentralBodyException("CEarth::AtmosRouH : Heigth is less than 0");
-		return SA76(h); //SA76´óÆøÄ£ĞÍ
+		return SA76(h); //SA76å¤§æ°”æ¨¡å‹
 	}
 	else if(AtmosModel == MSISE2000)
 	{
@@ -522,7 +552,7 @@ double Earth::AtmosRuoH(const CDateTime& t,const vec3& ECFr)
 		}
 		else
 		{
-			int a,b,c; // ²åÖµÊ±Ê¹ÓÃµÄ½áµã±àºÅ
+			int a,b,c; // æ’å€¼æ—¶ä½¿ç”¨çš„ç»“ç‚¹ç¼–å·
 			if( utc <= file_atmos_den.t[1] ) 
 			{ 
 				a=0;
@@ -546,7 +576,7 @@ double Earth::AtmosRuoH(const CDateTime& t,const vec3& ECFr)
 			double L3 = (utc-file_atmos_den.t[a])*(utc-file_atmos_den.t[b])/(file_atmos_den.t[c]-file_atmos_den.t[a])/(file_atmos_den.t[c]-file_atmos_den.t[b]);
 			double rou = L1*file_atmos_den.rou[a] + L2*file_atmos_den.rou[b] + L3*file_atmos_den.rou[c];
 			//double rou2 = Msise.Density(t,ECFr);
-			return rou*1e-9; // ÎÄ¼şÖĞ¦ÑÎªkg/km^3,ÕâÀï×ª»¯Îªkg/m^3
+			return rou*1e-9; // æ–‡ä»¶ä¸­Ïä¸ºkg/km^3,è¿™é‡Œè½¬åŒ–ä¸ºkg/m^3
 		}
 	}
 	else
@@ -564,7 +594,11 @@ Moon* Moon::Instance()
 
 Moon::Moon()
 {
-	std::string name = DataDir + "\\data\\LP165P.grv";   // Ä¬ÈÏÒıÁ¦³¡ÎÄ¼şÎªGLGM2.grv
+#if __APPLE__
+    std::string name = DataDir + "/data/LP165P.grv";
+#else
+	std::string name = DataDir + "\\data\\LP165P.grv";   // é»˜è®¤å¼•åŠ›åœºæ–‡ä»¶ä¸ºGLGM2.grv
+#endif
 	GrvModel = LP165P;
 #ifndef NONE_DATA_FILE_MODE
 	ReadGrvFile(name.c_str());
@@ -831,19 +865,28 @@ void Moon::SetGravityField(GRAVITY grv)
 	std::string Name;
 	switch(grv)
 	{
+#if __APPLE__
+    case GLGM2:
+        Name = DataDir + "/data/GLGM2.grv";
+        break;
+    case LP165P:
+        Name = DataDir + "/data/LP165P.grv";
+        break;
+#else
 	case GLGM2:
         Name = DataDir + "\\data\\GLGM2.grv";
 		break;
 	case LP165P:
 		Name = DataDir + "\\data\\LP165P.grv";
 		break;
+#endif
 	default:
 		throw CentralBodyException("CMoon::SetEarthGravityField(): Can't find that Gravity model!");
 	}
 	ReadGrvFile(Name.c_str());
 }
 
-//! »ñµÃµØĞÄJ2000¹ßĞÔÏµÏÂµÄÎ»ÖÃ
+//! è·å¾—åœ°å¿ƒJ2000æƒ¯æ€§ç³»ä¸‹çš„ä½ç½®
 vec3 Moon::GetECI(const CDateTime& t)
 {
 	if(EphModel==DE421EPH)
@@ -882,7 +925,7 @@ void Sun::SetGravityField(GRAVITY grv)
 {
 }
 
-//! »ñµÃµØĞÄJ2000¹ßĞÔÏµÏÂµÄÎ»ÖÃ
+//! è·å¾—åœ°å¿ƒJ2000æƒ¯æ€§ç³»ä¸‹çš„ä½ç½®
 vec3 Sun::GetECI(const CDateTime& t)
 {
 	if(EphModel==DE421EPH)
@@ -906,7 +949,7 @@ vec3 Sun::GetECI(const CDateTime& t)
 ////////////////////////////////////////////
 // Following program is provided by Doc. Hu
 
-/// ´óÆøÃÜ¶È²ÎÊı±í(ÃÀ¹ú±ê×¼´óÆøSA76)
+/// å¤§æ°”å¯†åº¦å‚æ•°è¡¨(ç¾å›½æ ‡å‡†å¤§æ°”SA76)
 namespace Atmosphere{
 	static double hpi[8] = {0,11000,20000,32000,47000,51000,71000,84852};
 	static double tti[7] = {288.15,216.65,216.65,228.65,270.65,270.65,214.65};
@@ -941,10 +984,10 @@ namespace Atmosphere{
 }
 
 /*!
-85kmÒÔÏÂ´óÆøÃÜ¶È\n
-ÊäÈë: ¸ß¶Èh(m)\n
-Êä³ö: ´óÆøÃÜ¶È(kg/m^3)
-Ò»°ãÊ¹ÓÃº¯ÊıSA76()µ÷ÓÃ
+85kmä»¥ä¸‹å¤§æ°”å¯†åº¦\n
+è¾“å…¥: é«˜åº¦h(m)\n
+è¾“å‡º: å¤§æ°”å¯†åº¦(kg/m^3)
+ä¸€èˆ¬ä½¿ç”¨å‡½æ•°SA76()è°ƒç”¨
 */
 double SA76_LOW(double h)
 {
@@ -976,10 +1019,10 @@ double SA76_LOW(double h)
 	return p/(rr*tt);
 }
 /*!
-85kmÒÔÉÏ´óÆøÃÜ¶È\n
-ÊäÈë: ¸ß¶Èh(m)\n
-Êä³ö: ´óÆøÃÜ¶È(kg/m^3)
-Ò»°ãÊ¹ÓÃº¯ÊıSA76()µ÷ÓÃ
+85kmä»¥ä¸Šå¤§æ°”å¯†åº¦\n
+è¾“å…¥: é«˜åº¦h(m)\n
+è¾“å‡º: å¤§æ°”å¯†åº¦(kg/m^3)
+ä¸€èˆ¬ä½¿ç”¨å‡½æ•°SA76()è°ƒç”¨
 */
 double SA76_HIGH(double h)
 {
@@ -1000,14 +1043,14 @@ double SA76_HIGH(double h)
 	return exp(log(10.)*dsr);
 }
 /*!
-ÃÀ¹ú1976±ê×¼´óÆøÄ£ĞÍ\n
-¸ù¾İ¸ß¶È£¬¸ß¶ÈĞ¡ÓÚ85kmÊ±µ÷ÓÃSA76_LOW()£¬¸ß¶È´óÓÚ85kmÊ±µ÷ÓÃSA76_HIGH()
-ÊäÈë: ¸ß¶Èh(km)\n
-Êä³ö: ´óÆøÃÜ¶È(kg/m^3)
+ç¾å›½1976æ ‡å‡†å¤§æ°”æ¨¡å‹\n
+æ ¹æ®é«˜åº¦ï¼Œé«˜åº¦å°äº85kmæ—¶è°ƒç”¨SA76_LOW()ï¼Œé«˜åº¦å¤§äº85kmæ—¶è°ƒç”¨SA76_HIGH()
+è¾“å…¥: é«˜åº¦h(km)\n
+è¾“å‡º: å¤§æ°”å¯†åº¦(kg/m^3)
 */
 double SA76(double h)
 {
-	if( h > 1000.0 ) return 0; // 1000kmÒÔÉÏµÄ´óÆøÃÜ¶ÈÎª0
+	if( h > 1000.0 ) return 0; // 1000kmä»¥ä¸Šçš„å¤§æ°”å¯†åº¦ä¸º0
 	if(h<85.0)
 	{
 		if(h<0) h=0.1;

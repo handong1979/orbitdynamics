@@ -20,8 +20,9 @@
 	#include <stdexcept>
 #endif
 
-#include "constant.h"
-#include "config.h"
+#include "Constant.h"
+using namespace Constant;
+#include "Config.h"
 #include "CEngine.h"
 #include "CentralBody.h"
 #include "PlanetEphemeris.h"
@@ -31,173 +32,172 @@
 #include "Quaternion.h"
 #include "Kepler.h"
 
-// Éã¶¯ÏîÉèÖÃ¶¨Òå
+// æ‘„åŠ¨é¡¹è®¾ç½®å®šä¹‰
 
-// µØÇòÎÀĞÇ
-#define ODP_EARTH_ZONAL             0x01  // µØÇò´øĞ³Ïî
-#define ODP_EARTH_TESSERAL          0x02  // µØÇòÌïĞ³Ïî
-#define ODP_AIR_DRAG                0x04  // ´óÆø×èÁ¦
-#define ODP_LUNAR_CENT              0x08  // ÔÂÇòÖĞĞÄÒıÁ¦(¶Ô·ÇÔÂÇòÎÀĞÇÊÊÓÃ)
-#define ODP_SOLAR_CENT              0x10  // Ì«ÑôÖĞĞÄÒıÁ¦(¶Ô·ÇÈÕĞÄ¹ìµÀ)
-#define ODP_SOLAR_PRESSURE          0x20  // Ì«Ñô¹âÑ¹
-#define ODP_EARTH_ALBEDO            0x40  // µØÇò·´ÕÕ¹âÑ¹
-#define ODP_SOLID_TIDES             0x80  // µØÇò¹ÌÌå³±
-#define ODP_OCEAN_TIDES             0x0100 // µØÇòº£³±
-#define ODP_POSTNEWTON              0x0200  // ºóÅ£¶ÙĞ§Ó¦
-#define ODP_ADDITIONAL              0x0400  // ×ø±êÏµ¸½¼ÓÉã¶¯
-#define ODP_THERMAL_RADIATION_PRESSURE 0x0800 // ÈÈ·øÉäÑ¹
-// ÔÂÇòÎÀĞÇ
-#define ODP_LUNAR_ZONAL        0x1000 // ÔÂÇò´øĞ³Ïî
-#define ODP_LUNAR_TESSERAL     0x2000 // ÔÂÇòÌïĞ³Ïî
-#define ODP_LUNAR_NON_SPHERE   0x3000 // ÔÂÇò·ÇÇòĞÎÒıÁ¦(´øĞ³Ïî+ÌïĞ³Ïî)
-#define ODP_EARTH_CENT         0x4000 // µØÇòÖĞĞÄÒıÁ¦(¶Ô·ÇµØÇòÎÀĞÇÊÊÓÃ)
-#define ODP_LUNAR_TIDES        0x8000 // ÔÂÇò¹ÌÌå³±
-#define ODP_LUNAR_LIBRATION    0x010000 // ÔÂÇòÎïÀíÌìÆ½¶¯
-// Éî¿ÕÌ½²âÆ÷
-#define ODP_VENUS_CENT         0x100000 // ½ğĞÇÖĞĞÄÒıÁ¦
-#define ODP_MARS_CENT          0x200000 // »ğĞÇÖĞĞÄÒıÁ¦
-#define ODP_JUPITER_CENT       0x400000 // Ä¾ĞÇÖĞĞÄÒıÁ¦
-#define ODP_SATURN_CENT        0x800000 // ÍÁĞÇÖĞĞÄÒıÁ¦
-// ³£ÓÃ¼¯ºÏ
-#define ODP_EARTH_ALL  0x0FFF // ³ıÔÂÇò·ÇÇòĞÎÒıÁ¦Ö®ÍâµÄËùÓĞÉã¶¯Á¦
-#define ODP_GEO        0x0FFB // Í¬²½¹ìµÀÎÀĞÇÍ¨³£¿¼ÂÇµÄÉã¶¯Á¦
-#define ODP_LEO        0x0007 // µÍ¹ìµÀÎÀĞÇÍ¨³£¿¼ÂÇµÄÉã¶¯Á¦
-#define ODP_LUNAR_SAT  0x1F030 // »·ÔÂÎÀĞÇ
+// åœ°çƒå«æ˜Ÿ
+#define ODP_EARTH_ZONAL             0x01  // åœ°çƒå¸¦è°é¡¹
+#define ODP_EARTH_TESSERAL          0x02  // åœ°çƒç”°è°é¡¹
+#define ODP_AIR_DRAG                0x04  // å¤§æ°”é˜»åŠ›
+#define ODP_LUNAR_CENT              0x08  // æœˆçƒä¸­å¿ƒå¼•åŠ›(å¯¹éæœˆçƒå«æ˜Ÿé€‚ç”¨)
+#define ODP_SOLAR_CENT              0x10  // å¤ªé˜³ä¸­å¿ƒå¼•åŠ›(å¯¹éæ—¥å¿ƒè½¨é“)
+#define ODP_SOLAR_PRESSURE          0x20  // å¤ªé˜³å…‰å‹
+#define ODP_EARTH_ALBEDO            0x40  // åœ°çƒåç…§å…‰å‹
+#define ODP_SOLID_TIDES             0x80  // åœ°çƒå›ºä½“æ½®
+#define ODP_OCEAN_TIDES             0x0100 // åœ°çƒæµ·æ½®
+#define ODP_POSTNEWTON              0x0200  // åç‰›é¡¿æ•ˆåº”
+#define ODP_ADDITIONAL              0x0400  // åæ ‡ç³»é™„åŠ æ‘„åŠ¨
+#define ODP_THERMAL_RADIATION_PRESSURE 0x0800 // çƒ­è¾å°„å‹
+// æœˆçƒå«æ˜Ÿ
+#define ODP_LUNAR_ZONAL        0x1000 // æœˆçƒå¸¦è°é¡¹
+#define ODP_LUNAR_TESSERAL     0x2000 // æœˆçƒç”°è°é¡¹
+#define ODP_LUNAR_NON_SPHERE   0x3000 // æœˆçƒéçƒå½¢å¼•åŠ›(å¸¦è°é¡¹+ç”°è°é¡¹)
+#define ODP_EARTH_CENT         0x4000 // åœ°çƒä¸­å¿ƒå¼•åŠ›(å¯¹éåœ°çƒå«æ˜Ÿé€‚ç”¨)
+#define ODP_LUNAR_TIDES        0x8000 // æœˆçƒå›ºä½“æ½®
+#define ODP_LUNAR_LIBRATION    0x010000 // æœˆçƒç‰©ç†å¤©å¹³åŠ¨
+// æ·±ç©ºæ¢æµ‹å™¨
+#define ODP_VENUS_CENT         0x100000 // é‡‘æ˜Ÿä¸­å¿ƒå¼•åŠ›
+#define ODP_MARS_CENT          0x200000 // ç«æ˜Ÿä¸­å¿ƒå¼•åŠ›
+#define ODP_JUPITER_CENT       0x400000 // æœ¨æ˜Ÿä¸­å¿ƒå¼•åŠ›
+#define ODP_SATURN_CENT        0x800000 // åœŸæ˜Ÿä¸­å¿ƒå¼•åŠ›
+// å¸¸ç”¨é›†åˆ
+#define ODP_EARTH_ALL  0x0FFF // é™¤æœˆçƒéçƒå½¢å¼•åŠ›ä¹‹å¤–çš„æ‰€æœ‰æ‘„åŠ¨åŠ›
+#define ODP_GEO        0x0FFB // åŒæ­¥è½¨é“å«æ˜Ÿé€šå¸¸è€ƒè™‘çš„æ‘„åŠ¨åŠ›
+#define ODP_LEO        0x0007 // ä½è½¨é“å«æ˜Ÿé€šå¸¸è€ƒè™‘çš„æ‘„åŠ¨åŠ›
+#define ODP_LUNAR_SAT  0x1F030 // ç¯æœˆå«æ˜Ÿ
 
-/*!×ËÌ¬Ä£Ê½
+/*!å§¿æ€æ¨¡å¼
 \enum AttitudeMode
-EarthPoint: Õı³£¶ÔµØ¶¨Ïò×ËÌ¬\n
-SunPoint: ¶ÔÈÕ¶¨Ïò×ËÌ¬\n
-InertiallyFixed: ¹ßĞÔ¶¨Ïò×ËÌ¬\n
-Custom: ×Ô¼ºÉèÖÃ
+EarthPoint: æ­£å¸¸å¯¹åœ°å®šå‘å§¿æ€\n
+SunPoint: å¯¹æ—¥å®šå‘å§¿æ€\n
+InertiallyFixed: æƒ¯æ€§å®šå‘å§¿æ€\n
+Custom: è‡ªå·±è®¾ç½®
 */
 enum AttitudeMode{ EarthPoint = 0, SunPoint , InertiallyFixed , Custom };
 
-/*! ÎÀĞÇµÄĞéÄâ»ùÀà
-\author º«¶¬
-CSatelliteBaseÓÃ×÷ËùÓĞÎÀĞÇµÄĞéÄâ»ùÀà
+/*! å«æ˜Ÿçš„è™šæ‹ŸåŸºç±»
+\author éŸ©å†¬
+CSatelliteBaseç”¨ä½œæ‰€æœ‰å«æ˜Ÿçš„è™šæ‹ŸåŸºç±»
 
-°üº¬ÎÀĞÇµÄ»ù±¾ÌØÕ÷£º
-- Ê±¼ä(Ïà¶Ô·ÂÕæ³õÊ¼ÀúÔªStartEpoch)µÄÊ±¼ä(ÃëÊı)
-- Ïà¶ÔÖĞĞÄÌå¹ßĞÔÏµµÄÎ»ÖÃËÙ¶È,µØĞÄ¹ßĞÔÏµ¶¨ÒåÎªJ2000.0,ÔÂĞÄ¹ßĞÔÏµ¶¨ÒåÎª»ù±¾Æ½ÃæÎªÔÂÇò³àµÀÃæ,xÎªJ2000.0ÔÚÔÂÇò³àµÀÉÏµÄÍ¶Ó°
-- ÎÀĞÇÃû³Æ£¬ÓÃ×÷ÃèÊöÎÀĞÇºÍ´æ´¢ÎÀĞÇĞÇÀúµÄÎÄ¼şÃû
-- ÎÀĞÇµÄ¹ìµÀ¸ùÊı£¬Ïà¶ÔÖĞĞÄÌìÌå
-- ÎÀĞÇ¶¯Á¦Ñ§ÌØĞÔ£ºÃæÖÊ±È¡¢ÖÊÁ¿¡¢´¢Ïä¡¢·¢¶¯»úµÈ
+åŒ…å«å«æ˜Ÿçš„åŸºæœ¬ç‰¹å¾ï¼š
+- æ—¶é—´(ç›¸å¯¹ä»¿çœŸåˆå§‹å†å…ƒStartEpoch)çš„æ—¶é—´(ç§’æ•°)
+- ç›¸å¯¹ä¸­å¿ƒä½“æƒ¯æ€§ç³»çš„ä½ç½®é€Ÿåº¦,åœ°å¿ƒæƒ¯æ€§ç³»å®šä¹‰ä¸ºJ2000.0,æœˆå¿ƒæƒ¯æ€§ç³»å®šä¹‰ä¸ºåŸºæœ¬å¹³é¢ä¸ºæœˆçƒèµ¤é“é¢,xä¸ºJ2000.0åœ¨æœˆçƒèµ¤é“ä¸Šçš„æŠ•å½±
+- å«æ˜Ÿåç§°ï¼Œç”¨ä½œæè¿°å«æ˜Ÿå’Œå­˜å‚¨å«æ˜Ÿæ˜Ÿå†çš„æ–‡ä»¶å
+- å«æ˜Ÿçš„è½¨é“æ ¹æ•°ï¼Œç›¸å¯¹ä¸­å¿ƒå¤©ä½“
+- å«æ˜ŸåŠ¨åŠ›å­¦ç‰¹æ€§ï¼šé¢è´¨æ¯”ã€è´¨é‡ã€å‚¨ç®±ã€å‘åŠ¨æœºç­‰
 
-ÀàÖĞÒÑÊµÏÖµÄº¯ÊıÖ÷ÒªÎªÈ¡ÖµÊä³öº¯ÊıºÍRKF78»ı·ÖËã·¨£¬ĞéÄâº¯ÊıÎªÎÀĞÇ¶¯Á¦Ñ§·½³ÌºÍ¹ìµÀ¸ùÊıµÄ¼ÆËã
+ç±»ä¸­å·²å®ç°çš„å‡½æ•°ä¸»è¦ä¸ºå–å€¼è¾“å‡ºå‡½æ•°å’ŒRKF78ç§¯åˆ†ç®—æ³•ï¼Œè™šæ‹Ÿå‡½æ•°ä¸ºå«æ˜ŸåŠ¨åŠ›å­¦æ–¹ç¨‹å’Œè½¨é“æ ¹æ•°çš„è®¡ç®—
 
-Éã¶¯Ô´µÄÑ¡ÔñÊ¹ÓÃSetForce(int l,unsigned char PTB)º¯ÊıÊµÏÖ£¬ÆäÖĞlÎªÒıÁ¦³¡½×Êı£¬PTBÎªÉã¶¯Ô´Ñ¡Ôñ±äÁ¿£¬²ÉÓÃÈçÏÂºê¶¨Òå£º
+æ‘„åŠ¨æºçš„é€‰æ‹©ä½¿ç”¨SetForce(int l,unsigned char PTB)å‡½æ•°å®ç°ï¼Œå…¶ä¸­lä¸ºå¼•åŠ›åœºé˜¶æ•°ï¼ŒPTBä¸ºæ‘„åŠ¨æºé€‰æ‹©å˜é‡ï¼Œé‡‡ç”¨å¦‚ä¸‹å®å®šä¹‰ï¼š
 \code
-#define ODP_ZONAL      0x80   // ´øĞ³Ïî
-#define ODP_TESSERAL   0xC0   // ´øĞ³Ïî+ÌïĞ³Ïî
-#define ODP_LUNAR      0x20   // ÔÂÇòÒıÁ¦
-#define ODP_SOLAR      0x10   // Ì«ÑôÒıÁ¦
-#define ODP_LIGHT      0x08   // Ì«Ñô¹âÑ¹
-#define ODP_AIR        0x04   // ´óÆø×èÁ¦
-#define ODP_POSTNEWTON 0x02   // ºóÅ£¶ÙĞ§Ó¦
-#define ODP_LUNAR_NON_SPHERE  0x01  // ÔÂÇò·ÇÇòĞÎÒıÁ¦
+#define ODP_ZONAL      0x80   // å¸¦è°é¡¹
+#define ODP_TESSERAL   0xC0   // å¸¦è°é¡¹+ç”°è°é¡¹
+#define ODP_LUNAR      0x20   // æœˆçƒå¼•åŠ›
+#define ODP_SOLAR      0x10   // å¤ªé˜³å¼•åŠ›
+#define ODP_LIGHT      0x08   // å¤ªé˜³å…‰å‹
+#define ODP_AIR        0x04   // å¤§æ°”é˜»åŠ›
+#define ODP_POSTNEWTON 0x02   // åç‰›é¡¿æ•ˆåº”
+#define ODP_LUNAR_NON_SPHERE  0x01  // æœˆçƒéçƒå½¢å¼•åŠ›
 
-#define ODP_ALL        0xFE   // ³ıÔÂÇò·ÇÇòĞÎÒıÁ¦Ö®ÍâµÄËùÓĞÉã¶¯Á¦
-#define ODP_GEO        0xF4   // Í¬²½¹ìµÀÎÀĞÇÍ¨³£¿¼ÂÇµÄÉã¶¯Á¦£ºÌïĞ³Ïî¡¢ÈÕÔÂÒıÁ¦¡¢¹âÑ¹¡¢ºóÅ£¶ÙĞ§Ó¦
-#define ODP_LEO        0x08   // µÍ¹ìµÀÎÀĞÇÍ¨³£¿¼ÂÇµÄÉã¶¯Á¦£º´óÆø×èÁ¦
+#define ODP_ALL        0xFE   // é™¤æœˆçƒéçƒå½¢å¼•åŠ›ä¹‹å¤–çš„æ‰€æœ‰æ‘„åŠ¨åŠ›
+#define ODP_GEO        0xF4   // åŒæ­¥è½¨é“å«æ˜Ÿé€šå¸¸è€ƒè™‘çš„æ‘„åŠ¨åŠ›ï¼šç”°è°é¡¹ã€æ—¥æœˆå¼•åŠ›ã€å…‰å‹ã€åç‰›é¡¿æ•ˆåº”
+#define ODP_LEO        0x08   // ä½è½¨é“å«æ˜Ÿé€šå¸¸è€ƒè™‘çš„æ‘„åŠ¨åŠ›ï¼šå¤§æ°”é˜»åŠ›
 \endcode
-PTBÎªÒ»¸ö8bit±êÖ¾×Ö£¬Æä8Î»·Ö±ğ±íÊ¾£º\n
+PTBä¸ºä¸€ä¸ª8bitæ ‡å¿—å­—ï¼Œå…¶8ä½åˆ†åˆ«è¡¨ç¤ºï¼š\n
 ||1||2||3||4||5||6||7||8
-|Zonal´øĞ³Ïî|Zonal+Tesseral´øĞ³Ïî£«ÌïĞ³Ïî|LunarÔÂÇòÒıÁ¦|SolarÌ«ÑôÒıÁ¦|LightÌ«Ñô¹âÑ¹|Air´óÆø×èÁ¦|PostNºóÅ£¶ÙĞ§Ó¦|Lunar_nonsphereÔÂÇò·ÇÇòĞÎÒıÁ¦
+|Zonalå¸¦è°é¡¹|Zonal+Tesseralå¸¦è°é¡¹ï¼‹ç”°è°é¡¹|Lunaræœˆçƒå¼•åŠ›|Solarå¤ªé˜³å¼•åŠ›|Lightå¤ªé˜³å…‰å‹|Airå¤§æ°”é˜»åŠ›|PostNåç‰›é¡¿æ•ˆåº”|Lunar_nonsphereæœˆçƒéçƒå½¢å¼•åŠ›
 */
 class ORBITDYN_API CSatelliteBase
 {
 protected:
-	//! ÆğÊ¼ÀúÔª
-	CDateTime Epoch; //TODO: ÕâÀïÓ¦¸ÃÓÃTDTÊ±¼ä£¬²»ÒªÓÃUTC!!
-	//! Ïà¶ÔÆğÊ¼ÀúÔªµÄÊ±¼ä
+	//! èµ·å§‹å†å…ƒ
+	CDateTime Epoch; //TODO: è¿™é‡Œåº”è¯¥ç”¨TDTæ—¶é—´ï¼Œä¸è¦ç”¨UTC!!
+	//! ç›¸å¯¹èµ·å§‹å†å…ƒçš„æ—¶é—´
 	double ElapsedTime;
-	//!ÖĞĞÄÌå¹ßĞÔÏµÎ»ÖÃ
+	//!ä¸­å¿ƒä½“æƒ¯æ€§ç³»ä½ç½®
 	vec3 Position;
-	//!ÖĞĞÄÌå¹ßĞÔÏµËÙ¶È
+	//!ä¸­å¿ƒä½“æƒ¯æ€§ç³»é€Ÿåº¦
 	vec3 Velocity;
-	//!ÖĞĞÄÌå
+	//!ä¸­å¿ƒä½“
 	PLANET center;
 public:
-	
-	//!³õÊ¼¹ìµÀ¸ùÊı
+	//!åˆå§‹è½¨é“æ ¹æ•°
 	Kepler Status0;
-	//!ÎÀĞÇÆğÊ¼ÖØÁ¿(µ¥Î»:kg)(Ä¬ÈÏ1000kg)
+	//!å«æ˜Ÿèµ·å§‹é‡é‡(å•ä½:kg)(é»˜è®¤1000kg)
 	double Mass0;
-	//! ÏûºÄÈ¼ÁÏÖÊÁ¿(µ¥Î»:kg)(³õÖµ0kg)
+	//! æ¶ˆè€—ç‡ƒæ–™è´¨é‡(å•ä½:kg)(åˆå€¼0kg)
 	double BurnedFuel;
-	//!´óÆø×èÁ¦ÏµÊı
+	//!å¤§æ°”é˜»åŠ›ç³»æ•°
 	double Cd;
-	//!Ó­·çÃæ»ı
+	//!è¿é£é¢ç§¯
 	double AirDragArea;
-	//!Ì«Ñô¹âÑ¹·´ÉäÂÊ
+	//!å¤ªé˜³å…‰å‹åå°„ç‡
 	double Cr;
-	//!¹âÑ¹µÈĞ§Ãæ»ı
+	//!å…‰å‹ç­‰æ•ˆé¢ç§¯
 	double LightPressArea;
 
-	//!·¢¶¯»ú×´Ì¬±êÖ¾(true:¿ª»ú,false:¹Ø»ú)
+	//!å‘åŠ¨æœºçŠ¶æ€æ ‡å¿—(true:å¼€æœº,false:å…³æœº)
 	bool ThrustIsOn;
-	//! ÍÆÁ¦ÔÚ±¾ÌåÏµµÄ·½Ïò(Ò»¶¨Îªµ¥Î»Ê¸Á¿)
+	//! æ¨åŠ›åœ¨æœ¬ä½“ç³»çš„æ–¹å‘(ä¸€å®šä¸ºå•ä½çŸ¢é‡)
 	vec3 ThrustDirection;
-	//! ¹ßĞÔ×ËÌ¬ËÄÔªÊı
+	//! æƒ¯æ€§å§¿æ€å››å…ƒæ•°
 	CQuaternion qbi;
-	//! ¹ßĞÔ×ËÌ¬½ÇËÙ¶È
+	//! æƒ¯æ€§å§¿æ€è§’é€Ÿåº¦
 	vec3 wbi;
 
-	// ×´Ì¬:
-	//!Ë²Ê±¸ùÊıµÄ°ë³¤Öá(unit£ºkm)
+	// çŠ¶æ€:
+	//!ç¬æ—¶æ ¹æ•°çš„åŠé•¿è½´(unitï¼škm)
 	double a;
-	//!Ë²Ê±¸ùÊıµÄÆ«ĞÄÂÊ
+	//!ç¬æ—¶æ ¹æ•°çš„åå¿ƒç‡
 	double e;
-	//!Ë²Ê±¸ùÊıµÄ¹ìµÀÇã½Ç(unit:rad)
+	//!ç¬æ—¶æ ¹æ•°çš„è½¨é“å€¾è§’(unit:rad)
 	double i;
-	//!Ë²Ê±¸ùÊıÉı½»µã³à¾­(unit:rad)
+	//!ç¬æ—¶æ ¹æ•°å‡äº¤ç‚¹èµ¤ç»(unit:rad)
 	double Omega;
-	//!Ë²Ê±¸ùÊı½üµØµã·ù½Ç(unit:rad)
+	//!ç¬æ—¶æ ¹æ•°è¿‘åœ°ç‚¹å¹…è§’(unit:rad)
 	double w;
-	//!Ë²Ê±¸ùÊıÆ½½üµã½Ç(unit:rad)
+	//!ç¬æ—¶æ ¹æ•°å¹³è¿‘ç‚¹è§’(unit:rad)
 	double M;
 
-	//!Ë²Ê±¸ùÊı¡¢Æ½¸ùÊıÕæ½üµã½Ç(unit:rad)
+	//!ç¬æ—¶æ ¹æ•°ã€å¹³æ ¹æ•°çœŸè¿‘ç‚¹è§’(unit:rad)
 	double f;
-	//!Ë²Ê±¸ùÊı¡¢Æ½¸ùÊıÆ«½üµã½Ç(unit:rad)
+	//!ç¬æ—¶æ ¹æ•°ã€å¹³æ ¹æ•°åè¿‘ç‚¹è§’(unit:rad)
 	double E;
-	//!Ë²Ê±¹ìµÀÎÀĞÇ·ù½Çu=f+w     (unit:rad)
+	//!ç¬æ—¶è½¨é“å«æ˜Ÿå¹…è§’u=f+w     (unit:rad)
 	double u;
-	//!Æ½¾ù½ÇËÙ¶Èn=sqrt(GE/a/a/a)   (unit:rad/s)
+	//!å¹³å‡è§’é€Ÿåº¦n=sqrt(GE/a/a/a)   (unit:rad/s)
 	double n;
-	//! Ê¸¾¶
+	//! çŸ¢å¾„
 	double r;
-	//! ËÙ¶È
+	//! é€Ÿåº¦
 	double v;
-	//! ¹ìµÀ½ÇËÙ¶È
+	//! è½¨é“è§’é€Ÿåº¦
 	double w0;
-	//! ¹ßĞÔÏµµ½¹ìµÀÏµ×ª»»¾ØÕó
+	//! æƒ¯æ€§ç³»åˆ°è½¨é“ç³»è½¬æ¢çŸ©é˜µ
 	mat33 Coi;
-	//! ¼ÓËÙ¶È
+	//! åŠ é€Ÿåº¦
 	vec3 acc;
+    
+    //!å«æ˜Ÿåç§°ï¼Œç”¨ä½œå‚¨å­˜æ•°æ®ï¼Œé»˜è®¤ä¸ºaã€bã€c......
+    std::string Name;
 
-	//!ÎÀĞÇÃû³Æ£¬ÓÃ×÷´¢´æÊı¾İ£¬Ä¬ÈÏÎªa¡¢b¡¢c......
-	std::string Name;
+/////// æ•°æ®è¾“å‡ºå‡½æ•° //////////////////////////
 
-/////// Êı¾İÊä³öº¯Êı //////////////////////////
-
-	//! ÎÀĞÇ³õÊ¼ÀúÔª
+	//! å«æ˜Ÿåˆå§‹å†å…ƒ
 	inline CDateTime StartEpoch() const { return Epoch; }
 	
-	//! ÎÀĞÇµ±Ç°ÀúÔª
+	//! å«æ˜Ÿå½“å‰å†å…ƒ
 	inline CDateTime CurrentEpoch() const { return Epoch+ElapsedTime; }
 
-	//! ÎÀĞÇµÄÏà¶ÔÊ±¼ä£¬¼´´ÓEpoch¿ªÊ¼ËãÆğµÄÃëÊı
+	//! å«æ˜Ÿçš„ç›¸å¯¹æ—¶é—´ï¼Œå³ä»Epochå¼€å§‹ç®—èµ·çš„ç§’æ•°
 	inline double t() const { return ElapsedTime; }
 
-	//! ÎÀĞÇµÄÎ»ÖÃ(µ¥Î»:km)
+	//! å«æ˜Ÿçš„ä½ç½®(å•ä½:km)
 	inline vec3 Pos() const { return Position; }
 
-	//! ÎÀĞÇµÄËÙ¶È(µ¥Î»:km/s)
+	//! å«æ˜Ÿçš„é€Ÿåº¦(å•ä½:km/s)
 	inline vec3 Vel() const { return Velocity; }
 	
-	//! ÉèÖÃÎÀĞÇÎ»ÖÃ(µ¥Î»:km)¡¢ËÙ¶È(µ¥Î»:km/s)
+	//! è®¾ç½®å«æ˜Ÿä½ç½®(å•ä½:km)ã€é€Ÿåº¦(å•ä½:km/s)
 	inline void SetPosVel(double t,const vec3& p,const vec3& v) 
 	{
 		ElapsedTime = t;
@@ -206,16 +206,16 @@ public:
 		RefreshStatus();
 	}	
 
-	//! ÎÀĞÇµÄ¹ìµÀ¸ùÊı£¬·µ»ØÒ»¸öKepler
+	//! å«æ˜Ÿçš„è½¨é“æ ¹æ•°ï¼Œè¿”å›ä¸€ä¸ªKepler
 	inline Kepler GetOrbitElements()const {	return Kepler(a,e,i,Omega,w,M);	}
 	
-	//! ÎÀĞÇµÄ¹ìµÀ¸ùÊı£¬·µ»ØÒ»¸öKepler
+	//! å«æ˜Ÿçš„è½¨é“æ ¹æ•°ï¼Œè¿”å›ä¸€ä¸ªKepler
 	inline void GetOrbitElements(double oe[6])const { memcpy(&oe,&a,sizeof(double)*6); }
 	
-	//! ÎÀĞÇÖÊÁ¿
+	//! å«æ˜Ÿè´¨é‡
 	inline double Mass(){ return Mass0 - BurnedFuel; }
 	
-	//! ÎÀĞÇ·¢¶¯»úÍÆÁ¦
+	//! å«æ˜Ÿå‘åŠ¨æœºæ¨åŠ›
 	inline double Force(){ return Engine->F; }
 
 	CSatelliteBase();
@@ -228,56 +228,58 @@ public:
 	void SetForce(int l,unsigned int PTB);
 	void SetEngine(double I,double f);
 
-// ÍâÍÆº¯Êı
+// å¤–æ¨å‡½æ•°
 	void Propagate(double Step,const double Duration);
 	void Propagate2Perigee();
 	void Propagate2Apogee();
 	void Propagate2AscendingNode();
 	void Propagate2DescendingNode();
 	void Propagate2Epoch(const CDateTime epoch);
-	// ÏòºóÍâÍÆ
+	// å‘åå¤–æ¨
 	void PropagateBackward(double h,const double dt);
 
-	//! Ë²Ê±Âö³å»ú¶¯
+	//! ç¬æ—¶è„‰å†²æœºåŠ¨
 	void ImpluseManeuver(vec3 Dv,Coordination d = VVLH );
 
-	//! ¹Ø±Õ×Ô¶¯±£´æÎÄ¼ş
+	//! å…³é—­è‡ªåŠ¨ä¿å­˜æ–‡ä»¶
 	void CloseFile(){FileInstElem.close();FirstTimeOutput = true;}
 private:
-	//! CSatelliteBaseÀà¶ÔÏóµÄ¼ÆÊıÆ÷£¬ÓÃ×÷×Ô¶¯±£´æÎÄ¼şµÄÃüÃû
+	//! CSatelliteBaseç±»å¯¹è±¡çš„è®¡æ•°å™¨ï¼Œç”¨ä½œè‡ªåŠ¨ä¿å­˜æ–‡ä»¶çš„å‘½å
 	static unsigned int Counter;
 
 protected:
-	//! Ëê²î¾ØÕó
+	//! å²å·®çŸ©é˜µ
 	mat33 PR;
-	//! ÕÂ¶¯¾ØÕó
+	//! ç« åŠ¨çŸ©é˜µ
 	mat33 NU;
-	//! ¼«ÒÆ¾ØÕó
+	//! ç« åŠ¨è§’
+	double dksi,deps;
+	//! æç§»çŸ©é˜µ
 	mat33 PW;
-	//! Ëê²îÕÂ¶¯¼«ÒÆ¾ØÕó¶ÔÓ¦µÄÊ±¼ä
+	//! å²å·®ç« åŠ¨æç§»çŸ©é˜µå¯¹åº”çš„æ—¶é—´
 	double PNTime;
-	//! Ë¢ĞÂËê²îÕÂ¶¯µÈ¾ØÕó
+	//! åˆ·æ–°å²å·®ç« åŠ¨ç­‰çŸ©é˜µ
 	void RefreshMatrix(const CDateTime t); 
 	
 	
-	//! ÒıÁ¦³¡´øĞ³ÏîºÍÌïĞ³ÏîµÄ½×Êı
+	//! å¼•åŠ›åœºå¸¦è°é¡¹å’Œç”°è°é¡¹çš„é˜¶æ•°
 	int LL;
 	
-	//! Éã¶¯Ô´Ñ¡Ôñ±êÖ¾
+	//! æ‘„åŠ¨æºé€‰æ‹©æ ‡å¿—
 	unsigned int Perturbation;
 	
-	//! ·¢¶¯»ú
+	//! å‘åŠ¨æœº
 	CEngine* Engine;
 
-/////// ÎÄ¼ş²Ù×÷  ///////////////
+/////// æ–‡ä»¶æ“ä½œ  ///////////////
 
-	//! Êä³öÎÄ¼ş
+	//! è¾“å‡ºæ–‡ä»¶
 	fstream FileInstElem;
 	
-	//! ÊÇ·ñµÚÒ»´ÎĞ´ÎÄ¼ş±êÖ¾
+	//! æ˜¯å¦ç¬¬ä¸€æ¬¡å†™æ–‡ä»¶æ ‡å¿—
 	bool FirstTimeOutput;
 	
-	//! ÊÇ·ñ×Ô¶¯±£´æ±êÖ¾
+	//! æ˜¯å¦è‡ªåŠ¨ä¿å­˜æ ‡å¿—
 	bool Save;
 	
 	virtual void SaveElem() = 0;
@@ -294,42 +296,43 @@ ORBITDYN_API ostream & operator<<(ostream & os, const CSatelliteBase& sat);
 
 /*!
 \class CSatellite
-ÎÀĞÇCSatelliteBaseµÄ»ù±¾ÊµÏÖ
-Ò»°ãÓÃ×÷µØÇòÎÀĞÇµÄ¹ìµÀ¼ÆËã£¬Ò²¿ÉÒÔ¼ÆËãµØÔÂ×ªÒÆ¹ìµÀºÍ³Ó¶¯µã¹ìµÀ
+å«æ˜ŸCSatelliteBaseçš„åŸºæœ¬å®ç°
+ä¸€èˆ¬ç”¨ä½œåœ°çƒå«æ˜Ÿçš„è½¨é“è®¡ç®—ï¼Œä¹Ÿå¯ä»¥è®¡ç®—åœ°æœˆè½¬ç§»è½¨é“å’Œç§¤åŠ¨ç‚¹è½¨é“
 \example examples/basic.cpp
 */
 class ORBITDYN_API CSatellite:public CSatelliteBase
 {
 public:
-	//! ¹¹Ôì¼°Îö¹¹º¯Êı
+	//! æ„é€ åŠææ„å‡½æ•°
 	CSatellite(){}
 	~CSatellite(){}
 
-	//! ³õÊ¼»¯¼°ÉèÖÃº¯Êı
-	void Initialize(const CDateTime& t,const Kepler elem,const char flag = 'i');
+	//! åˆå§‹åŒ–åŠè®¾ç½®å‡½æ•°
+	void Initialize(const CDateTime& t,const Kepler elem);
 	
-	//! Êä³öÎÀĞÇµÄ³õÊ¼Öµµ½ÎÄ¼şÖĞ
+	//! è¾“å‡ºå«æ˜Ÿçš„åˆå§‹å€¼åˆ°æ–‡ä»¶ä¸­
 	void ReportInitial();
 
-	//! ¼ÆËãµØ¹ÌÏµECFÎ»ÖÃ
+	//! è®¡ç®—åœ°å›ºç³»ECFä½ç½®
 	const vec3 ECFPos();
 
-	//! ÎÀĞÇÔÚµØ¹ÌµÄÎ»ÖÃËÙ¶È
+	//! å«æ˜Ÿåœ¨åœ°å›ºçš„ä½ç½®é€Ÿåº¦
 	void GetECF(vec3& ECFr,vec3& ECFv);
 	
-	//! ¼ÆËãÎÀĞÇµÄµØÀí¾­Î³¶ÈºÍĞÇÏÂµãµÄµØÀí¾­Î³¶È
+	//! è®¡ç®—å«æ˜Ÿçš„åœ°ç†ç»çº¬åº¦å’Œæ˜Ÿä¸‹ç‚¹çš„åœ°ç†ç»çº¬åº¦
 	CSpherical SubSatPoint(CSpherical & Geodetic,CSpherical & SSP);
 	
-	//! ¼ÆËãÆ½¾ù¹ìµÀ¸ùÊı
+	//! è®¡ç®—å¹³å‡è½¨é“æ ¹æ•°
 	Kepler MedianElement() const;
 	
-	//! µØÀí×ø±ê
+	//! åœ°ç†åæ ‡
 	CSpherical GetLLA();
 	
 	//double FiniteManeuver(Direction , StopCondition);
 
-	//! propagate to earth equator
+	//! å¤–æ¨åˆ°åœ°çƒèµ¤é“å‡äº¤ç‚¹
 	void Propagate2Equator();
+
 private:
 	void DynFunction(const double t,const vec& x,vec& y);
 	void RefreshStatus();
@@ -339,80 +342,80 @@ protected:
 };
 
 /*!
-¼Ó¿ì¼ÆËãËÙ¶ÈµÄ¹ìµÀÍâÍÆ
-Ê¹ÓÃGill4»ı·ÖËã·¨£¬»ı·Ö¹ı³ÌµÄ¶¯Á¦Ñ§·½³ÌÖĞ²»¸üĞÂËê²îÕÂ¶¯¡¢ÈÕÔÂÎ»ÖÃ¡¢Éã¶¯Á¦µÈ²ÎÊı£¬
-¶øÊÇÃ¿¸ôÒ»¶ÎÊ±¼ä¸üĞÂ
+åŠ å¿«è®¡ç®—é€Ÿåº¦çš„è½¨é“å¤–æ¨
+ä½¿ç”¨Gill4ç§¯åˆ†ç®—æ³•ï¼Œç§¯åˆ†è¿‡ç¨‹çš„åŠ¨åŠ›å­¦æ–¹ç¨‹ä¸­ä¸æ›´æ–°å²å·®ç« åŠ¨ã€æ—¥æœˆä½ç½®ã€æ‘„åŠ¨åŠ›ç­‰å‚æ•°ï¼Œ
+è€Œæ˜¯æ¯éš”ä¸€æ®µæ—¶é—´æ›´æ–°
 
-ÎªÁË±£Ö¤³¤Ê±¼ä·ÂÕæÖĞÊ±¼äÀÛ¼ÆµÄ¾«¶È£¬Ê¹ÓÃÕûÊıµÄºÁÃëÊıElapsedTimems×÷Îª¼ÆÊ±±äÁ¿£¬Ô­ÓĞµÄElapsedTime×÷Îª¸¨Öú±äÁ¿
+ä¸ºäº†ä¿è¯é•¿æ—¶é—´ä»¿çœŸä¸­æ—¶é—´ç´¯è®¡çš„ç²¾åº¦ï¼Œä½¿ç”¨æ•´æ•°çš„æ¯«ç§’æ•°ElapsedTimemsä½œä¸ºè®¡æ—¶å˜é‡ï¼ŒåŸæœ‰çš„ElapsedTimeä½œä¸ºè¾…åŠ©å˜é‡
 */
 class ORBITDYN_API CRapidSatellite : public CSatellite
 {
 public:
 	CRapidSatellite():ElapsedTimems(0)
-		,m_lastpert(0)
 		,PeriodCoord(1800000)
 		,PeriodPert(50)
-	{}
+        ,m_lastpert(0)
+    {}
 	~CRapidSatellite(){}
 
-	//! ³õÊ¼»¯¼°ÉèÖÃº¯Êı
-	void Initialize(const CDateTime& t,const Kepler elem,const char flag);
+	//! åˆå§‹åŒ–åŠè®¾ç½®å‡½æ•°
+	void Initialize(const CDateTime& t,const Kepler elem);
 
-	// hµ¥Î»Îªms
+	// hå•ä½ä¸ºms
 	void Propagate(int h);
 
 private:
-	// StepSizeµ¥Î»Îªms
+	// StepSizeå•ä½ä¸ºms
 	int OneStep(int StepSize,double MaxCutError = 1,CStopCondition* StopCon = NULL );
 	void DynFunction(const double t,const vec& x,vec& y);
 	void RefreshStatus();
-	void RefreshPert(const CDateTime t);// Ë¢ĞÂÉã¶¯Á¦
+	void RefreshPert(const CDateTime t);// åˆ·æ–°æ‘„åŠ¨åŠ›
 #if _MSC_VER < 1300
 	unsigned long ElapsedTimems;
 #else
-	//! Ïà¶Ô³õÊ¼ÀúÔªµÄÊ±¼äºÁÃëÊı
+	//! ç›¸å¯¹åˆå§‹å†å…ƒçš„æ—¶é—´æ¯«ç§’æ•°
 	unsigned long long ElapsedTimems;
 #endif
 
 public:
 
-	// ÎªÁË¼Ó¿ì¼ÆËãËÙ¶È£¬Ôö¼ÓÒÔÏÂ±äÁ¿£¬ÓÃ×÷RKFµ÷ÓÃ¶¯Á¦Ñ§·½³ÌÊ±£¬ÒÔÏÂ±äÁ¿¿É²»ÓÃÖØ¸´¼ÆËã
-	// ×ø±ê²ÎÊı¸üĞÂÖÜÆÚ
-	long PeriodCoord;   // Éã¶¯Á¦µÄ¸üĞÂÖÜÆÚ£¬Ä¬ÈÏÖµ1,800,000ms
+	// ä¸ºäº†åŠ å¿«è®¡ç®—é€Ÿåº¦ï¼Œå¢åŠ ä»¥ä¸‹å˜é‡ï¼Œç”¨ä½œRKFè°ƒç”¨åŠ¨åŠ›å­¦æ–¹ç¨‹æ—¶ï¼Œä»¥ä¸‹å˜é‡å¯ä¸ç”¨é‡å¤è®¡ç®—
+	// åæ ‡å‚æ•°æ›´æ–°å‘¨æœŸ
+	long PeriodCoord;   // æ‘„åŠ¨åŠ›çš„æ›´æ–°å‘¨æœŸï¼Œé»˜è®¤å€¼1,800,000ms
 
 private:
-	//! J2000-->ECI×ª»»¾ØÕó
+	//! J2000-->ECIè½¬æ¢çŸ©é˜µ
 	mat33 HG;
-	//! ÔÂÇòÎ»ÖÃ
+	//! æœˆçƒä½ç½®
 	vec3 rm;
-	//! Ì«ÑôÎ»ÖÃ
+	//! å¤ªé˜³ä½ç½®
 	vec3 rs;
 
 public:
-	// ¼ÇÂ¼µ±Ç°µÄÉã¶¯¼ÓËÙ¶È£¬ÔÚRKFÃ¿´Îµ÷ÓÃ¶¯Á¦Ñ§·½³ÌÊ±£¬¿ÉÒÔÈÏÎªÓÒ¶ËÉã¶¯¼ÓËÙ¶È²»
-	long PeriodPert;   // Éã¶¯Á¦µÄ¸üĞÂÖÜÆÚ£¬Ä¬ÈÏÖµ50ms
+	// è®°å½•å½“å‰çš„æ‘„åŠ¨åŠ é€Ÿåº¦ï¼Œåœ¨RKFæ¯æ¬¡è°ƒç”¨åŠ¨åŠ›å­¦æ–¹ç¨‹æ—¶ï¼Œå¯ä»¥è®¤ä¸ºå³ç«¯æ‘„åŠ¨åŠ é€Ÿåº¦ä¸
+	long PeriodPert;   // æ‘„åŠ¨åŠ›çš„æ›´æ–°å‘¨æœŸï¼Œé»˜è®¤å€¼50ms
 
 private:
 #if _MSC_VER < 1300
 	unsigned long m_lastpert;
 #else
-	unsigned long long  m_lastpert; // ÉÏ´Î¼ÆËãÉã¶¯µÄÊ±¼ä£¬Éã¶¯Ã¿PeriodPert(ms)¸üĞÂÒ»´Î
+	unsigned long long  m_lastpert; // ä¸Šæ¬¡è®¡ç®—æ‘„åŠ¨çš„æ—¶é—´ï¼Œæ‘„åŠ¨æ¯PeriodPert(ms)æ›´æ–°ä¸€æ¬¡
 #endif
-	vec3 F_zonal;     // ´øĞ³Ïî
-	vec3 F_tesseral;  // ÌïĞ³Ïî
-	vec3 F_moon;      // ÔÂÇòÒıÁ¦
-	vec3 F_sun;       // Ì«ÑôÒıÁ¦
-	vec3 F_air;       // ´óÆø×èÁ¦
-	vec3 F_light;     // ¹âÑ¹
-	vec3 F_ppn;       // ºóÅ£¶Ù
-	vec3 F_Thrust;    // ÍÆÁ¦
+	vec3 F_zonal;     // å¸¦è°é¡¹
+	vec3 F_tesseral;  // ç”°è°é¡¹
+	vec3 F_moon;      // æœˆçƒå¼•åŠ›
+	vec3 F_sun;       // å¤ªé˜³å¼•åŠ›
+	vec3 F_air;       // å¤§æ°”é˜»åŠ›
+	vec3 F_light;     // å…‰å‹
+	vec3 F_ppn;       // åç‰›é¡¿
+	vec3 F_Thrust;    // æ¨åŠ›
 };
 
 /*!
 \class CLEO
-µØÇòµÍ¹ìµÀÎÀĞÇ
-Ê¹ÓÃĞ¡Æ«ĞÄÂÊ¹ìµÀ¸ùÊı×÷Îª×´Ì¬±äÁ¿½øĞĞ»ı·Ö
-Ò»°ã²»Ê¹ÓÃ£¬½ö½öÎªÁË±£Áô¹ìµÀ¸ùÊıµÄ»ı·Ö£¬ÎªÒÔºó½øĞĞ¾«¶È±È½Ï±£Áô´úÂë
+åœ°çƒä½è½¨é“å«æ˜Ÿ
+ä½¿ç”¨å°åå¿ƒç‡è½¨é“æ ¹æ•°ä½œä¸ºçŠ¶æ€å˜é‡è¿›è¡Œç§¯åˆ†
+ä¸€èˆ¬ä¸ä½¿ç”¨ï¼Œä»…ä»…ä¸ºäº†ä¿ç•™è½¨é“æ ¹æ•°çš„ç§¯åˆ†ï¼Œä¸ºä»¥åè¿›è¡Œç²¾åº¦æ¯”è¾ƒä¿ç•™ä»£ç 
 */
 class ORBITDYN_API CLEO:public CSatellite
 {
@@ -427,42 +430,42 @@ private:
 };
 /*!
 \class CGEO
-µØÇòÍ¬²½¹ìµÀÎÀĞÇ
-Ôö¼ÓµØÇòÍ¬²½¹ìµÀ³£ÓÃµÄ¹ìµÀ¸ùÊı£¬»¹Ã»ÓĞ¾ßÌåÊµÏÖ
+åœ°çƒåŒæ­¥è½¨é“å«æ˜Ÿ
+å¢åŠ åœ°çƒåŒæ­¥è½¨é“å¸¸ç”¨çš„è½¨é“æ ¹æ•°ï¼Œè¿˜æ²¡æœ‰å…·ä½“å®ç°
 */
 class ORBITDYN_API CGEO:public CSatellite
 {
 public:
-	double D;      //! Ïà¶ÔÆ¯ÒÆÂÊ
-	double ex,ey;  //! Æ«ĞÄÂÊÊ¸Á¿
-	double ix,iy;  //! Çã½ÇÊ¸Á¿
+	double D;      //! ç›¸å¯¹æ¼‚ç§»ç‡
+	double ex,ey;  //! åå¿ƒç‡çŸ¢é‡
+	double ix,iy;  //! å€¾è§’çŸ¢é‡
 	double L;      //! L=Omega+w+M
 };
 /*!
 \class CMoonSat
-ÔÂÇòÎÀĞÇµÄ¹ìµÀ¼ÆËã
-¼ÆËãÈÆÔÂ·ÉĞĞµÄÎÀĞÇµÄ¹ìµÀ
-ÕâÀï
+æœˆçƒå«æ˜Ÿçš„è½¨é“è®¡ç®—
+è®¡ç®—ç»•æœˆé£è¡Œçš„å«æ˜Ÿçš„è½¨é“
+è¿™é‡Œ
 */
 class ORBITDYN_API CMoonSat: public CSatelliteBase
 {
 private:
-	// ¶Ô¶¯Á¦Ñ§·½³ÌºÍ¹ìµÀ¸ùÊıµÄ¼ÆËãÖØĞÂ¶¨Òå
+	// å¯¹åŠ¨åŠ›å­¦æ–¹ç¨‹å’Œè½¨é“æ ¹æ•°çš„è®¡ç®—é‡æ–°å®šä¹‰
 	void DynFunction(const double t,const vec& x,vec& y);
 	void RefreshStatus();
 	void SaveElem();
 public:
 	CMoonSat(){
-		// ÕâÀï½èÓÃODP_LUNAR±íÊ¾ÊÇ·ñ¿¼ÂÇµØÇòÒıÁ¦
+		// è¿™é‡Œå€Ÿç”¨ODP_LUNARè¡¨ç¤ºæ˜¯å¦è€ƒè™‘åœ°çƒå¼•åŠ›
 		Perturbation = ODP_LUNAR_SAT;
 		LL = 70;
 		LightPressArea = 15.076;
 		Mass0 = 1460.0;
 		Cr = 1.44;
 	}
-	//! Ê¹ÓÃÔÂĞÄ¹ßĞÔÏµ¹ìµÀ¸ùÊı³õÊ¼»¯
+	//! ä½¿ç”¨æœˆå¿ƒæƒ¯æ€§ç³»è½¨é“æ ¹æ•°åˆå§‹åŒ–
 	void Initialize(const CDateTime& t,const Kepler elem);
-	//! Ê¹ÓÃÔÂĞÄ¹ßĞÔÏµÎ»ÖÃËÙ¶È³õÊ¼»¯
+	//! ä½¿ç”¨æœˆå¿ƒæƒ¯æ€§ç³»ä½ç½®é€Ÿåº¦åˆå§‹åŒ–
 	void Initialize(const CDateTime& t,const vec3 p,const vec3 v);
 };
 
@@ -473,7 +476,7 @@ public:
 		: BaseException("CSatellite exception:",details)
 	{
 	}
-	virtual ~SatelliteException() _NOEXCEPT
+	virtual ~SatelliteException()
 	{
 	}
 	SatelliteException(const SatelliteException& cdte)

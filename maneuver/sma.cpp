@@ -1,6 +1,5 @@
 // semi-major axis maneuver
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
 
 using namespace Constant;
 
