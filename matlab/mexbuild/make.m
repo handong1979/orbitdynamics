@@ -28,7 +28,7 @@ switch(arch)
         mex -v -I../../orbitdyn libOrbitDyn.dylib mexDE421.cpp
         mex -v -I../../orbitdyn libOrbitDyn.dylib LINKLIBS='$LINKLIBS -framework Accelerate' mexOrbitDyn.cpp
         !otool -L mexOrbitDyn.mexmaci64
-        !cp mexOrbitDyn.mexmaci64 ../
+        !cp mexOrbitDyn.mexmaci64 /usr/local/bin
         !cp mexDE421.mexmaci64 ../
         !cp mexDE405.mexmaci64 ../
         %!rm mexDE421.mexmaci64

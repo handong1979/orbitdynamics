@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+    <div id="div1" style="width: 450px;">
+        <form id="form_orbit" method="post" action="postlogin">
+            <fieldset>
+                <legend>轨道参数</legend>
+                <table>
+                    <tr>
+                        <td>历元北京时Epoch：</td>
+                        <td><input type='text' name="epoch" value="2018-01-01 00:00:00.000"></td>
+                    </tr>
+                    <tr>
+                        <td>半长轴a(km)：</td>
+                        <td><input type="number" name="a" value="7022.14"><br /></td>
+                    </tr>
+                    <tr>
+                        <td>偏心率e: </td>
+                        <td><input type="number" name="e" value="0.001"><br /></td>
+                    </tr>
+                    <tr>
+                        <td>倾角i(度)：</td>
+                        <td><input type="number" name="i" value="98.2"><br /></td>
+                    </tr>
+                    <tr>
+                        <td>升交点赤经Omega(度)：</td>
+                        <td><input type="number" name="Omega" value="270.0"><br /></td>
+                    </tr>
+                    <tr>
+                        <td>近地点幅角w(度): </td>
+                        <td><input type="number" name="w" value="20.2"><br /></td>
+                    </tr>
+                    <tr>
+                        <td>平近点M(度): </td>
+                        <td><input type="number" name="M" value="20.0"><br /></td>
+                    </tr>
+                    <tr>
+                        <td>卫星质量(kg): </td>
+                        <td><input type="number" name="Mass" value="700.0"><br /></td>
+                    </tr>
+                    <tr>
+                        <td>阻力迎风面积(m^2): </td>
+                        <td><input type="number" name="airdrag" value="20.0"><br /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="提交" /></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+    <div id="div1" style="width: 450px;">
+        <form id="form1" method="post" action="getlogin">
+            <fieldset>
+                <legend>时延设置</legend>
+                接收站地理经度(度):<input type="number" name="GLon" /><br />
+                接收站地理纬度(度):<input type="number" name="GLat" /><br />
+                接收站高度(km):<input type="number" name="GAlt" /><br />
+                星上时延(ms):<input type="number" name="satdelay" /><br />
+                地面时延(ms):<input type="number" name="grddelay" /><br />
+                <input type="submit" value="提交" />
+            </fieldset>
+        </form>
+    </div>
+</body>
+
+</html>

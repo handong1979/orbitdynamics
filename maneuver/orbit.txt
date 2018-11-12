@@ -5,3 +5,5 @@ Inclination       =     98.45177560605939
 Ra_of_asc_node    =     265.2090045338037
 Arg_of_pericenter =     120.0
 Mean_anomaly      =     94.71685115019184
+AirDragArea    = 0.5
+Mass = 300

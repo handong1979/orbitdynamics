@@ -1,0 +1,6 @@
+Satdelay   =     100
+Grounddelay = 100
+
+GLon = 120
+GLat = 40
+GAlt = 0.3
