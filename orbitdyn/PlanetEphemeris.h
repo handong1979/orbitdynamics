@@ -106,7 +106,7 @@ public:
 		: BaseException("DE405 exception:",details)
 	{
 	}
-	virtual ~DE405Exception() _NOEXCEPT
+	virtual ~DE405Exception()
 	{
 	}
 	DE405Exception(const DE405Exception& cdte)
@@ -214,7 +214,7 @@ public:
 		: BaseException("DE421 exception:",details)
 	{
 	}
-	virtual ~DE421Exception() _NOEXCEPT
+	virtual ~DE421Exception()
 	{
 	}
 	DE421Exception(const DE421Exception& cdte)

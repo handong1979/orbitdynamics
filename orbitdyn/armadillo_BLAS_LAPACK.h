@@ -56,3 +56,16 @@ armadillo use blas��lapack
 #include "armadillo.h"
 
 #endif //__APPLE__
+
+#ifdef linux
+
+#ifndef ARMA_USE_BLAS
+#define ARMA_USE_BLAS
+#endif
+
+#ifndef ARMA_USE_LAPACK
+#define ARMA_USE_LAPACK
+#endif
+
+#include "armadillo.h"
+#endif
