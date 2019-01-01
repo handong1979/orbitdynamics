@@ -1,16 +1,21 @@
+// adjusttime.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+//
+
+#include "stdafx.h"
+
 // satellite time adjust
 
-#include <OrbitDyn.h>
+#include "OrbitDyn.h"
 
 using namespace Constant;
 
 CFacility fac(120,40,0.2);
 
 typedef struct{
-    CDateTime epoch;
-    Kepler kp;
-    double AirDragArea;
-    double Mass;
+	CDateTime epoch;
+	Kepler kp;
+	double AirDragArea;
+	double Mass;
 }OrbitParam;
 OrbitParam op;
 
@@ -19,217 +24,245 @@ double delaygrd;
 double GLon,GLat,GAlt;
 
 typedef struct {
-    CDateTime ts;
-    CDateTime re;
-    double dt;
+	CDateTime ts;
+	CDateTime re;
+	double dt;
 } timepair;
 vector<timepair> tl;
 
 CDateTime string2epoch(string s)
 {
-    int y, m, d, h, min;
-    double sec;
-    sscanf_s(s.c_str(), "%d-%d-%d %d:%d:%lf", &y, &m, &d, &h, &min, &sec);
-    CDateTime t(y, m, d, h, min, sec);
-    t = t - 3600.0*8.0;
-    return t;
+	int y, m, d, h, min;
+	double sec;
+	sscanf_s(s.c_str(), "%d-%d-%d %d:%d:%lf", &y, &m, &d, &h, &min, &sec);
+	CDateTime t(y, m, d, h, min, sec);
+	return t;
 }
 
 void LoadOrbitFile(string filename)
 {
-    fstream file(filename,ios::in);
-    if(!file.is_open())
-        throw (string("Can't open file") + filename);
-    std::string name,value;
-    while(!file.eof()){
-        //Semi_major_axis   =     1932.652806175639
-        //Eccentricity      =    0.003606090476565559
-        //Inclination       =     88.45177560605939
-        //Ra_of_asc_node    =     265.2090045338037
-        //Arg_of_pericenter =     120.0
-        //Mean_anomaly      =     94.71685115019184
-        if(ReadLine(&file,name,value))    {
-            if(name == "Semi_major_axis")
-               sscanf(value.c_str(),"%lf",&op.kp.a);
-            else if(name == "Eccentricity")
-                sscanf(value.c_str(),"%lf",&op.kp.e);
-            else if(name == "Inclination")
-                sscanf(value.c_str(),"%lf",&op.kp.i);
-            else if(name == "Ra_of_asc_node")
-                sscanf(value.c_str(),"%lf",&op.kp.o);
-            else if(name == "Arg_of_pericenter")
-                sscanf(value.c_str(),"%lf",&op.kp.w);
-            else if(name == "Mean_anomaly")
-                sscanf(value.c_str(),"%lf",&op.kp.M);
-            else if(name == "AirDragArea")
-                sscanf(value.c_str(),"%lf",&op.AirDragArea);
-            else if(name == "Mass")
-                sscanf(value.c_str(),"%lf",&op.Mass);
-            else if(name == "Epoch")
-                op.epoch = string2epoch(value);
-        }
-    }
+	fstream file(filename,ios::in);
+	if(!file.is_open())
+		throw (string("Can't open file") + filename);
+	std::string name,value;
+	while(!file.eof()){
+		//Semi_major_axis   =     1932.652806175639
+		//Eccentricity      =    0.003606090476565559
+		//Inclination       =     88.45177560605939
+		//Ra_of_asc_node    =     265.2090045338037
+		//Arg_of_pericenter =     120.0
+		//Mean_anomaly      =     94.71685115019184
+		if(ReadLine(&file,name,value))    {
+			if(name == "Semi_major_axis")
+				sscanf(value.c_str(),"%lf",&op.kp.a);
+			else if(name == "Eccentricity")
+				sscanf(value.c_str(),"%lf",&op.kp.e);
+			else if(name == "Inclination")
+				sscanf(value.c_str(),"%lf",&op.kp.i);
+			else if(name == "Ra_of_asc_node")
+				sscanf(value.c_str(),"%lf",&op.kp.o);
+			else if(name == "Arg_of_pericenter")
+				sscanf(value.c_str(),"%lf",&op.kp.w);
+			else if(name == "Mean_anomaly")
+				sscanf(value.c_str(),"%lf",&op.kp.M);
+			else if(name == "AirDragArea")
+				sscanf(value.c_str(),"%lf",&op.AirDragArea);
+			else if(name == "Mass")
+				sscanf(value.c_str(),"%lf",&op.Mass);
+			else if(name == "Epoch")
+				op.epoch = string2epoch(value);
+		}
+	}
 }
 
 void LoadFacFile(string filename)
 {
-    fstream file(filename,ios::in);
-    if(!file.is_open())
-        throw (string("Can't open file") + filename);
-    std::string name,value;
-    while(!file.eof()){
-        //#æ˜Ÿä¸Šæ—¶å»¶
-        //Satdelay  = 0.1
-        //#åœ°é¢æ—¶å»¶
-        //Grounddelay = 0.1
-        //# åœ°é¢ç«™ä½ç½®ä¿¡æ¯
-        //GLon = 120
-        //GLat = 40
-        //GAlt = 0.2
-        if( ReadLine(&file,name,value) ) {
-            if(name == "Satdelay")
-            {
-                sscanf(value.c_str(),"%lf",&delaysat);
-                delaysat /= 1000;
-            }
-            else if(name == "Grounddelay")
-            {
-                sscanf(value.c_str(),"%lf",&delaygrd);
-                delaygrd /= 1000;
-            }
-            else if(name == "GLon")
-                sscanf(value.c_str(),"%lf",&GLon);
-            else if(name == "GLat")
-                sscanf(value.c_str(),"%lf",&GLat);
-            else if(name == "GAlt")
-                sscanf(value.c_str(),"%lf",&GAlt);
-        }
-    }
-    fac.SetGeodetic(GLon, GLat, GAlt);
+	fstream file(filename,ios::in);
+	if(!file.is_open())
+		throw (string("Can't open file") + filename);
+	std::string name,value;
+	while(!file.eof()){
+		//#ĞÇÉÏÊ±ÑÓ
+		//Satdelay  = 100
+		//#µØÃæÊ±ÑÓ
+		//Grounddelay = 100
+		//# µØÃæÕ¾Î»ÖÃĞÅÏ¢
+		//GLon = 120
+		//GLat = 40
+		//GAlt = 0.2
+		if( ReadLine(&file,name,value) ) {
+			if(name == "Satdelay")
+			{
+				sscanf(value.c_str(),"%lf",&delaysat);
+				delaysat /= 1000;
+			}
+			else if(name == "Grounddelay")
+			{
+				sscanf(value.c_str(),"%lf",&delaygrd);
+				delaygrd /= 1000;
+			}
+			else if(name == "GLon")
+				sscanf(value.c_str(),"%lf",&GLon);
+			else if(name == "GLat")
+				sscanf(value.c_str(),"%lf",&GLat);
+			else if(name == "GAlt")
+				sscanf(value.c_str(),"%lf",&GAlt);
+		}
+	}
+	fac.SetGeodetic(GLon, GLat, GAlt);
 }
 
 void LoadTimeFile(string filename)
 {
-    fstream fdat(filename,ios::in);
-    if(!fdat.is_open())
-        throw string("Can't open adjust dat file");
-    string line;
-    timepair tp;
-    string date1,time1,date2,time2;
-    while(!fdat.eof()){
-//#é¥æµ‹æ¥æ”¶æ—¶é—´                                     é¥æµ‹å¸§æ—¶é—´
-//2018-10-01 00:30:22.000                  2018-10-01 00:30:20.000
-//2018-10-01 00:30:23.000                  2018-10-01 00:30:21.000
-        if( GetLine(&fdat,line) ) {
-            stringstream ss(line);
-            ss >> date1 >> time1 >> date2 >> time2;
-            tp.ts = string2epoch(date1 + " " + time1);
-            tp.re = string2epoch(date2 + " " + time2);
-
-//            line = Trim(line);
-//            if(IsCommentLine(line) || IsBlank(line)) continue;
-//            tp.re = string2epoch(Trim(line.substr(0,23)));
-//            tp.ts = string2epoch(Trim(line.substr(24)));
-
-            tl.push_back(tp);
-        }
-    }
+	fstream fdat(filename,ios::in);
+	if(!fdat.is_open())
+		throw string("Can't open adjust dat file");
+	string line;
+	timepair tp;
+	string date1,time1,date2,time2;
+	while(!fdat.eof()){
+		//#Ò£²â½ÓÊÕÊ±¼ä                                     Ò£²âÖ¡Ê±¼ä
+		//2018-10-01 00:30:22.000                  2018-10-01 00:30:20.000
+		//2018-10-01 00:30:23.000                  2018-10-01 00:30:21.000
+		if( GetLine(&fdat,line) ) {
+			stringstream ss(line);
+			ss >> date1 >> time1 >> date2 >> time2;
+			tp.ts = string2epoch(date1 + " " + time1);
+			tp.re = string2epoch(date2 + " " + time2);
+			tl.push_back(tp);
+		}
+	}
 }
 
 double rou(CSatellite &sat,CFacility &fac)
 {
-    vec3 sp,sv;
-    sat.GetECF(sp, sv);
-    vec3 fp = fac.ECFPosition;
-    return norm(sp-fp,2);
+	vec3 sp,sv;
+	sat.GetECF(sp, sv);
+	vec3 fp = fac.ECFPosition;
+	return norm(sp-fp,2);
 }
 
-//! æ ¡æ—¶é‡çš„è®¡ç®—
+//! Ğ£Ê±Á¿µÄ¼ÆËã
 double adjusttime()
 {
-    CSatellite sat;
-    sat.Initialize(op.epoch, op.kp);
-    sat.Mass0 = op.Mass;
-    sat.AirDragArea = op.AirDragArea;
-    sat.Propagate2Epoch(tl[0].ts);
-    int n = tl.size();
-    double dt,lastdt;
-    double step,sfr;
-    // è¿­ä»£æ¯ä¸€ä¸ªæ—¶é—´ç‚¹çš„ä¼ è¾“æ—¶å»¶,æ±‚æ˜Ÿæ—¶å·®
-    for(unsigned int i=0;i<n;i++)
-    {
-        dt = lastdt = 0;
-        sat.Propagate2Epoch(tl[i].ts + delaysat);
-        do{
-            lastdt = dt;
-            sfr = rou(sat,fac)/LightVel;
-            dt = tl[i].re - tl[i].ts - delaysat - delaygrd - sfr;
-            step = tl[i].ts + dt + delaysat - sat.CurrentEpoch();
-            if(step>0)
-                sat.Propagate(1, step);
-            else
-                sat.PropagateBackward(-1, step);
-        }while(fabs(lastdt-dt)>1e-6);
-        tl[i].dt = dt;
-    }
-    
-    // æ±‚å‡å€¼ã€åˆå€¼å’Œæ–œç‡
-    double sum = 0;
-    for(unsigned int i=0;i<n;i++)
-    {
-        sum += tl[i].dt;
-    }
-    double meandt = sum/n; // é›†ä¸­æ ¡æ—¶
-    double avgdt = 0;
-    if(n>1)
-        avgdt = (tl[n-1].dt - tl[0].dt)/(tl[n-1].ts - tl[0].ts)*60;
-    
-    fstream ff;
-    ff.open("adjusttime.txt",ios::out);
-    ff << "#é›†ä¸­æ ¡æ—¶æ—¶å·®å€¼\n";
-    ff << "FocusAdjustTime = " << meandt << "\n";
-    ff << "#å‡åŒ€æ ¡æ—¶å‘¨æœŸ\n";
-    ff << "UniformAdjustTimePeriod = " << 60 << "\n";
-    ff << "#å‡åŒ€æ ¡æ—¶æ ¡æ­£é‡\n";
-    ff << "UniformAdjustTime = " << avgdt << endl;
-    ff.close();
+	CSatellite sat;
+	sat.Initialize(op.epoch - 3600.0*8.0, op.kp);
+	sat.Mass0 = op.Mass;
+	sat.AirDragArea = op.AirDragArea;
+	sat.Propagate2Epoch(tl[0].ts);
+	int n = tl.size();
+	double dt,lastdt;
+	double step,sfr;
+	// µü´úÃ¿Ò»¸öÊ±¼äµãµÄ´«ÊäÊ±ÑÓ,ÇóĞÇÊ±²î
+	for(unsigned int i=0;i<n;i++)
+	{
+		dt = lastdt = 0;
+		sat.Propagate2Epoch(tl[i].ts + delaysat);
+		do{
+			lastdt = dt;
+			sfr = rou(sat,fac)/LightVel;
+			dt = tl[i].re - (tl[i].ts + delaysat + delaygrd + sfr);
+			step = (tl[i].ts + dt + delaysat) - sat.CurrentEpoch();
+			if(step>0)
+				sat.Propagate(1, step);
+			else
+				sat.PropagateBackward(-1, step);
+		}while(fabs(lastdt-dt)>1e-6);
+		tl[i].dt = dt;
+	}
+
+	// Çó¾ùÖµ¡¢³õÖµºÍĞ±ÂÊ
+	double sum = 0;
+	for(unsigned int i=0;i<n;i++)
+	{
+		sum += tl[i].dt;
+	}
+	double meandt = sum/n; // ¼¯ÖĞĞ£Ê±
+	double avgdt = 0;
+	if(n>1)
+		avgdt = (tl[n-1].dt - tl[0].dt)/(tl[n-1].ts - tl[0].ts)*3600;
+
+	fstream ff;
+	ff.open("adjusttime.txt",ios::out);
+	ff << "#¼¯ÖĞĞ£Ê±Ê±²îÖµ\n";
+	ff << "FocusAdjustTime = " << meandt << "\n";
+	ff << "#¾ùÔÈĞ£Ê±ÖÜÆÚ\n";
+	ff << "UniformAdjustTimePeriod = " << 3600 << "\n";
+	ff << "#¾ùÔÈĞ£Ê±Ğ£ÕıÁ¿\n";
+	ff << "UniformAdjustTime = " << avgdt << endl;
+	ff.close();
+
+	return 1;
 }
 
-void maketestdata()
+void maketestdata(double timebias,double timerate)
 {
-    CSatellite sat;
-    sat.Initialize(op.epoch, op.kp);
-    sat.Mass0 = op.Mass;
-    sat.AirDragArea = op.AirDragArea;
-    double step = 60;
-    // è¿­ä»£æ¯ä¸€ä¸ªæ—¶é—´ç‚¹çš„ä¼ è¾“æ—¶å»¶,æ±‚æ˜Ÿæ—¶å·®
-    double tanstime = 0;
-    fstream tlf;
-    tlf.open("timelist.txt",ios::out);
-    int n = 200;
-    for(unsigned int i=0; i<n; i++) {
-        tlf << sat.CurrentEpoch() << TAB;
-        sat.Propagate(delaysat, delaysat);
-        tanstime = rou(sat,fac)/LightVel;
-        tlf << sat.CurrentEpoch() + delaysat + tanstime + delaygrd << TAB << rou(sat,fac) << endl;
-        sat.Propagate(step-delaysat,step-delaysat);
-    }
-    tlf.close();
+	CSatellite sat;
+	sat.Initialize(op.epoch - 3600.0*8.0, op.kp);
+	sat.Mass0 = op.Mass;
+	sat.AirDragArea = op.AirDragArea;
+	double step = 60;
+	// µü´úÃ¿Ò»¸öÊ±¼äµãµÄ´«ÊäÊ±ÑÓ,ÇóĞÇÊ±²î
+	double tanstime = 0;
+	fstream tlf;
+	tlf.open("timelist.txt",ios::out);
+	int n = 200;
+
+	CDateTime TmTime; // Ò£²â´ò°üÊ±¼ä
+	for(unsigned int i=0; i<n; i++) {
+		TmTime = sat.CurrentEpoch();
+		tlf << TmTime + (timebias+timerate*i*step) << TAB;
+		sat.Propagate(delaysat, delaysat);
+		tanstime = rou(sat,fac)/LightVel;
+		tlf << TmTime + delaysat + tanstime + delaygrd << TAB << rou(sat,fac) << endl;
+		sat.Propagate(step-delaysat,step-delaysat);
+	}
+	tlf.close();
 }
 
-int main(int argc, char* argv[])
-{
-    //LoadOrbitFile(string(argv[1]));
-    //LoadFacFile(string(argv[2]));
-    //LoadTimeFile(string(argv[3]));
-    
-    LoadOrbitFile("orbit.txt");
-    LoadFacFile("fac.txt");
-    maketestdata();
-    LoadTimeFile("timelist.txt");
-    
-    adjusttime();
 
-	return 0;
+int _tmain(int argc, char* argv[])
+{
+	fstream ff;
+	ff.open("adjusttime.txt",ios::out);
+	ff.close();
+
+	if(argc<4)
+	{
+		printf("´íÎó£ºÎ´Ö¸¶¨ÊäÈëÎÄ¼ş!!\n\n");
+		printf("ÇëÊ¹ÓÃÒÔÏÂÖ¸Áîµ÷ÓÃ£º\n");
+		printf("  adjusttime orbit.txt fac.txt timelist.txt\n");
+		printf("  µÚÒ»¸öÎÄ¼şÎª¹ìµÀ²ÎÊıÎÄ¼ş\n");
+		printf("  µÚ¶ş¸öÎÄ¼şÎªµØÃæÕ¾²ÎÊıºÍÊ±ÑÓ²ÎÊıÎÄ¼ş\n");
+		printf("  µÚÈı¸öÎÄ¼şÎªÊ±±êÎÄ¼ş\n");
+		printf(" Êä³öÎÄ¼şÎªadjusttime.txt\n");
+		return 0;
+	}
+
+	try{
+		LoadOrbitFile(string(argv[1]));
+		LoadFacFile(string(argv[2]));
+		LoadTimeFile(string(argv[3]));
+
+		//LoadOrbitFile("orbit.txt");
+		//LoadFacFile("fac.txt");
+
+		//double timebias = -0.02; // ÎÀĞÇÖÓ²î
+		//double timerate = -0.001/3600; //ÎÀĞÇÖÓÆ¯
+		//maketestdata(timebias,timerate);
+		//LoadTimeFile("timelist.txt");
+
+		adjusttime();
+	}
+	catch(BaseException& e)
+	{
+		cerr << e.GetFullMessage() << endl;
+	}
+ 	catch(exception* e)
+ 	{
+ 		cerr << ((BaseException*)e)->what() << endl;
+ 	}
+
+	return 1;
 }
 
