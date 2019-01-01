@@ -26,7 +26,7 @@ void test_access()
 	CDateTime t(2019,1,1,0,0,0);
 	Kepler k(7157.7833, 0.001215,	  98.5160*RAD,	  202.2820*RAD,  143.8963*RAD,    122.135*RAD);
 	CSatellite a;
-	a.Initialize(t,k,'i');
+	a.Initialize(t,k);
 	
 	CFacility fac(120,40,0.5);
 	bool acc = false, acclast = false;

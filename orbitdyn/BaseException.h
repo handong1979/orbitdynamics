@@ -39,7 +39,7 @@ public:
       {theMessage = newMessage;  return *this;};
 
 //#if USE_STD_EXCEPTION
-	const char * what() const _NOEXCEPT
+	const char * what() const
 	{ return (theMessage + theDetails).c_str();   }
 //#endif //USE_STD_EXCEPTION
 

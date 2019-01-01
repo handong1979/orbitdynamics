@@ -47,6 +47,8 @@ set(SRC
  Utility.h
  Utility.cpp)
 
+add_library(OrbitDyn SHARED ${SRC})
+
 if(APPLE)
 
   set(ARMA_OS macos)
@@ -58,8 +60,9 @@ if(APPLE)
   if (NOT ACCELERATE)
     message(FATAL_ERROR "Accelerate.Framework not found")
   endif()
-
+  target_link_libraries(OrbitDyn ${ACCELERATE})
 endif(APPLE)
 
-add_library(OrbitDyn SHARED ${SRC})
-target_link_libraries(OrbitDyn ${ACCELERATE})
+if(LINUX)
+  target_compile_features(OrbitDyn cxx_std_11)
+endif(LINUX)

@@ -14,7 +14,7 @@ set(SRC
  DE405.h
  Delay.h
  Euler.h
- facility.h
+ Facility.h
  FileUtility.h
  Kepler.h
  LibrationSat.h
@@ -69,4 +69,16 @@ if(APPLE)
   target_link_libraries(OrbitDyn ${ACCELERATE})
 endif(APPLE)
 
+find_library(BLAS cblas)
+if (NOT BLAS)
+  message(FATAL_ERROR "blas not found")
+endif()
+target_link_libraries(OrbitDyn ${BLAS})
 
+find_library(LAPACK lapack)
+if (NOT LAPACK)
+  message(FATAL_ERROR "lapack not found")
+endif()
+target_link_libraries(OrbitDyn ${LAPACK})
+
+target_compile_features(OrbitDyn PUBLIC cxx_std_14)

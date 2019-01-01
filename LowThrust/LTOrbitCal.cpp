@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-#include "orbitdyn.h"
+#include "OrbitDyn.h"
 using namespace Constant;
 
 //初始化函数：void OrbitCal_Init(struct OCalInit)

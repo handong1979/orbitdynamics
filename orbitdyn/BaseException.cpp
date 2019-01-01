@@ -20,6 +20,8 @@
 #include "BaseException.h"
 #include "stdlib.h"
 #include <stdarg.h>                // for va_start(), va_end()
+#include <stdio.h>
+#include <cstring>
 
 #if _MSC_VER < 1300
 const int BaseException::MAX_MESSAGE_LENGTH=3000;
