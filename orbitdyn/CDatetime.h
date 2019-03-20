@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+ï»¿////////////////////////////////////////////////////////////////////////////////
 //File:   UTCG.h
 //Author: HanDle
 //Date:   2004-9-1
@@ -33,7 +33,7 @@ using namespace Constant;
 ORBITDYN_API double MJD(int year,int month,int day,int hour,int minute,double second);
 ORBITDYN_API void GetCalendar(double mjd,int &Y,int &M,int &D,int &h,int &min,double &s);
 
-//! ÈÕÆÚÊ±¼ä´íÎóÀà
+//! ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class ORBITDYN_API CDateTimeException:public BaseException
 {
 public:
@@ -41,7 +41,7 @@ public:
 		: BaseException("UTCG exception:",details)
 	{
 	}
-	virtual ~CDateTimeException() _NOEXCEPT
+	virtual ~CDateTimeException()
 	{
 	}
 	CDateTimeException(const CDateTimeException& cdte)
@@ -52,43 +52,43 @@ public:
 
 enum CDateTimeFormat{YMD = 0, STK, BJT, BACCTIME, NUMTIME};
 
-//!ÈÕÆÚÊ±¼äÀà
+//!ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 class ORBITDYN_API UTCG
 {
 public:
 	static CDateTimeFormat format;
-  	//! Ä¬ÈÏ¹¹Ôìº¯Êý
+  	//! Ä¬ï¿½Ï¹ï¿½ï¿½ìº¯ï¿½ï¿½
 	UTCG();
-	// ÓÃ¼òÔ¼ÈåÂÔÈÕ¹¹Ôì
-	// Ó¦µ±±ÜÃâdoubleµ½CDateTimeµÄÄ¬ÈÏÀàÐÍ×ª»»£¬Í¨³£ÕâÑùÒ×µ¼ÖÂ¸÷¸öÊ±¼äÏµÍ³µÄ»ìÏý
+	// ï¿½Ã¼ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½
+	// Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½doubleï¿½ï¿½CDateTimeï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×µï¿½ï¿½Â¸ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ÏµÍ³ï¿½Ä»ï¿½ï¿½ï¿½
 	//UTCG(double mjd):UTC(mjd) { }
-	//! ¸´ÖÆ¹¹Ôì
+	//! ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ï¿½
 	UTCG(const UTCG& t);
 
-	//! ÓÃÈÕÆÚÊ±¼ä¹¹Ôì
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä¹¹ï¿½ï¿½
 	UTCG(int y,int mon,int d,int h,int min,double s);
 
-	//! ÓÃÊý×é¹¹Ôì
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½é¹¹ï¿½ï¿½
 	UTCG(double ar[6]);
 
 	~UTCG(){}
 
-	//! Ð­µ÷ÊÀ½çÊ±(Ìì)£¬ÒÔ¼òÔ¼ÈåÀÕÈÕ±íÊ¾,MJD=JD-2400000.5
+	//! Ð­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±(ï¿½ï¿½)ï¿½ï¿½ï¿½Ô¼ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½Ê¾,MJD=JD-2400000.5
 	double GetMJD() const;
 	
-	//! Ð­µ÷ÊÀ½çÊ±(Ìì)£¬ÒÔ¼òÔ¼ÈåÀÕÈÕ±íÊ¾,MJD=JD-2400000.5
+	//! Ð­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±(ï¿½ï¿½)ï¿½ï¿½ï¿½Ô¼ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½Ê¾,MJD=JD-2400000.5
 	double GetUTC() const;
 	
-	//! µØÇò¶¯Á¦Ñ§Ê±(Ìì),ºâÁ¿ÎÀÐÇÔË¶¯µÄ¾ùÔÈÊ±¼äs³ß¶È£¬ÒÔ¼òÔ¼ÈåÀÕÈÕ±íÊ¾,MJD=JD-2400000.5
+	//! ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ê±(ï¿½ï¿½),ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½Ê±ï¿½ï¿½sï¿½ß¶È£ï¿½ï¿½Ô¼ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½Ê¾,MJD=JD-2400000.5
 	double GetTDT() const;
 	
-	//! ÊÀ½çÊ±UT1=UT0+¼«ÒÆ¸ÄÕý(Ìì)
+	//! ï¿½ï¿½ï¿½ï¿½Ê±UT1=UT0+ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½ï¿½(ï¿½ï¿½)
 	double GetUT1() const;
 	
-	//! ¶¯Á¦Ñ§Ê±¾àJ2000.0µÄÈåÀÕÊÀ¼ÍÊý
+	//! ï¿½ï¿½ï¿½ï¿½Ñ§Ê±ï¿½ï¿½J2000.0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	double GetTDTCentNum() const;
 	
-	//! UT1Ê±¾àJ2000.0µÄÈåÀÕÊÀ¼ÍÊý
+	//! UT1Ê±ï¿½ï¿½J2000.0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	double GetUT1CentNum() const;
 	
 	//! day of year
@@ -97,53 +97,53 @@ public:
 	//! seconds in day
 	double seconds_in_day() const;
 	
-	//! µÃµ½Ê±¼ä£¬·ÅÔÚ1¡Á6µÄÊý×éÖÐ
+	//! ï¿½Ãµï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½6ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void GetTime(double time[]);
 	
-	//! ±ä³É×Ö·û
+	//! ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
 	void ToChar(char* a) const;
 	
-	//! ÉèÖÃÊ±¼ä£¬ÄêÔÂÈÕÊ±·ÖÃë
+	//! ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	void SetTime(int y,int mon,int d,int h,int min,double s);
 
-	//! Ö±½ÓÉèÖÃUTC
+	//! Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½UTC
 	void SetMJD(double mjd);
 	
-	//! ÉèÖÃÊ±¼ä£¬MJD±íÊ¾µÄUTC
+	//! ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬MJDï¿½ï¿½Ê¾ï¿½ï¿½UTC
 	void SetTime(double utc);
 
-	//! Ôö¼ÓdtµÄÊ±¼ä(ÃëÊý)
+	//! ï¿½ï¿½ï¿½ï¿½dtï¿½ï¿½Ê±ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 	UTCG& operator+=(double dt);
 	
-	//¼õÉÙdtµÄÊ±¼ä(ÃëÊý)
+	//ï¿½ï¿½ï¿½ï¿½dtï¿½ï¿½Ê±ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 	UTCG& operator-=(double dt);
 
-	//»ñµÃnday
+	//ï¿½ï¿½ï¿½nday
 	int GetDay() const{	return nday; }
 
-	//»ñµÃsec
+	//ï¿½ï¿½ï¿½sec
 	double GetSec() const { return sec; }
 
 private:
-	//! Ð­µ÷ÊÀ½çÊ±(Ìì)£¬ÒÔ¼òÔ¼ÈåÀÕÈÕ¼õÈ¥CDATETIME_BIAS±íÊ¾,MJD=JD-2400000.5
-	// µ±UTC±¾ÉíÖµ½Ï´óÊ±£¬µ±ÓÃCDateTimeµÄ¶ÔÏóÀ´ÀÛ¼ÆÊ±¼ä£¬»áÔì³É½Ø¶ÏÎó²îµÄÀÛ¼Æ£¬
-	// Òò´Ë´æ´¢Ê±Ó¦¼õÈ¥CDATETIME_BIASÒÔ¼õÐ¡UTCµÄ¾ø¶ÔÖµ
-	// µ±CDATETIME_BIASÉèÎª53736.0(¼´2006Äê1ÔÂ1ÈÕÁãÊ±µÄMJD)Ê±£¬
-	// ÒÔ60Ãë²½³¤Ê¹ÓÃ+=ÔËËã£¬ÀÛ¼Æ5Ìì£¬Îó²îÎª10^-6ÃëÁ¿¼¶£¬¿ÉÒÔ½ÓÊÜ
-	int nday; // ¼òÔ¼ÈåÂÔÈÕÕûÌìÊý (µ¥Î»£ºday)
-	double sec; // ²»×ã1ÌìµÄÃëÊý (µ¥Î»: s)	
+	//! Ð­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±(ï¿½ï¿½)ï¿½ï¿½ï¿½Ô¼ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½È¥CDATETIME_BIASï¿½ï¿½Ê¾,MJD=JD-2400000.5
+	// ï¿½ï¿½UTCï¿½ï¿½ï¿½ï¿½Öµï¿½Ï´ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CDateTimeï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¼ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½É½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¼Æ£ï¿½
+	// ï¿½ï¿½Ë´æ´¢Ê±Ó¦ï¿½ï¿½È¥CDATETIME_BIASï¿½Ô¼ï¿½Ð¡UTCï¿½Ä¾ï¿½ï¿½ï¿½Öµ
+	// ï¿½ï¿½CDATETIME_BIASï¿½ï¿½Îª53736.0(ï¿½ï¿½2006ï¿½ï¿½1ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½MJD)Ê±ï¿½ï¿½
+	// ï¿½ï¿½60ï¿½ë²½ï¿½ï¿½Ê¹ï¿½ï¿½+=ï¿½ï¿½ï¿½ã£¬ï¿½Û¼ï¿½5ï¿½ì£¬ï¿½ï¿½ï¿½Îª10^-6ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½
+	int nday; // ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Î»ï¿½ï¿½day)
+	double sec; // ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Î»: s)	
 
-	//! ¸ù¾ÝÊ±¼ä²é±íÕÒdTAI=TAI-UTC
+	//! ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dTAI=TAI-UTC
 	int GetdTAI() const;  
 	
-	//! ²é±íµÃµ½dUT1=UT1-UTC
+	//! ï¿½ï¿½ï¿½Ãµï¿½dUT1=UT1-UTC
 	double GetdUT1() const;
 
-	//! ¹éÒ»»¯ÎªÕûÌì£«µ±ÌìÃëÊý
+	//! ï¿½ï¿½Ò»ï¿½ï¿½Îªï¿½ï¿½ï¿½ì£«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void Normalize();
 };
 
-// ±£³ÖÓëÔ­°æ±¾µÄ¼æÈÝÐÔ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô­ï¿½æ±¾ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
 typedef UTCG CDateTime;
 
 ORBITDYN_API std::ostream& operator<<(std::ostream& ostrm,const UTCG& t);
@@ -192,7 +192,7 @@ public:
 		return *this;
 	}
 public:
-	// ÄêÔÂÈÕÊ±·ÖÃë
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	int year;
 	int month;
 	int day;

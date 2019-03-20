@@ -4,7 +4,7 @@
 using namespace Constant;
 
 //! ²âÊÔ¹ìµÀ»ú¶¯
-void rendezvous()
+void test_orbit_maneuver()
 {
 	CSatellite target, chaser;
 
@@ -17,8 +17,8 @@ void rendezvous()
 	//	double elem[6]  = {7058.8484, 0.0016837,	  98.5003*RAD,	  202.2850*RAD,  22.1320*RAD,	  232.2209*RAD};
 	//	double elem2[6] = {7166.7356, 0.0014711,	  98.5106*RAD,	  202.2817*RAD,  218.6563*RAD,    47.3680*RAD};
 
-	chaser.Initialize(CDateTime(2006, 8, 13, 12, 0, 0.0), elem, 'm');
-	target.Initialize(CDateTime(2006, 8, 13, 12, 0, 0.0), elem2, 'm');
+	chaser.Initialize(CDateTime(2006, 8, 13, 12, 0, 0.0), elem);
+	target.Initialize(CDateTime(2006, 8, 13, 12, 0, 0.0), elem2);
 
 	cout << "Chaser's Mean:" << chaser.MedianElement() << endl;
 	cout << "Target's Mean:" << target.MedianElement() << endl << endl;

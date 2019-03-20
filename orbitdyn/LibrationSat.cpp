@@ -1,4 +1,4 @@
-#include "librationsat.h"
+﻿#include "librationsat.h"
 
 const double miu = (GE+GM)/(GS+GM+GE);  // 3.04042345408276e-006
 const double gamaL1 = 0.01001097735839; // root of equation: x^5 - (3-miu)*x^4 + (3-2*miu)*x^3 - miu*x^2 + 2*miu*x - miu=0

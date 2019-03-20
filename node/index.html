@@ -1,13 +1,63 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Test Page</title>
+<style type="text/css">
+
+header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px; 
+}
+nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:720px;
+    width:200px;
+    float:left;
+    padding:5px; 
+}
+section {
+    width:650px;
+    float:left;
+    padding:10px; 
+}
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}
+
+</style>
+
+
+
+    <title>姿态轨道控制计算</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
 <body>
-    <div id="div1" style="width: 450px;">
+
+<header>
+<h1>姿态轨道控制计算</h1>
+</header>
+
+<nav>
+<ul>
+<li>低轨轨道捕获</li>
+<li>低轨地面轨迹维持</li>
+<li>星座轨道维持</li>
+<li>低轨轨道转移</li>
+<li>帆板指向计算</li>
+<li>姿态确定</li>
+<li>高轨轨道转移</li>
+<li>高轨位置保持</li>
+<li>高轨共位控制</li>
+</nav>
+
+    <section>
         <form id="form_orbit" method="post" action="postlogin">
             <fieldset>
                 <legend>轨道参数</legend>
@@ -55,8 +105,8 @@
                 </table>
             </fieldset>
         </form>
-    </div>
-    <div id="div1" style="width: 450px;">
+    </section>
+    <section>
         <form id="form1" method="post" action="getlogin">
             <fieldset>
                 <legend>时延设置</legend>
@@ -68,7 +118,11 @@
                 <input type="submit" value="提交" />
             </fieldset>
         </form>
-    </div>
+    </section>
+	
+	<footer>
+	xyz
+	</footer>
 </body>
 
 </html>

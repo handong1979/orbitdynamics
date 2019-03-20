@@ -1,7 +1,4 @@
-#include "Quaternion.h"
-
-CQuaternion::CQuaternion():qx(0),qy(0),qz(0),qs(1){ }
-CQuaternion::CQuaternion(double x,double y,double z,double s):qx(x),qy(y),qz(z),qs(s){ }
+ï»¿#include "Quaternion.h"
 
 CQuaternion::CQuaternion(const vec3& e,double phi)
 {
@@ -28,7 +25,7 @@ CQuaternion::CQuaternion(double * v)
 
 CQuaternion::CQuaternion(const mat& c)
 {
-	// ÓÃvector³õÊ¼»¯
+	// ç”¨vectoråˆå§‹åŒ–
 	if((c.n_rows==1 && c.n_cols==4) || (c.n_cols==1 && c.n_rows==4))
 	{
 		qx = c[0];
@@ -40,7 +37,7 @@ CQuaternion::CQuaternion(const mat& c)
 	else if(c.n_cols!=3 || c.n_rows!=3) 
 		throw CQuaternionException("CQuaternion(mat& c) input must be a 3*3 matrix");
 
-	// ÓÃ¾ØÕó³õÊ¼»¯
+	// ç”¨çŸ©é˜µåˆå§‹åŒ–
 	double trc1 = c(0,0) + c(1,1) + c(2,2) + 1.0;
 	if( trc1 >= 0.004 )
 	{
@@ -73,7 +70,7 @@ CQuaternion::CQuaternion(const mat& c)
 	Normalize();
 }
 
-/*! ²Ù×÷·û[]È¡Öµ */
+//! æ“ä½œç¬¦[]å–å€¼
 double & CQuaternion::operator[](int i)
 {
 	if(i==0) return qx;
@@ -83,7 +80,7 @@ double & CQuaternion::operator[](int i)
 	else
 		throw CQuaternionException("index error!");
 }
-/*! ²Ù×÷·û[]¸³Öµ */
+//! æ“ä½œç¬¦[]èµ‹å€¼
 double CQuaternion::operator[](int i) const
 {
 	if(i==0) return qx;
@@ -173,7 +170,7 @@ vec4 CQuaternion::qv() const
 }
 
 //////////////////////////////////////////////////////////////////////////
-// ·Ç³ÉÔ±º¯Êı
+// éæˆå‘˜å‡½æ•°
 const CQuaternion operator+(const CQuaternion& q1,const CQuaternion& q2)
 {
 	CQuaternion q;

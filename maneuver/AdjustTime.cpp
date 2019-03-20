@@ -1,22 +1,14 @@
 // adjusttime.cpp : 定义控制台应用程序的入口点。
-//
-
-#include "stdafx.h"
 
 // satellite time adjust
 
 #include "OrbitDyn.h"
+#include "mandef.h"
 
 using namespace Constant;
 
 CFacility fac(120,40,0.2);
 
-typedef struct{
-	CDateTime epoch;
-	Kepler kp;
-	double AirDragArea;
-	double Mass;
-}OrbitParam;
 OrbitParam op;
 
 double delaysat;
@@ -29,51 +21,6 @@ typedef struct {
 	double dt;
 } timepair;
 vector<timepair> tl;
-
-CDateTime string2epoch(string s)
-{
-	int y, m, d, h, min;
-	double sec;
-	sscanf_s(s.c_str(), "%d-%d-%d %d:%d:%lf", &y, &m, &d, &h, &min, &sec);
-	CDateTime t(y, m, d, h, min, sec);
-	return t;
-}
-
-void LoadOrbitFile(string filename)
-{
-	fstream file(filename,ios::in);
-	if(!file.is_open())
-		throw (string("Can't open file") + filename);
-	std::string name,value;
-	while(!file.eof()){
-		//Semi_major_axis   =     1932.652806175639
-		//Eccentricity      =    0.003606090476565559
-		//Inclination       =     88.45177560605939
-		//Ra_of_asc_node    =     265.2090045338037
-		//Arg_of_pericenter =     120.0
-		//Mean_anomaly      =     94.71685115019184
-		if(ReadLine(&file,name,value))    {
-			if(name == "Semi_major_axis")
-				sscanf(value.c_str(),"%lf",&op.kp.a);
-			else if(name == "Eccentricity")
-				sscanf(value.c_str(),"%lf",&op.kp.e);
-			else if(name == "Inclination")
-				sscanf(value.c_str(),"%lf",&op.kp.i);
-			else if(name == "Ra_of_asc_node")
-				sscanf(value.c_str(),"%lf",&op.kp.o);
-			else if(name == "Arg_of_pericenter")
-				sscanf(value.c_str(),"%lf",&op.kp.w);
-			else if(name == "Mean_anomaly")
-				sscanf(value.c_str(),"%lf",&op.kp.M);
-			else if(name == "AirDragArea")
-				sscanf(value.c_str(),"%lf",&op.AirDragArea);
-			else if(name == "Mass")
-				sscanf(value.c_str(),"%lf",&op.Mass);
-			else if(name == "Epoch")
-				op.epoch = string2epoch(value);
-		}
-	}
-}
 
 void LoadFacFile(string filename)
 {
@@ -221,30 +168,30 @@ void maketestdata(double timebias,double timerate)
 }
 
 
-int _tmain(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
 	fstream ff;
 	ff.open("adjusttime.txt",ios::out);
 	ff.close();
 
-	if(argc<4)
-	{
-		printf("错误：未指定输入文件!!\n\n");
-		printf("请使用以下指令调用：\n");
-		printf("  adjusttime orbit.txt fac.txt timelist.txt\n");
-		printf("  第一个文件为轨道参数文件\n");
-		printf("  第二个文件为地面站参数和时延参数文件\n");
-		printf("  第三个文件为时标文件\n");
-		printf(" 输出文件为adjusttime.txt\n");
-		return 0;
-	}
+	//if(argc<4)
+	//{
+	//	printf("错误：未指定输入文件!!\n\n");
+	//	printf("请使用以下指令调用：\n");
+	//	printf("  adjusttime orbit.txt fac.txt timelist.txt\n");
+	//	printf("  第一个文件为轨道参数文件\n");
+	//	printf("  第二个文件为地面站参数和时延参数文件\n");
+	//	printf("  第三个文件为时标文件\n");
+	//	printf(" 输出文件为adjusttime.txt\n");
+	//	return 0;
+	//}
 
 	try{
-		LoadOrbitFile(string(argv[1]));
+		op = LoadOrbitFile(string(argv[1]));
 		LoadFacFile(string(argv[2]));
 		LoadTimeFile(string(argv[3]));
 
-		//LoadOrbitFile("orbit.txt");
+		//op = LoadOrbitFile("orbit.txt");
 		//LoadFacFile("fac.txt");
 
 		//double timebias = -0.02; // 卫星钟差

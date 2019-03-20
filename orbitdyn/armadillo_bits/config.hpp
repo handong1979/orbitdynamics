@@ -16,14 +16,14 @@
 
 
 #if !defined(ARMA_USE_LAPACK)
-#define ARMA_USE_LAPACK
+//#define ARMA_USE_LAPACK
 //// Comment out the above line if you don't have LAPACK or a high-speed replacement for LAPACK,
 //// such as Intel MKL, AMD ACML, or the Accelerate framework.
 //// LAPACK is required for matrix decompositions (eg. SVD) and matrix inverse.
 #endif
 
 #if !defined(ARMA_USE_BLAS)
-#define ARMA_USE_BLAS
+//#define ARMA_USE_BLAS
 //// Comment out the above line if you don't have BLAS or a high-speed replacement for BLAS,
 //// such as OpenBLAS, GotoBLAS, Intel MKL, AMD ACML, or the Accelerate framework.
 //// BLAS is used for matrix multiplication.
@@ -31,7 +31,7 @@
 #endif
 
 #if !defined(ARMA_USE_NEWARP)
-#define ARMA_USE_NEWARP
+//#define ARMA_USE_NEWARP
 //// Uncomment the above line to enable the built-in partial emulation of ARPACK.
 //// This is used for eigen decompositions of real (non-complex) sparse matrices, eg. eigs_sym(), svds() 
 #endif
@@ -61,7 +61,7 @@
 //// or if you prefer to directly link with LAPACK, BLAS + etc instead of the Armadillo runtime library.
 //// You will then need to link your programs directly with -llapack -lblas instead of -larmadillo
 
-#define ARMA_BLAS_CAPITALS
+//#define ARMA_BLAS_CAPITALS
 //// Uncomment the above line if your BLAS and LAPACK libraries have capitalised function names (eg. ACML on 64-bit Windows)
 
 //#define ARMA_BLAS_UNDERSCORE

@@ -1,4 +1,4 @@
-#ifndef __KEPLER_H
+﻿#ifndef __KEPLER_H
 #define __KEPLER_H
 
 #if defined(_MSC_VER) && _MSC_VER < 1300

@@ -1,4 +1,4 @@
-#ifndef __COORDINATION_H
+﻿#ifndef __COORDINATION_H
 #define __COORDINATION_H
 
 #include "Config.h"
