@@ -19,3 +19,7 @@ target_link_libraries(groundtraj OrbitDyn)
 add_executable(AdjustTime AdjustTime.cpp loadorbit.cpp)
 target_link_libraries(AdjustTime OrbitDyn)
 
+add_executable(attdet attdet.cpp loadorbit.cpp)
+target_link_libraries(attdet OrbitDyn)
+
+

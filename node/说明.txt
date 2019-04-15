@@ -1,0 +1,33 @@
+leocap   低轨卫星轨道捕获
+命令格式：leocap orbit.txt leocap.txt out.txt
+  第一个文件为轨道参数文件
+  第二个文件为控制目标设置文件
+  第三个文件为计算结果输出文件
+
+leodeorbit 低轨卫星离轨
+命令格式：leodeorbit  orbit.txt 20 deorbit.txt
+  第一个文件为轨道参数文件
+  第二个参数为卫星剩余的速度增量，单位为m/s
+  第三个文件为计算结果输出文件
+
+sap1 单轴帆板控制计算
+命令格式：sap1 orbit.txt sap.txt sap1out.txt
+  第一个文件为轨道参数文件
+  第二个文件为帆板指向控制设置文件
+  第三个文件为计算结果输出文件,各列分别为时间、帆板转角、太阳在轨道坐标系的方向
+
+
+sap2 双轴帆板控制计算
+命令格式：sap2 orbit.txt sap.txt sap2out.txt
+  第一个文件为轨道参数文件
+  第二个文件为帆板指向控制设置文件
+  第三个文件为计算结果输出文件,各列分别为时间、alpha角、beta角、太阳在轨道坐标系的方向
+
+leotrans 低轨轨道转移
+命令格式：leotrans a1 a2
+          第一个参数为初始轨道半长轴
+          第二个参数为目标轨道半长轴
+输出leotrans.txt文件如下格式：
+dv1 = 102.411383
+dv2 = 101.013389
+

@@ -1,0 +1,5 @@
+GLon=120.0
+GLat=40.0
+GAlt=0.2
+satdelay=0.1
+grddelay=0.02

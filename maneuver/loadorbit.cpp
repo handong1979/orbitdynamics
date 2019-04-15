@@ -40,17 +40,20 @@ OrbitParam LoadOrbitFile(string filename)
 				sscanf(value.c_str(),"%lf",&op.AirDragArea);
 			else if(name == "Mass")
 				sscanf(value.c_str(),"%lf",&op.Mass);
-			else if(name == "Epoch")
+			else if (name == "Epoch")
+			{
 				op.epoch = string2epoch(value);
+				//cout << "Epoch = " << op.epoch << endl;
+			}
 		}
 	}
 	return op;
 }
 
 void InitSat(CSatellite& sat, string filename)
-{
+{	
 	OrbitParam op;
-	op = LoadOrbitFile(filename);
+	op = LoadOrbitFile(filename);	
 	op.kp.i *= RAD;
 	op.kp.o *= RAD;
 	op.kp.w *= RAD;

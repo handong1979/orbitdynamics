@@ -4,8 +4,8 @@
 <style type="text/css">
 
 header {
-    background-color:black;
-    color:white;
+    background-color:#eeeee0;
+    color:black;
     text-align:center;
     padding:5px; 
 }
@@ -29,10 +29,51 @@ footer {
     text-align:center;
     padding:5px; 
 }
-
 </style>
 
+<script>
+function jsReadFiles(files) 
+{
+	if (files.length) {
+	 var file = files[0];
+	 var reader = new FileReader();
+		reader.onload = function(event) {
+			var contents = event.target.result;
+			console.log("File contents: " + contents);
+			var eq = contents.indexOf("%")
+		};
 
+		reader.onerror = function(event) {
+			console.error("File could not be read! Code " + event.target.error.code);
+		};
+
+		reader.readAsText(file);
+	 }
+ }
+	 
+function loadXMLDoc()
+{
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	  {// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	  }
+	else
+	  {// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	  }
+	xmlhttp.onreadystatechange=function()
+	  {
+	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+		document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+		}
+	  }
+	xmlhttp.open("GET","/ajax/test1.txt",true);
+	xmlhttp.send();
+}	 
+	 
+</script>
 
     <title>姿态轨道控制计算</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -58,7 +99,7 @@ footer {
 </nav>
 
     <section>
-        <form id="form_orbit" method="post" action="postlogin">
+        <form id="form_orbit" method="post" action="orbit">
             <fieldset>
                 <legend>轨道参数</legend>
                 <table>
@@ -68,38 +109,38 @@ footer {
                     </tr>
                     <tr>
                         <td>半长轴a(km)：</td>
-                        <td><input type="number" name="a" value="7022.14"><br /></td>
+                        <td><input type="text" name="a" value="7022.14"><br /></td>
                     </tr>
                     <tr>
                         <td>偏心率e: </td>
-                        <td><input type="number" name="e" value="0.001"><br /></td>
+                        <td><input type="text" name="e" value="0.001"><br /></td>
                     </tr>
                     <tr>
                         <td>倾角i(度)：</td>
-                        <td><input type="number" name="i" value="98.2"><br /></td>
+                        <td><input type="text" name="i" value="98.2"><br /></td>
                     </tr>
                     <tr>
                         <td>升交点赤经Omega(度)：</td>
-                        <td><input type="number" name="Omega" value="270.0"><br /></td>
+                        <td><input type="text" name="Omega" value="270.0"><br /></td>
                     </tr>
                     <tr>
                         <td>近地点幅角w(度): </td>
-                        <td><input type="number" name="w" value="20.2"><br /></td>
+                        <td><input type="text" name="w" value="20.2"><br /></td>
                     </tr>
                     <tr>
                         <td>平近点M(度): </td>
-                        <td><input type="number" name="M" value="20.0"><br /></td>
+                        <td><input type="text" name="M" value="20.0"><br /></td>
                     </tr>
                     <tr>
                         <td>卫星质量(kg): </td>
-                        <td><input type="number" name="Mass" value="700.0"><br /></td>
+                        <td><input type="text" name="Mass" value="700.0"><br /></td>
                     </tr>
                     <tr>
                         <td>阻力迎风面积(m^2): </td>
-                        <td><input type="number" name="airdrag" value="20.0"><br /></td>
+                        <td><input type="text" name="airdrag" value="20.0"><br /></td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td><input type="file" onchange="jsReadFiles(this.files)"/></td>
                         <td><input type="submit" value="提交" /></td>
                     </tr>
                 </table>
@@ -107,22 +148,41 @@ footer {
         </form>
     </section>
     <section>
-        <form id="form1" method="post" action="getlogin">
+        <form id="form_fac" method="post" action="timedelay">
             <fieldset>
                 <legend>时延设置</legend>
-                接收站地理经度(度):<input type="number" name="GLon" /><br />
-                接收站地理纬度(度):<input type="number" name="GLat" /><br />
-                接收站高度(km):<input type="number" name="GAlt" /><br />
-                星上时延(ms):<input type="number" name="satdelay" /><br />
-                地面时延(ms):<input type="number" name="grddelay" /><br />
-                <input type="submit" value="提交" />
+				<table>
+				<tr>
+					<td>接收站地理经度(度):</td>
+					<td><input type="text" name="GLon" value="120.0"/><br /></td>
+				</tr>
+                <tr>
+					<td>接收站地理纬度(度):</td>
+					<td><input type="text" name="GLat" value="40.0"/><br /></td>
+				</tr>
+                <tr>
+					<td>接收站高度(km):</td>
+					<td><input type="text" name="GAlt" value="0.2"/><br /></td>
+				</tr>
+				<tr>
+					<td>星上时延(ms):</td>
+					<td><input type="text" name="satdelay" value="0.1"/><br /></td>
+				</tr>
+				<tr>
+					<td>地面时延(ms):</td>
+					<td><input type="text" name="grddelay" value="0.02"/><br /></td>
+				</tr>
+                <tr><td></td><td><input type="submit" value="提交" /></td></tr>
+				</table>
             </fieldset>
         </form>
     </section>
-	
-	<footer>
-	xyz
-	</footer>
+	<section>
+		<form id="form_fac" method="post" action="adjtime">
+		<input type="submit" value="提交" />
+		</form>
+	</section>
+	<p id = "result"> </p>
 </body>
 
 </html>

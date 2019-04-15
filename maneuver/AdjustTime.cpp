@@ -22,6 +22,8 @@ typedef struct {
 } timepair;
 vector<timepair> tl;
 
+string outfilename;
+
 void LoadFacFile(string filename)
 {
 	fstream file(filename,ios::in);
@@ -89,6 +91,36 @@ double rou(CSatellite &sat,CFacility &fac)
 	return norm(sp-fp,2);
 }
 
+void maketestdata(double timebias, double timerate)
+{
+	cout << op.epoch << TAB << op.kp << endl;
+
+	CSatellite sat;
+	sat.Initialize(op.epoch - 3600.0*8.0, op.kp);
+	sat.Mass0 = op.Mass;
+	sat.AirDragArea = op.AirDragArea;
+
+	cout << sat.CurrentEpoch() << TAB << sat.GetOrbitElements() << endl;
+
+	double step = 60;
+	// 迭代每一个时间点的传输时延,求星时差
+	double tanstime = 0;
+	fstream tlf;
+	tlf.open("timelist.txt", ios::out);
+	int n = 200;
+
+	CDateTime TmTime; // 遥测打包时间
+	for (unsigned int i = 0; i<n; i++) {
+		TmTime = sat.CurrentEpoch();
+		tlf << TmTime + (timebias + timerate * i*step) << TAB;
+		sat.Propagate(delaysat, delaysat);
+		tanstime = rou(sat, fac) / LightVel;
+		tlf << TmTime + delaysat + tanstime + delaygrd << TAB << rou(sat, fac) << endl;
+		sat.Propagate(step - delaysat, step - delaysat);
+	}
+	tlf.close();
+}
+
 //! 校时量的计算
 double adjusttime()
 {
@@ -116,6 +148,7 @@ double adjusttime()
 				sat.PropagateBackward(-1, step);
 		}while(fabs(lastdt-dt)>1e-6);
 		tl[i].dt = dt;
+		cout << tl[i].re << TAB << dt << endl;
 	}
 
 	// 求均值、初值和斜率
@@ -130,7 +163,7 @@ double adjusttime()
 		avgdt = (tl[n-1].dt - tl[0].dt)/(tl[n-1].ts - tl[0].ts)*3600;
 
 	fstream ff;
-	ff.open("adjusttime.txt",ios::out);
+	ff.open(outfilename.c_str(),ios::out);
 	ff << "#集中校时时差值\n";
 	ff << "FocusAdjustTime = " << meandt << "\n";
 	ff << "#均匀校时周期\n";
@@ -142,62 +175,51 @@ double adjusttime()
 	return 1;
 }
 
-void maketestdata(double timebias,double timerate)
-{
-	CSatellite sat;
-	sat.Initialize(op.epoch - 3600.0*8.0, op.kp);
-	sat.Mass0 = op.Mass;
-	sat.AirDragArea = op.AirDragArea;
-	double step = 60;
-	// 迭代每一个时间点的传输时延,求星时差
-	double tanstime = 0;
-	fstream tlf;
-	tlf.open("timelist.txt",ios::out);
-	int n = 200;
-
-	CDateTime TmTime; // 遥测打包时间
-	for(unsigned int i=0; i<n; i++) {
-		TmTime = sat.CurrentEpoch();
-		tlf << TmTime + (timebias+timerate*i*step) << TAB;
-		sat.Propagate(delaysat, delaysat);
-		tanstime = rou(sat,fac)/LightVel;
-		tlf << TmTime + delaysat + tanstime + delaygrd << TAB << rou(sat,fac) << endl;
-		sat.Propagate(step-delaysat,step-delaysat);
-	}
-	tlf.close();
-}
-
-
 int main(int argc, char* argv[])
 {
+	outfilename = "adjusttime.txt";
+
+	if (argc<4)
+	{
+		if (argc == 3)
+		{
+			op = LoadOrbitFile((string(argv[1])));
+			LoadFacFile(string(argv[2]));
+			printf("Creating timelist file\n");
+			double timebias = -0.02; // 卫星钟差
+			double timerate = -0.001/3600; //卫星钟漂
+			maketestdata(timebias,timerate);
+			return 1;
+		}
+		printf("AdjustTime V1.01\n\n");
+		printf("错误：未指定输入文件!!\n\n");
+		printf("请使用以下指令格式调用：\n");
+		printf("  adjusttime orbit.txt fac.txt timelist.txt [out.txt]\n");
+		printf("  第一个文件为轨道参数文件\n");
+		printf("  第二个文件为地面站参数和时延参数文件\n");
+		printf("  第三个文件为时标文件\n");
+		printf("  第四个文件为输出文件,不指定输出文件时，输出保存到adjusttime.txt\n");
+		return 0;
+	}
+	else if (argc == 5)
+	{
+		outfilename = string(argv[4]);
+	}
+
+
 	fstream ff;
-	ff.open("adjusttime.txt",ios::out);
+	ff.open(outfilename, ios::out);
 	ff.close();
 
-	//if(argc<4)
-	//{
-	//	printf("错误：未指定输入文件!!\n\n");
-	//	printf("请使用以下指令调用：\n");
-	//	printf("  adjusttime orbit.txt fac.txt timelist.txt\n");
-	//	printf("  第一个文件为轨道参数文件\n");
-	//	printf("  第二个文件为地面站参数和时延参数文件\n");
-	//	printf("  第三个文件为时标文件\n");
-	//	printf(" 输出文件为adjusttime.txt\n");
-	//	return 0;
-	//}
-
 	try{
+		printf("orbit file = %s\n",argv[1]);
 		op = LoadOrbitFile(string(argv[1]));
+
+		printf("fact file = %s\n", argv[2]);
 		LoadFacFile(string(argv[2]));
+
+		printf("timelist file = %s\n", argv[3]);
 		LoadTimeFile(string(argv[3]));
-
-		//op = LoadOrbitFile("orbit.txt");
-		//LoadFacFile("fac.txt");
-
-		//double timebias = -0.02; // 卫星钟差
-		//double timerate = -0.001/3600; //卫星钟漂
-		//maketestdata(timebias,timerate);
-		//LoadTimeFile("timelist.txt");
 
 		adjusttime();
 	}
@@ -209,6 +231,10 @@ int main(int argc, char* argv[])
  	{
  		cerr << ((BaseException*)e)->what() << endl;
  	}
+	catch (string *e)
+	{
+		cerr << *e << endl;
+	}
 
 	return 1;
 }
