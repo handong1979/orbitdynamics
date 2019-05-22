@@ -2,6 +2,11 @@
 #include <PerfTimer.h>
 
 using namespace Constant;
+
+string outfilename, lanfilename, orbitfilename;
+vector<double> lonlist;
+
+
 // fit x-y as a palabolic:
 // y = a + b*x + c*x^2
 void parabolafit(double* x, double* y, int n, double& a, double& b, double& c)
@@ -113,7 +118,7 @@ void groundtraj()
 		printf("dL = %lf\n", dotL * 86400 );  // lon error rate
 		printf("ddL = %lf\n", AccL * 86400 * 86400 ); // lon error accelerate
 	}
-
+	return;
 	// 预报和控制计算
 	chaser.Initialize(CDateTime(2016, 8, 13, 12, 0, 0.0), elem);
 	target.Initialize(CDateTime(2016, 8, 13, 12, 0, 0.0), elem);
@@ -140,7 +145,6 @@ void groundtraj()
 			// 超出东边界
 		}
 	} while (fabs(dlr) * 2 < dLANmax);
-	
 }
 
 void RepeatOrbit(int days, int revs, double lan0)
@@ -152,11 +156,13 @@ void RepeatOrbit(int days, int revs, double lan0)
 	fp = fopen("rolan.txt", "w");
 	fprintf(fp, "%3d   %11.6lf\n",0, lan0);
 	double lan = lan0;
+	lonlist.clear();
 	for (int i = 1;i < revs;i++)
 	{
 		lan += dlan;
 		if (lan > 180)
 			lan -= 360;
+		lonlist.push_back(lan);
 		fprintf(fp, "%3d   %11.6lf\n",i, lan);
 	}
 	fclose(fp);
@@ -187,15 +193,85 @@ void RepeatOrbit(int days, int revs, double lan0)
 //
 //}
 
+void loadlon(string lanfilename) {
+	fstream flan(lanfilename, ios::in);
+	double lon;
+	string name, value;
+	int RepeatDays = 0, RepeatRevs = 0;
+	double FirstLon, LonErr;
+	while (!flan.eof()) {
+		//# 回归周期的天数
+		//RepeatDays = 10
+		//# 回归周期的圈数
+		//RepeatRevs = 141
+		//# 第一圈的升交点地理经度
+		//FirstLon = 12.3
+		//# 升交点地理经度允许的最大偏差(km)
+		//LonErr = 10
+		if (ReadLine(&flan, name, value)) {
+			if (name == "RepeatDays")
+				sscanf(value.c_str(), "%d", &RepeatDays);
+			else if (name == "RepeatRevs")
+				sscanf(value.c_str(), "%d", &RepeatRevs);
+			else if (name == "FirstLon")
+				sscanf(value.c_str(), "%lf", &FirstLon);
+			else if (name == "LonErr")
+				sscanf(value.c_str(), "%lf", &LonErr);
+		}
+	}
+	if (RepeatDays != 0 && RepeatRevs != 0)
+	{
+		RepeatOrbit(RepeatDays, RepeatRevs, FirstLon);
+	}
+}
 
 int main(int argc, char* argv[])
 {
-	cout.precision(12);
+	if (argc < 4)
+	{
+		if (argc == 2)
+		{
+			loadlon(argv[1]);
+			return 1;
+		}
 
-	// 标称重复轨道的升交点地理经度表
-	//RepeatOrbit(10, 157, 98.5);
+		printf("错误：未指定输入文件!!\n\n");
+		printf("请使用以下指令调用：\n");
+		printf("  groundtraj orbit.txt gtrc.txt gtout.txt\n");
+		printf("  第一个文件为轨道参数文件\n");
+		printf("  第二个文件为标称升交点地理经度文件\n");
+		printf("  第三个文件为轨道维持精度设置文件\n");
+		printf("  第四个文件为轨道维持控制输出文件\n");
+		printf(" 用法2： 生成一个回归轨道的标称升交点地理经度表\n");
+		printf(" groundtraj gtrc.txt\n");
+		printf(" 根据文件中的回归轨道参数，生成一个rolan.txt文件，保存各个圈次的标称升交点地理经度\n");
+		return 0;
+	}
 
-	groundtraj();
+	try {
+		orbitfilename = string(argv[1]);
+		lanfilename = string(argv[2]);
+		outfilename = string(argv[3]);
+
+		loadlon(lanfilename);
+		groundtraj();
+	}
+	catch (BaseException& e)
+	{
+		cerr << e.GetFullMessage() << endl;
+	}
+	catch (exception* e)
+	{
+		cerr << ((BaseException*)e)->what() << endl;
+	}
+	catch (string * e)
+	{
+		cerr << *e << endl;
+	}
+
+
+
+	
 	
 	
 	return 0;

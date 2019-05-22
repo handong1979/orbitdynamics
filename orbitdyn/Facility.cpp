@@ -3,6 +3,7 @@
 \author HanDle
  地面站的函数*/
 #include "Facility.h"
+#include "Satellite.h"
 
 /*!
 构造函数
@@ -94,9 +95,9 @@ ORBITDYN_API mat33 VehicleCoord(double Longitude,double Latitude)
 	//const static double f = 1.0/298.257;
 	double phic = Latitude;//atan((1-f*f)*tan(Latitude));
 	mat33 C;
- 	C(0,0) = -sin(Longitude);			 C(0,1) = cos(Longitude);			  C(0,2) = 0;
- 	C(1,0) = -cos(Longitude)*sin(phic);  C(1,1) = -sin(phic)*sin(Longitude);  C(1,2) = cos(phic);
- 	C(2,0) = cos(Longitude)*cos(phic);	 C(2,1) = cos(phic)*sin(Longitude);	  C(2,2) = sin(phic);
+	C(0,0) = -sin(Longitude);			 C(0,1) = cos(Longitude);			  C(0,2) = 0;
+	C(1,0) = -cos(Longitude)*sin(phic);  C(1,1) = -sin(phic)*sin(Longitude);  C(1,2) = cos(phic);
+	C(2,0) = cos(Longitude)*cos(phic);	 C(2,1) = cos(phic)*sin(Longitude);	  C(2,2) = sin(phic);
 	
 	//C(0,0) = cos(Longitude)*cos(phic);	 C(0,1) = cos(phic)*sin(Longitude);	  C(0,2) = sin(phic);
 	//C(1,0) = -sin(Longitude);			 C(1,1) = cos(Longitude);			  C(1,2) = 0;
@@ -104,33 +105,21 @@ ORBITDYN_API mat33 VehicleCoord(double Longitude,double Latitude)
 	return C;
 }
 
-/* 计算卫星在地面站中方位角、仰角和距离
+/* 计算卫星在地面站中方位角、仰角和距离*/
+bool CFacility::access(CSatellite & sat)
 {
-	CFacility fac;
-	fac.SetGeodetic(input->v.Longitude,input->v.Latitude,input->v.Altitude);
-	CDateTime epoch;
-	epoch.SetTime(input->t.year,input->t.month,input->t.day,input->t.hour,input->t.minute,input->t.second);
-	epoch = epoch - 28800 + stepsize; //转化为世界时
-	Vector u = fac.ECFPosition;
+	vec3 u = ECFPosition;
 
-	struct OrbitElements* oe = &input->oe;
-	double n = sqrt(GE/oe->a/oe->a/oe->a);
-	Kepler kp(oe->a,oe->e,oe->i*RAD,oe->Omega*RAD,oe->w*RAD,oe->M*RAD+n*stepsize);
-	input->oe.M = fmod(kp.M,PI2)*DEG;
-	Vector sp,sv;
-	Kepler_Cartesian(kp,sp,sv);
-	Vector R = ECI_ECF(epoch)*sp;
+	vec3 R = ECI_ECF(sat.CurrentEpoch())*sat.Pos();
 
-	Matrix C = VehicleCoord(fac.Longitude*RAD,fac.Latitude*RAD);
-	Vector s = C*(R-u);
+	mat33 C = VehicleCoord(Longitude,Latitude);
+	vec3 s = C*(R-u);
 
 	//输出
-	epoch = epoch + 28800;
-	GetCalendar(epoch.GetMJD(),output->t.year,output->t.month,output->t.day,output->t.hour,output->t.minute,output->t.second);
-	input->t = output->t;
-	output->rou = s.Module();
-	output->azimuth = atan2(s.y,s.x)*DEG;
-	output->elevation = asin(s.z/output->rou)*DEG;
-	return 0;
+	double rou = norm(s, 2);
+	double elevation = asin(s(2)/rou)*DEG;
+	if( elevation > 5 )
+		return true;
+	return false;
 }
-*/
+

@@ -10,6 +10,8 @@
 #include "Coordination.h"
 #include "Utility.h"
 
+class CSatellite;
+
 /*!地面站
 */
 class ORBITDYN_API CFacility
@@ -49,6 +51,9 @@ public:
 
 	//! J2000.0惯性系位置
 	vec3 ECIPos(const CDateTime time);
+
+	//! 计算卫星的可见性
+	bool access(CSatellite &sat);
 
 private:
 

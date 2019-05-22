@@ -22,4 +22,26 @@ target_link_libraries(AdjustTime OrbitDyn)
 add_executable(attdet attdet.cpp loadorbit.cpp)
 target_link_libraries(attdet OrbitDyn)
 
+add_executable(attctrl attctrl.cpp loadorbit.cpp)
+target_link_libraries(attctrl OrbitDyn)
 
+add_executable(consformation consformation.cpp loadorbit.cpp)
+target_link_libraries(consformation OrbitDyn)
+
+add_executable(geocolocationE geocolocationE.cpp loadorbit.cpp)
+target_link_libraries(geocolocationE OrbitDyn)
+
+add_executable(geocolocationI geocolocationI.cpp loadorbit.cpp)
+target_link_libraries(geocolocationI OrbitDyn)
+
+add_executable(geodeorbit geodeorbit.cpp loadorbit.cpp)
+target_link_libraries(geodeorbit OrbitDyn)
+
+add_executable(geoEWsk geoEWsk.cpp loadorbit.cpp)
+target_link_libraries(geoEWsk OrbitDyn)
+
+add_executable(geoNSsk geoNSsk.cpp loadorbit.cpp)
+target_link_libraries(geoNSsk OrbitDyn)
+
+add_executable(geotrans geotrans.cpp loadorbit.cpp)
+target_link_libraries(geotrans OrbitDyn)
