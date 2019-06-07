@@ -41,7 +41,9 @@ void attctrl()
 	fstream fa(attfilename.c_str(), ios::out);
 	vec3 satr,facr,sf,sfo,sfou;
 	mat33 coi;
-	double psi, theta;
+	double phi, theta;
+	bool see = false;
+	int nsee = 1;
 	for (int i = 0; i <= 86400; i++)
 	{
 		satr = sat.Pos();
@@ -61,15 +63,28 @@ void attctrl()
 
 		if (elevation > Elmin)
 		{
-			// 3-2转序旋转的求逆
-			psi = atan2(sfou(1), sfou(0));
-			if (fabs(psi) < PI / 2)
-				theta = asin(sfou(2));
-			else
-				theta = asin(-sfou(2));
-			fa << sat.CurrentEpoch()+8*3600.0 << 
-				TAB << psi * DEG << TAB << theta * DEG << TAB 
-				<< sfou(0) << TAB << sfou(1) << TAB << sfou(2) << TAB << elevation << endl;
+			if (see == false)
+			{
+				cout << nsee <<". 可见开始时间: " << sat.CurrentEpoch() + 8*3600.0;
+				see = true;
+			}
+			// 1-2转序旋转的求逆
+			//[cos(theta), sin(phi)*sin(theta), -cos(phi)*sin(theta)]
+			//[0, cos(phi), sin(phi)]
+			//[sin(theta), -cos(theta)*sin(phi), cos(phi)*cos(theta)]
+			phi = atan2(-sfou(1), sfou(2));
+			theta = asin(sfou(0));
+			fa << sat.CurrentEpoch() + 8 * 3600.0 <<
+				TAB << phi * DEG << TAB << theta * DEG << //endl;
+			TAB << sfou(0) << TAB << sfou(1) << TAB << sfou(2) << TAB << elevation << endl;
+		}
+		else
+		{
+			if (see == true) {
+				cout << "  结束时间: " << sat.CurrentEpoch() + 8 * 3600.0 << endl;
+				see = false;
+				nsee++;
+			}
 		}
 
 		sat.Propagate(1, 1);

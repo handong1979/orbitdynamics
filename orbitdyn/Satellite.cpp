@@ -481,7 +481,7 @@ void CSatelliteBase::ImpluseManeuver(vec3 Dv,Coordination d /*= VVLH*/ )
 	switch(d) {
 	case VVLH:
 		coi = GetCoi(GetOrbitElements());
-		Velocity += coi*Dv;
+		Velocity += coi.t()*Dv;
 		break;
 	case ECI:
 		Velocity += Dv;
