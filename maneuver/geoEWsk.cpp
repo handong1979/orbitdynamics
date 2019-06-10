@@ -57,55 +57,89 @@ void parabolafit(double* x, double* y, int n, double& a, double& b, double& c)
 	c = matrix[2][3];
 }
 
+// 输入epoch时间，kp轨道根数
+// 输出lamdap0平经度，D0平经度漂移率，lmda平经度漂移加速度
+void GetD(CDateTime epoch, Kepler kp, double& lamdap0, double& D0,double& lmda)
+{
+	CSatellite sat;
+	sat.Initialize(epoch, kp);
+
+	// 外推，拟合出经度偏差漂移率
+	const int ndays = 7;	
+	CSpherical lla;
+ 
+	double Tsk = 600.0 / 86400.0;
+	double x[ndays * 144], y[ndays * 144];
+
+	for (int i = 0; i < ndays * 144; i++)
+	{
+		lla = sat.GetLLA();
+
+		x[i] = i * Tsk;
+		y[i] = lla.Longitude;
+
+		sat.Propagate(600, 600);
+	}
+	double a, b, c;
+	parabolafit(x, y, ndays * 144, a, b, c);
+	lmda = 2 * c;
+	lamdap0 = a;
+	D0 = b;
+}
+
 void geoEWsk()
 {
 	CSatellite sat;
 	InitSat(sat,orbitfilename);
 
-	CSpherical lla;
-
-	// 外推，拟合出经度偏差漂移率
-	const int ndays = 10;
-	CDateTime ep0 = sat.CurrentEpoch();
-
+	CSpherical lla = sat.GetLLA();
+	double lamdap; // 平经度
 	double lmda; // 平经度漂移加速度
-	double L22 = -0.26056, L31 = 0.12161, L33 = 0.36641;  // 田谐项地理经度
-	double Klmd = 0.003209, KD = 0.000707;  // 平经度滤波系数
-	// 平经度漂移加速度
-	lmda = 0.00170072*sin(2 * (Lon*RAD - L22))
-		- 0.00007826*sin(Lon*RAD - L31)
-		+ 0.0023526*sin(3 * (Lon*RAD - L33));
-	lla = sat.GetLLA();
-	double lamdap = lla.Longitude;
-	double lmde, D = 0;// .01;
-	double Tsk = 600.0 / 86400.0;
-	fstream fp; 
-	fp.open("EWsktraj.txt", ios::out);
-	for (int i = 0;i < ndays*144;i++)
-	{
-		sat.Propagate(600,600);
-		lla = sat.GetLLA();
-				
-		lamdap = lamdap + D * Tsk + 0.5*lmda*Tsk*Tsk;
-		lmde = lla.Longitude - lamdap;
-		lamdap = lamdap + Klmd * lmde;
-		D = D + KD * lmde;	
+	double D; // 平经度漂移率
 
-		//fp << sat.CurrentEpoch() + 8 * 3600.0 << TAB
-		//	<< lamdap << TAB << D << TAB << lla.Longitude << endl;
-	}
+	fstream fp;
+	fp.open("EWsktraj.txt", ios::out);
+
+	//double L22 = -0.26056, L31 = 0.12161, L33 = 0.36641;  // 田谐项地理经度
+	//double Klmd = 0.003209, KD = 0.000707;  // 平经度滤波系数
+	//// 平经度漂移加速度
+	//lmda = 0.00170072*sin(2 * (Lon*RAD - L22))
+	//	- 0.00007826*sin(Lon*RAD - L31)
+	//	+ 0.0023526*sin(3 * (Lon*RAD - L33));	
+	//cout << lmda << endl;	
+	//double lmde;
+	//double Tsk = 600.0 / 86400.0;
+
+	//double x[ndays * 144], y[ndays * 144];
+
+	//for (int i = 0;i < ndays*144;i++)
+	//{		
+	//	lla = sat.GetLLA();
+
+	//	lamdap = lamdap + D * Tsk + 0.5*lmda*Tsk*Tsk;
+	//	D = D + lmda * Tsk;
+	//	lmde = lla.Longitude - lamdap;
+	//	lamdap = lamdap + Klmd * lmde;
+	//	D = D + KD * lmde;
+	//	fp << sat.CurrentEpoch() + 8 * 3600.0 << TAB
+	//		<< lamdap << TAB << D << TAB << lla.Longitude << endl;
+
+	//	x[i] = i * Tsk;
+	//	y[i] = lla.Longitude;
+
+	//	sat.Propagate(600, 600);
+	//}
 	//fp.close();
+	//double a, b, c;
+	//parabolafit(x, y, ndays * 144, a, b, c);
+	//cout << a << TAB << b << TAB << c << endl;
+	//lmda = 2 * c;
+	//double lamdap0 = a;
+	//double D0 = b;
 	//return;
 
-	double lamdap0 = lamdap + D*(-ndays) + 0.5*lmda*(-ndays)*(-ndays);
-	double D0 = D + lmda * (-ndays);
-
 	//  预报和控制计算
-	InitSat(sat,orbitfilename);
-	lamdap = lamdap0;
-	D = D0;
 	double dlr = 0;
-
 	
 	bool ewsk = true;
 	int newsk = 0;
@@ -114,37 +148,35 @@ void geoEWsk()
 	CDateTime EWTime;
 	double Da, dVx, Tx;
 	do {
-		sat.Propagate(600, 600);
+		sat.Propagate(600, 86400);
 		lla = sat.GetLLA();
-
-		lamdap = lamdap + D * Tsk + 0.5*lmda*Tsk*Tsk;
-		lmde = lla.Longitude - lamdap;
-		lamdap = lamdap + Klmd * lmde;
-		D = D + KD * lmde;
-
-		cnt++;
-
-		dlr = lamdap - Lon;
+		GetD(sat.CurrentEpoch(), sat.GetOrbitElements(), lamdap, D, lmda);
+		cnt++;		
+		dlr = lamdap + D - Lon;
+		cout << sat.CurrentEpoch() << TAB << "Lon = " << lamdap << TAB 
+			<< "D = " << D << TAB << "dLon = " << dlr << endl;
 
 		//cout << sat.CurrentEpoch() << "\t经度:" << lla.Longitude
 		//	<< "\t经度偏差:" << lla.Longitude - Lon
 		//	<< "\t平经度:" << lamdap
 		//	<< "\t平经度漂移率:" << D << endl;
 
-		// TODO: control
-		if (dlr < -Lonerr && !readymaneuver && cnt>144*4)
+		// control
+		if (dlr < -Lonerr*0.8 && !readymaneuver && cnt>4)
 		{
-			//ewsk = false;
-			Da = sqrt(fabs(2.0*lmda*(Lonerr - dlr)));
-			dVx = (D - Da) / 0.352;
-			Tx = fabs(dVx)*sat.Mass() / F;
-			
-			double ex = sat.e*cos(sat.Omega + sat.w);
-			double ey = sat.e*sin(sat.Omega + sat.w);
+			double ex = sat.e * cos(sat.Omega + sat.w);
+			double ey = sat.e * sin(sat.Omega + sat.w);
 			double dalf = atan2(ey, ex) - mod(sat.u + sat.Omega + 4 * PI, 2 * PI);
 			if (dalf < 0)
 				dalf += 2 * PI;
-			EWTime = sat.CurrentEpoch() + dalf / We - Tx / 2;
+			EWTime = sat.CurrentEpoch() + dalf / We; // 大致时间，不考虑开机时长
+
+			//ewsk = false;
+			Da = sqrt( fabs( 2.0 * lmda * (Lonerr*0.8 - dlr) ) );
+			dVx = ( ( D + lmda * dalf / PI2 ) - Da ) / 0.352;
+			Tx = fabs(dVx)*sat.Mass() / F;
+			EWTime = EWTime - Tx / 2; // 精确开机时间
+			
 			readymaneuver = true;
 
 			fstream fout;
@@ -155,20 +187,22 @@ void geoEWsk()
 			fout << "位保前平经度漂移率(度/天） = " << D << endl;
 			fout << "位保后平经度漂移率(度/天） = " << Da << endl;
 			fout.close();
+
+			ewsk = false;
 		}
-		if (readymaneuver && sat.CurrentEpoch() > EWTime)
-		{
-			readymaneuver = false;
-			cnt = 0;
-			vec3 dv;
-			dv(0) = dVx / 1000.0;
-			dv(1) = 0;
-			dv(2) = 0;
-			sat.ImpluseManeuver(dv / 1000.0);
-			D = Da;
-			if(newsk++>10)
-				ewsk = false;
-		}
+		//if (readymaneuver && sat.CurrentEpoch() > EWTime)
+		//{
+		//	readymaneuver = false;
+		//	cnt = 0;
+		//	vec3 dv;
+		//	dv(0) = dVx / 1000.0;
+		//	dv(1) = 0;
+		//	dv(2) = 0;
+		//	sat.ImpluseManeuver(dv);
+		//	D = Da;
+		//	if(newsk++>10)
+		//		ewsk = false;
+		//}
 
 		fp << sat.CurrentEpoch() + 8 * 3600.0 << TAB 
 			<< lamdap << TAB << D << TAB << lla.Longitude << endl;
@@ -231,11 +265,6 @@ int main(int argc, char* argv[])
 	{
 		cerr << *e << endl;
 	}
-
-
-
-	
-	
 	
 	return 0;
 }
