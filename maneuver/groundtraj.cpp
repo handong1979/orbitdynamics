@@ -1,9 +1,11 @@
 #include <OrbitDyn.h>
-#include <PerfTimer.h>
+#include "mandef.h"
 
 using namespace Constant;
 
 string outfilename, lanfilename, orbitfilename;
+int RepeatDays = 0, RepeatRevs = 0;
+double FirstLon, LonErr, i0;
 vector<double> lonlist;
 
 
@@ -59,52 +61,46 @@ void parabolafit(double* x, double* y, int n, double& a, double& b, double& c)
 //! 测试轨道机动
 void groundtraj()
 {
-	CSatellite target, chaser;
+	CSatellite sat;
+	InitSat(sat,orbitfilename);
+	cout << "sat's Mean:" << sat.MedianElement() << endl;
 
-	chaser.SetForce(6, ODP_LEO);
-	chaser.SetAutoSave();
-	//target.SetForce(4, ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL);
-	target.SetForce(2, ODP_EARTH_ZONAL);
-	target.SetAutoSave();
-
-	double elem[6] = { 7051.1057, 0.003005,	  98.5051*RAD,	  202.2820*RAD,  0.0580*RAD,	  211.4238*RAD };
-
-	chaser.Initialize(CDateTime(2016, 8, 13, 12, 0, 0.0), elem);
-	target.Initialize(CDateTime(2016, 8, 13, 12, 0, 0.0), elem);
-	Kepler tm = Mean(Kepler(elem));
-
-	cout << "Chaser's Mean:" << chaser.MedianElement() << endl;
-	cout << "Target's Mean:" << target.MedianElement() << endl << endl;
-
-	CSpherical lla, llat;
+	CSpherical lla;
 	FILE* flla;
 	flla = fopen("groundtraj.txt", "w");
+	// 节点周期
+	double w = PI2 / (RepeatDays * 86164.09 / RepeatRevs);
+	double a0 = pow(GE/w/w,1.0/3.0);
+	double var = 1.5*J2*Re*Re*(1 - 4.0*pow(cos(i0*RAD), 4));
+	double a;
+	for (int kk = 0; kk < 10; kk++)
+	{
+		a = a0 - (a0*a0 + var - sqrt(GE*a0) / w) / (2 * a0 - sqrt(GE/a0) / 2 / w);
+		a0 = a;
+	}	
 
 	// 外推，拟合出经度偏差漂移率和漂移加速度
-	const int nrev = 200;
+	const int nrev = 60;
 	double dlarray[nrev] = { 0 }, time[nrev] = { 0 }, da[nrev] = { 0 };
-	CDateTime ep0 = chaser.CurrentEpoch();
+	CDateTime ep0 = sat.CurrentEpoch();
 	for (int i = 0;i < nrev;i++)
 	{
-		chaser.Propagate2EquatorAscNode();
-		lla = chaser.GetLLA();
+		sat.Propagate2EquatorAscNode();
+		lla = sat.GetLLA();
 		
-		target.Propagate2EquatorAscNode();		
-		llat = target.GetLLA();
-
-		double dl = lla.Longitude - llat.Longitude;
+		double dl = lla.Longitude - lonlist[i%RepeatRevs];
 		if (dl > 350) dl -= 360;
 		else if (dl < -350) dl += 360;
 		dl = dl * RAD * 6378;
 
 		dlarray[i] = dl;
-		time[i] = chaser.CurrentEpoch() - ep0;
-		Kepler cm = Mean(chaser.GetOrbitElements());
-		da[i] = cm.a - tm.a;
+		time[i] = sat.CurrentEpoch() - ep0;
+		Kepler cm = Mean(sat.GetOrbitElements());
+		da[i] = cm.a - a0;
 
-		cout << "Chaser's Lon:" << lla.Longitude 
+		cout << "Lon: " << lla.Longitude 
 			<< " Lat: " << lla.Latitude
-			<< "\tLon err:" << dl*RAD*6378 << endl;
+			<< "\tLon err:" << dl << endl;
 		fprintf(flla,"%e\t%e\t%e\n",time[i], dlarray[i],da[i]);
 	}
 	fclose(flla);
@@ -120,31 +116,29 @@ void groundtraj()
 	}
 	return;
 	// 预报和控制计算
-	chaser.Initialize(CDateTime(2016, 8, 13, 12, 0, 0.0), elem);
-	target.Initialize(CDateTime(2016, 8, 13, 12, 0, 0.0), elem);
+	InitSat(sat, orbitfilename);
 	double dLANmax = 10, dlr = 0;
+	int i = 0;
 	do {
-		chaser.Propagate2EquatorAscNode();
-		lla = chaser.GetLLA();
+		sat.Propagate2EquatorAscNode();
+		lla = sat.GetLLA();
 
-		target.Propagate2EquatorAscNode();
-		llat = target.GetLLA();
-
-		double dlr = lla.Longitude - llat.Longitude;
+		double dlr = lla.Longitude - lonlist[i%RepeatRevs];
 		if (dlr > 350) dlr -= 360;
 		else if (dlr < -350) dlr += 360;
 		dlr = dlr * RAD * 6378;
 
+		i++;
 		// control
-		if (dlr < -dLANmax)
+		if (dlr < -LonErr)
 		{
 			// 超出西边界
 		}
-		else if (dlr > dLANmax)
+		else if (dlr > LonErr)
 		{
 			// 超出东边界
 		}
-	} while (fabs(dlr) * 2 < dLANmax);
+	} while (fabs(dlr) * 2 < LonErr);
 }
 
 void RepeatOrbit(int days, int revs, double lan0)
@@ -155,13 +149,14 @@ void RepeatOrbit(int days, int revs, double lan0)
 	FILE *fp;
 	fp = fopen("rolan.txt", "w");
 	fprintf(fp, "%3d   %11.6lf\n",0, lan0);
-	double lan = lan0;
 	lonlist.clear();
+	double lan = lan0;
+	lonlist.push_back(lan);
 	for (int i = 1;i < revs;i++)
 	{
-		lan += dlan;
-		if (lan > 180)
-			lan -= 360;
+		lan -= dlan;
+		if (lan < 0)
+			lan += 360;
 		lonlist.push_back(lan);
 		fprintf(fp, "%3d   %11.6lf\n",i, lan);
 	}
@@ -197,8 +192,6 @@ void loadlon(string lanfilename) {
 	fstream flan(lanfilename, ios::in);
 	double lon;
 	string name, value;
-	int RepeatDays = 0, RepeatRevs = 0;
-	double FirstLon, LonErr;
 	while (!flan.eof()) {
 		//# 回归周期的天数
 		//RepeatDays = 10
@@ -217,6 +210,8 @@ void loadlon(string lanfilename) {
 				sscanf(value.c_str(), "%lf", &FirstLon);
 			else if (name == "LonErr")
 				sscanf(value.c_str(), "%lf", &LonErr);
+			else if (name == "i0")
+				sscanf(value.c_str(), "%lf", &i0);
 		}
 	}
 	if (RepeatDays != 0 && RepeatRevs != 0)
@@ -237,7 +232,7 @@ int main(int argc, char* argv[])
 
 		printf("错误：未指定输入文件!!\n\n");
 		printf("请使用以下指令调用：\n");
-		printf("  groundtraj orbit.txt gtrc.txt gtout.txt\n");
+		printf("  groundtraj orbitleotraj.txt gtrc.txt gtout.txt\n");
 		printf("  第一个文件为轨道参数文件\n");
 		printf("  第二个文件为标称升交点地理经度文件\n");
 		printf("  第三个文件为轨道维持精度设置文件\n");
