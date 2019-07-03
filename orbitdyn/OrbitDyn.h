@@ -1,4 +1,4 @@
-#ifndef __ORBITDYN_H
+﻿#ifndef __ORBITDYN_H
 #define __ORBITDYN_H
 
 #include "Config.h"

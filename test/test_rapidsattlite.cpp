@@ -14,7 +14,7 @@ void test_rapidsattlite()
 	CSatellite sat1;
 	sat1.SetForce(21,ODP_EARTH_ALL);
 	sat1.SetAutoSave(writefile);
-	sat1.Initialize(t0,elem0,'i');
+	sat1.Initialize(t0,elem0);
 
 	//sat1.Propagate2Equator();
  	sat1.Propagate(10,5000);
@@ -23,7 +23,7 @@ void test_rapidsattlite()
 	CRapidSatellite sat2;
 	sat2.SetForce(6,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL);
 	sat2.SetAutoSave(writefile);
-	sat2.Initialize(t0,elem0,'i');
+	sat2.Initialize(t0,elem0);
 
 	fstream fraps("rapidsat.dat",ios::out);
 	for(int i=0;i<100000;i++)

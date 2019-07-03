@@ -1,4 +1,4 @@
-#ifndef __STOPCONDITION_H
+﻿#ifndef __STOPCONDITION_H
 #define __STOPCONDITION_H
 
 #include "Config.h"

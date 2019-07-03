@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Satellite.h"
 
@@ -12,7 +12,7 @@ public:
 	CLibrationSat(void);
 	~CLibrationSat(void);
 
-	//! ³õÊ¼»¯¼°ÉèÖÃº¯Êı
+	//! åˆå§‹åŒ–åŠè®¾ç½®å‡½æ•°
 	void Initialize(const CDateTime& dt,const Vector& r,const Vector& v);
 
 private:

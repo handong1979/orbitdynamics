@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Config.h"
 #include "Constant.h"
 #include "CDateTime.h"

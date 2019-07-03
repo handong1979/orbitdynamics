@@ -1,4 +1,4 @@
-#ifndef SOFAMHDEF
+﻿#ifndef SOFAMHDEF
 #define SOFAMHDEF
 
 /*

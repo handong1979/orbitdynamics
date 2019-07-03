@@ -1,4 +1,4 @@
-#ifndef __CENTRALBODY_H
+﻿#ifndef __CENTRALBODY_H
 #define __CENTRALBODY_H
 
 #if defined(_MSC_VER) && _MSC_VER < 1300

@@ -1,4 +1,4 @@
-#include "Euler.h"
+ï»¿#include "Euler.h"
 #include "Utility.h"
 #include "Constant.h"
 using namespace Constant;
@@ -46,7 +46,7 @@ void CEuler::SetValue(double a,double b,double c)
 	psi = c;
 }
 
-//! °´ÕÕ×ªĞòµÄ¶¨ÒåÉú³ÉÓàÏÒÕó
+//! æŒ‰ç…§è½¬åºçš„å®šä¹‰ç”Ÿæˆä½™å¼¦é˜µ
 mat33 CEuler::ToMatrix()
 {
 	mat33 A;
@@ -100,7 +100,7 @@ mat33 CEuler::ToMatrix()
 	return A;
 }	
 
-//! Éú³ÉĞ¡½Ç¶ÈÏÂµÄ×ËÌ¬¾ØÕó
+//! ç”Ÿæˆå°è§’åº¦ä¸‹çš„å§¿æ€çŸ©é˜µ
 mat33 CEuler::SmallAngleMatrix()
 {
 	mat33 m;

@@ -1,4 +1,4 @@
-#include "Msise00.h"
+﻿#include "Msise00.h"
 #include "Utility.h"
 
 CMsise00 Msise;

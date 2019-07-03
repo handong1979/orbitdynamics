@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <stdio.h>
 #include <BaseException.h>
 #include <CDateTime.h>
@@ -8,8 +8,8 @@ enum PLANET { MERCURY=0, VENUS, EARTH, MARS, JUPITER, SATURN, URANUS, NEPTUNE, P
 	MOON, SUN, SOLAR_SYSTEM_BARYCENTER, EARTH_MOON_BARYCENTER, NUTATIONS, LIBRATIONS};
 
 /*!
-DE405ĞÇÀúÖĞ¸÷´óĞĞĞÇµÄÎ»ÖÃÊÇÔÚÌ«ÑôÏµÖÊĞÄICRF²Î¿¼×ø±êÏµÖĞµÄÎ»ÖÃÊ¸Á¿£¬µ¥Î»Îªkm
-Î¨Ò»µÄÀıÍâÊÇ£ºÔÂÇòÎ»ÖÃÊÇÏà¶ÔµØĞÄµÄ¡£
+DE405æ˜Ÿå†ä¸­å„å¤§è¡Œæ˜Ÿçš„ä½ç½®æ˜¯åœ¨å¤ªé˜³ç³»è´¨å¿ƒICRFå‚è€ƒåæ ‡ç³»ä¸­çš„ä½ç½®çŸ¢é‡ï¼Œå•ä½ä¸ºkm
+å”¯ä¸€çš„ä¾‹å¤–æ˜¯ï¼šæœˆçƒä½ç½®æ˜¯ç›¸å¯¹åœ°å¿ƒçš„ã€‚
 */
 class ORBITDYN_API DE405
 {
@@ -72,19 +72,19 @@ class ORBITDYN_API DE405
 	void Interpolate_Position( double Time , int Target , double Position[3] );
 	void Interpolate_State( double Time , int Target , stateType *Planet );
 
-	// ´ÓÃ¶¾ÙĞÍ±äÁ¿PLANET×ª»»³ÉDE405ÖĞ¶¨ÒåµÄÕûÊı±àºÅ
+	// ä»æšä¸¾å‹å˜é‡PLANETè½¬æ¢æˆDE405ä¸­å®šä¹‰çš„æ•´æ•°ç¼–å·
 	int PLANET2int(PLANET p);
 
-	// ÔÂÇòÔÚµØÔÂÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+	// æœˆçƒåœ¨åœ°æœˆè´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 	void Moon_ESBARY(double JD,stateType* moon);
 
-	// µØÇòÔÚµØÔÂÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+	// åœ°çƒåœ¨åœ°æœˆè´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 	void Earth_ESBARY(double JD,stateType* earth);
 
-	// ÔÂÇòÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+	// æœˆçƒåœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 	void Moon_SSBARY(double JD,stateType* moon);
 
-	// µØÇòÔÚÌ«ÑôÏµÖÊĞÄÏµÖĞµÄÎ»ÖÃËÙ¶È
+	// åœ°çƒåœ¨å¤ªé˜³ç³»è´¨å¿ƒç³»ä¸­çš„ä½ç½®é€Ÿåº¦
 	void Earth_SSBARY(double JD,stateType* earth);
 
 	static DE405* theInstance;
@@ -95,8 +95,8 @@ public:
 	Vector Sun(const CDateTime& t);
 	void PlanetEphemeris(const CDateTime& t,PLANET cent,PLANET target,double cart[6]);
 	void PlanetEphemeris(const CDateTime& t,PLANET cent,PLANET target,Vector& r,Vector& v);
-	void Nutations(const CDateTime& t,double& dksi,double& deps); // »Æ¾­ÕÂ¶¯Óë½»½ÇÕÂ¶¯
-	void Librations(const CDateTime& t,double& Omega,double& i,double& u); // ÔÂ¹ÌÏµÏà¶ÔÔÂĞÄ¹ßĞÔÏµµÄÅ·À­×ª½Ç
+	void Nutations(const CDateTime& t,double& dksi,double& deps); // é»„ç»ç« åŠ¨ä¸äº¤è§’ç« åŠ¨
+	void Librations(const CDateTime& t,double& Omega,double& i,double& u); // æœˆå›ºç³»ç›¸å¯¹æœˆå¿ƒæƒ¯æ€§ç³»çš„æ¬§æ‹‰è½¬è§’
 };
 
 class ORBITDYN_API DE405Exception : public BaseException

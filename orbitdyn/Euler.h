@@ -1,4 +1,4 @@
-#ifndef __EULERANGLES_H
+﻿#ifndef __EULERANGLES_H
 #define __EULERANGLES_H
 
 #if _MSC_VER > 1000

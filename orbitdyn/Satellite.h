@@ -1,4 +1,4 @@
-#ifndef __SATELLITE_H
+﻿#ifndef __SATELLITE_H
 #define __SATELLITE_H
 
 // C++ common head file
@@ -330,8 +330,12 @@ public:
 	
 	//double FiniteManeuver(Direction , StopCondition);
 
-	//! 外推到地球赤道升交点
+	//! 外推到地球赤道
 	void Propagate2Equator();
+	//! 外推到地球赤道升交点
+	void Propagate2EquatorAscNode();
+	//! 外推到地球赤道降交点
+	void Propagate2EquatorDesNode();
 
 private:
 	void DynFunction(const double t,const vec& x,vec& y);

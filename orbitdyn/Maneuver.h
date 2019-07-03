@@ -1,4 +1,4 @@
-#ifndef __MANEUVER_H
+﻿#ifndef __MANEUVER_H
 #define __MANEUVER_H
 
 #include "Config.h"

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <stdio.h>
 #include "BaseException.h"
 #include "CDateTime.h"

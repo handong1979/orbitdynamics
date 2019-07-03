@@ -12,7 +12,7 @@ void test_RIC()
 	Kepler ka(7157.7833, 0.001215,	  98.5160*RAD,	  202.2820*RAD,  143.8963*RAD,    122.135*RAD);
 	Kepler kb(7157.7633, 0.001215,	  98.5140*RAD,	  202.2220*RAD,  144.8963*RAD,    121.035*RAD);
 	CSatellite a,b;
-	a.Initialize(t,ka,'i');
+	a.Initialize(t,ka);
 	vec3 r,v;
 	RIC(ka,kb,r,v);
 	Kepler kk = RIC(kb,r,v);

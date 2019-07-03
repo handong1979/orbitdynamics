@@ -41,4 +41,3 @@ add_executable(test_access test_access.cpp)
 target_link_libraries(test_access OrbitDyn)
 
 add_executable(testjson testjson.cpp)
-target_link_libraries(testjson OrbitDyn)

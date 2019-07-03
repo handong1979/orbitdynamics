@@ -1,4 +1,4 @@
-#include "StringUtility.h"
+﻿#include "StringUtility.h"
 
 //------------------------------------------------------------------------------
 // std::string Replace(const std::string &str, const std::string &from,

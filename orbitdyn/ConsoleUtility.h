@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <windows.h>
 #include <tchar.h>
@@ -80,10 +80,10 @@ public:
 	}
 	// 在原有标题的后面增加字符
 	void SetTitle2(TCHAR* title){
-		TCHAR oldtile[128];
-		int len = GetConsoleTitle(oldtile,128);
-		wcscpy(oldtile+len,title);
-		SetConsoleTitle(oldtile);
+		//TCHAR oldtile[128];
+		//int len = GetConsoleTitle(oldtile,128);
+		//wcscpy(oldtile+len,title);
+		//SetConsoleTitle(oldtile);
 	}
 private:
 #ifdef _MSC_VER

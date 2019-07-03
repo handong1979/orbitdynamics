@@ -1,4 +1,4 @@
-/*
+﻿/*
 	Filename: 	CSatellite.cpp
 	Created:	2003/10/29
 	Author:		HanDle
@@ -481,7 +481,7 @@ void CSatelliteBase::ImpluseManeuver(vec3 Dv,Coordination d /*= VVLH*/ )
 	switch(d) {
 	case VVLH:
 		coi = GetCoi(GetOrbitElements());
-		Velocity += coi*Dv;
+		Velocity += coi.t()*Dv;
 		break;
 	case ECI:
 		Velocity += Dv;
@@ -509,11 +509,6 @@ void CSatellite::Initialize(const CDateTime& t,const Kepler elem)
 {
 	Epoch = t;
     Status0 = elem;
-    
-    FILE * fp = fopen("test init.txt","w");
-    fprintf(fp,"elem:%f %f %f %f %f %f\n",elem.a,elem.e,elem.i,elem.o,elem.w,elem.M);
-    fprintf(fp,"Status0:%f %f %f %f %f %f",Status0.a,Status0.e,Status0.i,Status0.o,Status0.w,Status0.M);
-    fclose(fp);
     
 	a = Status0.a;
 	e = Status0.e;
@@ -747,6 +742,103 @@ CSpherical CSatellite::SubSatPoint(CSpherical & Geodetic,CSpherical & SSP)
 	SSP.Latitude = Lane;
 	SSP.Altitude = 0;
 	return SSP;
+}
+
+void CSatellite::Propagate2Equator()
+{
+	double Step = 30;
+	double lat,lastlat;
+	bool first = true, endwile = false;
+	while (true)
+	{
+		Propagate(Step, Step);
+
+		CSpherical lla = GetLLA();
+		lat = lla.Latitude;
+
+		if (endwile)
+			break;
+
+		if (first)
+		{
+			first = false;
+		}
+		else
+		{
+			double n = (lat - lastlat) / Step;
+			if ( (lat < 0 && n > 0 && lat + n*Step > 0) 
+				|| (lat > 0 && n < 0 && lat + n*Step < 0) )
+			{
+				endwile = true;
+				Step = fabs( lat / n); // 最后一步改变步长使lat刚好为0，即到达远心点
+			}
+		}
+		lastlat = lat;
+	}
+}
+
+void CSatellite::Propagate2EquatorAscNode()
+{
+	double Step = 30;
+	double lat, lastlat;
+	bool first = true, endwile = false;
+	while (true)
+	{
+		Propagate(Step, Step);
+
+		CSpherical lla = GetLLA();
+		lat = lla.Latitude;
+
+		if (endwile)
+			break;
+
+		if (first)
+		{
+			first = false;
+		}
+		else
+		{
+			double n = (lat - lastlat) / Step;
+			if (lat < 0 && n > 0 && lat + n * Step > 0)
+			{
+				endwile = true;
+				Step = fabs(lat / n); // 最后一步改变步长使lat刚好为0，即到达远心点
+			}
+		}
+		lastlat = lat;
+	}
+}
+
+void CSatellite::Propagate2EquatorDesNode()
+{
+	double Step = 30;
+	double lat, lastlat;
+	bool first = true, endwile = false;
+	while (true)
+	{
+		Propagate(Step, Step);
+
+		CSpherical lla = GetLLA();
+		lat = lla.Latitude;
+
+		if (endwile)
+			break;
+
+		if (first)
+		{
+			first = false;
+		}
+		else
+		{
+			double n = (lat - lastlat) / Step;
+			if (lat > 0 && n < 0 && lat + n * Step < 0)
+			{
+				endwile = true;
+				Step = fabs(lat / n); // 最后一步改变步长使lat刚好为0，即到达远心点
+			}
+		}
+		lastlat = lat;
+	}
 }
 
 //double CSatellite::Propagate2u(double &t,double h,CSatellite &s,double ut,const double dd,FILE* out)

@@ -1,10 +1,11 @@
-/*!
+﻿/*!
 \file test.cpp
 \author HanDle
 测试程序
 */
 #include <OrbitDyn.h>
 using namespace Constant;
+using namespace std;
 
 void test_sg()
 {

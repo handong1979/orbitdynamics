@@ -1,4 +1,4 @@
-// CPerfTimer - a simple Win32 performance counter wrapper
+﻿// CPerfTimer - a simple Win32 performance counter wrapper
 // by Dean Wyant dwyant@mindspring.com
 #include <windows.h>
 /*

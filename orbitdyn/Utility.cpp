@@ -1,4 +1,4 @@
-/*!
+﻿/*!
 摄动加速度、数学函数
 坐标转换函数(包括惯性系、地固系、轨道系)
 \author  韩冬
@@ -1815,13 +1815,13 @@ double maxabs3( double a, double b, double c )
 	return m>c?m:c;
 }
 
-/*!矢量外积*/
+//!矢量外积
 mat33 out_product(const vec3 &v1,const vec3& v2)
 {
 	return v1*v2.t();
 }
 
-/*!双矢量定姿*/
+//!双矢量定姿
 mat33 Avv( vec3 X1I, vec3 X2I, vec3 X1B, vec3 X2B ) 
 {
 	vec3 V2I = cross(X1I,X2I);

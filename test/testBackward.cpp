@@ -15,7 +15,7 @@ void testBackward()
 	CSatellite sat1;
 	sat1.SetForce(4,ODP_EARTH_ALL);
 	sat1.SetAutoSave(true);
-	sat1.Initialize(t0,elem0,'i');
+	sat1.Initialize(t0,elem0);
 
 	//CPerfTimer timer1;
 	//timer1.Start();
