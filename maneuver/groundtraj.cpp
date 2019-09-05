@@ -58,7 +58,7 @@ void parabolafit(double* x, double* y, int n, double& a, double& b, double& c)
 	c = matrix[2][3];
 }
 
-//! 测试轨道机动
+//! 地面轨迹维持
 void groundtraj()
 {
 	CSatellite sat;
@@ -77,10 +77,12 @@ void groundtraj()
 	{
 		a = a0 - (a0*a0 + var - sqrt(GE*a0) / w) / (2 * a0 - sqrt(GE/a0) / 2 / w);
 		a0 = a;
-	}	
-
+	}
+	//a0 = a0 + 12.721;
+	cout << "Guess a0 = " << a0 << endl;
+	
 	// 外推，拟合出经度偏差漂移率和漂移加速度
-	const int nrev = 60;
+	const int nrev = 200;
 	double dlarray[nrev] = { 0 }, time[nrev] = { 0 }, da[nrev] = { 0 };
 	CDateTime ep0 = sat.CurrentEpoch();
 	for (int i = 0;i < nrev;i++)
@@ -98,28 +100,40 @@ void groundtraj()
 		Kepler cm = Mean(sat.GetOrbitElements());
 		da[i] = cm.a - a0;
 
-		cout << "Lon: " << lla.Longitude 
-			<< " Lat: " << lla.Latitude
-			<< "\tLon err:" << dl << endl;
+		//cout << "Lon: " << lla.Longitude 
+		//	//<< " Lat: " << lla.Latitude
+		//	<< "\tLon err:" << dl << "km" << endl;
 		fprintf(flla,"%e\t%e\t%e\n",time[i], dlarray[i],da[i]);
 	}
 	fclose(flla);
 
 	// 拟合
 	double L0, dotL, AccL;
-	parabolafit(time, dlarray, nrev, L0, dotL, AccL);
+	parabolafit(da, dlarray, nrev, L0, dotL, AccL);
+	// x = a + b * (y + c) ^ 2 = b*y^2 + 2*b*c*y + b*c^2 + a
+	//                         = Accl*da^2 + dotL*da + L0
+	// 顶点(y=-c,x=a)
+
+	// find c:
+	double modifya = dotL / 2 / AccL;
+	printf("a0 = %lf\n", a0);
+	a0 = a0 - modifya;
 	if(1)
 	{
-		printf("L0 = %lf\n", L0);  // init lon error
-		printf("dL = %lf\n", dotL * 86400 );  // lon error rate
-		printf("ddL = %lf\n", AccL * 86400 * 86400 ); // lon error accelerate
+		printf("L0 = %lf\n", L0 );  // init lon error
+		printf("dL = %lf\n", dotL );  // lon error rate
+		printf("ddL = %lf\n", AccL ); // lon error accelerate
+		printf("a0 = %lf\n", a0);
+		printf("modifya = %lf\n", modifya);
 	}
-	return;
+//	return;
 	// 预报和控制计算
 	InitSat(sat, orbitfilename);
 	double dLANmax = 10, dlr = 0;
 	int i = 0;
-	do {
+	//do {
+	for (int i = 0; i < 50; i++)
+	{
 		sat.Propagate2EquatorAscNode();
 		lla = sat.GetLLA();
 
@@ -129,16 +143,34 @@ void groundtraj()
 		dlr = dlr * RAD * 6378;
 
 		i++;
+		cout << "Rev " << i << "  Lon err:" << dlr << "km" << endl;
 		// control
 		if (dlr < -LonErr)
 		{
-			// 超出西边界
+			// 超出西边界			
+			Kepler cm = Mean(sat.GetOrbitElements());
+			double abias = 0;
+			double da = a0 + modifya + abias - cm.a;
+			vec3 dv = "0.0,0.0,0.0";
+			dv(0) = sqrt(GE / cm.a / cm.a / cm.a) / 2 * da;
+			sat.ImpluseManeuver(dv);
+			cout << "超出西边界 dv = " << dv.t() << endl;
+			cout << da << TAB << cm.a << endl;
 		}
 		else if (dlr > LonErr)
 		{
 			// 超出东边界
+			Kepler cm = Mean(sat.GetOrbitElements());
+			double abias = 1;
+			double da = a0 + modifya + abias - cm.a;
+			vec3 dv = "0.0,0.0,0.0";
+			dv(0) = sqrt(GE / cm.a / cm.a / cm.a) / 2 * da;
+			sat.ImpluseManeuver(dv);
+			cout << "超出东边界 dv = " << dv.t() << endl;
+			cout << da << TAB << cm.a << endl;
 		}
-	} while (fabs(dlr) * 2 < LonErr);
+		//} while (fabs(dlr) * 2 < LonErr);
+	}
 }
 
 void RepeatOrbit(int days, int revs, double lan0)

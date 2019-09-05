@@ -1,9 +1,14 @@
 # orbitdynamics
 a C++ program for orbit dynamics, include compments:
+
   orbit propagator
+  
   formation
+  
   maneuver
+  
   etc
+  
 * RKF78 propagator
 * gravity field file supported
 * DE405/DE421 for planet's ephemeris
@@ -14,6 +19,7 @@ a C++ program for orbit dynamics, include compments:
 
 C++轨道动力学计算程序
 卫星、航天器轨道动力学的精密计算，包括主要特征包括：
+
 * RKF78高精度积分器
 * 支持地球引力场系数文件
 * DE405/DE421行星历表
@@ -28,24 +34,43 @@ C++轨道动力学计算程序
 
 Example:
    // a satellite
+   
    CSatellite sat;
-	// orbit epoch and elements
+   
+   // orbit epoch and elements
+   
 	CDateTime epoch(2006,5,1,0,0,0);
+	
 	Kepler ZY_Orbit(7157,			0.001,		98.5*RAD,	60*RAD,			90*RAD,		60*RAD);
+	
    // set satellite's param
+   
 	sat.Mass0 = 1000;  // use default value
+	
 	sat.Cr = 1.0;
+	
 	sat.LightPressArea = 20.0;
+	
 	sat.Cd = 2.2;
+	
 	sat.AirDragArea = 20.0;
+	
    // initialize CSatellite
+   
 	sat.Initialize(epoch,ZY_Orbit);
+	
 	// set force model
+	
 	sat.SetForce(21,ODP_EARTH_ZONAL|ODP_EARTH_TESSERAL|ODP_AIR_DRAG|ODP_SOLAR_CENT|ODP_SOLAR_PRESSURE|ODP_LUNAR_CENT|ODP_POSTNEWTON);
+	
 	// propagate the orbit and print position and velocity
+	
 	double t;
+	
 	for(t=0; t<86400; t+=60)
 	{
 		cout << t << TAB << sat.Pos().t() << TAB << sat.Vel().t() << endl;
+		
 		sat.Propagate(60,60);
+		
 	}

@@ -46,7 +46,7 @@ void LoadLEOCAPFile(string filename)
 	if (!file.is_open())
 		throw (string("Can't open file") + filename);
 	std::string name, value;
-	while (!file.eof()) {		
+	while (!file.eof()) {
 		if (ReadLine(&file, name, value)) {
 			if (name == "Targeta")
 				sscanf(value.c_str(), "%lf", &ta);

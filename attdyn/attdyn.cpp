@@ -48,7 +48,7 @@ vec7 rigid(double t, vec7 x,mat33 Is, vec3 Torque)
 	return join_vert(dq, dw);
 }
 
-double Gill4(vec7 dynfuc(double,vec7,mat33,vec3), 
+double Gill4(vec7 dynfuc(double,vec,mat33,vec3), 
 	double h, vec& x,mat33 Is,vec3 Torque, vec& xh)
 {
 	static const double s2 = sqrt(2.0);

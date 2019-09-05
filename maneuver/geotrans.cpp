@@ -1,5 +1,6 @@
 #include <OrbitDyn.h>
 #include <PerfTimer.h>
+#include "mandef.h"
 
 using namespace Constant;
 
@@ -11,6 +12,8 @@ int Nap = 5;
 //#测控的地理经度范围
 double minLon = 20;
 double maxLon = 150;
+//#卫星初始质量
+double Mass0 = 5400;
 //#主发动机推力
 double F = 490;
 //#主发动机比冲
@@ -19,40 +22,142 @@ double Isp = 305;
 //! GEO轨道转移
 void geotrans()
 {
-	
+	double hp = 200;
+	double ha = 35786;
+	double a = (hp + ha) / 2.0 + Re;
+	double e = (ha - hp) / 2.0 / a;
+	double i = 28.5 * RAD;
+	double w = 180 * RAD;
+	double lon0 = 170;
+	int nrev[3] = { 1,2,1 };
 
+	const double rs = 42164.2;
+	double vav = sqrt(GE*(2 / rs - 1 / a));
+	vec2 va;
+	va(0) = vav * cos(i);
+	va(1) = vav * sin(i);
+	vec2 vs;
+	vs(0) = sqrt(GE / rs);
+	vs(1) = 0;
+	vec2 dv = vs - va;
+	double psidn = asin(-dv(1) / norm(dv, 2)) * DEG;
+	double Londec0 = PI2 / sqrt(GE / a / a / a)*We*DEG;
+
+	double x1 = 0.4;
+	vec2 dv1 = dv * x1 * 1000.0;
+	double dm1 = Mass0 * (1 - exp(-norm(dv1,2) / Isp / 9.8));
+	double dt1 = dm1 / (F / Isp / 9.8);
+	vec2 v1 = va + dv1 / 1000;
+	double i1 = atan2(v1(1), v1(0));
+	double v1n = norm(v1);
+	double a1 = 1 / (2 / (ha + Re) - v1n * v1n / GE);
+	double Londec1 = PI2 / sqrt(GE/a1/a1/a1)*We*DEG;
+	double lon1 = mod(lon0 + 180 - Londec0 * nrev[0], 360); // AF1 longitude
+	double lon2 = mod(lon0 + 180 - Londec0 * nrev[0] - Londec1 * nrev[1], 360); // AF2 longitude
+	double dn = (Lon - lon2) / nrev[2];
+	double a2m = pow(GE / pow( PI2 / ((360 - dn) / DEG / We),2), 1.0 / 3.0);
+	double v2m = sqrt(GE*(2 / (ha + Re) - 1 / a2m));
+
+	double anglev1dv = PI - acos(dot(v1,dv)/v1n/norm(dv,2));
+	double theta = asin(sin(anglev1dv) / v2m * v1n);
+	vec2 dv2 = sqrt(v1n*v1n + v2m*v2m - 2.0*v2m*v1n*cos(PI - anglev1dv - theta)) * dv / norm(dv,2) * 1000;
+	// dv2 = dv * x2 * 1000;
+	double dm2 = (Mass0 - dm1)*(1 - exp(-norm(dv2,2) / Isp / 9.8));
+	double dt2 = dm2 / (F / Isp / 9.8);
+	vec2 v2 = v1 + dv2 / 1000;
+	double i2 = atan2(v2(1), v2(0));
+	double a2 = 1 / (2.0 / (ha + Re) - norm(v2,2)*norm(v2, 2) / GE);
+	double Londec2 = PI2 / sqrt(GE / a2 / a2 / a2)*We*DEG;
+
+	vec2 dv3 = dv * 1000.0 - dv1 - dv2;
+	double dm3 = (Mass0 - dm1 - dm2)*(1 - exp(-norm(dv3,2) / Isp / 9.8));
+	double dt3 = dm3 / (F / Isp / 9.8);
+	vec2 v3 = v2 + dv3 / 1000;
+	double i3 = atan2(v3(1), v3(0));
+	double a3 = 1 / (2 / (ha + Re) - norm(v3,2)*norm(v3, 2) / GE);
+	double Londec3 = PI2 / sqrt(GE / a3 / a3 / a3)*We*DEG;
+
+	double lontt = mod(lon0 + 180 - Londec0 * nrev[0] - Londec1 * nrev[1] - Londec2 * nrev[2], 360); // final longitude
+
+	CSatellite sat;
+	InitSat(sat, orbitfilename);
+	sat.Propagate2Apogee();
+	sat.Propagate2Apogee();
+	sat.PropagateBackward(60, dt1 / 2);
+	
 	fstream fout;
 	fout.open(outfilename, ios::out);
-	for (int k = 1; k <= Nap; k++)
-	{
-		fout << "第" << k << "次点火\n";
-		fout << "开机时刻 = " << endl;
-		fout << "关机时刻 = " << endl;
-		fout << "开机时长(s) = " << endl;
-		fout << "速度增量(m/s) = " << endl;
-		fout << "点火方向赤经 = " << endl;
-		fout << "点火方向赤纬 = " << endl;
-		fout << "速度增量 = " << endl;
-		fout << "燃料消耗 = " << endl;
-		fout << "开机点地理经度 = " << endl;
-		fout << "开机点地理纬度 = " << endl;
-		fout << "开机点卫星质量 = " << endl;
-		fout << "关机点地理经度 = " << endl;
-		fout << "关机点地理纬度 = " << endl;
-		fout << "开机点卫星质量 = " << endl;
-		fout << "开机点轨道六根数 = " << endl;
-		fout << "关机点轨道六根数 = " << endl;
-		fout << "\n";
-	}	
+	fout << "第1次点火\n";
+	fout << "开机时刻 = " << sat.CurrentEpoch() << endl;
+	fout << "关机时刻 = " << sat.CurrentEpoch() + dt1 << endl;
+	fout << "开机时长(s) = " << dt1 << endl;
+	fout << "速度增量(m/s) = " << norm(dv1, 2) << endl;
+	fout << "点火方向偏航角(度) = " << atan2(dv1(1),dv1(0))*DEG << endl;
+	fout << "燃料消耗(kg) = " << dm1 << endl;
+	//fout << "开机点地理经度 = " << endl;
+	//fout << "开机点地理纬度 = " << endl;
+	//fout << "开机点卫星质量 = " << endl;
+	//fout << "关机点地理经度 = " << endl;
+	//fout << "关机点地理纬度 = " << endl;
+	//fout << "开机点卫星质量 = " << endl;
+	//fout << "开机点轨道六根数 = " << endl;
+	//fout << "关机点轨道六根数 = " << endl;
+
+	sat.Propagate(60, dt1 / 2);
+	vec3 dva;
+	dva(0) = norm(dv1, 2) * cos(sat.i - atan2(dv1(1), dv1(0)));
+	dva(1) = norm(dv1, 2) * sin(sat.i - atan2(dv1(1), dv1(0)));
+	dva(2) = 0;
+	sat.ImpluseManeuver(dva / 1000);
+	sat.Propagate(60, dt1 / 2);
+	fout << "\n";
+	sat.Propagate2Apogee();
+	sat.PropagateBackward(60, dt2 / 2);
+
+	fout << "第2次点火\n";
+	fout << "开机时刻 = " << sat.CurrentEpoch() << endl;
+	fout << "关机时刻 = " << sat.CurrentEpoch() + dt2 << endl;
+	fout << "开机时长(s) = " << dt2 << endl;
+	fout << "速度增量(m/s) = " << norm(dv2, 2) << endl;
+	fout << "点火方向偏航角(度) = " << atan2(dv2(1), dv2(0))*DEG << endl;
+	fout << "燃料消耗(kg) = " << dm2 << endl;
+
+	sat.Propagate(60, dt2 / 2);
+	dva(0) = norm(dv2, 2) * cos(sat.i - atan2(dv2(1), dv2(0)));
+	dva(1) = norm(dv2, 2) * sin(sat.i - atan2(dv2(1), dv2(0)));
+	dva(2) = 0;
+	sat.ImpluseManeuver(dva / 1000);
+	sat.Propagate(60, dt2 / 2);
+	fout << "关机点轨道参数 = " << sat.GetOrbitElements() << endl;
+	fout << "\n";
+	sat.Propagate2Apogee();
+	sat.PropagateBackward(60, dt3 / 2);
+
+	fout << "第3次点火\n";
+	fout << "开机时刻 = " << sat.CurrentEpoch() << endl;
+	fout << "关机时刻 = " << sat.CurrentEpoch() + dt3 << endl;
+	fout << "开机时长(s) = " << dt3 << endl;
+	fout << "速度增量(m/s) = " << norm(dv3, 2) << endl;
+	fout << "点火方向偏航角(度) = " << atan2(dv3(1), dv3(0))*DEG << endl;
+	fout << "燃料消耗(kg) = " << dm3 << endl;
+	fout << "\n";
+
+	sat.Propagate(60, dt2 / 2);
+	dva(0) = norm(dv3, 2) * cos(sat.i - atan2(dv3(1), dv3(0)));
+	dva(1) = norm(dv3, 2) * sin(sat.i - atan2(dv3(1), dv3(0)));
+	dva(2) = 0;
+	sat.ImpluseManeuver(dva / 1000);
+
+	fout << "末端轨道参数 = " << sat.GetOrbitElements() << endl;
+
+	fout << "理论关机点地理经度 = " << lontt << endl;
+
 	fout.close();
 }
 
 void loadcon(string lanfilename) {
 	fstream flan(lanfilename, ios::in);
-	double lon;
 	string name, value;
-	int N = 0, P = 0, F = 0;
-	double Omega0, u0;
 	while (!flan.eof()) {
 		//#定点地理经度
 		//Lon = 120
@@ -71,13 +176,15 @@ void loadcon(string lanfilename) {
 			else if (name == "Nap")
 				sscanf(value.c_str(), "%d", &Nap);
 			else if (name == "F")
-				sscanf(value.c_str(), "%lf", &F); 
+				sscanf(value.c_str(), "%lf", &F);
 			else if (name == "Isp")
-				sscanf(value.c_str(), "%lf", &Isp); 
+				sscanf(value.c_str(), "%lf", &Isp);
 			else if (name == "minLon")
 				sscanf(value.c_str(), "%lf", &minLon);
 			else if (name == "maxLon")
 				sscanf(value.c_str(), "%lf", &maxLon);
+			else if (name == "Mass0")
+				sscanf(value.c_str(), "%lf", &Mass0);
 		}
 	}
 }
@@ -115,11 +222,5 @@ int main(int argc, char* argv[])
 	{
 		cerr << *e << endl;
 	}
-
-
-
-	
-	
-	
 	return 0;
 }
