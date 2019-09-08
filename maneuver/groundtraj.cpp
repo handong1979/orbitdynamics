@@ -130,6 +130,7 @@ void groundtraj()
 	// 预报和控制计算
 	InitSat(sat, orbitfilename);
 	double dLANmax = 10, dlr = 0;
+	fstream fo(outfilename, ios::out);
 	int i = 0;
 	//do {
 	for (int i = 0; i < 50; i++)
@@ -156,6 +157,10 @@ void groundtraj()
 			sat.ImpluseManeuver(dv);
 			cout << "超出西边界 dv = " << dv.t() << endl;
 			cout << da << TAB << cm.a << endl;
+
+			fo << "轨道维持控制时间 = " << sat.CurrentEpoch() << endl;
+			fo << "半长轴控制速度增量 = " << dv(0) * 1000 << endl;
+			break;
 		}
 		else if (dlr > LonErr)
 		{
@@ -168,9 +173,14 @@ void groundtraj()
 			sat.ImpluseManeuver(dv);
 			cout << "超出东边界 dv = " << dv.t() << endl;
 			cout << da << TAB << cm.a << endl;
+
+			fo << "轨道维持控制时间 = " << sat.CurrentEpoch() << endl;
+			fo << "半长轴控制速度增量 = " << dv(0) * 1000 << endl;
+			break;
 		}
 		//} while (fabs(dlr) * 2 < LonErr);
 	}
+	fo.close();
 }
 
 void RepeatOrbit(int days, int revs, double lan0)

@@ -17,18 +17,29 @@ double Mass0 = 5400;
 //#主发动机推力
 double F = 490;
 //#主发动机比冲
-double Isp = 305;
+double Isp = 315;
 
 //! GEO轨道转移
 void geotrans()
 {
-	double hp = 200;
-	double ha = 35786;
-	double a = (hp + ha) / 2.0 + Re;
-	double e = (ha - hp) / 2.0 / a;
-	double i = 28.5 * RAD;
-	double w = 180 * RAD;
-	double lon0 = 170;
+	CSatellite sat;
+	InitSat(sat, orbitfilename);
+
+	//double hp = 200;
+	//double ha = 35786;
+	//double a = (hp + ha) / 2.0 + Re;
+	//double e = (ha - hp) / 2.0 / a;
+	//double i = 28.5 * RAD;
+	//double w = 180 * RAD;
+	//double lon0 = -9.2;
+	double hp = sat.a*(1 - sat.e) - Re;
+	double ha = sat.a*(1 + sat.e) - Re;
+	double a = sat.a;
+	double e = sat.e;
+	double i = sat.i;
+	double w = sat.w;
+	double sg0 = GetSG(sat.CurrentEpoch());
+	double lon0 = sat.Omega - sg0;
 	int nrev[3] = { 1,2,1 };
 
 	const double rs = 42164.2;
@@ -43,25 +54,26 @@ void geotrans()
 	double psidn = asin(-dv(1) / norm(dv, 2)) * DEG;
 	double Londec0 = PI2 / sqrt(GE / a / a / a)*We*DEG;
 
-	double x1 = 0.4;
+	double x1 = 0.3;
 	vec2 dv1 = dv * x1 * 1000.0;
-	double dm1 = Mass0 * (1 - exp(-norm(dv1,2) / Isp / 9.8));
+	double dv1n = norm(dv1);
+	double dm1 = Mass0 * (1 - exp( -dv1n / Isp / 9.8));
 	double dt1 = dm1 / (F / Isp / 9.8);
 	vec2 v1 = va + dv1 / 1000;
 	double i1 = atan2(v1(1), v1(0));
 	double v1n = norm(v1);
 	double a1 = 1 / (2 / (ha + Re) - v1n * v1n / GE);
 	double Londec1 = PI2 / sqrt(GE/a1/a1/a1)*We*DEG;
-	double lon1 = mod(lon0 + 180 - Londec0 * nrev[0], 360); // AF1 longitude
-	double lon2 = mod(lon0 + 180 - Londec0 * nrev[0] - Londec1 * nrev[1], 360); // AF2 longitude
+	double lon1 = mod(lon0 - Londec0 * (nrev[0] + 0.5), 360); // AF1 longitude
+	double lon2 = mod(lon0 - Londec0 * (nrev[0] + 0.5) - Londec1 * nrev[1], 360); // AF2 longitude
 	double dn = (Lon - lon2) / nrev[2];
 	double a2m = pow(GE / pow( PI2 / ((360 - dn) / DEG / We),2), 1.0 / 3.0);
 	double v2m = sqrt(GE*(2 / (ha + Re) - 1 / a2m));
 
 	double anglev1dv = PI - acos(dot(v1,dv)/v1n/norm(dv,2));
 	double theta = asin(sin(anglev1dv) / v2m * v1n);
-	vec2 dv2 = sqrt(v1n*v1n + v2m*v2m - 2.0*v2m*v1n*cos(PI - anglev1dv - theta)) * dv / norm(dv,2) * 1000;
-	// dv2 = dv * x2 * 1000;
+	double dv2n = sqrt(v1n*v1n + v2m * v2m - 2.0*v2m*v1n*cos(PI - anglev1dv - theta));
+	vec2 dv2 = dv2n * dv / norm(dv,2) * 1000;
 	double dm2 = (Mass0 - dm1)*(1 - exp(-norm(dv2,2) / Isp / 9.8));
 	double dt2 = dm2 / (F / Isp / 9.8);
 	vec2 v2 = v1 + dv2 / 1000;
@@ -77,10 +89,12 @@ void geotrans()
 	double a3 = 1 / (2 / (ha + Re) - norm(v3,2)*norm(v3, 2) / GE);
 	double Londec3 = PI2 / sqrt(GE / a3 / a3 / a3)*We*DEG;
 
-	double lontt = mod(lon0 + 180 - Londec0 * nrev[0] - Londec1 * nrev[1] - Londec2 * nrev[2], 360); // final longitude
+	double lontt = mod(lon0 - Londec0 * (nrev[0] + 0.5) - Londec1 * nrev[1] - Londec2 * nrev[2], 360); // final longitude
+	cout << dv1.t();
+	cout << dv2.t();
+	cout << dv3.t();
+	cout << lontt << endl;
 
-	CSatellite sat;
-	InitSat(sat, orbitfilename);
 	sat.Propagate2Apogee();
 	sat.Propagate2Apogee();
 	sat.PropagateBackward(60, dt1 / 2);
@@ -94,23 +108,31 @@ void geotrans()
 	fout << "速度增量(m/s) = " << norm(dv1, 2) << endl;
 	fout << "点火方向偏航角(度) = " << atan2(dv1(1),dv1(0))*DEG << endl;
 	fout << "燃料消耗(kg) = " << dm1 << endl;
-	//fout << "开机点地理经度 = " << endl;
-	//fout << "开机点地理纬度 = " << endl;
-	//fout << "开机点卫星质量 = " << endl;
-	//fout << "关机点地理经度 = " << endl;
-	//fout << "关机点地理纬度 = " << endl;
-	//fout << "开机点卫星质量 = " << endl;
-	//fout << "开机点轨道六根数 = " << endl;
-	//fout << "关机点轨道六根数 = " << endl;
+	CSpherical lla = sat.GetLLA();
+	fout << "开机点地理经度 = " << lla.Longitude << endl;
+	fout << "开机点地理纬度 = " << lla.Latitude << endl;
+	fout << "开机点卫星质量 = " << sat.Mass() << endl;
+	fout << "开机点轨道六根数 = " << sat.GetOrbitElements() << endl;
 
 	sat.Propagate(60, dt1 / 2);
 	vec3 dva;
 	dva(0) = norm(dv1, 2) * cos(sat.i - atan2(dv1(1), dv1(0)));
 	dva(1) = norm(dv1, 2) * sin(sat.i - atan2(dv1(1), dv1(0)));
 	dva(2) = 0;
+	fout << "中间点轨道六根数 = " << sat.GetOrbitElements() << endl;
 	sat.ImpluseManeuver(dva / 1000);
+	sat.Mass0 = sat.Mass0*exp(-norm(dva,2) / Isp / 9.8);
 	sat.Propagate(60, dt1 / 2);
+
+	fout << "关机点轨道六根数 = " << sat.GetOrbitElements() << endl;
+	lla = sat.GetLLA();
+	fout << "关机点地理经度 = " << lla.Longitude << endl;
+	fout << "关机点地理纬度 = " << lla.Latitude << endl;
+	fout << "关机点卫星质量 = " << sat.Mass() << endl;
+
 	fout << "\n";
+
+	sat.Propagate2Apogee();
 	sat.Propagate2Apogee();
 	sat.PropagateBackward(60, dt2 / 2);
 
@@ -121,15 +143,27 @@ void geotrans()
 	fout << "速度增量(m/s) = " << norm(dv2, 2) << endl;
 	fout << "点火方向偏航角(度) = " << atan2(dv2(1), dv2(0))*DEG << endl;
 	fout << "燃料消耗(kg) = " << dm2 << endl;
+	lla = sat.GetLLA();
+	fout << "开机点地理经度 = " << lla.Longitude << endl;
+	fout << "开机点地理纬度 = " << lla.Latitude << endl;
+	fout << "开机点卫星质量 = " << sat.Mass() << endl;
+	fout << "开机点轨道六根数 = " << sat.GetOrbitElements() << endl;
 
 	sat.Propagate(60, dt2 / 2);
 	dva(0) = norm(dv2, 2) * cos(sat.i - atan2(dv2(1), dv2(0)));
 	dva(1) = norm(dv2, 2) * sin(sat.i - atan2(dv2(1), dv2(0)));
 	dva(2) = 0;
+	fout << "中间点轨道六根数 = " << sat.GetOrbitElements() << endl; 
 	sat.ImpluseManeuver(dva / 1000);
+	sat.Mass0 = sat.Mass0*exp(-norm(dva, 2) / Isp / 9.8);
 	sat.Propagate(60, dt2 / 2);
-	fout << "关机点轨道参数 = " << sat.GetOrbitElements() << endl;
+	fout << "关机点轨道六根数 = " << sat.GetOrbitElements() << endl;
+	lla = sat.GetLLA();
+	fout << "关机点地理经度 = " << lla.Longitude << endl;
+	fout << "关机点地理纬度 = " << lla.Latitude << endl;
+	fout << "关机点卫星质量 = " << sat.Mass() << endl;
 	fout << "\n";
+
 	sat.Propagate2Apogee();
 	sat.PropagateBackward(60, dt3 / 2);
 
@@ -140,13 +174,26 @@ void geotrans()
 	fout << "速度增量(m/s) = " << norm(dv3, 2) << endl;
 	fout << "点火方向偏航角(度) = " << atan2(dv3(1), dv3(0))*DEG << endl;
 	fout << "燃料消耗(kg) = " << dm3 << endl;
-	fout << "\n";
+	lla = sat.GetLLA();
+	fout << "开机点地理经度 = " << lla.Longitude << endl;
+	fout << "开机点地理纬度 = " << lla.Latitude << endl;
+	fout << "开机点卫星质量 = " << sat.Mass() << endl;
+	fout << "开机点轨道六根数 = " << sat.GetOrbitElements() << endl;
 
-	sat.Propagate(60, dt2 / 2);
+	sat.Propagate(60, dt3 / 2);
 	dva(0) = norm(dv3, 2) * cos(sat.i - atan2(dv3(1), dv3(0)));
 	dva(1) = norm(dv3, 2) * sin(sat.i - atan2(dv3(1), dv3(0)));
 	dva(2) = 0;
+	fout << "中间点轨道六根数 = " << sat.GetOrbitElements() << endl; 
 	sat.ImpluseManeuver(dva / 1000);
+	sat.Mass0 = sat.Mass0*exp(-norm(dva, 2) / Isp / 9.8);
+	fout << "关机点轨道六根数 = " << sat.GetOrbitElements() << endl;
+	sat.Propagate(60, dt3 / 2);
+	lla = sat.GetLLA();
+	fout << "关机点地理经度 = " << lla.Longitude << endl;
+	fout << "关机点地理纬度 = " << lla.Latitude << endl;
+	fout << "关机点卫星质量 = " << sat.Mass() << endl;
+	fout << "\n";
 
 	fout << "末端轨道参数 = " << sat.GetOrbitElements() << endl;
 
@@ -169,7 +216,7 @@ void loadcon(string lanfilename) {
 		//#主发动机推力
 		//F = 490
 		//#主发动机比冲
-		//Isp = 305
+		//Isp = 315
 		if (ReadLine(&flan, name, value)) {
 			if (name == "Lon")
 				sscanf(value.c_str(), "%lf", &Lon);
