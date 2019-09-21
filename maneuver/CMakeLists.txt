@@ -13,7 +13,7 @@ target_link_libraries(sap1 OrbitDyn)
 add_executable(sap2 sap2.cpp loadorbit.cpp)
 target_link_libraries(sap2 OrbitDyn)
 
-add_executable(groundtraj groundtraj.cpp)
+add_executable(groundtraj groundtraj.cpp loadorbit.cpp)
 target_link_libraries(groundtraj OrbitDyn)
 
 add_executable(AdjustTime AdjustTime.cpp loadorbit.cpp)
