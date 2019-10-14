@@ -1,0 +1,10 @@
+Epoch = 2019-06-22 08:00:00
+#Semi_major_axis   =     6852.2
+Semi_major_axis   =     6861.8
+Eccentricity      =     0.0
+Inclination       =     97.35968
+Ra_of_asc_node    =     90.5449
+Arg_of_pericenter =     0
+Mean_anomaly      =     0
+AirDragArea    = 10.5
+Mass = 300

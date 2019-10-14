@@ -1,0 +1,6 @@
+#集中校时时差值
+FocusAdjustTime = 0.0216633
+#均匀校时周期
+UniformAdjustTimePeriod = 3600
+#均匀校时校正量
+UniformAdjustTime = 0.000850848

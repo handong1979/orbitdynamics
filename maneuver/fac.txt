@@ -1,6 +1,10 @@
-Satdelay   =     100
+#星上时延
+Satdelay  = 100
+#地面时延
 Grounddelay = 100
-
+# 地面站位置信息
 GLon = 120
 GLat = 40
-GAlt = 0.3
+GAlt = 0.2
+# 地面站最低仰角
+Elmin = 15.0

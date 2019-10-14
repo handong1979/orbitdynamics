@@ -1,0 +1,9 @@
+Epoch = 2018-11-01 00:10:00
+Semi_major_axis   =     24473.6761
+Eccentricity      =     0.731214464
+Inclination       =     28.5
+Ra_of_asc_node    =     273.21
+Arg_of_pericenter =     179.6
+Mean_anomaly      =     1.5604
+AirDragArea    = 15
+Mass = 5400

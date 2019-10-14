@@ -1,0 +1,3 @@
+Targeta = 6950
+Targeti = 98.4
+aepoch = 2019-01-01 04:50:00
