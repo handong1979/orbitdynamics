@@ -95,9 +95,17 @@ void geotrans()
 	cout << dv3.t();
 	cout << lontt << endl;
 
-	sat.Propagate2Apogee();
-	sat.Propagate2Apogee();
-	sat.PropagateBackward(60, dt1 / 2);
+	sat.SetAutoSave();
+	CSatellite tmp;
+	tmp.Initialize(sat.CurrentEpoch(),sat.GetOrbitElements());
+	for(int kk = 0;kk< nrev[0];kk++)
+		tmp.Propagate2Apogee();
+	CDateTime EpAp = tmp.CurrentEpoch();
+	//sat.Propagate2Apogee();
+	//sat.Propagate2AscendingNode();
+	//sat.Propagate2Apogee();
+	//sat.PropagateBackward(60, dt1 / 2);
+	sat.Propagate2Epoch(EpAp - dt1/2);
 	
 	fstream fout;
 	fout.open(outfilename, ios::out);
@@ -132,9 +140,16 @@ void geotrans()
 
 	fout << "\n";
 
-	sat.Propagate2Apogee();
-	sat.Propagate2Apogee();
-	sat.PropagateBackward(60, dt2 / 2);
+	//sat.Propagate2Apogee();
+	//sat.Propagate2Apogee();
+	//sat.Propagate2AscendingNode();
+	//sat.Propagate2AscendingNode();
+	//sat.PropagateBackward(60, dt2 / 2);
+	tmp.Initialize(sat.CurrentEpoch(), sat.GetOrbitElements());
+	for (int kk = 0; kk < nrev[1]; kk++)
+		tmp.Propagate2Apogee();
+	EpAp = tmp.CurrentEpoch();
+	sat.Propagate2Epoch(EpAp - dt2 / 2);
 
 	fout << "第2次点火\n";
 	fout << "开机时刻 = " << sat.CurrentEpoch() << endl;
@@ -164,8 +179,11 @@ void geotrans()
 	fout << "关机点卫星质量 = " << sat.Mass() << endl;
 	fout << "\n";
 
-	sat.Propagate2Apogee();
-	sat.PropagateBackward(60, dt3 / 2);
+	tmp.Initialize(sat.CurrentEpoch(), sat.GetOrbitElements());
+	for (int kk = 0; kk < nrev[2]; kk++)
+		tmp.Propagate2Apogee();
+	EpAp = tmp.CurrentEpoch();
+	sat.Propagate2Epoch(EpAp - dt3 / 2);
 
 	fout << "第3次点火\n";
 	fout << "开机时刻 = " << sat.CurrentEpoch() << endl;

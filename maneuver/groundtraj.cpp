@@ -8,6 +8,26 @@ int RepeatDays = 0, RepeatRevs = 0;
 double FirstLon, LonErr, i0;
 vector<double> lonlist;
 
+// 节点周期
+double Tnode(double a,double i)
+{
+	return PI2/sqrt(GE/a/a/a)*(1-1.5*J2*(Re/a)*(Re/a)*(3.0-2.5*sin(i)*sin(i)));
+}
+
+// 升交点赤经变化率
+double dotOmega(double a,double i)
+{
+	return -1.5*sqrt(GE/a/a/a)*J2*(Re/a)*(Re/a)*cos(i);
+}
+
+// 回归轨道满足的方程，返回方程的值，当方程的值为0时，输入a和i构成回归轨道
+double repeatfun(double a,double i,int rev,int day)
+{
+	double n = sqrt(GE/a/a/a);
+	double TN = Tnode(a,i);
+	double dOmega = dotOmega(a,i);
+	return rev*TN*(We - dOmega) - day*PI2;
+}
 
 // fit x-y as a palabolic:
 // y = a + b*x + c*x^2
@@ -71,18 +91,25 @@ void groundtraj()
 	// 节点周期
 	double w = PI2 / (RepeatDays * 86164.09 / RepeatRevs);
 	double a0 = pow(GE/w/w,1.0/3.0);
-	double var = 1.5*J2*Re*Re*(1 - 4.0*pow(cos(i0*RAD), 4));
 	double a;
 	for (int kk = 0; kk < 10; kk++)
 	{
-		a = a0 - (a0*a0 + var - sqrt(GE*a0) / w) / (2 * a0 - sqrt(GE/a0) / 2 / w);
+		// 数值微分求导数
+		double f1 = repeatfun(a0,i0*RAD,RepeatRevs,RepeatDays);
+		double f2 = repeatfun(a0+0.001,i0*RAD,RepeatRevs,RepeatDays);
+		double df = (f2-f1)/0.001;
+
+		a = a0 - f1 / df;
+		if(fabs(a-a0)<0.001)
+			break;
 		a0 = a;
 	}
 	//a0 = a0 + 12.721;
+	//a0 = 6861.72566;
 	cout << "Guess a0 = " << a0 << endl;
 	
 	// 外推，拟合出经度偏差漂移率和漂移加速度
-	const int nrev = 200;
+	const int nrev = 100;
 	double dlarray[nrev] = { 0 }, time[nrev] = { 0 }, da[nrev] = { 0 };
 	CDateTime ep0 = sat.CurrentEpoch();
 	for (int i = 0;i < nrev;i++)
@@ -100,9 +127,10 @@ void groundtraj()
 		Kepler cm = Mean(sat.GetOrbitElements());
 		da[i] = cm.a - a0;
 
-		//cout << "Lon: " << lla.Longitude 
-		//	//<< " Lat: " << lla.Latitude
-		//	<< "\tLon err:" << dl << "km" << endl;
+		cout << "Lon: " << lla.Longitude 
+			//<< " Lat: " << lla.Latitude
+			<< "\tLon err:" << dl << "km"
+			<< "\t da :" << da[i] << "km" << endl;
 		fprintf(flla,"%e\t%e\t%e\n",time[i], dlarray[i],da[i]);
 	}
 	fclose(flla);
@@ -126,60 +154,179 @@ void groundtraj()
 		printf("a0 = %lf\n", a0);
 		printf("modifya = %lf\n", modifya);
 	}
+//////////////////////////////////////////////////////////////////////////
+	//InitSat(sat,orbitfilename);
+	//flla = fopen("groundtraj.txt", "w");
+	//for (int i = 0;i < nrev;i++)
+	//{
+	//	sat.Propagate2EquatorAscNode();
+	//	lla = sat.GetLLA();
+
+	//	double dl = lla.Longitude - lonlist[i%RepeatRevs];
+	//	if (dl > 350) dl -= 360;
+	//	else if (dl < -350) dl += 360;
+	//	dl = dl * RAD * 6378;
+
+	//	dlarray[i] = dl;
+	//	time[i] = sat.CurrentEpoch() - ep0;
+	//	Kepler cm = Mean(sat.GetOrbitElements());
+	//	da[i] = cm.a - a0;
+
+	//	cout << "Lon: " << lla.Longitude 
+	//		//<< " Lat: " << lla.Latitude
+	//		<< "\tLon err:" << dl << "km" 
+	//		<< "\t da :" << da[i] << "km" << endl;
+	//	fprintf(flla,"%e\t%e\t%e\n",time[i], dlarray[i],da[i]);
+	//}
+	//fclose(flla);
+
 //	return;
 	// 预报和控制计算
 	InitSat(sat, orbitfilename);
-	double dLANmax = 10, dlr = 0;
-	fstream fo(outfilename, ios::out);
-	int i = 0;
-	//do {
-	for (int i = 0; i < 50; i++)
-	{
+	double dlr = 0;	
+	int i = 0,controlrev = 0;
+	Kepler cm;
+	//while (fabs(dlr) * 2 < LonErr){
+	//for (i = 0; i < 50; i++){
+	while(1){
 		sat.Propagate2EquatorAscNode();
 		lla = sat.GetLLA();
 
-		double dlr = lla.Longitude - lonlist[i%RepeatRevs];
+		dlr = lla.Longitude - lonlist[i%RepeatRevs];
 		if (dlr > 350) dlr -= 360;
 		else if (dlr < -350) dlr += 360;
 		dlr = dlr * RAD * 6378;
 
-		i++;
-		cout << "Rev " << i << "  Lon err:" << dlr << "km" << endl;
+		cm = Mean(sat.GetOrbitElements());
+		double da = cm.a - a0;
+		
+		cout << "Rev " << i++ << "  Lon err:" << dlr << "km" << "\t da: " << da << "km" << endl;
 		// control
-		if (dlr < -LonErr)
+		/*if (dlr < -LonErr)
 		{
 			// 超出西边界			
 			Kepler cm = Mean(sat.GetOrbitElements());
 			double abias = 0;
-			double da = a0 + modifya + abias - cm.a;
+			double da = a0 + abias - cm.a;
 			vec3 dv = "0.0,0.0,0.0";
 			dv(0) = sqrt(GE / cm.a / cm.a / cm.a) / 2 * da;
 			sat.ImpluseManeuver(dv);
-			cout << "超出西边界 dv = " << dv.t() << endl;
-			cout << da << TAB << cm.a << endl;
+			cout << "超出西边界,开始计算轨道维持速度增量" << endl;			
 
-			fo << "轨道维持控制时间 = " << sat.CurrentEpoch() << endl;
-			fo << "半长轴控制速度增量 = " << dv(0) * 1000 << endl;
 			break;
 		}
-		else if (dlr > LonErr)
+		else*/ if (dlr > LonErr && i - controlrev > 3)
 		{
-			// 超出东边界
-			Kepler cm = Mean(sat.GetOrbitElements());
-			double abias = 1;
-			double da = a0 + modifya + abias - cm.a;
-			vec3 dv = "0.0,0.0,0.0";
-			dv(0) = sqrt(GE / cm.a / cm.a / cm.a) / 2 * da;
-			sat.ImpluseManeuver(dv);
-			cout << "超出东边界 dv = " << dv.t() << endl;
-			cout << da << TAB << cm.a << endl;
-
-			fo << "轨道维持控制时间 = " << sat.CurrentEpoch() << endl;
-			fo << "半长轴控制速度增量 = " << dv(0) * 1000 << endl;
+			controlrev = i;
+			// 超出东边界			
+			cout << "超出东边界,开始计算轨道维持速度增量" << endl;			
 			break;
 		}
-		//} while (fabs(dlr) * 2 < LonErr);
 	}
+	double maxdlr = dlr;
+	CDateTime tdv = sat.CurrentEpoch();
+	Kepler kpdv = sat.GetOrbitElements();
+
+	double abias = 1.4;
+	double deltaa = a0 + abias - cm.a;
+	vec3 dv = "0.0,0.0,0.0";
+	dv(0) = sqrt(GE / cm.a / cm.a / cm.a) / 2 * deltaa;
+	sat.ImpluseManeuver(dv);  cout << "dv = " << dv(0) << endl;
+	// 查找西边最小点
+	double mindlr = maxdlr;
+	int cntIncrease = 0;
+	i = controlrev;
+	while(cntIncrease<10){
+		sat.Propagate2EquatorAscNode();
+		lla = sat.GetLLA();
+
+		dlr = lla.Longitude - lonlist[i%RepeatRevs];
+		if (dlr > 350) dlr -= 360;
+		else if (dlr < -350) dlr += 360;
+		dlr = dlr * RAD * 6378;
+
+		cm = Mean(sat.GetOrbitElements());
+		double da = cm.a - a0;
+
+		cout << "Rev " << i++ << "\tmindlr:" << mindlr << "\t Lon err:" 
+			<< dlr << "km" << "\t da: " << da << "km" << endl;
+
+		if(dlr < mindlr)
+			mindlr = dlr;
+		else
+			cntIncrease++;
+	}
+	// 西边最小点与西边界的差
+	double dddlr1 = mindlr - ( -LonErr );
+	
+	// 增加速度增量，求微分
+	sat.Initialize(tdv,kpdv);
+	sat.ImpluseManeuver(dv*0.95);  cout << "dv = " << dv(0)*0.95 << endl;
+	// 查找西边最小点
+	mindlr = maxdlr;
+	cntIncrease = 0;
+	i = controlrev;
+	while(cntIncrease<10){
+		sat.Propagate2EquatorAscNode();
+		lla = sat.GetLLA();
+
+		dlr = lla.Longitude - lonlist[i%RepeatRevs];
+		if (dlr > 350) dlr -= 360;
+		else if (dlr < -350) dlr += 360;
+		dlr = dlr * RAD * 6378;
+
+		cm = Mean(sat.GetOrbitElements());
+		double da = cm.a - a0;
+
+		cout << "Rev " << i++ << "\tmindlr:" << mindlr << "\t Lon err:" 
+			<< dlr << "km" << "\t da: " << da << "km" << endl;
+
+		if(dlr < mindlr)
+			mindlr = dlr;
+		else
+			cntIncrease++;
+	}
+	// 西边最小点与西边界的差
+	double dddlr2 = mindlr - ( -LonErr );
+	dv(0) = dv(0) - dddlr1/((dddlr2 - dddlr1)/(-dv(0)*0.05));
+
+	cout << dddlr1 << TAB << dddlr2 << endl;
+	
+	sat.Initialize(tdv,kpdv);
+	sat.ImpluseManeuver(dv*0.98);  cout << "dv = " << dv(0)*0.98 << endl;
+	// 查找西边最小点
+	mindlr = maxdlr;
+	cntIncrease = 0;
+	i = controlrev;
+	while(cntIncrease<10){
+		sat.Propagate2EquatorAscNode();
+		lla = sat.GetLLA();
+
+		dlr = lla.Longitude - lonlist[i%RepeatRevs];
+		if (dlr > 350) dlr -= 360;
+		else if (dlr < -350) dlr += 360;
+		dlr = dlr * RAD * 6378;
+
+		cm = Mean(sat.GetOrbitElements());
+		double da = cm.a - a0;
+
+		cout << "Rev " << i++ << "\tmindlr:" << mindlr << "\t Lon err:" 
+			<< dlr << "km" << "\t da: " << da << "km" << endl;
+
+		if(dlr < mindlr)
+			mindlr = dlr;
+		else
+			cntIncrease++;
+	}
+	// 西边最小点与西边界的差
+	double dddlr3 = mindlr - ( -LonErr );
+
+	cout << dddlr1 <<TAB<< dddlr2 <<TAB<< dddlr3 << endl;
+
+	fstream fo(outfilename, ios::out);
+	fo << "轨道维持控制时间 = " << tdv << endl;
+	fo << "半长轴控制速度增量 = " << dv(0)*0.98 * 1000 << endl;
+
 	fo.close();
 }
 
@@ -276,9 +423,8 @@ int main(int argc, char* argv[])
 		printf("请使用以下指令调用：\n");
 		printf("  groundtraj orbitleotraj.txt gtrc.txt gtout.txt\n");
 		printf("  第一个文件为轨道参数文件\n");
-		printf("  第二个文件为标称升交点地理经度文件\n");
-		printf("  第三个文件为轨道维持精度设置文件\n");
-		printf("  第四个文件为轨道维持控制输出文件\n");
+		printf("  第二个文件为轨道维持精度设置文件\n");
+		printf("  第三个文件为轨道维持控制输出文件\n");
 		printf(" 用法2： 生成一个回归轨道的标称升交点地理经度表\n");
 		printf(" groundtraj gtrc.txt\n");
 		printf(" 根据文件中的回归轨道参数，生成一个rolan.txt文件，保存各个圈次的标称升交点地理经度\n");
