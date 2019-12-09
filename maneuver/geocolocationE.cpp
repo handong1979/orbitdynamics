@@ -35,7 +35,7 @@ void geoEWsk()
 			while (lsat > PI2) lsat -= PI2;
 			double dv1 = 0.25*Vs*eerr*1000;
 			double duration1 = abs(dv1) * sat.Mass() / F;
-			double lb = atan2(ey, ex);
+			double lb = atan2(eerry, eerrx);
 			double delta_l = lb - lsat;
 			while (delta_l < 0) delta_l += PI2;
 			CDateTime t1 = sat.CurrentEpoch() + delta_l / We;

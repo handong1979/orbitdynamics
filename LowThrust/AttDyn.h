@@ -24,6 +24,7 @@ public:
 	int NThrustor; //电推力器个数
 	vec3* ThrPos;  //电推力器安装位置,m
 	vec3* ThrDir;  //电推力器推力方向
+	int WThr[3];
 	void SetThrustNum(int n) {
 		NThrustor = n;
 		ThrPos = new vec3[n];

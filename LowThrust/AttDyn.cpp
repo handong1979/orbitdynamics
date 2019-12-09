@@ -40,6 +40,9 @@ mat Eq(CQuaternion q)
 
 AttDyn::AttDyn() : NThrustor(0)
 {
+	WThr[0] = 0;
+	WThr[1] = 0;
+	WThr[2] = 0;
 }
 
 
