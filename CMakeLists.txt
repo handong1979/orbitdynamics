@@ -8,8 +8,6 @@ link_directories(${PROJECT_SOURCE_DIR}/lib)
 set(BUILD_SOFA "build sofa library" TRUE)
 set(BUILD_TEST "build test" TRUE)
 
-set(CMAKE_DEBUG_POSTFIX "_d")
-
 if(APPLE)
 
   set(ARMA_OS macos)

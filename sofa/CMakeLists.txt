@@ -234,5 +234,6 @@ set(SOFASRC
  zp.c
  zpv.c
  zr.c)
- 
+set(CMAKE_DEBUG_POSTFIX "D")
 add_library(sofa SHARED ${SOFASRC})
+set_target_properties (sofa PROPERTIES FOLDER Libraries)
