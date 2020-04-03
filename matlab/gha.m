@@ -11,7 +11,18 @@ if nargin == 6
 elseif nargin ==1 
     UTC = Y;
 else
-    error('输入参数数目错误');
+    warning('self test');
+    mjd0 = date2mjd([2015,1,1,12,0,0]);
+    t = 0:1:365*30;
+    for i=1:length(t)
+        g0 = gha(mjd0+t(i));
+        e01(i) = limitpi(sofa('GST06',mjd0+t(i))-g0)*deg*3600;
+        e02(i) = limitpi(sofa('GST00A',mjd0+t(i))-g0)*deg*3600;
+        e03(i) = limitpi(sofa('GST94',mjd0+t(i))-g0)*deg*3600;
+    end
+    t = t/365+15; % 整数年份
+    figure,plot(t,e01,t,e02,t,e03),grid on;
+    xlabel('t(年)'),ylabel('err(角秒)'),legend('GST06-gha','GST00A-gha','GST94-gha');
 end
 dksi = nutation_angle(UTC);
 eps = ecliptic_equator_angle(UTC);

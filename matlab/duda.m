@@ -1,4 +1,4 @@
-% 鍗婇暱杞寸殑灏忓亸宸�犳垚姣忎釜杞ㄩ亾鍛ㄦ湡鐨勭浉浣嶆紓绉婚噺(rad)
+% 半长轴的小偏差造成每个轨道周期的相位漂移量(rad)
 function du = duda(a,da)
 n = sqrt(GEarth/a^3);
 dn = -1.5*da/a*n;

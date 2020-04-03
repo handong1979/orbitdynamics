@@ -1,78 +1,78 @@
-% è½¨é“åŠ¨åŠ›å­¦å¤–æŽ¨mexç¨‹åº,ç”¨ä½œå«æ˜Ÿçš„è½¨é“åŠ¨åŠ›å­¦å¤–æŽ¨,å¹¶å¯ä»¥åŒæ—¶å¤–æŽ¨å¤šé¢—å«æ˜Ÿçš„è½¨é“
+% ¹ìµÀ¶¯Á¦Ñ§ÍâÍÆmex³ÌÐò,ÓÃ×÷ÎÀÐÇµÄ¹ìµÀ¶¯Á¦Ñ§ÍâÍÆ,²¢¿ÉÒÔÍ¬Ê±ÍâÍÆ¶à¿ÅÎÀÐÇµÄ¹ìµÀ
 % out = orbitdyn(satllite_name,operator,parameter,...)
-% satllite_name: å«æ˜Ÿåç§°
-% operator: æ“ä½œ,å…·ä½“ä¸º(ä¸åŒºåˆ†å¤§å°å°):
-%     'init':åˆå§‹åŒ–ä¸€é¢—å«æ˜Ÿ
-%     'step':å¤–æŽ¨ä¸€æ­¥(æ”¯æŒå‘å‰æŽ¨)
-%     'Propagate':å¤–æŽ¨ä¸€æ®µæ—¶é—´
-%     'PropagateBackward':å‘å‰å¤–æŽ¨ä¸€æ®µæ—¶é—´
-%     'Propagate2Perigee':å¤–æŽ¨åˆ°è¿‘åœ°ç‚¹
-%     'Propagate2Apogee':å¤–æŽ¨åˆ°è¿œåœ°ç‚¹
-%     'Propagate2AscendingNode':å¤–æŽ¨åˆ°å‡äº¤ç‚¹
-%     'Propagate2DescendingNode':å¤–æŽ¨åˆ°é™äº¤ç‚¹
-%     'Propagate2Equator':å¤–æŽ¨åˆ°åœ°çƒèµ¤é“å‡äº¤ç‚¹
-%     'Impulse': è½¨é“ç³»è„‰å†²è½¨é“æœºåŠ¨
-%     'remove':åˆ é™¤ä¸€é¢—å«æ˜Ÿ
-%     'SetForce':è®¾ç½®æ‘„åŠ¨é¡¹
-%     'GetMean':è¿”å›žè½¨é“å¹³æ ¹æ•°
-%     'GetECF':è¿”å›žåœ°å›ºä¸‹çš„ä½ç½®é€Ÿåº¦
-%     'SetMass':è®¾ç½®å«æ˜Ÿè´¨é‡
-%     'SetSRP':è®¾ç½®å…‰åŽ‹é¢ç§¯
-%     'SetAD': è®¾ç½®å¤§æ°”é˜»åŠ›é¢ç§¯
-% parameter: å¯¹åº”operatorçš„å‚æ•°
-% è¾“å‡º:outä¸ºä¸€ä¸ªæ•°ç»„,åŒ…æ‹¬J2000ä¸‹çš„è½¨é“æ ¹æ•°å’Œä½ç½®é€Ÿåº¦,æ•°ç»„ä¸­çš„æ•°æ®ä¾æ¬¡ä¸º:
-%      åŒ—äº¬æ—¶t(MJD), åŠé•¿è½´a(km), åå¿ƒçŽ‡e, å€¾è§’i(rad),
-%      å‡äº¤ç‚¹èµ¤ç»Omega(rad),è¿‘åœ°ç‚¹å¹…è§’w(rad),å¹³è¿‘ç‚¹è§’M(rad),
-%      ä½ç½®x(km),ä½ç½®y(km),ä½ç½®z(km),é€Ÿåº¦x(km/s),é€Ÿåº¦y(km/s),é€Ÿåº¦z(km/s)
+% satllite_name: ÎÀÐÇÃû³Æ
+% operator: ²Ù×÷,¾ßÌåÎª(²»Çø·Ö´óÐ¡Ð¡):
+%     'init':³õÊ¼»¯Ò»¿ÅÎÀÐÇ
+%     'step':ÍâÍÆÒ»²½(Ö§³ÖÏòÇ°ÍÆ)
+%     'Propagate':ÍâÍÆÒ»¶ÎÊ±¼ä
+%     'PropagateBackward':ÏòÇ°ÍâÍÆÒ»¶ÎÊ±¼ä
+%     'Propagate2Perigee':ÍâÍÆµ½½üµØµã
+%     'Propagate2Apogee':ÍâÍÆµ½Ô¶µØµã
+%     'Propagate2AscendingNode':ÍâÍÆµ½Éý½»µã
+%     'Propagate2DescendingNode':ÍâÍÆµ½½µ½»µã
+%     'Propagate2Equator':ÍâÍÆµ½µØÇò³àµÀÉý½»µã
+%     'Impulse': ¹ìµÀÏµÂö³å¹ìµÀ»ú¶¯
+%     'remove':É¾³ýÒ»¿ÅÎÀÐÇ
+%     'SetForce':ÉèÖÃÉã¶¯Ïî
+%     'GetMean':·µ»Ø¹ìµÀÆ½¸ùÊý
+%     'GetECF':·µ»ØµØ¹ÌÏÂµÄÎ»ÖÃËÙ¶È
+%     'SetMass':ÉèÖÃÎÀÐÇÖÊÁ¿
+%     'SetSRP':ÉèÖÃ¹âÑ¹Ãæ»ý
+%     'SetAD': ÉèÖÃ´óÆø×èÁ¦Ãæ»ý
+% parameter: ¶ÔÓ¦operatorµÄ²ÎÊý
+% Êä³ö:outÎªÒ»¸öÊý×é,°üÀ¨J2000ÏÂµÄ¹ìµÀ¸ùÊýºÍÎ»ÖÃËÙ¶È,Êý×éÖÐµÄÊý¾ÝÒÀ´ÎÎª:
+%      ±±¾©Ê±t(MJD), °ë³¤Öáa(km), Æ«ÐÄÂÊe, Çã½Çi(rad),
+%      Éý½»µã³à¾­Omega(rad),½üµØµã·ù½Çw(rad),Æ½½üµã½ÇM(rad),
+%      Î»ÖÃx(km),Î»ÖÃy(km),Î»ÖÃz(km),ËÙ¶Èx(km/s),ËÙ¶Èy(km/s),ËÙ¶Èz(km/s)
 %
-% å„ç§æ“ä½œå¯¹åº”çš„å‚æ•°ä¸º:
-%     'init':å‚æ•°parameterä¸ºä¸€ä¸ªæ•°ç»„,ä¾æ¬¡ä¸º:[å¹´,æœˆ,æ—¥,æ—¶,åˆ†,ç§’,åŠé•¿è½´a(km),åå¿ƒçŽ‡e,å€¾è§’i(deg)
-%                                  ,å‡äº¤ç‚¹èµ¤ç»Omega(deg),è¿‘åœ°ç‚¹å¹…è§’w(deg),å¹³è¿‘ç‚¹è§’M(deg),å«æ˜Ÿè´¨é‡(kg)]
-%     'step':å¤–æŽ¨ä¸€æ­¥,æ”¯æŒå‘å‰æŽ¨
-%            ä¸è¿›è¡Œå˜è½¨æ—¶,å‚æ•°parameterä¸ºæ­¥é•¿ï¼ˆæ­¥é•¿å¯æ­£å¯è´Ÿï¼‰
-%            è¿›è¡Œè½¨é“æœºåŠ¨æ—¶ï¼Œéœ€è¦æä¾›çš„å‚æ•°è¿˜è¦åŒ…å«å§¿æ€ã€æŽ¨åŠ›å’Œè´¨é‡å˜åŒ–çŽ‡,æ ¼å¼å¦‚ä¸‹ï¼š
-%            [æ­¥é•¿  qx  qy  qz  qs  Fbx  Fby  Fbz  dot_m]
-%            qx  qy  qz  qs ä¸ºå«æ˜Ÿæœ¬ä½“ç³»ç›¸å¯¹æƒ¯æ€§ç³»çš„å››å…ƒæ•°
-%            ä¸€å°å‘åŠ¨æœºå¼€æœºæ—¶è´¨é‡å˜åŒ–çŽ‡ä¸º dot_m = - F/(Isp*9.8)
-%            å¤šå°å‘åŠ¨æœºåŒæ—¶å¼€æœºæ—¶ï¼ŒæŽ¨åŠ›Fbx  Fby  Fbzä¸ºå«æ˜Ÿæœ¬ä½“ç³»çš„åˆæˆæŽ¨åŠ›ï¼Œè´¨é‡å˜åŒ–çŽ‡ä¸ºå„å‘åŠ¨æœºçš„å’Œ
-%     'Propagate':å¤–æŽ¨ä¸€æ®µæ—¶é—´,å‚æ•°parameterä¸ºæ—¶é•¿(æ—¶é•¿ä¸ºæ­£)
-%     'PropagateBackward':å‘å‰å¤–æŽ¨ä¸€æ®µæ—¶é—´,å‚æ•°parameterä¸ºæ—¶é•¿(æ—¶é•¿ä¸ºè´Ÿ)
-%     'Propagate2Perigee':æ— å‚æ•°
-%     'Propagate2Apogee':æ— å‚æ•°
-%     'Propagate2AscendingNode':æ— å‚æ•°
-%     'Propagate2DescendingNode':æ— å‚æ•°
-%     'Propagate2Equator':æ— å‚æ•°
-%     'Impulse': è½¨é“ç³»è„‰å†²è½¨é“æœºåŠ¨ï¼Œå‚æ•°ä¸ºä¸‰è½´é€Ÿåº¦å¢žé‡ï¼Œå•ä½km/s
-%     'remove':æ— å‚æ•°
-%     'SetForce':è®¾ç½®æ‘„åŠ¨é¡¹ï¼Œå‚æ•°åŒC++ç¨‹åºä¸­çš„SetForce()å‡½æ•°ï¼Œä¸º[p1,p2],p1ä¸ºå¼•åŠ›åœºé˜¶æ•°ï¼Œ
-%                     p2ä¸ºå„ç§æ‘„åŠ¨é¡¹ï¼Œæ‘„åŠ¨é¡¹åŒC++ä¸­çš„å®å®šä¹‰ï¼Œå¯¹åº”çš„æ•´æ•°è§ä¸‹è¡¨ï¼š
-%                     éœ€è¦è€ƒè™‘å¤šç§æ‘„åŠ¨æ—¶ï¼Œå°†ä¸‹é¢å¯¹åº”æ•´æ•°æ±‚å’Œå¾—åˆ°p2
-%                                 1:å¸¦è°é¡¹
-%                                 2:ç”°è°é¡¹
-%                                 4:å¤§æ°”é˜»åŠ›
-%                                 8:æœˆçƒå¼•åŠ›
-%                                 16:å¤ªé˜³å¼•åŠ›
-%                                 32:å¤ªé˜³å…‰åŽ‹
-%                    æ‘„åŠ¨è®¾ç½®çš„é»˜è®¤å€¼ä¸º6,ODP_EARTH_ALL
-%     'SetSRPCODE':è®¾ç½®CODEå…‰åŽ‹æ¨¡åž‹å‚æ•°ï¼Œå‚æ•°ä¸ºä¸€ä¸ª3*3çš„å…‰åŽ‹ç³»æ•°çŸ©é˜µ
-%     'GetMean':æ— å‚æ•°ï¼Œè¿”å›žè½¨é“å¹³æ ¹æ•°
+% ¸÷ÖÖ²Ù×÷¶ÔÓ¦µÄ²ÎÊýÎª:
+%     'init':²ÎÊýparameterÎªÒ»¸öÊý×é,ÒÀ´ÎÎª:[Äê,ÔÂ,ÈÕ,Ê±,·Ö,Ãë,°ë³¤Öáa(km),Æ«ÐÄÂÊe,Çã½Çi(deg)
+%                                  ,Éý½»µã³à¾­Omega(deg),½üµØµã·ù½Çw(deg),Æ½½üµã½ÇM(deg),ÎÀÐÇÖÊÁ¿(kg)]
+%     'step':ÍâÍÆÒ»²½,Ö§³ÖÏòÇ°ÍÆ
+%            ²»½øÐÐ±ä¹ìÊ±,²ÎÊýparameterÎª²½³¤£¨²½³¤¿ÉÕý¿É¸º£©
+%            ½øÐÐ¹ìµÀ»ú¶¯Ê±£¬ÐèÒªÌá¹©µÄ²ÎÊý»¹Òª°üº¬×ËÌ¬¡¢ÍÆÁ¦ºÍÖÊÁ¿±ä»¯ÂÊ,¸ñÊ½ÈçÏÂ£º
+%            [²½³¤  qx  qy  qz  qs  Fbx  Fby  Fbz  dot_m]
+%            qx  qy  qz  qs ÎªÎÀÐÇ±¾ÌåÏµÏà¶Ô¹ßÐÔÏµµÄËÄÔªÊý
+%            Ò»Ì¨·¢¶¯»ú¿ª»úÊ±ÖÊÁ¿±ä»¯ÂÊÎª dot_m = - F/(Isp*9.8)
+%            ¶àÌ¨·¢¶¯»úÍ¬Ê±¿ª»úÊ±£¬ÍÆÁ¦Fbx  Fby  FbzÎªÎÀÐÇ±¾ÌåÏµµÄºÏ³ÉÍÆÁ¦£¬ÖÊÁ¿±ä»¯ÂÊÎª¸÷·¢¶¯»úµÄºÍ
+%     'Propagate':ÍâÍÆÒ»¶ÎÊ±¼ä,²ÎÊýparameterÎªÊ±³¤(Ê±³¤ÎªÕý)
+%     'PropagateBackward':ÏòÇ°ÍâÍÆÒ»¶ÎÊ±¼ä,²ÎÊýparameterÎªÊ±³¤(Ê±³¤Îª¸º)
+%     'Propagate2Perigee':ÎÞ²ÎÊý
+%     'Propagate2Apogee':ÎÞ²ÎÊý
+%     'Propagate2AscendingNode':ÎÞ²ÎÊý
+%     'Propagate2DescendingNode':ÎÞ²ÎÊý
+%     'Propagate2Equator':ÎÞ²ÎÊý
+%     'Impulse': ¹ìµÀÏµÂö³å¹ìµÀ»ú¶¯£¬²ÎÊýÎªÈýÖáËÙ¶ÈÔöÁ¿£¬µ¥Î»km/s
+%     'remove':ÎÞ²ÎÊý
+%     'SetForce':ÉèÖÃÉã¶¯Ïî£¬²ÎÊýÍ¬C++³ÌÐòÖÐµÄSetForce()º¯Êý£¬Îª[p1,p2],p1ÎªÒýÁ¦³¡½×Êý£¬
+%                     p2Îª¸÷ÖÖÉã¶¯Ïî£¬Éã¶¯ÏîÍ¬C++ÖÐµÄºê¶¨Òå£¬¶ÔÓ¦µÄÕûÊý¼ûÏÂ±í£º
+%                     ÐèÒª¿¼ÂÇ¶àÖÖÉã¶¯Ê±£¬½«ÏÂÃæ¶ÔÓ¦ÕûÊýÇóºÍµÃµ½p2
+%                                 1:´øÐ³Ïî
+%                                 2:ÌïÐ³Ïî
+%                                 4:´óÆø×èÁ¦
+%                                 8:ÔÂÇòÒýÁ¦
+%                                 16:Ì«ÑôÒýÁ¦
+%                                 32:Ì«Ñô¹âÑ¹
+%                    Éã¶¯ÉèÖÃµÄÄ¬ÈÏÖµÎª6,ODP_EARTH_ALL
+%     'SetSRPCODE':ÉèÖÃCODE¹âÑ¹Ä£ÐÍ²ÎÊý£¬²ÎÊýÎªÒ»¸ö3*3µÄ¹âÑ¹ÏµÊý¾ØÕó
+%     'GetMean':ÎÞ²ÎÊý£¬·µ»Ø¹ìµÀÆ½¸ùÊý
 % 
-% ä¸€æ—¦åˆå§‹åŒ–ä¸€é¢—å«æ˜Ÿ,åˆ™å®ƒä¸€ç›´è¢«ä¿ç•™åœ¨å†…å­˜ä¸­,ç›´åˆ°æ‰§è¡Œäº†removeæ“ä½œæˆ–è€…æ‰§è¡Œäº†å‘½ä»¤clear allæˆ–å‘½ä»¤clear orbitdyn
+% Ò»µ©³õÊ¼»¯Ò»¿ÅÎÀÐÇ,ÔòËüÒ»Ö±±»±£ÁôÔÚÄÚ´æÖÐ,Ö±µ½Ö´ÐÐÁËremove²Ù×÷»òÕßÖ´ÐÐÁËÃüÁîclear all»òÃüÁîclear orbitdyn
 %
-% å…è®¸åˆå§‹åŒ–ä¸€é¢—å·²ç»å­˜åœ¨çš„å«æ˜Ÿ,ä¾¿äºŽé‡å¤ä½¿ç”¨,ç¨‹åºä¼šç»™å‡ºè­¦å‘Šæç¤º
+% ÔÊÐí³õÊ¼»¯Ò»¿ÅÒÑ¾­´æÔÚµÄÎÀÐÇ,±ãÓÚÖØ¸´Ê¹ÓÃ,³ÌÐò»á¸ø³ö¾¯¸æÌáÊ¾
 %
 % Example:
-%   åˆå§‹åŒ–ä¸€é¢—åä¸ºsatçš„å«æ˜Ÿ:
+%   ³õÊ¼»¯Ò»¿ÅÃûÎªsatµÄÎÀÐÇ:
 %   initparam = [2010,1,1,0,0,0,7044,0.001,98.5,270,90,30];
 %   out = orbitdyn('sat','init',initparam);
-%   è®¾ç½®è½¨é“æ‘„åŠ¨æ¨¡åž‹ä¸ºä»…è€ƒè™‘J2é¡¹
+%   ÉèÖÃ¹ìµÀÉã¶¯Ä£ÐÍÎª½ö¿¼ÂÇJ2Ïî
 %   orbitdyn('sat','SetForce',[2 1]);
-%   å°†'sat'å«æ˜Ÿçš„è½¨é“å¤–æŽ¨60ç§’:
+%   ½«'sat'ÎÀÐÇµÄ¹ìµÀÍâÍÆ60Ãë:
 %   out = orbitdyn('sat','step',60);
-%   æ‰§è¡Œè„‰å†²è½¨é“æœºåŠ¨ï¼Œæ²¿Xæ–¹å‘1m/s
+%   Ö´ÐÐÂö³å¹ìµÀ»ú¶¯£¬ÑØX·½Ïò1m/s
 %   out = orbitdyn('sat','impulse',[1,0,0]/1000)
 
-% ç¤ºä¾‹ï¼š
+% Ê¾Àý£º
 % epoch = [2015,1,1,4,0,0];
 % kp = [24371.137,0.73,28,0,0,0];
 % F = 0.2;
@@ -81,8 +81,8 @@
 % Mass = 2000;
 % s1 = mexOrbitDyn('sat','init',[epoch,kp,Mass]);
 % mexOrbitDyn('sat','SetForce',[8,1+2+4+8+16+32]);
-% mexOrbitDyn('sat','SetAD',20); % é˜»åŠ›é¢ç§¯
-% mexOrbitDyn('sat','SetSRP',20); % å…‰åŽ‹é¢ç§¯
+% mexOrbitDyn('sat','SetAD',20); % ×èÁ¦Ãæ»ý
+% mexOrbitDyn('sat','SetSRP',20); % ¹âÑ¹Ãæ»ý
 % step = 60;
 % for i = 1:1000
 %     qbi = c2q(getcoi(s1(2:7)));

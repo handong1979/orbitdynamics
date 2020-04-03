@@ -157,8 +157,8 @@ void consform()
 	}
 
 
-	delete[] cs;
-	delete cs;
+	//delete[] cs;
+	//delete cs;
 }
 
 //Walker星座的构型码为：N/P/F（卫星数目/轨道平面数/相位因子)

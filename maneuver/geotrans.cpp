@@ -203,7 +203,7 @@ void geotrans()
 	dva(1) = norm(dv3, 2) * sin(sat.i - atan2(dv3(1), dv3(0)));
 	dva(2) = 0;
 	fout << "中间点轨道六根数 = " << sat.GetOrbitElements() << endl; 
-	sat.ImpluseManeuver(dva / 1000);
+	sat.ImpluseManeuver(dva*1.02 / 1000);
 	sat.Mass0 = sat.Mass0*exp(-norm(dva, 2) / Isp / 9.8);
 	fout << "关机点轨道六根数 = " << sat.GetOrbitElements() << endl;
 	sat.Propagate(60, dt3 / 2);

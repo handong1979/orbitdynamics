@@ -5,12 +5,10 @@
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
- * the files COPYING and Copyright.html.  COPYING can be found at the root   *
- * of the source code distribution tree; Copyright.html can be found at the  *
- * root level of an installed copy of the electronic HDF5 document set and   *
- * is linked from the top-level documents page.  It can also be found at     *
- * http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have          *
- * access to either file, you may request a copy from help@hdfgroup.org.     *
+ * the COPYING file, which can be found at the root of the source code       *
+ * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * If you do not have access to either file, you may request a copy from     *
+ * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /*
@@ -35,7 +33,7 @@ extern "C" {
 H5TOOLS_DLLVAR int  g_nTasks;
 H5TOOLS_DLLVAR unsigned char g_Parallel;
 H5TOOLS_DLLVAR char    outBuff[];
-H5TOOLS_DLLVAR int  outBuffOffset;
+H5TOOLS_DLLVAR unsigned outBuffOffset;
 H5TOOLS_DLLVAR FILE *   overflow_file;
 
 /* Maximum size used in a call to malloc for a dataset */
@@ -119,10 +117,10 @@ typedef struct find_objs_t {
     table_t *dset_table;
 } find_objs_t;
 
-H5TOOLS_DLLVAR int     h5tools_nCols;               /*max number of columns for outputting  */
+H5TOOLS_DLLVAR unsigned h5tools_nCols;               /*max number of columns for outputting  */
 
 /* Definitions of useful routines */
-H5TOOLS_DLL void     indentation(int);
+H5TOOLS_DLL void     indentation(unsigned);
 H5TOOLS_DLL void     print_version(const char *progname);
 H5TOOLS_DLL void     parallel_print(const char* format, ... );
 H5TOOLS_DLL void     error_msg(const char *fmt, ...);

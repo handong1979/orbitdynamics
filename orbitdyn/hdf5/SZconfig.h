@@ -13,7 +13,7 @@
 #define HAVE_FCNTL_H 1
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-/* #undef HAVE_INTTYPES_H */
+#define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
@@ -52,10 +52,10 @@
 #define SZIP_PACKAGE_BUGREPORT "help@hdfgroup.org"
 
 /* Define to the full name of this package. */
-#define SZIP_PACKAGE_NAME "SZIP"
+#define SZIP_PACKAGE_NAME "szip"
 
 /* Define to the full name and version of this package. */
-#define SZIP_PACKAGE_STRING "SZIP 2.1"
+#define SZIP_PACKAGE_STRING "szip 2.1"
 
 /* Define to the one symbol short name of this package. */
 #define SZIP_PACKAGE_TARNAME "szip"
@@ -74,6 +74,3 @@
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
 /* #undef size_t */
-
-/* Define if cmake is used and building dynamic libraries */
-/* #undef SZ_BUILT_AS_DYNAMIC_LIB */

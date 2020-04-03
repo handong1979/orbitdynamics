@@ -1,15 +1,15 @@
-% ä¸œå—åæ ‡ç³»ç›¸å¯¹æƒ¯æ€§ç³»çš„æ—‹è½¬çŸ©é˜µ
-function cdni = getcdni(k0)
-% [r v] = kepler2cart(k0);
-% alpha = atan2(r(2),r(1));
-% beta = asin(r(3)/norm(r));
-f = ma2ta(k0(2),k0(6));
-u = k0(5) + f;
-if cos(u)>0
-    L1 = atan(tan(u)*cos(k0(3)));
-else
-    L1 = atan(tan(u)*cos(k0(3))) + pi;
-end
-alpha = k0(4) + L1;
-beta = atan(sin(L1)*tan(k0(3)));
-cdni = [0 1 0; 0 0 -1; -1 0 0]*roty(-beta)*rotz(alpha);
+% ¶«ÄÏ×ø±êÏµÏà¶Ô¹ßĞÔÏµµÄĞı×ª¾ØÕó
+% cdni = getcdni(mjd,rv)
+% ÊäÈë£º mjd: MJDÊ±¼ä,UTCÊ±
+%        rv:  J2000.0¹ßĞÔÏµÎ»ÖÃ
+% Êä³ö: cdni£º¶«ÄÏÏµÏà¶Ô¹ßĞÔÏµµÄ×ª»»¾ØÕó
+function cdni = getcdni(mjd,rv)
+% ÊäÈëJ2000.0¹ìµÀ²ÎÊıµÄËã·¨
+cfi = eci2ecf(mjd);
+rv = rv(:);
+rf = cfi*rv(1:3);
+xfyf2 = sqrt(rf(1)^2+rf(2)^2);
+rr = norm(rf);
+cdni = [-rf(2)/xfyf2,rf(1)/xfyf2,0;...
+    rf(1)*rf(3)/rr/xfyf2,rf(2)*rf(3)/rr/xfyf2,-xfyf2/rr;...
+    -rf(1)/rr,-rf(2)/rr,-rf(3)/rr]*cfi;

@@ -5,7 +5,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\orbitdynamics\orbitdyn;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\orbitdynamics\orbitdyn\hdf5;E:\orbitdynamics\orbitdyn;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>E:\orbitdynamics\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

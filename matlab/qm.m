@@ -1,7 +1,7 @@
 % 四元数乘法 q = q1*q2
 % q = Qim(q1,q2)
 function q = qm(q1,q2)
-error(nargchk(2,2,nargin));
+narginchk(2,2);
 q = [q2(4),  q2(3), -q2(2), q2(1);
     -q2(3),  q2(4),  q2(1), q2(2);
      q2(2), -q2(1),  q2(4), q2(3);

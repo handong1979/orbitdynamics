@@ -2,7 +2,7 @@
 % q = Qim(q1,q2)
 % q = Qm([-q1(1); -q1(2); -q1(3); q1(4)] , q2)
 function q = qim(q1,q2)
-error(nargchk(2,2,nargin));
+narginchk(2,2);
 q = [-q2(4), -q2(3),  q2(2),  q2(1);
       q2(3), -q2(4), -q2(1),  q2(2);
      -q2(2),  q2(1), -q2(4),  q2(3);

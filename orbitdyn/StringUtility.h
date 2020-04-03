@@ -144,5 +144,5 @@ ORBITDYN_API bool ReadLine(std::istream* file,std::string& name,std::string& val
 #define READSTR(str)			if(name == #str){                       \
 									str=value;                          \
 									}else
-#define END_READ               cerr << "can't fine name " << name << endl;  \
+#define END_READ               cerr << "can't find name " << name << endl;  \
 								}} file.close();}

@@ -11,7 +11,7 @@ purposes.
 
 SZIP implements an extended Rice adaptive lossless compression algorithm
 for sample data.  The primary algorithm was developed by R. F. Rice at
-Jet Propulsion Laboratory.  
+Jet Propulsion Laboratory.
 
 SZIP embodies certain inventions patented by the National Aeronautics &
 Space Administration.  United States Patent Nos. 5,448,642, 5,687,255,
@@ -19,19 +19,19 @@ and 5,822,457 have been licensed to ICs Corp. for distribution with the
 HDF data storage and retrieval file format and software library products.
 All rights reserved.
 
-Revocable (in the event of breach by the user or if required by law), 
-royalty-free, nonexclusive sublicense to use SZIP decompression software 
-routines and underlying patents is hereby granted by ICs Corp. to all users 
-of and in conjunction with HDF data storage and retrieval file format and 
+Revocable (in the event of breach by the user or if required by law),
+royalty-free, nonexclusive sublicense to use SZIP decompression software
+routines and underlying patents is hereby granted by ICs Corp. to all users
+of and in conjunction with HDF data storage and retrieval file format and
 software library products.
 
-Revocable (in the event of breach by the user or if required by law), 
-royalty-free, nonexclusive sublicense to use SZIP compression software 
-routines and underlying patents for non-commercial, scientific use only 
-is hereby granted by ICs Corp. to users of and in conjunction with HDF 
+Revocable (in the event of breach by the user or if required by law),
+royalty-free, nonexclusive sublicense to use SZIP compression software
+routines and underlying patents for non-commercial, scientific use only
+is hereby granted by ICs Corp. to users of and in conjunction with HDF
 data storage and retrieval file format and software library products.
 
-For commercial use license to SZIP compression software routines and underlying 
+For commercial use license to SZIP compression software routines and underlying
 patents please contact ICs Corp. at ICs Corp., 721 Lochsa Street, Suite 8,
 Post Falls, ID 83854.  (208) 262-2008.
 
@@ -42,7 +42,7 @@ Post Falls, ID 83854.  (208) 262-2008.
 #include "ricehdf.h"
 #include "szip_adpt.h"
 
-#define SZLIB_VERSION "2.1"
+#define SZLIB_VERSION "2.1.1"
 
 /*
    The application must update next_in and avail_in when avail_in has
@@ -69,8 +69,8 @@ Post Falls, ID 83854.  (208) 262-2008.
 #define SZ_OUTPUT_IMAGE  6
 
 /*** API return values ***/
-#define SZ_OK			0
-#define SZ_STREAM_END	1
+#define SZ_OK            0
+#define SZ_STREAM_END    1
 #define SZ_OUTBUFF_FULL 2
 
 /*** API error values defined in ricehdf.h ***/
@@ -95,47 +95,47 @@ Post Falls, ID 83854.  (208) 262-2008.
 /* SZ_MAX_PIXELS_PER_SCANLINE */
 
 typedef struct sz_hidden_data_s
-	{
-	char *image_in;
-	long avail_in;
-	char *next_in;
+    {
+    char *image_in;
+    long avail_in;
+    char *next_in;
 
-	char *image_out;
-	long avail_out;
-	char *next_out;
-	} sz_hidden_data; 
+    char *image_out;
+    long avail_out;
+    char *next_out;
+    } sz_hidden_data;
 
 typedef struct sz_stream_s
-	{
-	char    		*next_in;  /* next input byte */
-	unsigned int	avail_in;  /* number of bytes available at next_in */
-	unsigned long	total_in;  /* total nb of input bytes read so far */
+    {
+    char            *next_in;  /* next input byte */
+    unsigned int    avail_in;  /* number of bytes available at next_in */
+    unsigned long    total_in;  /* total nb of input bytes read so far */
 
-	char			*next_out; /* next output byte should be put there */
-	unsigned int	avail_out; /* remaining free space at next_out */
-	unsigned long	total_out; /* total nb of bytes output so far */
+    char            *next_out; /* next output byte should be put there */
+    unsigned int    avail_out; /* remaining free space at next_out */
+    unsigned long    total_out; /* total nb of bytes output so far */
 
-	char			*msg;
-	int				state;
+    char            *msg;
+    int                state;
 
-	void			*hidden;	/* this data hidden from user */
+    void            *hidden;    /* this data hidden from user */
 
-	int		options_mask;
-	int		bits_per_pixel;
-	int		pixels_per_block;
-	int		pixels_per_scanline;
-	long	image_pixels;
-	} sz_stream;
+    int        options_mask;
+    int        bits_per_pixel;
+    int        pixels_per_block;
+    int        pixels_per_scanline;
+    long    image_pixels;
+    } sz_stream;
 
 typedef sz_stream *sz_streamp;
 
 typedef struct SZ_com_t_s
-	{
-	int options_mask;
-	int bits_per_pixel;
-	int pixels_per_block;
-	int pixels_per_scanline;
-	} SZ_com_t;
+    {
+    int options_mask;
+    int bits_per_pixel;
+    int pixels_per_block;
+    int pixels_per_scanline;
+    } SZ_com_t;
 
 __SZ_DLL__ int SZ_BufftoBuffCompress(void *dest, size_t *destLen, const void *source, size_t sourceLen, SZ_com_t *param);
 __SZ_DLL__ int SZ_BufftoBuffDecompress(void *dest, size_t *destLen, const void *source, size_t sourceLen, SZ_com_t *param);
