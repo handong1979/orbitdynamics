@@ -41,7 +41,7 @@ Example:
    
 	CDateTime epoch(2006,5,1,0,0,0);
 	
-	Kepler ZY_Orbit(7157,			0.001,		98.5*RAD,	60*RAD,			90*RAD,		60*RAD);
+	Kepler ZY_Orbit(7157, 0.001, 98.5*RAD, 60*RAD, 90*RAD,	 60*RAD);
 	
    // set satellite's param
    
