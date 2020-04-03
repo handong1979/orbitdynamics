@@ -1,10 +1,8 @@
-% ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
 function [V1, V2] = lambert(R1, R2, t, string)
-% ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
 %
 % This function solves Lambert’s problem.
 %
-% mu - gravitational parameter (kmˆ3/sˆ2)
+% mu - gravitational parameter (km^3/s^2)
 % R1, R2 - initial and final position vectors (km)
 % r1, r2 - magnitudes of R1 and R2
 % t - the time of flight from R1 to R2
@@ -15,7 +13,7 @@ function [V1, V2] = lambert(R1, R2, t, string)
 % string - 'pro' if the orbit is prograde
 % 'retro' if the orbit is retrograde
 % A - a constant given by Equation 5.35
-% z - alpha*xˆ2, where alpha is the reciprocal of the
+% z - alpha*x?2, where alpha is the reciprocal of the
 % semimajor axis and x is the universal anomaly
 % y(z) - a function of z given by Equation 5.38
 % F(z,t) - a function of the variable z and constant t,
@@ -42,6 +40,8 @@ if nargin == 0
 %     kp2 = cart2kepler([R2;V2])
     return
 end
+R1 = R1(:);
+R2 = R2(:);
 
 mu = GEarth;
 %...Magnitudes of R1 and R2:
@@ -101,7 +101,6 @@ V1 = 1/g*(R2 - f*R1);
 %...Equation 5.29:
 V2 = 1/g*(gdot*R2 - R1);
 
-% ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
 % Subfunctions used in the main body:
 %...Equation 5.38:
     function dum = y(z)
@@ -123,10 +122,8 @@ V2 = 1/g*(gdot*R2 - R1);
                 + A*sqrt(stumpC(z)/y(z)));
         end
     end
-% ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
+
     function s = stumpS(z)
-        % ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
-        %
         % This function evaluates the Stumpff function S(z) according
         % to Equation 3.49.
         %
@@ -143,10 +140,8 @@ V2 = 1/g*(gdot*R2 - R1);
             s = 1/6;
         end
     end
-% ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
+    
     function c = stumpC(z)
-        % ˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜˜
-        %
         % This function evaluates the Stumpff function C(z) according
         % to Equation 3.50.
         %

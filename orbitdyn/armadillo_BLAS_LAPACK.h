@@ -1,5 +1,5 @@
 /*
-armadillo use blas��lapack
+armadillo use blas lapack
 
 */
 

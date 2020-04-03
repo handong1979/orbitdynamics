@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 #include "Config.h"
-#include "string.h"
 //------------------------------------------------------------------------------
 // std::string Replace(const std::string &str, const std::string &from,
 //                     const std::string &to)
@@ -144,5 +143,5 @@ ORBITDYN_API bool ReadLine(std::istream* file,std::string& name,std::string& val
 #define READSTR(str)			if(name == #str){                       \
 									str=value;                          \
 									}else
-#define END_READ               cerr << "can't fine name " << name << endl;  \
+#define END_READ               cerr << "can't find name " << name << endl;  \
 								}} file.close();}
