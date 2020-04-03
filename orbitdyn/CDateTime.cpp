@@ -1,4 +1,4 @@
-﻿#include "CentralBody.h"
+#include "CentralBody.h"
 #include "CDateTime.h"
 #include "Utility.h"
 

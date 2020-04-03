@@ -8,15 +8,15 @@
 #pragma comment(lib,"libhdf5_hl_D.lib")
 #pragma comment(lib,"libhdf5_cpp_D.lib")
 #pragma comment(lib,"libhdf5_hl_cpp_D.lib")
-#pragma comment(lib,"libszip.lib")
-#pragma comment(lib,"libzlib.lib")
+//#pragma comment(lib,"libszip.lib")
+//#pragma comment(lib,"libzlib.lib")
 #else
 #pragma comment(lib,"libhdf5.lib")
 #pragma comment(lib,"libhdf5_hl.lib")
 #pragma comment(lib,"libhdf5_cpp.lib")
 #pragma comment(lib,"libhdf5_hl_cpp.lib")
-#pragma comment(lib,"libszip.lib")
-#pragma comment(lib,"libzlib.lib")
+//#pragma comment(lib,"libszip.lib")
+//#pragma comment(lib,"libzlib.lib")
 #endif
 
 #include <armadillo_BLAS_LAPACK.h>
@@ -77,6 +77,17 @@ public:
 
 	void AddVarUint(std::string varname, int row, int col, void * pdata) {
 		AddVar(varname, H5T_NATIVE_UINT, row, col, pdata);
+	}
+
+	void AddVarUint(std::string varname, int row, int col, void * pdata) {
+		hsize_t dims[2] = { row,col };
+		hid_t  datatype = H5Tarray_create(H5T_NATIVE_UINT, 2, dims);
+		char tmpchar[128];
+		strcpy(tmpchar, varname.c_str());
+		FL_PacketTable *pt = new FL_PacketTable(hf->getId(), tmpchar, datatype, 1, -1);
+		vpt.push_back(pt);
+		vdata.push_back(pdata);
+		vname.push_back(varname);
 	}
 
 	void AddVarByte(std::string varname, int row, int col, void * pdata) {
