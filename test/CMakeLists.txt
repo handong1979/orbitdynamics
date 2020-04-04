@@ -1,5 +1,5 @@
 
-set (tests
+set (testnames
     test_circle_moon
     test_DE405_DE421
     test_earth_lunar_transfer
@@ -17,9 +17,9 @@ set (tests
 	testjson
 )
 
-foreach (test ${tests})
-  add_executable (${test} ${test}.cpp)
-  target_link_libraries (${test} OrbitDyn)
-  set_target_properties (${test} PROPERTIES FOLDER Tests)
+foreach (test ${testnames})
+  add_executable(${test} ${test}.cpp)
+  target_link_libraries(${test} OrbitDyn)
+  set_target_properties(${test} PROPERTIES FOLDER Tests)
 endforeach ()
 

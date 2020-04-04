@@ -19,6 +19,8 @@ if(APPLE)
   message(STATUS "MacOS X detected. Added '-framework Accelerate' to compiler flags")
 endif(APPLE)
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 add_subdirectory(orbitdyn)
 add_subdirectory(maneuver)
 add_subdirectory(LowThrust)

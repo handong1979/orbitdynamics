@@ -19,8 +19,8 @@ set (maneuvers
 )
 
 foreach (maneuver ${maneuvers})
-  add_executable (${maneuver} ${maneuver}.cpp)
-  target_link_libraries (${maneuver} OrbitDyn)
-  set_target_properties (${maneuver} PROPERTIES FOLDER Maneuver)
+  add_executable(${maneuver} ${maneuver}.cpp)
+  target_link_libraries(${maneuver} OrbitDyn)
+  set_target_properties(${maneuver} PROPERTIES FOLDER AOC)
 endforeach ()
 
