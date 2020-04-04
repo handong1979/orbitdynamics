@@ -267,41 +267,41 @@ bool IsBlank(const std::string &text, bool ignoreEol/* = false*/)
 */
 bool ReadLine(std::istream* file,std::string& name,std::string& value)
 {
-	//std::string line;
-	//while(!file->eof()){
-	//	if(GetLine(file,line))	{
-	//		line = Trim(line);
-	//		if(IsCommentLine(line) || IsBlank(line)) continue;
-	//		int index = line.find("=");
-	//		name = Trim(line.substr(0,index));
-	//		value = Trim(line.substr(index+1));
-	//		return 1;
-	//	}
-	//}
-
-	//return 0;
-
-
 	std::string line;
-	string comm = "%";
-	while (!file->eof()) {
-		if (getline(*file, line)) {
-			trim(line);
-			if (line.substr(0, 1) == comm || line.empty())
-				continue;
+	while(!file->eof()){
+		if(GetLine(file,line))	{
+			line = Trim(line);
+			if(IsCommentLine(line) || IsBlank(line)) continue;
 			int index = line.find("=");
-			if (index != -1)
-			{
-				name = line.substr(0, index);
-				trim(name);
-				value = line.substr(index + 1);
-				trim(value);
-				return 1;
-			}
-			else
-				return 0;
+			name = Trim(line.substr(0,index));
+			value = Trim(line.substr(index+1));
+			return 1;
 		}
 	}
 
 	return 0;
+
+
+	//std::string line;
+	//string comm = "%";
+	//while (!file->eof()) {
+	//	if (getline(*file, line)) {
+	//		trim(line);
+	//		if (line.substr(0, 1) == comm || line.empty())
+	//			continue;
+	//		int index = line.find("=");
+	//		if (index != -1)
+	//		{
+	//			name = line.substr(0, index);
+	//			trim(name);
+	//			value = line.substr(index + 1);
+	//			trim(value);
+	//			return 1;
+	//		}
+	//		else
+	//			return 0;
+	//	}
+	//}
+
+	//return 0;
 }
