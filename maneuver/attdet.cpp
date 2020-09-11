@@ -45,8 +45,23 @@ void maketmdata()
 	for (double t = 0;t < 6000;t++)
 	{
 		coi = GetCoi(sat.GetOrbitElements());
+
+		eu.phi = WhiteNoise(0.002*RAD, 1 * RAD);
+		eu.theta = WhiteNoise(0.002*RAD, -0.2*RAD);
+		eu.psi = WhiteNoise(0.002*RAD, 0.5*RAD);
+		cbo = eu.ToMatrix();		
 		CQuaternion qa(ssa*cbo*coi);
+
+		eu.phi = WhiteNoise(0.002*RAD, 1 * RAD);
+		eu.theta = WhiteNoise(0.002*RAD, -0.2*RAD);
+		eu.psi = WhiteNoise(0.002*RAD, 0.5*RAD);
+		cbo = eu.ToMatrix();
 		CQuaternion qb(ssb*cbo*coi);
+
+		eu.phi = WhiteNoise(0.002*RAD, 1 * RAD);
+		eu.theta = WhiteNoise(0.002*RAD, -0.2*RAD);
+		eu.psi = WhiteNoise(0.002*RAD, 0.5*RAD);
+		cbo = eu.ToMatrix();
 		CQuaternion qc(ssc*cbo*coi);
 		fs << sat.CurrentEpoch() << TAB << qa 
 			<< TAB << qb << TAB << qc << endl;
