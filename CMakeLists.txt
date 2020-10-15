@@ -8,6 +8,15 @@ link_directories(${PROJECT_SOURCE_DIR}/lib)
 set(BUILD_SOFA "build sofa library" TRUE)
 set(BUILD_TEST "build test" TRUE)
 
+#find_package(Boost 1.46.1)
+
+# check if boost was found
+#if(Boost_FOUND)
+#    message ("boost found")
+#else()
+#    message (FATAL_ERROR "Cannot find Boost")
+#endif()
+
 if(APPLE)
 
   set(ARMA_OS macos)

@@ -321,7 +321,7 @@ int main()
 		//6.偏心率与倾角加权最优控制；
 		//7.半长轴、偏心率与倾角最优控制；
 		//8.升交点赤经最优控制。
-		oci.OConType = 1;
+		oci.OConType = 5;
 		oci.Target_a = 42164.2;
 		oci.Target_e = 0;
 		oci.Target_i = 40*RAD;

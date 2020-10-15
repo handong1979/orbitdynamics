@@ -20,7 +20,7 @@ if nargin == 0 % self test
 %     pcbody = [0,0,0.1;0,0,0.1];
     
     mode = 'simple';
-    area = 38;
+    area = 1;
     L = [0;0;0.2];
 elseif nargin == 6
     area = varargin{1};
