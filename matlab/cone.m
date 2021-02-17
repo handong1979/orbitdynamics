@@ -1,4 +1,4 @@
-% 圆锥
+% Բ׶
 function mdl = cone(radius,height,c,R)
 if nargin == 0
     radius = 350;
@@ -18,7 +18,7 @@ verts(end,3) = height;
 len = length(verts);
 verts = verts*R' + ones(len,1)*c(:)';
 faces = [[1:len-1;[2:len-1,1];ones(1,len-1)*len]'; [[2:len-1,1];1:len-1;ones(1,len-1)*len]'];
-patch('Faces',faces,'Vertices',verts,'FaceColor','y','EraseMode','normal','FaceAlpha',0.5,'edgealpha',0.1);
+patch('Faces',faces,'Vertices',verts,'FaceColor','y','FaceAlpha',0.5,'edgealpha',0.1);
 
 nface = size(faces,1);
 norms = nan(nface,3);

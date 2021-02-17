@@ -1,9 +1,9 @@
-% IAU sofa å›½é™…å¤©æ–‡è”åˆä¼šåŸºç¡€å¤©æ–‡ç¨‹åºåº“
+% IAU sofa ¹ú¼ÊÌìÎÄÁªºÏ»á»ù´¡ÌìÎÄ³ÌÐò¿â
 % sofa(function,param,...)
-% functionä¸ºä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œä¸ºsofaä¸­çš„å‡½æ•°åï¼Œä¸åŒºåˆ†å¤§å°å†™
-% param,... ä¸ºsofaå‡½æ•°éœ€è¦çš„å‚æ•°å…·ä½“è§ä»¥ä¸‹çš„å‡½æ•°è¯´æ˜Ž
-% ç›®å‰ä»…å®žçŽ°äº†ä»¥ä¸‹çš„å‡½æ•°ï¼š
-% 1. æ ¼æž—å°¼æ²»æ’æ˜Ÿæ—¶è®¡ç®— 
+% functionÎªÒ»¸ö×Ö·û´®£¬ÎªsofaÖÐµÄº¯ÊýÃû£¬²»Çø·Ö´óÐ¡Ð´
+% param,... Îªsofaº¯ÊýÐèÒªµÄ²ÎÊý¾ßÌå¼ûÒÔÏÂµÄº¯ÊýËµÃ÷
+% Ä¿Ç°½öÊµÏÖÁËÒÔÏÂµÄº¯Êý£º
+% 1. ¸ñÁÖÄáÖÎºãÐÇÊ±¼ÆËã 
 %  GMST06
 %  GST06
 %  GST06A
@@ -11,7 +11,7 @@
 %  GST00B
 %  GMST82
 %  GST94
-% 2. å¾…å¼€å‘
+% 2. ´ý¿ª·¢
 %  
 % Example:
 % mjd = 53736;

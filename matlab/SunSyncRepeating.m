@@ -1,14 +1,26 @@
-% å¤ªé˜³åŒæ­¥å›å½’è½¨é“æ–¹ç¨‹
-function f = SunSyncRepeating(x)
+% Ì«ÑôÍ¬²½»Ø¹é¹ìµÀ·½³Ì
+function [a,i] = SunSyncRepeating(rev,day)
+if nargin==0
+    rev = 44;
+    day = 3;
+end
+n0 = 2*pi/(day*86164.09/rev);
+a0 = (GEarth/n0^2)^(1/3);
+i0 = acos(0.9856*rad/86164.09/(-1.5*n0*J2*(Re/a0)^2));
+x = fsolve(@(x)ssr_constrain(x),[a0,i0]);
 a = x(1);
 i = x(2);
-R = 44;
-N = 3;
-n = sqrt(GEarth/a^3);
-TN = 2*pi/n*(1-1.5*J2*(Re/a)^2*(3-2.5*sin(i)*sin(i)));
-dotOmega = -1.5*n*J2*(Re/a)^2*cos(i);
-% å›å½’è½¨é“çš„è¦æ±‚ï¼Œæ–¹ç¨‹çš„å€¼ä¸ºå¼§åº¦
-f(1) = R*TN*(We + dotOmega) - N*2*pi;
-% å¤ªé˜³åŒæ­¥è½¨é“çš„è¦æ±‚ï¼Œè½¨é“é¢æ¯å¤©è¿›åŠ¨0.9856åº¦ï¼Œæ–¹ç¨‹çš„å€¼ä¸ºå¼§åº¦
-f(2) = dotOmega*86164.09 - 0.9856*rad; 
-% f = f*deg*100;
+
+    function f = ssr_constrain(x)
+        a = x(1);
+        i = x(2);
+        n = sqrt(GEarth/a^3);
+        TN = 2*pi/n*(1-1.5*J2*(Re/a)^2*(3-2.5*sin(i)*sin(i)));
+        dotOmega = -1.5*n*J2*(Re/a)^2*cos(i);
+        % »Ø¹é¹ìµÀµÄÒªÇó£¬·½³ÌµÄÖµÎª»¡¶È
+        f(1) = rev*TN*(We - dotOmega) - day*2*pi;
+        % Ì«ÑôÍ¬²½¹ìµÀµÄÒªÇó£¬¹ìµÀÃæÃ¿Ìì½ø¶¯0.9856¶È£¬·½³ÌµÄÖµÎª»¡¶È
+        f(2) = dotOmega*86164.09 - 0.9856*rad;
+        % f = f*deg*100;
+    end
+end

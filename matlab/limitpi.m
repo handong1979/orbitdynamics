@@ -1,6 +1,10 @@
-% å°†è§’åº¦è¯¯å·®åŠ å‡pi*2å˜æˆ0é™„è¿‘çš„å€¼
+% ½«½Ç¶ÈÎó²î¼Ó¼õpi*2±ä³É0¸½½üµÄÖµ
 function y = limitpi(x)
-flag = x>pi;
-x = x - pi*2*flag;
-flag = x<-pi;
-y = x + pi*2*flag;
+% while any(x>pi)
+    flag = x>pi;
+    x = x - pi*2*flag;
+% end
+% while any(x<-pi)
+    flag = x<-pi;
+    y = x + pi*2*flag;
+% end

@@ -66,7 +66,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	size_t nsat = vsat.size();
 	size_t i;
 	std::vector<CSatellite*>::iterator itvsat;
-	// ����vsat������Ϊname������,��¼��λ��i�͵����itvsat
+	
 	itvsat = vsat.begin();
 	for(i=0; i<nsat; i++)
 	{
@@ -77,7 +77,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     
 	std::string msg;
 	if(i==nsat)
-	{// û���ҵ���Ӧ���ֵ�����,�����һ��������?
+	{
 		if(operat == "INIT")
 		{
 			size_t N = mxGetN(prhs[2]);
@@ -103,7 +103,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			vsat[i]->SetForce(6,ODP_EARTH_ALL);
 			vsat[i]->Name = name;
             if(N==13) vsat[i]->Mass0 = tmp[12];
-            vsat[i]->SetAutoSave();
+            //vsat[i]->SetAutoSave();
 #if DEBUG_MEXORBITDYN
             {
                 mexPrintf("Name = %s\n",vsat[i]->Name.c_str());
@@ -118,8 +118,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		}
 	}
 	else
-	{ // ���ҵ�name��Ӧvsat�ĵ�i������
-		if(operat == "STEP") // ����һ��,prhs[2]Ϊ����
+	{ 
+		if(operat == "STEP")
 		{
 			double* tmp = mxGetPr(prhs[2]);
 			if(vsat[i]==NULL)
@@ -127,7 +127,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			else
 			{
 				size_t N = mxGetN(prhs[2]);
-				if(N==9) // ��������
+				if(N==9)
 				{
 					double dm;
 					vec3 F;
@@ -159,7 +159,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 						else
 							Error("Force is positive, but /dotm is positive.");
 					}
-					else // �ϳ�����Ϊ0�������ƽ�������
+					else
 					{
 						vsat[i]->ThrustIsOn = false;
 						if(*tmp>0)
@@ -169,7 +169,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 						vsat[i]->BurnedFuel += *tmp*(-dm);
 					}
 				}
-				else // ����������
+				else
 				{
 					vsat[i]->ThrustIsOn = false;
 					if(*tmp>0)
@@ -180,7 +180,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			}
 		}
 		else if(operat == "INIT")
-		{ // prhs[2]Ϊʱ�䡢�������?
+		{
 			size_t N = mxGetN(prhs[2]);
 			if(N<12) Error("Init parameter is not enough.");
 			double* tmp = mxGetPr(prhs[2]);
@@ -188,7 +188,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			Kepler k(tmp[6],tmp[7],tmp[8]*RAD,tmp[9]*RAD,tmp[10]*RAD,tmp[11]*RAD);
 			if(vsat[i]!=NULL)
 				Warning("satellite '" + name + "' had been initialized,re-initializing...");
-			vsat[i]->Initialize(t - 28800,k); // ���³�ʼ��ʱ�����Զ��޸��㶯ģ�ͣ�����������������
+			vsat[i]->Initialize(t - 28800,k);
 			if(N==13) vsat[i]->Mass0 = tmp[12];
 		}
 		else if(operat == "PROPAGATE")
@@ -201,18 +201,18 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			double* tmp = mxGetPr(prhs[2]);
 			vsat[i]->PropagateBackward(-60,*tmp);
 		}
-		else if(operat == "REMOVE")  // ɾ��
+		else if(operat == "REMOVE")
 		{
 			delete vsat[i];
 			vsat.erase(itvsat);
 			return;
 		}
-		else if(operat == "SETFORCE") // �����㶯ģ��
+		else if(operat == "SETFORCE")
 		{
 			double* tmp = mxGetPr(prhs[2]);
 			vsat[i]->SetForce((int)tmp[0],(unsigned int)tmp[1]);
 		}
-		else if(operat == "GETMEAN") // ���ƽ����?
+		else if(operat == "GETMEAN")
 		{
 			Kepler km = vsat[i]->MedianElement();
 			plhs[0] = mxCreateDoubleMatrix(1,6,mxREAL);
@@ -266,14 +266,28 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 			out[5] = v_WGS84[2];
             return;
         }
+		else if(operat == "GETLLA")
+        {
+			CSpherical lla = vsat[i]->GetLLA();
+			plhs[0] = mxCreateDoubleMatrix(1,3,mxREAL);
+			double* out = mxGetPr(plhs[0]);
+            out[0] = lla.Longitude;
+			out[1] = lla.Latitude;
+			out[2] = lla.Altitude;
+			return;
+		}
 	}
 #if DEBUG_MEXORBITDYN
     {   
         mexPrintf("Output Elements: %f %f %f %f %f %f\n",vsat[i]->a,vsat[i]->e,vsat[i]->i,vsat[i]->Omega,vsat[i]->w,vsat[i]->M);
 	}
 #endif
-	
-	plhs[0] = mxCreateDoubleMatrix(1,13,mxREAL);
+	mat33 J2000_WGS84 = ECI_ECF(vsat[i]->CurrentEpoch());
+    vec3 we;
+    we[0] = 0; we[1] = 0; we[2] = We;
+    vec3 r_WGS84 = J2000_WGS84*vsat[i]->Pos();
+    vec3 v_WGS84 = J2000_WGS84*vsat[i]->Vel() - cross(we,r_WGS84);
+	plhs[0] = mxCreateDoubleMatrix(1,19,mxREAL);
 	double* out = mxGetPr(plhs[0]);
 	out[0] = vsat[i]->CurrentEpoch().GetMJD()+1.0/3.0;
 	out[1] = vsat[i]->a;
@@ -288,6 +302,12 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 	out[10] = vsat[i]->Vel()[0];
 	out[11] = vsat[i]->Vel()[1];
 	out[12] = vsat[i]->Vel()[2];
+    out[13] = r_WGS84[0];
+	out[14] = r_WGS84[1];
+	out[15] = r_WGS84[2];
+    out[16] = v_WGS84[0];
+	out[17] = v_WGS84[1];
+	out[18] = v_WGS84[2];
 	}
 	catch(BaseException& e)
 	{

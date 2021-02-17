@@ -1,4 +1,4 @@
-% åœ†æŸ±
+% Ô²Öù
 function mdl = cylinderpatch(radius,height,c,R,bt)
 if nargin == 0
     warning('self test');

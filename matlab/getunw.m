@@ -1,4 +1,4 @@
-% UNWåæ ‡ç³»ç›¸å¯¹åœ°å¿ƒæƒ¯æ€§åæ ‡ç³»çš„æ—‹è½¬çŸ©é˜µ
+% UNW×ø±êÏµÏà¶ÔµØĞÄ¹ßĞÔ×ø±êÏµµÄĞı×ª¾ØÕó
 function inertia = getunw(elem)
 e = elem(2);
 i = elem(3);
@@ -20,6 +20,6 @@ Rzu = [cosu,sinu,0;-sinu,cosu,0;0,0,1];
 Rxi = [1,0,0;0,cosi,sini;0,-sini,cosi];
 Rzo = [coso,sino,0;-sino,coso,0;0,0,1];
 
-beta = atan2(e*sinf,1+e*cosf); % é£è¡Œè·¯å¾„è§’
+beta = atan2(e*sinf,1+e*cosf); % ·ÉĞĞÂ·¾¶½Ç
 Rb = [cos(beta),0,-sin(beta);0,1,0;sin(beta),0,cos(beta)];
 inertia = Rb*R*Rzu*Rxi*Rzo;

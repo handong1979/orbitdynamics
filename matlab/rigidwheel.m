@@ -1,4 +1,4 @@
-% æœ‰è½®åˆšä½“åŠ¨åŠ›å­¦
+% ÓĞÂÖ¸ÕÌå¶¯Á¦Ñ§
 function [q,w,hw] = rigidwheel(t,q,w,hw,Tw,Tj,Is,iIs,Cbwh,dt)
 %% self test
 if nargin == 0 
@@ -22,7 +22,7 @@ if nargin == 0
     Tw = [0.1;0;0.1;0];
     Tj = [20;20;20];
     t = 0;
-    [q,w,hw] = rigidwheel(t,q,w,hw,Tw,Tj,Is,iIs,Cbwh,1)
+    [q,w,hw] = rigidwheel(t,q,w,hw,Tw,Tj,Is,iIs,Cbwh,1);
     return
 end
 %%
@@ -32,22 +32,23 @@ q = Y(1:4);
 w = Y(5:7);
 hw = Y(8:11);
 
-%% æœ‰è½®åˆšä½“åŠ¨åŠ›å­¦æ–¹ç¨‹
-% yåŒ…æ‹¬å››å…ƒæ•°ã€è§’é€Ÿåº¦ã€å„åŠ¨é‡è½®è§’åŠ¨é‡
-% ä½¿ç”¨MATLAB ODEå‡½æ•°æ—¶ï¼Œè°ƒç”¨æ ¼å¼ä¸ºï¼š
+%% ÓĞÂÖ¸ÕÌå¶¯Á¦Ñ§·½³Ì
+% y°üÀ¨ËÄÔªÊı¡¢½ÇËÙ¶È¡¢¸÷¶¯Á¿ÂÖ½Ç¶¯Á¿
+% Ê¹ÓÃMATLAB ODEº¯ÊıÊ±£¬µ÷ÓÃ¸ñÊ½Îª£º
 % [T, Y] = ode45(@(t,y)RigidWheel(t,y,Tw,Tj,Is,iIs,Cbwh),Tspan,y,odeopt);
-% ä½¿ç”¨rk4å‡½æ•°æ—¶ï¼Œæ²¡æœ‰æ—¶é—´é‡è¾“å…¥ï¼Œè°ƒç”¨æ ¼å¼ä¸ºï¼š
+% Ê¹ÓÃrk4º¯ÊıÊ±£¬Ã»ÓĞÊ±¼äÁ¿ÊäÈë£¬µ÷ÓÃ¸ñÊ½Îª£º
 % rk4(@(y)RigidWheel(t,y,Tw,Tj,Is,iIs,Cbwh),dt,y); % Solve ODE
     function dy = odeRigidWheel(t,y)      
         Omega = Ew(y(5:7));
         dq = 0.5*Omega*y(1:4);
         
+        % also: Omega(1:3,1:3) = - w¡Á
         % dw = Is\(- Cbwh*Tw + Omega(1:3,1:3)*(Is*w+Cbwh*hw));
         dw = iIs*(- Cbwh*Tw + Tj + Omega(1:3,1:3)*(Is*y(5:7)+Cbwh*y(8:11)));
         
         dy = [dq;dw;Tw];
     end
-%% é¾™æ ¼åº“å¡”4é˜¶ç§¯åˆ†
+%% Áú¸ñ¿âËş4½×»ı·Ö
     function xk = rk4(dynfunc,step,x0)
         k1 = step*dynfunc(x0);
         k2 = step*dynfunc(x0+0.5*k1);

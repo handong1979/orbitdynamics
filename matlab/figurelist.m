@@ -1,36 +1,36 @@
 
 function figurelist
-
+fontsize = 12;
 hf = figure('Position',[1   1   550   620],'MenuBar','none',...
     'Name','FigureList','NumberTitle','off','Color',[0.9 0.9 0.8],...
     'Resize','off','HandleVisibility','off','Visible','on');
 
 hdir = uicontrol('Parent',hf,  'Style','popupmenu',  'String',{'.';'run1';'run2';'run3';'run4'},...
     'FontUnits','pixels',    'BackgroundColor',get(0,'defaultuicontrolBackgroundColor'),...
-    'FontSize',12,    'Position',[20 400 180 50]);
+    'FontSize',fontsize,    'Position',[20 400 180 50]);
 
 hcmd = uicontrol('Parent',hf,  'Style','edit',  'String','draw',...
     'FontUnits','pixels',    'BackgroundColor',get(0,'defaultuicontrolBackgroundColor'),...
-    'FontSize',12,    'Position',[20 330 180 50]);
+    'FontSize',fontsize,    'Position',[20 330 180 50]);
 
 uicontrol('Parent',hf,  'Callback',@execute,  'String','执行...',...
     'FontUnits','pixels',    'BackgroundColor',get(0,'defaultuicontrolBackgroundColor'),...
-    'FontSize',12,    'Position',[20 260 180 50]);
+    'FontSize',fontsize,    'Position',[20 260 180 50]);
 
 uicontrol('Parent',hf,  'Callback',@export,  'String','复制到剪贴板',...
     'FontUnits','pixels',    'BackgroundColor',get(0,'defaultuicontrolBackgroundColor'),...
-    'FontSize',12,    'Position',[20 190 180 50]);
+    'FontSize',fontsize,    'Position',[20 190 180 50]);
 
 uicontrol('Parent',hf,  'Callback',@listf,  'String','刷新列表',...
     'FontUnits','pixels',    'BackgroundColor',get(0,'defaultuicontrolBackgroundColor'),...
-    'FontSize',12,    'Position',[20 120 180 50]);
+    'FontSize',fontsize,    'Position',[20 120 180 50]);
 
 uicontrol('Parent',hf,  'Callback',@closeallfigure,  'String','关闭所有曲线',...
     'FontUnits','pixels',    'BackgroundColor',get(0,'defaultuicontrolBackgroundColor'),...
-    'FontSize',12,    'Position',[20 50 180 50]);
+    'FontSize',fontsize,    'Position',[20 50 180 50]);
 
 flist = uicontrol('Parent',hf,'FontUnits','pixels',...
-    'BackgroundColor',[1 1 1],'FontSize',12,'Position',[230 50 300 550],...
+    'BackgroundColor',[1 1 1],'FontSize',fontsize,'Position',[230 50 300 550],...
     'String',{  },'Style','listbox','Value',1,...
     'Callback',@OnListBtnDown_Callback,'Tag','figurelist');
 
@@ -40,7 +40,9 @@ listf();
     function h = listf(hObject,~)
        set(flist,'String',{});
        fl = get(0,'Children');
-       fl = sort(fl);
+%        fl = sort(fl);
+       fn = cell(length(fl),1);
+       num = nan(length(fl),1);
        for i=1:length(fl)
            % 获得figure名字
             nm = get(fl(i),'Name');
@@ -55,10 +57,11 @@ listf();
                     end
                 end
             end
-            lnow = get(flist,'String');
-            fn = [num2str(fl(i)),':',nm];
-            set(flist,'String',[lnow{:} {fn}]);
+            num(i) = fl(i).Number;
+            fn{i} = [num2str(fl(i).Number),':',nm];
        end
+       [~,idx] = sort(num);
+       set(flist,'String',fn(idx));
     end
 
 %% 关闭所有曲线

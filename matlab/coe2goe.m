@@ -1,4 +1,4 @@
-% 缁忓吀杞ㄩ亾鏍规暟==>闈欐杞ㄩ亾鏍规暟
+% 经典轨道根数==>静止轨道根数
 % a e i O w M ==> a ex ey ix iy lambda
 function ke = coe2goe(k)
 ke(:,1) = k(:,1);

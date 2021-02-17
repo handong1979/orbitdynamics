@@ -1,16 +1,16 @@
-%åˆ¤æ–­åœ°å½±ç¨‹åº
-%umbra(spacecraft,position_sun,body,r_body)åˆ¤æ–­èˆªå¤©å™¨æ˜¯å¦è¢«å¤©ä½“é®æŒ¡äº§ç”Ÿé˜´å½±ã€‚
+%ÅÐ¶ÏµØÓ°³ÌÐò
+%umbra(spacecraft,position_sun,body,r_body)ÅÐ¶Ïº½ÌìÆ÷ÊÇ·ñ±»ÌìÌåÕÚµ²²úÉúÒõÓ°¡£
 %
-%è¾“å…¥ï¼š
-%spacecraftï¼šèˆªå¤©å™¨ä½ç½®ï¼Œè¡Œæˆ–åˆ—å‘é‡ï¼›
-%position_sunï¼šå¤ªé˜³ä½ç½®ï¼Œè¡Œæˆ–åˆ—å‘é‡ï¼›
-%bodyï¼šé®æŒ¡å¤©ä½“ä½ç½®ï¼Œè¡Œæˆ–åˆ—å‘é‡ï¼›
-%r_bodyï¼šé®æŒ¡å¤©ä½“åŠå¾„ã€‚
-%ä»¥ä¸Šå‚æ•°å•ä½å¿…é¡»ä¸€è‡´ã€‚
+%ÊäÈë£º
+%spacecraft£ºº½ÌìÆ÷Î»ÖÃ£¬ÐÐ»òÁÐÏòÁ¿£»
+%position_sun£ºÌ«ÑôÎ»ÖÃ£¬ÐÐ»òÁÐÏòÁ¿£»
+%body£ºÕÚµ²ÌìÌåÎ»ÖÃ£¬ÐÐ»òÁÐÏòÁ¿£»
+%r_body£ºÕÚµ²ÌìÌå°ë¾¶¡£
+%ÒÔÉÏ²ÎÊýµ¥Î»±ØÐëÒ»ÖÂ¡£
 %
-%è¾“å‡ºï¼š
-%    1ä¸ºèˆªå¤©å™¨åœ¨å…‰ç…§åŒº
-%    0ä¸ºèˆªå¤©å™¨åœ¨é˜´å½±åŒº
+%Êä³ö£º
+%    1Îªº½ÌìÆ÷ÔÚ¹âÕÕÇø
+%    0Îªº½ÌìÆ÷ÔÚÒõÓ°Çø
 
 function [y,k]= umbra(s) %spacecraft,position_sun,body,r_body
 
@@ -20,25 +20,25 @@ r = s(8:10)';
 dr = r - rs;
 rm = norm(r,2);
 drm = norm(dr,2);
-thetaES = acos( r'*dr/rm/drm );  % å¤©ä½“-å«æ˜Ÿ-å¤ªé˜³å¤¹è§’
-as = asin(695990.0/drm);  % å«æ˜Ÿä¸Šçœ‹å¤ªé˜³çš„è§†åŠå¾„
-ae = asin(Re/rm);  % å«æ˜Ÿä¸Šçœ‹å¤©ä½“çš„è§†åŠå¾„
+thetaES = acos( r'*dr/rm/drm );  % ÌìÌå-ÎÀÐÇ-Ì«Ñô¼Ð½Ç
+as = asin(695990.0/drm);  % ÎÀÐÇÉÏ¿´Ì«ÑôµÄÊÓ°ë¾¶
+ae = asin(Re/rm);  % ÎÀÐÇÉÏ¿´ÌìÌåµÄÊÓ°ë¾¶
 if thetaES <= ae-as
-    k = 0.0; % æœ¬å½±åŒºï¼Œæ—¥å…¨é£Ÿ
+    k = 0.0; % ±¾Ó°Çø£¬ÈÕÈ«Ê³
 elseif thetaES < ae+as
     if as-thetaES>=ae
-        % å¤©ä½“æ¯”å¤ªé˜³è§†åŠå¾„å°ï¼Œæ—¥çŽ¯é£Ÿ
+        % ÌìÌå±ÈÌ«ÑôÊÓ°ë¾¶Ð¡£¬ÈÕ»·Ê³
         k = 1.0 - ae*ae/as/as;
     else
-        % å¤ªé˜³å¯è§†é¢ç§¯ä¸Žå¤ªé˜³åœ†é¢ç§¯çš„æ¯”å€¼ï¼Œæ—¥åé£Ÿ
+        % Ì«Ñô¿ÉÊÓÃæ»ýÓëÌ«ÑôÔ²Ãæ»ýµÄ±ÈÖµ£¬ÈÕÆ«Ê³
         a = acos( (ae*ae+thetaES*thetaES-as*as)/(2.0*ae*thetaES) );
         b = acos( (as*as+thetaES*thetaES-ae*ae)/(2.0*as*thetaES) );
         k = 1.0 - ( as*as*(b-sin(b)*cos(b)) + ae*ae*(a-sin(a)*cos(a)) )/as/as/pi;  
     end		
 else
-    k = 1.0; % é˜³ç…§åŒº
+    k = 1.0; % ÑôÕÕÇø
 end
-% äºŒå€¼åŒ–å¤„ç†
+% ¶þÖµ»¯´¦Àí
 if k > 0.9
     y = 1;
 else
@@ -58,8 +58,8 @@ end
 % h=rb*sin(alpha);
 % 
 % if alpha>pi/2 && h<r_body
-%     y=0;%èˆªå¤©å™¨åœ¨é˜´å½±åŒº
+%     y=0;%º½ÌìÆ÷ÔÚÒõÓ°Çø
 % else
-%     y=1;%èˆªå¤©å™¨åœ¨å…‰ç…§åŒº
+%     y=1;%º½ÌìÆ÷ÔÚ¹âÕÕÇø
 % end
 

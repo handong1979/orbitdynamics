@@ -5,9 +5,9 @@ if nargin == 0 %self test
     e = 0:0.01:0.99;
     M = linspace(0,2*pi,length(e));
 end
-if any(e<0) || any(e>=1)
-    error('偏心率小于零或大于1');
-end
+% if any(e<0) || any(e>=1)
+%     error('偏心率小于零或大于1');
+% end
 E0 = M;
 if all(e<1.0)
     E1 = E0-(E0-e.*sin(E0)-M)./(1-e.*cos(E0));

@@ -1,16 +1,16 @@
-% åŠ¨é‡è½®è§’åŠ¨é‡åŒ…ç»œ,æŒ‰ç…§åŠ›çŸ©åˆ†é…çŸ©é˜µè®¡ç®—
+% ¶¯Á¿ÂÖ½Ç¶¯Á¿°üÂç,°´ÕÕÁ¦¾Ø·ÖÅä¾ØÕó¼ÆËã
 % See also : wheelenvelopemax
 function [hx,hy,hz,h] = wheelenvelope(Cwh,hmax)
 if nargin == 0
     warning('self test');
     hmax = 50;
-    alfa = 45;
-    beta = 54.74;
-    sa = sind(alfa);  ca = cosd(alfa);
-    sb = sind(beta);  cb = cosd(beta);
-    Cwh = [sb*ca, -sb*sa, sb*ca, -sb*sa;...
-          -cb,    -cb,      cb,    cb;...
-           sb*sa, sb*ca,  sb*sa, sb*ca];
+%     alfa = 45;
+%     beta = 54.74;
+%     sa = sind(alfa);  ca = cosd(alfa);
+%     sb = sind(beta);  cb = cosd(beta);
+%     Cwh = [sb*ca, -sb*sa, sb*ca, -sb*sa;...
+%           -cb,    -cb,      cb,    cb;...
+%            sb*sa, sb*ca,  sb*sa, sb*ca];
 %     b2 = 20;
 %     y2 = beta;
 %     Cwh = [ Cwh, [-cosd(b2)*cosd(y2);sind(y2);sind(b2)*cosd(y2)], ...
@@ -19,6 +19,9 @@ if nargin == 0
 %         0 1 0;
 %         0 0 1;
 %          sqrt(3)/3  sqrt(3)/3  sqrt(3)/3]';
+    Cwh = [0.57738	-0.57738	-0.57738	 0.57738
+        -0.57729	-0.57729	-0.57729	-0.57729
+        0.57738	 0.57738	-0.57738	-0.57738];
 end
 
 Dwh = Cwh'*inv(Cwh*Cwh');
@@ -29,14 +32,14 @@ h = nan(size(hx));
 vmax = 0;
 for i=1:fac+1
     for j=1:fac+1
-        v = [x(i,j),y(i,j),z(i,j)]'; % æ–¹å‘
-        hp = Dwh*v; % åˆ†é…
-        sf = hmax/max(abs(hp)); % æ”¾å¤§å› å­
-        hp = sf*hp; % æ”¾å¤§å¾—åˆ°æ¯ä¸ªè½®å­çš„è§’åŠ¨é‡
-        h(i,j) = dot(v,Cwh*hp); % æ¨¡å€¼
-        hx(i,j)=h(i,j)*x(i,j); % åˆ†é‡x
-        hy(i,j)=h(i,j)*y(i,j); % åˆ†é‡y
-        hz(i,j)=h(i,j)*z(i,j); % åˆ†é‡z
+        v = [x(i,j),y(i,j),z(i,j)]'; % ·½Ïò
+        hp = Dwh*v; % ·ÖÅä
+        sf = hmax/max(abs(hp)); % ·Å´óÒò×Ó
+        hp = sf*hp; % ·Å´óµÃµ½Ã¿¸öÂÖ×ÓµÄ½Ç¶¯Á¿
+        h(i,j) = dot(v,Cwh*hp); % Ä£Öµ
+        hx(i,j)=h(i,j)*x(i,j); % ·ÖÁ¿x
+        hy(i,j)=h(i,j)*y(i,j); % ·ÖÁ¿y
+        hz(i,j)=h(i,j)*z(i,j); % ·ÖÁ¿z
     end
 end
 

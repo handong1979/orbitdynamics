@@ -1,8 +1,8 @@
-% é»„èµ¤äº¤è§’
+% »Æ³à½»½Ç
 % ecliptic_equator_angle(year,month,day,hour,minute,second)
-%         è®¡ç®—UTCä¸–ç•Œæ—¶æ—¶åˆ»çš„é»„èµ¤äº¤è§’
+%         ¼ÆËãUTCÊÀ½çÊ±Ê±¿ÌµÄ»Æ³à½»½Ç
 % ecliptic_equator_angle(mjd)
-%         è®¡ç®—ç®€çº¦å„’ç•¥æ—¥mjdæ—¶åˆ»çš„é»„èµ¤äº¤è§’
+%         ¼ÆËã¼òÔ¼ÈåÂÔÈÕmjdÊ±¿ÌµÄ»Æ³à½»½Ç
 % 
 % Example: 
 %    ecliptic_equator_angle(2006,1,1,0,0,0)
@@ -15,7 +15,7 @@ if nargin == 6
 elseif nargin == 1
     TDT = utc2tdt(Y);
 else
-    error('è¾“å…¥å‚æ•°æ•°ç›®é”™è¯¯');
+    error('ÊäÈë²ÎÊıÊıÄ¿´íÎó');
 end
 T = (TDT-mjd2000)/36525.0;
 e = (23.4392911 - 0.013004167*T - 1.64e-7*T*T ) * rad;

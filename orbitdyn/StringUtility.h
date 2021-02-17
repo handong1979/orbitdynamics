@@ -1,9 +1,8 @@
-ï»¿#pragma once
+#pragma once
 
 #include <string>
-#include <iostream>
 #include "Config.h"
-#include "string.h"
+
 //------------------------------------------------------------------------------
 // std::string Replace(const std::string &str, const std::string &from,
 //                     const std::string &to)
@@ -116,13 +115,13 @@ ORBITDYN_API std::string RemoveAll(const std::string &str, char ch,int start = 0
 ORBITDYN_API bool IsBlank(const std::string &text, bool ignoreEol = false);
 
 /**
- read a line
+¶ÁÈ¡Ò»ÐÐ£¬Ìø¹ý×¢ÊÍ£¬¶Áµ½Ö®ºó·µ»ØnameºÍvalue
 */
 ORBITDYN_API bool ReadLine(std::istream* file,std::string& name,std::string& value);
 
 
 //////////////////////////////////////////////////////////////////////////
-// File read macros
+// ¶ÁÈ¡ÉèÖÃÎÄ¼þ
 #define BEGIN_READ(filename)	{fstream file(filename,ios::in);      \
 								if(!file.is_open())                   \
 									throw (string("Can't open file") + filename);      \
@@ -132,17 +131,29 @@ ORBITDYN_API bool ReadLine(std::istream* file,std::string& name,std::string& val
 #define READVAR(var,format)		if(name == #var){                      \
 									sscanf(value.c_str(),format,&var); \
 								}else
-#define READPARAM3(var,P0,P1,P2) if(name == #var){                      \
-									sscanf(value.c_str(),"%lf%lf%lf",&P0,&P1,&P2); \
+#define READPARAM2(var,P1,P2)    if(name == #var){                      \
+									std::stringstream sline(value); 	\
+									sline >> P1 >> P2;					\
 								}else
-#define READPARAM4(var,P0,P1,P2,P3) if(name == #var){                      \
-									sscanf(value.c_str(),"%lf%lf%lf%lf",&P0,&P1,&P2,&P3); \
+#define READPARAM3(var,P1,P2,P3) if(name == #var){                      \
+									std::stringstream sline(value); 	\
+									sline >> P1 >> P2 >> P3;            \
 								}else
-#define READPARAM5(var,P0,P1,P2,P3,P4) if(name == #var){                      \
-									sscanf(value.c_str(),"%lf%lf%lf%lf%lf",&P0,&P1,&P2,&P3,&P4); \
-								}else
-#define READSTR(str)			if(name == #str){                       \
-									str=value;                          \
+#define READPARAM4(var,P1,P2,P3,P4) if(name == #var){                   \
+									std::stringstream sline(value); 	\
+										sline >> P1 >> P2 >> P3 >> P4;  \
 									}else
-#define END_READ               cerr << "can't find name " << name << endl;  \
+#define READPARAM5(var,P1,P2,P3,P4,P5) if(name == #var){                  \
+										std::stringstream sline(value);   \
+											sline >> P1 >> P2 >> P3 >> P4 >> P5;\
+										}else
+
+#define READPARAM6(var,P1,P2,P3,P4,P5,P6) if(name == #var){                  \
+										std::stringstream sline(value);   \
+											sline >> P1 >> P2 >> P3 >> P4 >> P5 >> P6;\
+										}else
+#define READSTR(str)			if(name == #str){                       \
+										str=value;                      \
+									}else
+#define END_READ               cerr << "can't fine name " << name << endl;  \
 								}} file.close();}

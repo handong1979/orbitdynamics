@@ -1,5 +1,5 @@
-% TDTæ—¶è½¬åŒ–ä¸ºUTCæ—¶
-% tdt2utc(mjd)å°†TDTæ—¶é—´mjd(ç®€çº¦å„’ç•¥æ—¥è¡¨ç¤º)è½¬åŒ–ä¸ºUTCæ—¶é—´(ç®€çº¦å„’ç•¥æ—¥è¡¨ç¤º)
+% TDTÊ±×ª»¯ÎªUTCÊ±
+% tdt2utc(mjd)½«TDTÊ±¼ämjd(¼òÔ¼ÈåÂÔÈÕ±íÊ¾)×ª»¯ÎªUTCÊ±¼ä(¼òÔ¼ÈåÂÔÈÕ±íÊ¾)
 %
 % Example:
 %     tdt2utc(53736)
@@ -8,11 +8,13 @@
 
 %   Copyright 2002-2009 RDC BICE. 
 function utc = tdt2utc(tdt)
-if tdt>= 57204
+if tdt>= 57754
+    dTai = 37; % 2017 JAN  1
+elseif tdt>= 57204
     dTai = 36; % 2015 JUL  1
-elseif tdt>= 56109.0007775926
+elseif tdt>= 56109
     dTai = 35; % 2012 JUL  1
-elseif tdt>=54832   %%# TODO :åŒä¸Šï¼Œä½¿ç”¨TDTæ—¶é—´ä½œä¸ºåˆ¤æ–­è¾¹ç•Œï¼Œè€Œä¸æ˜¯ç”¨UTC
+elseif tdt>=54832   %%# TODO :Í¬ÉÏ£¬Ê¹ÓÃTDTÊ±¼ä×÷ÎªÅÐ¶Ï±ß½ç£¬¶ø²»ÊÇÓÃUTC
     dTai = 34; % 2009 JAN  1
 elseif tdt>=53736
     dTai = 33; % 2006 JAN  1

@@ -1,6 +1,6 @@
 % Ë«Ê¸Á¿¶¨×Ë
 function A = Avv(X1I,X2I,X1B,X2B)
-error(nargchk(4,4,nargin));
+narginchk(4,4);
 V2I = cross(X1I,X2I);
 V2I = V2I/norm(V2I);
 V3I = cross(X1I,V2I);

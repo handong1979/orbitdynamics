@@ -1,8 +1,8 @@
 % index = find_time(t,st)
-% 从时间列表t中，按照st的时间点分段，给出对应t的分段的下标
-% 如果t中刚好含有st中的各个时间点，则有 t(index) == st
+% ��ʱ���б�t�У�����st��ʱ���ֶΣ�������Ӧt�ķֶε��±�
+% ���t�иպú���st�еĸ���ʱ��㣬���� t(index) == st
 % Example:
-% t = 1:0.1:1000; % 下标刚好等于对应的数值
+% t = 1:0.1:1000; % �±�պõ��ڶ�Ӧ����ֵ
 % st = 38:200:800;
 % id = find_time(t,st)
 % id =

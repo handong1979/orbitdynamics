@@ -1,8 +1,8 @@
-% å°†è½¨é“æ ¹æ•°ä¸­çš„å¼§åº¦è½¬åŒ–ä¸ºåº¦
+% ½«¹ìµÀ¸ùÊýÖÐµÄ»¡¶È×ª»¯Îª¶È
 function k = kdeg(ki)
 [m n] = size(ki);
 if n~=6
-   error('è¾“å…¥å¿…é¡»ä¸ºn*6çš„çŸ©é˜µ'); 
+   error('ÊäÈë±ØÐëÎªn*6µÄ¾ØÕó'); 
 end
 k = ki;
 k(:,3:6) = k(:,3:6)*deg;

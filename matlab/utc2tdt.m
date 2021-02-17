@@ -1,5 +1,5 @@
-% UTC时转化为TDT时
-% utc2tdt(mjd)将UTC时间mjd(简约儒略日表示)转化为TDT时间(简约儒略日表示)
+% UTCʱת��ΪTDTʱ
+% utc2tdt(mjd)��UTCʱ��mjd(��Լ�����ձ�ʾ)ת��ΪTDTʱ��(��Լ�����ձ�ʾ)
 %
 % Example:
 %     utc2tdt(53736)

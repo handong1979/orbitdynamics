@@ -1,4 +1,4 @@
-% è®¾ç½®å¸¸ç”¨çš„å¸¸æ•°å€¼ï¼Œå…¨éƒ¨æ”¾åœ¨Constç»“æž„ä¸­
+% ÉèÖÃ³£ÓÃµÄ³£ÊýÖµ£¬È«²¿·ÅÔÚConst½á¹¹ÖÐ
 Const.RAD=0.017453292519943295769236907684886;   %degree to radian
 Const.DEG=57.295779513082320876798154814105;     %radian to degree
 Const.GE=398600.4415;     %geocentric gravitational constant (km^3/s^2)
@@ -8,8 +8,8 @@ Const.We=7.2921159e-5;    %earth ratation rate
 Const.G=6.672e-20;        %gravitational constant(Km^3/Kg/s^2)
 Const.GM=4902.802627;     %selenocentric gravitational constant (km^3/s^2)
 Const.GS=1.32712438e+11;  %heliocentric gravitational constant (km^3/s^2)
-Const.TU=806.81112412790870095017550956071;  %time unit(ï½žs)
-Const.VU=7.905365716039427018020816039069;   %velocity unit(ï½žkm/s)
+Const.TU=806.81112412790870095017550956071;  %time unit(¡«s)
+Const.VU=7.905365716039427018020816039069;   %velocity unit(¡«km/s)
 Const.J2 = 0.0010826266835531513;
 Const.J3 = -2.5326564853322355e-006;
 Const.J4 = -1.6196215913670001e-006;

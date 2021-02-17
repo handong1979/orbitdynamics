@@ -8,7 +8,7 @@ function C = NES(Longitude,Latitude)
 if nargin == 0
     warning('self test');
     Longitude = 0;
-    Latitude = 10;
+    Latitude = 0;
     C = NES(Longitude,Latitude);
     return;
 end

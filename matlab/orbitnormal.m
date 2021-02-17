@@ -1,4 +1,4 @@
-% 杞ㄩ亾娉曠嚎鏂瑰悜鍗曚綅鐭㈤噺
+% 轨道法线方向单位矢量
 function n = orbitnormal(i,Omega)
 i = i(:)';
 Omega = Omega(:)';

@@ -1,11 +1,11 @@
-% 由近地点半径、远地点半径计算近地点速度和远地点速度
+% �ɽ��ص�뾶��Զ�ص�뾶������ص��ٶȺ�Զ�ص��ٶ�
 % [vp va] = VelPeAp(rp,ra,CB)
-%  rp：近地点半径
-%  ra：远地点半径
-%  CB：中心天体引力常数
-%  vp：近地点速度
-%  va：远地点速度
-function [vp va] = VelPeAp(rp,ra,CB)
+%  rp�����ص�뾶
+%  ra��Զ�ص�뾶
+%  CB������������������
+%  vp�����ص��ٶ�
+%  va��Զ�ص��ٶ�
+function [vp,va] = VelPeAp(rp,ra,CB)
 if nargin == 2
     CB = 'e';
 end
@@ -16,7 +16,7 @@ elseif CB == 'm'
     miu = 4902.8;
     R = 1738;
 else
-    error('输入中心天体不对，地球为e，月球为m');
+    error('�����������岻�ԣ�����Ϊe������Ϊm');
 end
 a = (rp+ra)/2;
 vp = sqrt(miu*(2/rp-1/a));

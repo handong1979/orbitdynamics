@@ -1,6 +1,6 @@
 % 方向余弦阵＝＝》四元数
 function q = c2q(c)
-narginchk(1,1);
+error(nargchk(1,1,nargin));
 trc1 = c(1,1) + c(2,2) + c(3,3) + 1.0;
 if trc1 >= 0.004 
 	qs = sqrt(trc1)/2.0;
@@ -25,6 +25,9 @@ else
 end
 q = [qx;qy;qz;qs];
 q = q/norm(q);
+if q(4)<0
+    q = -q;
+end
 
 
 function y = mysign(x)

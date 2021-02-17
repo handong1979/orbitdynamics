@@ -1,8 +1,8 @@
-% ç”±é€Ÿåº¦å¢žé‡è®¡ç®—ç‡ƒæ–™æ¶ˆè€—
+% ÓÉËÙ¶ÈÔöÁ¿¼ÆËãÈ¼ÁÏÏûºÄ
 % dm = dvdm(dv,m0,I)
-% æ ¹æ®ç«ç®­æ–¹ç¨‹è®¡ç®—ï¼šdm = m0.*(1-exp(-dv/I/9.8));
-% dv: é€Ÿåº¦å¢žé‡m/s
-% m0: åˆå§‹æ€»è´¨é‡kg
-% I: æ¯”å†²s
+% ¸ù¾Ý»ð¼ý·½³Ì¼ÆËã£ºdm = m0.*(1-exp(-dv/I/9.8));
+% dv: ËÙ¶ÈÔöÁ¿m/s
+% m0: ³õÊ¼×ÜÖÊÁ¿kg
+% I: ±È³ås
 function dm = dvdm(dv,m0,I)
 dm = m0.*(1-exp(-abs(dv)/I/9.8));

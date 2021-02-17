@@ -13,4 +13,3 @@ elseif isvector(angle)
 else
     error('输入必须为标量或矢量');
 end
-

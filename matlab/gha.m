@@ -16,9 +16,9 @@ else
     t = 0:1:365*30;
     for i=1:length(t)
         g0 = gha(mjd0+t(i));
-        e01(i) = limitpi(sofa('GST06',mjd0+t(i))-g0)*deg*3600;
-        e02(i) = limitpi(sofa('GST00A',mjd0+t(i))-g0)*deg*3600;
-        e03(i) = limitpi(sofa('GST94',mjd0+t(i))-g0)*deg*3600;
+        e01(i) = limitpi(mexsofa('GST06',mjd0+t(i))-g0)*deg*3600;
+        e02(i) = limitpi(mexsofa('GST00A',mjd0+t(i))-g0)*deg*3600;
+        e03(i) = limitpi(mexsofa('GST94',mjd0+t(i))-g0)*deg*3600;
     end
     t = t/365+15; % 整数年份
     figure,plot(t,e01,t,e02,t,e03),grid on;

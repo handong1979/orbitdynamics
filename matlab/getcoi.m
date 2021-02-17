@@ -1,4 +1,5 @@
-% è½¨é“åæ ‡ç³»ç›¸å¯¹åœ°å¿ƒæƒ¯æ€§åæ ‡ç³»çš„æ—‹è½¬çŸ©é˜µ
+% ¹ìµÀ×ø±êÏµÏà¶ÔµØĞÄ¹ßĞÔ×ø±êÏµµÄĞı×ª¾ØÕó
+% See also : getcdni getunw getpqw
 function inertia = getcoi(elem)
 e = elem(2);
 i = elem(3);

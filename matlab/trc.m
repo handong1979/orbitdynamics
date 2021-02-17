@@ -1,9 +1,9 @@
-%å·²çŸ¥ç›®æ ‡æ ¹æ•°åŠç›¸å¯¹ä½ç½®é€Ÿåº¦ï¼Œæ±‚è¿½è¸ªæ˜Ÿæ ¹æ•° trc(targetelem,rel)
+%ÒÑÖªÄ¿±ê¸ùÊı¼°Ïà¶ÔÎ»ÖÃËÙ¶È£¬Çó×·×ÙĞÇ¸ùÊı trc(targetelem,rel)
 % targetelem=6*1  rel=6*1
 
 function chaseelem = trc(telem,rel)
 
-narginchk(2,2);
+error(nargchk(2,2,nargin));
 
 targetxyz = kepler2cart(telem);
 Ct = getcoi(telem);

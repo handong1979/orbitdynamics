@@ -1,11 +1,11 @@
-% 灏咵xcel琛ㄦ牸鐨勫垪鍙疯浆鎹负鏁板瓧
+% 将Excel表格的列号转换为数字
 function n = xlsn2num(x)
 if ischar(x)
     n = length(x);
     if n > 2
-        error('鍙兘澶勭悊灏忎簬绛変簬2涓瓧绗︾殑鍒楀彿');
+        error('只能处理小于等于2个字符的列号');
     end
 else
-    error('杈撳叆蹇呴』鏄瓧绗﹀瀷');
+    error('输入必须是字符型');
 end
 n = sum((x - 'A' + 1).*[26 1]);

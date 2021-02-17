@@ -2,8 +2,8 @@ function [XYZ, H, DEC, DIP, F] = wrldmagmgeo(height, lat, lon, dyear, varargin )
 %  WRLDMAGM Use World Magnetic Model.
 %   [XYZ, H, DEC, DIP, F] = WRLDMAGM(HEIGHT, LAT, LON, DYEAR ) calculates the 
 %   Earth's magnetic field at a specific location and time using the World 
-%   Magnetic Model (WMM).  The default WMM is WMM-2005 which is valid from
-%   January 1, 2005 until December 31, 2009.
+%   Magnetic Model (WMM).  The default WMM is WMM-2010 which is valid from
+%   January 1, 2010 until December 31, 2014.
 %
 %   Inputs required by WMM are:
 %   HEIGHT :a scalar value in meters. 
@@ -22,11 +22,8 @@ function [XYZ, H, DEC, DIP, F] = wrldmagmgeo(height, lat, lon, dyear, varargin )
 %   DIP    :inclination in degrees. 
 %   F      :total intensity in nanotesla (nT).
 %
-%   [XYZ, H, DEC, DIP, F] = WRLDMAGM(HEIGHT, LAT, LON, DYEAR, '2005' ) is an 
-%   alternate method for calling WMM-2005 or 2005 epoch.
-%
-%   [XYZ, H, DEC, DIP, F] = WRLDMAGM(HEIGHT, LAT, LON, DYEAR, '2000' ) is
-%   the method for calling WMM-2000 or 2000 epoch.
+%   [XYZ, H, DEC, DIP, F] = WRLDMAGM(HEIGHT, LAT, LON, DYEAR, '2010' ) is an 
+%   alternate method for calling WMM-2010 or 2010 epoch.
 %
 %   Limitations:
 %
@@ -35,14 +32,13 @@ function [XYZ, H, DEC, DIP, F] = wrldmagmgeo(height, lat, lon, dyear, varargin )
 %
 %   Example:
 %
-%   Calculate the magenetic model 1000 meters over Natick, Massachusetts on 
-%   July 4, 2005 using WMM-2005:
-%      [XYZ, H, DEC, DIP, F] = wrldmagm(1000, 42.283, -71.35, 2005.5068 )
+%   Calculate the magnetic model 1000 meters over Natick, Massachusetts on 
+%   July 4, 2010 using WMM-2010:
+%      [XYZ, H, DEC, DIP, F] = wrldmagm(1000, 42.283, -71.35, decyear(2010,7,4),'2010')
 %
-%   See also DECYEAR.
+%   See also DECYEAR, IGRF11MAGM.
 
-%   Copyright 2000-2007 The MathWorks, Inc.
-%   $Revision: 1.1.6.3 $  $Date: 2008/01/10 21:06:44 $
+%   Copyright 2000-2011 The MathWorks, Inc.
 
 %   Limitations:  The WMM specification produces data that is reliable 
 %   five years after the epoch of the model, which begins January 1, of the 
@@ -55,47 +51,54 @@ function [XYZ, H, DEC, DIP, F] = wrldmagmgeo(height, lat, lon, dyear, varargin )
 %   (auroral zones), are not included.
 
 %   Reference:
-%   [1] The WMM-2005 can be found on the web at
-%   http://www.ngdc.noaa.gov/seg/WMM/DoDWMM.shtml and in "NOAA Technical
-%   Report: The US/UK World Magnetic Model for 2005-2010". 
+%   [1] The WMM-2010 can be found on the web at
+%   http://www.ngdc.noaa.gov/geomag/WMM/DoDWMM.shtml and in "NOAA Technical
+%   Report: The US/UK World Magnetic Model for 2010-2015". 
 
-error(nargchk(4, 5, nargin,'struct'));
+narginchk(4, 5);
 
 % Get string value for epoch
 if ((nargin > 4) && ischar(varargin{1}))
     varargin{1} = str2double(varargin{1});
 end
 
-% Use 2005 epoch or catch numeric inputs for epoch
-if ((nargin < 5) || (varargin{1} == 2005))
+% Use 2010 epoch or catch numeric inputs for epoch
+if ((nargin < 5) || (varargin{1} == 2010))
+    epoch = 2010;
+    load aerowmm2010;
+elseif (varargin{1} == 2005)
+    warning(message('aero:wrldmagm:obsoleteEpoch',2005));
     epoch = 2005;
     load aerowmm2005;
 elseif (varargin{1} == 2000)
+    warning(message('aero:wrldmagm:obsoleteEpoch',2000));
     epoch = 2000;
     load aerowmm2000;
 else
-    error('aero:wrldmagm:invalidepoch', ...
-        'Epoch input must be either 2005 or 2000');
+    error(message('aero:wrldmagm:invalidEpoch'));
 end
 
 % Calculate the time difference from the epoch
 dt = dyear - epoch;
 
-if (dt < 0.0 || dt > 5.0)
-    error('aero:wrldmagm:invaliddyear',...
-        'Decimal year extends beyond model 5-year life span of WRLDMAGM');
+if ((nargin < 5) && ( dt < 0.0 && dt >= -5.0 ))
+    error(message('aero:wrldmagm:updateEpoch',2010));
 end
 
-if ( height < 0.0  || height > 46000000.0  )
-    error('aero:wrldmagm:invalidheight','Height must lie between 0 and 1000 km.');
+if ( isnan(dt) || dt < 0.0 || dt > 5.0)
+    error(message('aero:wrldmagm:invalidDYear'));
 end
 
-if ( lat < -90.0  || lat > 90.0  )
-    error('aero:wrldmagm:invalidlat','Latitude must lie between +/-90 degrees.');
+if ( isnan(height) || height < 0.0  || height > 40000.0  )
+    error(message('aero:wrldmagm:invalidHeight'));
 end
 
-if ( lon < -180.0  || lon > 180.0  )
-    error('aero:wrldmagm:invalidlon','Longitude must lie between +/-180 degrees.');
+if ( isnan(lat) || lat < -90.0  || lat > 90.0  )
+    error(message('aero:wrldmagm:invalidLatitude'));
+end
+
+if ( isnan(lat) || lon < -180.0  || lon > 180.0  )
+    error(message('aero:wrldmagm:invalidLongitude'));
 end
 
 maxord = maxdef + 1;
@@ -112,7 +115,7 @@ snorm(1) = 1.0;
 pp(1) = 1.0;
 
 % convert to kilometers
-height = height*0.001;
+% height = height*0.001;
 
 a = 6378.137;
 b = 6356.7523142;
@@ -176,7 +179,7 @@ for n = 1:maxord-1
             dp(m+1, n+1) = ct*dp(m+1, n) - st*snorm(n + m*maxord)-k(m+1, n+1)*dp(m+1, n-1);
         end
 
-        %   Time adjust the gauss coefficients
+        %   Time adjust the Gauss coefficients
         tc(m+1, n+1) = c(m+1, n+1)+dt*dc(m+1, n+1);
         if (m ~= 0)
             tc(n+1, m) = c(n+1, m)+dt*dc(n+1, m);

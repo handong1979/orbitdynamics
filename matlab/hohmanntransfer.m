@@ -1,9 +1,9 @@
-% 闇嶆浖杞Щ
+% 霍曼转移
 % [dv1,dv2] = hohmanntransfer(h1,h2)
-% a1 鍒濆鍦嗚建閬撳崐闀胯酱(km)
-% a2 鐩爣鍥建閬撳崐闀胯酱(km)
-% dv1 绗竴娆″彉杞ㄩ�熷害澧為噺
-% dv2 绗簩娆″彉杞ㄩ�熷害澧為噺
+% a1 初始圆轨道半长轴(km)
+% a2 目标园轨道半长轴(km)
+% dv1 第一次变轨速度增量
+% dv2 第二次变轨速度增量
 function [dv1,dv2,eta0] = hohmanntransfer(a1,a2)
 if a1<Re
     a1 = Re + a1;

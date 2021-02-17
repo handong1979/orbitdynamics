@@ -1,4 +1,18 @@
-% CWæ–¹ç¨‹çŠ¶æ€è½¬ç§»çŸ©é˜µ
+% CW·½³Ì×´Ì¬×ªÒÆ¾ØÕó
+% phi = cwstm6(w,t)
+%    phi£ºÒ»²½×´Ì¬×ªÒÆ¾ØÕó
+%     w: ¹ìµÀ½ÇËÙ¶È,µ¥Î»£º»¡¶È/Ãë w=sqrt(miu/r^3)
+%     t: ²½³¤,µ¥Î»£ºÃë w=sqrt(miu/r^3)
+%
+% Example:
+%    PHI = cwstm6(sqrt(GEarth/6978^3),10);
+%
+% See Also: cwstm4, cwtraj, cw2p
+%
+% ÓÃÓÚÂö³å±ä¹ìÊ±¼ÆËã¹ı³ÌÈçÏÂ£º
+% t1Ê±¿Ì±ä¹ìÇ°: x0 = [r; v]
+% t1Ê±¿Ì±ä¹ìºó£ºx0 = [r; v+dv]
+% t2Ê±¿Ì£º      x = phi*[r; v+dv]
 function phi = cwstm6(w,t)
 wt = w*t;
 s = sin(wt);

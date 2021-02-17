@@ -22,12 +22,11 @@ switch type
     case 'xy'
         plot(traj(:,1),traj(:,2)),grid on,axis equal;
         grid on,axis equal,xlabel('x(km)'),ylabel('y(km)');
-        hold on,plot(traj(1,1),traj(1,3),'ro');
+        hold on,plot(traj(1,1),traj(1,2),'ro');
     case 'xyz'
         plot3(traj(:,1),traj(:,2),traj(:,3)),grid on,axis equal;
         hold on,plot3(traj(1,1),traj(1,2),traj(1,3),'ro');
     case 'txyz'
-        t = [0:h:T T];
         subplot 311,plot(t,traj(:,1)),grid on,xlabel('t'),ylabel('x');
         subplot 312,plot(t,traj(:,2)),grid on,xlabel('t'),ylabel('y');
         subplot 313,plot(t,traj(:,3)),grid on,xlabel('t'),ylabel('z');

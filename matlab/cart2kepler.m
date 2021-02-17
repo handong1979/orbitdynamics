@@ -46,10 +46,12 @@ p = h2/miu;
 
 % e
 if any(p>kepler(1,:)+0.0000001)
-    error('p>a, e is less then 0?');
-%     kepler(2) = 0;
-else
+%     error('p>a, e is less then 0?');
+	kepler(2) = sqrt(1.0 - p./kepler(1,:));
+elseif 1.0 - p./kepler(1,:) > 0
     kepler(2,:) = sqrt(1.0 - p./kepler(1,:));
+else
+    kepler(2,:) = 0;
 end
 
 % i
@@ -95,7 +97,7 @@ if ~isempty(id)
 end
 id = find(kepler(2,:)<=1);
 if ~isempty(id)
-    EE = mod(2.0 * atan( ((1-kepler(2,id))./(1+kepler(2,id))).^0.5 .* tan((u-kepler(5,id))/2.0) ) + pi*2,pi*2);
+    EE = 2.0 * atan( ((1-kepler(2,id))./(1+kepler(2,id))).^0.5 .* tan((u-kepler(5,id))/2.0) );
     kepler(6,id) = EE - kepler(2,id).*sin(EE);
 end
 

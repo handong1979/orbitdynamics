@@ -1,5 +1,5 @@
 function [ alphas ] = sunra( mjd )
-%sunra è®¡ç®—å¤ªé˜³èµ¤ç»
+%sunra ¼ÆËãÌ«Ñô³à¾­
 %   Detailed explanation goes here
 us = sunu(mjd);
 rs = rotx(-23.4*rad)*[cos(us);sin(us);0];

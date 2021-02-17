@@ -1,5 +1,5 @@
-% åŒ—äº¬æ—¶è½¬åŒ–ä¸ºåŒ—æ–—æ—¶ç§’æ•°
+% ±±¾©Ê±×ª»¯Îª±±¶·Ê±ÃëÊı
 function bdt = date2bdt(t)
 t0tdt = utc2tdt(date2mjd(2006,1,1,0,0,0));
 ttt = utc2tdt(date2mjd(t));
-bdt = (ttt - t0tdt)*86400-28800;
+bdt = (ttt - t0tdt)*86400;

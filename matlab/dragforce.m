@@ -1,4 +1,4 @@
-% 璁＄畻澶ф皵闃诲姏
+% 计算大气阻力
 % f = dragforce(A,rou,v)
 function f = dragforce(A,rou,v)
     Cd = 2.2;

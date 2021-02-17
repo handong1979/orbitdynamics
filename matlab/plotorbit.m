@@ -7,6 +7,7 @@ end
 M0 = elem(6);
 Mend = dt*n*deg;
 M = [0:1:Mend,Mend];
+t = M*rad/n;
 len = length(M);
 rv = zeros(len,6);
 for k=1:len
@@ -14,3 +15,4 @@ for k=1:len
     rv(k,1:6) = kepler2cart(elem);
 end
 plot3(rv(:,1),rv(:,2),rv(:,3),varargin{:}),grid on,hold on;
+rv = [t',rv];

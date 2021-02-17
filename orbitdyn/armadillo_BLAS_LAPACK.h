@@ -8,8 +8,6 @@ armadillo use blas lapack
 #ifdef _MSC_VER
 #ifdef _WIN64
 #define ARMA_BLAS_UNDERSCORE
-#include "armadillo.h"
-
 
 #ifndef ARMA_USE_BLAS
 #define ARMA_USE_BLAS
@@ -19,12 +17,21 @@ armadillo use blas lapack
 #define ARMA_USE_LAPACK
 #endif
 
+#include "armadillo.h"
 
 #pragma comment(lib,"blas_win64_MT.lib")
 #pragma comment(lib,"lapack_win64_MT.lib")
 
 #else
+#define ARMA_BLAS_UNDERSCORE
+#define ARMA_USE_BLAS
+#define ARMA_USE_LAPACK
+
 #include "armadillo.h"
+
+#pragma comment(lib,"blas_win32.lib")
+#pragma comment(lib,"lapack_win32.lib")
+
 #endif // _WIN64
 
 

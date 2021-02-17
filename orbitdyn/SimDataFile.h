@@ -1,23 +1,33 @@
-ï»¿#pragma once
+#pragma once
 
 #include <hdf5\h5Cpp.h>
 #include <hdf5\H5PacketTable.h>
 
-#if _DEBUG
-#pragma comment(lib,"libhdf5_D.lib")
-#pragma comment(lib,"libhdf5_hl_D.lib")
-#pragma comment(lib,"libhdf5_cpp_D.lib")
-#pragma comment(lib,"libhdf5_hl_cpp_D.lib")
-//#pragma comment(lib,"libszip.lib")
-//#pragma comment(lib,"libzlib.lib")
-#else
-#pragma comment(lib,"libhdf5.lib")
-#pragma comment(lib,"libhdf5_hl.lib")
-#pragma comment(lib,"libhdf5_cpp.lib")
-#pragma comment(lib,"libhdf5_hl_cpp.lib")
-//#pragma comment(lib,"libszip.lib")
-//#pragma comment(lib,"libzlib.lib")
+#ifdef _WIN32
+	#ifdef _WIN64
+		#pragma comment(lib,"libhdf5.lib")
+		#pragma comment(lib,"libhdf5_hl.lib")
+		#pragma comment(lib,"libhdf5_cpp.lib")
+		#pragma comment(lib,"libhdf5_hl_cpp.lib")
+	#else
+			#if _DEBUG
+			#pragma comment(lib,"libhdf5_D.lib")
+			#pragma comment(lib,"libhdf5_hl_D.lib")
+			#pragma comment(lib,"libhdf5_cpp_D.lib")
+			#pragma comment(lib,"libhdf5_hl_cpp_D.lib")
+			#pragma comment(lib,"libszip_D.lib")
+			#pragma comment(lib,"libzlib_D.lib")
+		#else
+			#pragma comment(lib,"libhdf5.lib")
+			#pragma comment(lib,"libhdf5_hl.lib")
+			#pragma comment(lib,"libhdf5_cpp.lib")
+			#pragma comment(lib,"libhdf5_hl_cpp.lib")
+			#pragma comment(lib,"libszip.lib")
+			#pragma comment(lib,"libzlib.lib")
+		#endif
+	#endif
 #endif
+
 
 #include <armadillo_BLAS_LAPACK.h>
 
@@ -29,11 +39,7 @@ public:
 		hf = new H5::H5File(filename.c_str(),H5F_ACC_TRUNC);
 	}
 	~SimDataFile(){
-		for(size_t i=0;i<vpt.size();i++)
-		{
-			delete vpt[i];
-		}
-		delete hf;
+		Close();
 	}
 
 	void Open(std::string filename)	{
@@ -41,61 +47,50 @@ public:
 	}
 
 	void Close() {
-		for (size_t i = 0; i < vpt.size(); i++)
+		for(size_t i=0;i<vpt.size();i++)
 		{
-			if (vpt[i] != NULL)
+			if(vpt[i]!=NULL)
 				delete vpt[i];
 			vpt[i] = NULL;
-		}
-		if (hf != NULL)
+		}		
+		if(hf!=NULL)
 			delete hf;
 		hf = NULL;
 	}
 
-	void AddVar(std::string varname, hid_t numtype, int row, int col, void * pdata) {
-		hsize_t dims[2] = { row,col };
+	void AddVar(std::string varname,hid_t numtype,int row,int col,void * pdata)	{
+		hsize_t dims[2] = {row,col};
 		hid_t  datatype = H5Tarray_create(numtype, 2, dims);
 		char tmpchar[128];
-		strcpy(tmpchar, varname.c_str());
-		FL_PacketTable *pt = new FL_PacketTable(hf->getId(), tmpchar, datatype, 1, -1);
+		strcpy(tmpchar,varname.c_str());
+		FL_PacketTable *pt = new FL_PacketTable(hf->getId(),tmpchar,datatype,1,-1);
 		vpt.push_back(pt);
 		vdata.push_back(pdata);
 		vname.push_back(varname);
 	}
 
-	void AddVarDouble(std::string varname, int row, int col, void * pdata) {
-		AddVar(varname, H5T_NATIVE_DOUBLE, row, col, pdata);
+	void AddVarDouble(std::string varname,int row,int col,void * pdata)	{
+		AddVar(varname,H5T_NATIVE_DOUBLE,row,col,pdata);
 	}
 
-	void AddVarFloat(std::string varname, int row, int col, void * pdata) {
-		AddVar(varname, H5T_NATIVE_FLOAT, row, col, pdata);
+	void AddVarFloat(std::string varname,int row,int col,void * pdata)	{
+		AddVar(varname,H5T_NATIVE_FLOAT,row,col,pdata);
 	}
 
-	void AddVarInt(std::string varname, int row, int col, void * pdata) {
-		AddVar(varname, H5T_NATIVE_INT, row, col, pdata);
+	void AddVarInt(std::string varname,int row,int col,void * pdata)	{
+		AddVar(varname,H5T_NATIVE_INT,row,col,pdata);
 	}
 
-	void AddVarUint(std::string varname, int row, int col, void * pdata) {
-		AddVar(varname, H5T_NATIVE_UINT, row, col, pdata);
+	void AddVarUint(std::string varname,int row,int col,void * pdata)	{
+		AddVar(varname,H5T_NATIVE_UINT,row,col,pdata);
 	}
 
-	void AddVarUint(std::string varname, int row, int col, void * pdata) {
-		hsize_t dims[2] = { row,col };
-		hid_t  datatype = H5Tarray_create(H5T_NATIVE_UINT, 2, dims);
-		char tmpchar[128];
-		strcpy(tmpchar, varname.c_str());
-		FL_PacketTable *pt = new FL_PacketTable(hf->getId(), tmpchar, datatype, 1, -1);
-		vpt.push_back(pt);
-		vdata.push_back(pdata);
-		vname.push_back(varname);
+	void AddVarByte(std::string varname,int row,int col,void * pdata)	{
+		AddVar(varname,H5T_NATIVE_UCHAR,row,col,pdata);
 	}
 
-	void AddVarByte(std::string varname, int row, int col, void * pdata) {
-		AddVar(varname, H5T_NATIVE_UCHAR, row, col, pdata);
-	}
-
-	void Addarmamat(std::string varname, mat& m) {
-		AddVarDouble(varname, m.n_rows, m.n_cols, m.memptr());
+	void Addarmamat(std::string varname,arma::mat& m){
+		AddVarDouble(varname,m.n_rows,m.n_cols,m.memptr());
 	}
 
 	void Append(){
@@ -105,16 +100,50 @@ public:
 		}
 	}
 
+	void AddData(std::string varname,hid_t numtype,int row,int col,void * pdata)
+	{
+		hid_t       dataset;         /* file and dataset handles */
+		hid_t       datatype, dataspace;   /* handles */
+		hsize_t     dimsf[2];              /* dataset dimensions */
+		herr_t      status;
+		/*
+		 * Describe the size of the array and create the data space for fixed
+		 * size dataset.
+		 */
+		dimsf[0] = row;
+		dimsf[1] = col;
+		dataspace = H5Screate_simple(2, dimsf, NULL);
+
+		/*
+		 * Define datatype for the data in the file.
+		 * We will store little endian INT numbers.
+		 */
+		datatype = H5Tcopy(numtype);
+		status = H5Tset_order(datatype, H5T_ORDER_LE);
+
+		/*
+		 * Create a new dataset within the file using defined dataspace and
+		 * datatype and default dataset creation properties.
+		 */
+		dataset = H5Dcreate2(hf->getId(), varname.c_str(), datatype, dataspace,
+				H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+
+		/*
+		 * Write the data to the dataset using default transfer properties.
+		 */
+		status = H5Dwrite(dataset, numtype, H5S_ALL, H5S_ALL, H5P_DEFAULT, pdata);
+	}
+
 private:
-	// File
+	// ÎÄ¼þÖ¸Õë
 	H5::H5File* hf;
-	// table list
+	// Êý¾Ý°üÁÐ±í
 	std::vector<FL_PacketTable *> vpt;
-	// data pointer list
+	// Êý¾ÝÖ¸ÕëÁÐ±í
 	std::vector<void*> vdata;
-	// data name list
+	// Êý¾ÝÃûÁÐ±í
 	std::vector<std::string> vname;
-	// three list are one by one
+	// ÉÏÃæÈý¸öÁÐ±íÎªÒ»Ò»¶ÔÓ¦¹ØÏµ
 };
 
 #define AddSingleUint(file,varname)			file.AddVarUint(#varname,1,1,&varname)
@@ -137,9 +166,9 @@ private:
 	file1.AddVarDouble("att",1,3,&att);
 	file1.AddVarDouble("datt",1,3,&datt);
 	
-	while(ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½)
+	while(·ÂÕæÑ­»·)
 	{
-		// ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½Ä±ï¿½attï¿½ï¿½dattï¿½ï¿½Öµ
+		// ½øÐÐ·ÂÕæ¼ÆËã£¬¸Ä±äattºÍdattµÄÖµ
 		
 		file1.Append();
 	}

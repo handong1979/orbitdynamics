@@ -8,18 +8,20 @@
 % result:
 %     cart = [x y z  vx vy vz] (单位:km  km/s)
 % See also: cart2kepler
-function [r v] = kepler2cart(kepler,miu)
+% Copyright: 韩冬 RDC BICE
+function [r,v] = kepler2cart(kp,miu)
 if nargin == 0 %self test
-    kepler = [8044,0.01,0.7,-1,1,0; ...
+    kp = [8044,0.01,0.7,-1,1,0; ...
         7044,0.02,1.7,1,-1,2];
 %     kepler = kepler';
 end
-[m n] = size(kepler);
+[m,n] = size(kp);
+kepler = kp;
 if m == 6    
     tr = 0;
     len = n;
 elseif n == 6;
-    kepler = kepler'; % 统一作为列矢量处理
+    kepler = kp'; % 统一作为列矢量处理
     len = m;
     tr = 1; % 计算结果需要转置成与输入一致
 else
@@ -48,8 +50,18 @@ else
 end
 p = kepler(1,:).*(1-kepler(2,:).^2);
 rv = nan(6,len);
-rv(1:3,:) = (ones(3,1)*(r.*cos(f))).*P + (ones(3,1)*(r.*sin(f))).*Q;
-rv(4:6,:) = -(ones(3,1)*sqrt(miu./p)).*( (ones(3,1)*sin(f)).*P - (ones(3,1)*(cos(f)+kepler(2,:))).*Q );
+rv(1:3,1:len) = (ones(3,1)*(r.*cos(f))).*P + (ones(3,1)*(r.*sin(f))).*Q;
+% rcf = r.*cos(f);
+% rsf = r.*sin(f);
+% rv(1,1:len) = rcf.*P(1,1:len) + rsf.*Q(1,1:len);
+% rv(2,1:len) = rcf.*P(2,1:len) + rsf.*Q(2,1:len);
+% rv(3,1:len) = rcf.*P(3,1:len) + rsf.*Q(3,1:len);
+rv(4:6,1:len) = -(ones(3,1)*sqrt(miu./p)).*( (ones(3,1)*sin(f)).*P - (ones(3,1)*(cos(f)+kepler(2,:))).*Q );
+% mpsf = -sqrt(miu./p).*sin(f);
+% mpcf = sqrt(miu./p).*(cos(f)+kepler(2,:));
+% rv(4,1:len) = mpsf.*P(1,1:len) + mpcf.*Q(1,1:len);
+% rv(5,1:len) = mpsf.*P(2,1:len) + mpcf.*Q(2,1:len);
+% rv(6,1:len) = mpsf.*P(3,1:len) + mpcf.*Q(3,1:len);
 
 if nargout == 1 || nargout == 0
     if tr

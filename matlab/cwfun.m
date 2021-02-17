@@ -1,4 +1,4 @@
-% CW鏂圭▼鐨勫姞閫熷害
+% CW方程的加速度
 function rdd = cwfun(w,r,v)
 if isvector(r) && isvector(v)
 	rdd(1) = 2*w*v(3);

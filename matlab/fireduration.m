@@ -1,12 +1,12 @@
-% æ ¹æ®é€Ÿåº¦å¢žé‡è®¡ç®—å¼€æœºæ—¶é—´å’Œç‡ƒæ–™æ¶ˆè€—
+% ¸ù¾ÝËÙ¶ÈÔöÁ¿¼ÆËã¿ª»úÊ±¼äºÍÈ¼ÁÏÏûºÄ
 % [T,dm] = fireduration(dv,F,mass0,Isp)
-%  dv: é€Ÿåº¦å¢žé‡,å•ä½m/s
-%   F: å‘åŠ¨æœºæŽ¨åŠ›ï¼Œå•ä½N
-%  mass0:åˆå§‹è´¨é‡ï¼Œå•ä½kg
-%  Ispï¼šå‘åŠ¨æœºæ¯”å†²ï¼Œå•ä½s
-%  è¾“å‡ºï¼š
-%     T: å¼€æœºæ—¶é•¿ï¼Œå•ä½s
-%     dm: ç‡ƒæ–™æ¶ˆè€—ï¼Œå•ä½kg
+%  dv: ËÙ¶ÈÔöÁ¿,µ¥Î»m/s
+%   F: ·¢¶¯»úÍÆÁ¦£¬µ¥Î»N
+%  mass0:³õÊ¼ÖÊÁ¿£¬µ¥Î»kg
+%  Isp£º·¢¶¯»ú±È³å£¬µ¥Î»s
+%  Êä³ö£º
+%     T: ¿ª»úÊ±³¤£¬µ¥Î»s
+%     dm: È¼ÁÏÏûºÄ£¬µ¥Î»kg
 function [T,dm] = fireduration(dv,F,mass0,Isp)
 mdot = F/Isp/9.8;
 dm = mass0*(1-exp(-dv/Isp/9.8));

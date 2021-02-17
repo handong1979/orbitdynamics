@@ -29,7 +29,7 @@ if isempty(eop)
     load eop.mat;
 end
 
-if UTC > eop(length(eop),1) || UTC<eop(1,1)
+if (UTC > eop(length(eop),1)) || (UTC<eop(1,1))
     % 时间超出表中时间范围
     Xp = 0.0;
     Yp = 0.0;

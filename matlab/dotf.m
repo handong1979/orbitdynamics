@@ -1,4 +1,5 @@
-% 鐢辫緭鍏ョ殑寮�鏅嫆鏍规暟(a,e,i,Omega,w,M)璁＄畻鐪熻繎鐐硅f鐨勫彉鍖栫巼鍜岃鍔犻�熷害
+% 由输入的开普勒根数(a,e,i,Omega,w,M)计算真近点角f的变化率和角加速度
+% [df,ddf] = dotf(k)
 function [df,ddf] = dotf(a,e,f)
 p = a*(1-e^2);
 r = p./(1+e*cos(f));

@@ -1,4 +1,4 @@
-% åŠ¨é‡è½®è§’åŠ¨é‡åŒ…ç»œ,æœ€å¤§åŒ…ç»œ
+% ¶¯Á¿ÂÖ½Ç¶¯Á¿°üÂç,×î´ó°üÂç
 % See also :
 function [hx,hy,hz,h] = wheelenvelopemax(Cwh,hmax)
 if nargin == 0
@@ -104,25 +104,25 @@ h = nan(size(hx));
 tic
 for i=1:fac+1
     for j=1:fac+1
-        v = [x(i,j),y(i,j),z(i,j)]'; % æ–¹å‘
+        v = [x(i,j),y(i,j),z(i,j)]'; % ·½Ïò
         
         hp = findh(Cwh,v);
 
-        h(i,j) = dot(v,Cwh*hp); % æ¨¡å€¼
-        hx(i,j)=h(i,j)*x(i,j); % åˆ†é‡x
-        hy(i,j)=h(i,j)*y(i,j); % åˆ†é‡y
-        hz(i,j)=h(i,j)*z(i,j); % åˆ†é‡z
+        h(i,j) = dot(v,Cwh*hp); % Ä£Öµ
+        hx(i,j)=h(i,j)*x(i,j); % ·ÖÁ¿x
+        hy(i,j)=h(i,j)*y(i,j); % ·ÖÁ¿y
+        hz(i,j)=h(i,j)*z(i,j); % ·ÖÁ¿z
     end
 end
 toc
 
-	% é€šè¿‡fminimaxå‡½æ•°æœç´¢ï¼Œè¿›è¡ŒåŠ¨é‡è½®è§’åŠ¨é‡æœ€å¤§å€¼çš„æœ€å°åŒ–
+	% Í¨¹ıfminimaxº¯ÊıËÑË÷£¬½øĞĞ¶¯Á¿ÂÖ½Ç¶¯Á¿×î´óÖµµÄ×îĞ¡»¯
     function h = findh(Cwh,v)
         options = optimoptions('fminimax','MinAbsMax',nw,'Display','off');
 %         x0 = Dwh*v;
         x0 = zeros(nw,1);
         h = fminimax(@(x)x,x0,[],[],Cwh,v,-1*ones(nw,1),ones(nw,1),[],options);
-        sf = hmax/max(abs(h)); % æ”¾å¤§å› å­
-        h = sf*h; % æ”¾å¤§å¾—åˆ°æ¯ä¸ªè½®å­çš„è§’åŠ¨é‡
+        sf = hmax/max(abs(h)); % ·Å´óÒò×Ó
+        h = sf*h; % ·Å´óµÃµ½Ã¿¸öÂÖ×ÓµÄ½Ç¶¯Á¿
     end
 end
